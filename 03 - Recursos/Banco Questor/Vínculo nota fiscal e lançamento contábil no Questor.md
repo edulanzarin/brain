@@ -26,8 +26,12 @@ Conferência = LEFT JOIN da nota (por `chave`) contra o conjunto `substring(chav
 
 ## Como saber se um CFOP "deve contabilizar"
 
-- Config oficial seria `cfoptabctbfis` (empresa, estab, cfop → codigotabctbfis) — mas **pode estar vazia** (empresa 1200 estava). `cfop.finalidade` também veio **zerada** (inútil). As colunas `cfop.codigotabctbfis*` são por tributo (icms/ipi/iss/pis/cofins/retenções), não um flag único.
-- **Regra empírica que funciona**: um CFOP é *contabilizável* se **≥1 nota dele foi contabilizada no período**. Aí "gap real" = nota não cancelada, com CFOP contabilizável, sem lançamento FI. Reduziu de 951 falsos → **37 gaps reais** (entradas 1200). Limitação: se um CFOP contabilizável foi 100% esquecido no período, a regra não pega (mitigar olhando histórico mais largo).
+**Resolvido em jul/2026 — ver [[Plano de contabilização por CFOP no Questor]].** A configuração existe e é exata: as colunas `cfop.codigotabctbfis*` (na tabela `cfop`, que é **por empresa + estabelecimento**) apontam, por tributo, a tabela de contabilização. **CFOP sem nenhum slot preenchido = não contabiliza** — remessa, retorno, industrialização. Não precisa de heurística. Confirmado na 1200: o CFOP `1901002` ("Entrada para Industrialização por Encomenda") vem com zero componentes, ou seja, o próprio ERP diz que não gera lançamento.
+
+O que eu tinha escrito antes, corrigido:
+
+- `cfoptabctbfis` **não** é o caminho — 7 linhas no banco inteiro (não é "vazia só na 1200"). `cfop.finalidade` zerada segue valendo.
+- A **regra empírica** ("CFOP é contabilizável se ≥1 nota dele foi contabilizada no período") funcionava como aproximação — 951 falsos → 37 gaps reais nas entradas da 1200 — mas foi **substituída** pela config real. Continua útil para outra coisa: calibrar *quais contas recebem lançamento nota a nota*, já que ICMS/IPI de saída são contabilizados na apuração mensal (prefixo `IM`), não na nota.
 
 ## Não confundir
 
@@ -36,4 +40,5 @@ Conferência = LEFT JOIN da nota (por `chave`) contra o conjunto `substring(chav
 ## Conexões
 - Índice: [[Banco Questor]] · Contábil: [[Módulo contábil do Questor]]
 - Notas fiscais: [[Modelo de dados fiscais do Questor]] · Impostos apurados: [[Impostos no Questor - onde fica cada um]]
-- Usado por: [[Questor BI]] (aba Conferência Fiscal no módulo Contábil)
+- Config das contas por CFOP: [[Plano de contabilização por CFOP no Questor]]
+- Usado por: [[Questor BI]] (abas Conferência Fiscal, Conferência de Contas e Configuração no módulo Contábil)

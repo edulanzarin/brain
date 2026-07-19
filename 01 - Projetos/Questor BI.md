@@ -30,6 +30,11 @@ Primeira automação de fato interligando Fiscal ↔ Contábil. Módulo tem shel
 
 - **Conferência Fiscal** (`/contabil/conferencia`): reconciliação — quais notas fiscais **não foram contabilizadas**. Lógica em [[Vínculo nota fiscal e lançamento contábil no Questor]] (lctoctb origem FI, `chaveorigem` = `ME`/`MS` + chave da nota). KPIs por lado (ent/saí): total, contabilizadas, **pendentes** (a lançar, com valor), "não exigem lançamento" (remessas/retornos filtrados pela regra empírica de CFOP contabilizável), canceladas. Tabela das pendentes (nº, data, contraparte, CFOP, valor) com busca. Endpoint `/api/contabil/conferencia`. Validado: empresa 1200/jun → 37 pendentes reais nas entradas (compras esquecidas), 0 nas saídas.
 
+- **Conferência de Contas** (`/contabil/contas`): o passo seguinte — entre as notas **já contabilizadas**, quais foram para a **conta contábil errada**. Compara os lançamentos FI de cada nota contra o plano do CFOP e aponta 4 tipos: conta fora do plano, lançamento faltando, valor divergente, natureza invertida (débito/crédito trocados). Endpoint `/api/contabil/divergencias`.
+- **Configuração** (`/contabil/configuracao`): o plano de contabilização por CFOP, **carregado pronto do Questor** (ver [[Plano de contabilização por CFOP no Questor]]). Lista os CFOPs movimentados no período com os lançamentos esperados; editar um CFOP grava um **override** que passa a valer no lugar do plano do ERP (e a conferência cobra a versão nova); dá pra reverter pro Questor. Endpoint `/api/contabil/plano` (GET faz o merge, PUT salva, DELETE reverte).
+
+Duas armadilhas que quase mataram a Conferência de Contas (as duas viraram regra no código, detalhe em [[Plano de contabilização por CFOP no Questor]]): (1) **ICMS e IPI de saída são contabilizados na apuração mensal**, não nota a nota — cobrá-los por nota apontava 1170 de 1186 saídas como erradas; a solução foi só cobrar conta que comprovadamente recebe lançamento nota a nota no período. (2) **Valor só é conferível em nota de CFOP único** — com vários CFOPs não dá pra atribuir a parcela de tributo de cada um. Depois disso: 7 apontamentos em 660 entradas e 2 em 1186 saídas (1200/jun), incluindo uma nota lançada em `43763` quando o plano manda `42763` (erro de dígito) e outra em `25210` ("Gás") quando o CFOP manda `42759` ("Gás Empilhadeiras").
+
 Próximos passos possíveis no Contábil: balancete/DRE/razão (usar `saldoctb`/`lctoctb`/`planoespec`), mais conferências. Ver [[Módulo contábil do Questor]] e o mapa [[Banco Questor]].
 
 Devoluções e cancelamentos hoje entram como **resumo** no Painel (os endpoints detalhados existem no código, se um dia virar seção própria de novo). Apuração foi tirada: era estimativa gerencial (débito−crédito), não a oficial do SPED — ver nota em [[Impostos no Questor - onde fica cada um]].
@@ -48,6 +53,7 @@ O conhecimento do banco Questor (schema, impostos, canceladas, devoluções, SQL
 - React Query pra data-fetching com `keepPreviousData` (refetch sem piscar).
 - Recharts pros gráficos. Paleta seguindo [[Validar paleta de gráficos antes de escolher cores]].
 - `pg` com pool, conexão **somente leitura** (`default_transaction_read_only=on`, `statement_timeout` 60s) — BI nunca altera o Questor.
+- **Segundo banco, próprio e gravável** (`src/lib/app-db.ts`, pool separado): Postgres 17 em Docker Compose na porta **5433**, migrations SQL versionadas em `migrations/` com runner próprio (`npm run migrate`). Guarda os overrides do plano de contabilização e é onde vão morar login/usuários/permissões. Subir com `npm run db:up && npm run migrate`. O Questor continua intocado.
 - Rodar: porta 3000 do Eduardo já é ocupada por outra app; uso `-- -p 3210`.
 
 ## Decisões importantes
@@ -65,6 +71,8 @@ Banco Questor (pasta `03 - Recursos/Banco Questor`):
 - [[Canceladas e devoluções no Questor]]
 - [[Receitas SQL do Questor]]
 - [[grupoprocessam do Questor não é grupo de empresas]]
+- [[Vínculo nota fiscal e lançamento contábil no Questor]]
+- [[Plano de contabilização por CFOP no Questor]]
 
 Gerais de dev:
 - [[Agregar antes de juntar em tabelas gigantes no Postgres]]
@@ -77,7 +85,8 @@ Design (reutilizável em outros projetos — ver [[Design]]):
 
 ## Próximos passos
 
-- [ ] Módulos Contábil, Folha, Patrimônio (sidebar já tem placeholders) — reusar o padrão de abas.
+- [ ] Login, usuários e permissões (banco próprio já está de pé para isso).
+- [ ] Módulos Folha e Patrimônio (sidebar já tem placeholders) — reusar o padrão de abas.
 - [ ] Talvez repensar grupos de empresas (hoje só localStorage; poderia ser compartilhado entre máquinas).
 - [ ] Possíveis análises futuras: mapa por UF, exportação Excel.
 
