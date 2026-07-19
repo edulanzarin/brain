@@ -36,3 +36,4 @@ Notas atômicas de `03 - Recursos` sobre desenvolvimento.
 ---
 
 Voltar para [[Início]]
+- [[Ler extrato bancário em PDF]] · [[Armadilhas de child_process no Node]]

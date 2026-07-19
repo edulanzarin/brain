@@ -35,16 +35,21 @@ Primeira automação de fato interligando Fiscal ↔ Contábil. Módulo tem shel
 
 Duas armadilhas que quase mataram a Conferência de Contas (as duas viraram regra no código, detalhe em [[Plano de contabilização por CFOP no Questor]]): (1) **ICMS e IPI de saída são contabilizados na apuração mensal**, não nota a nota — cobrá-los por nota apontava 1170 de 1186 saídas como erradas; a solução foi só cobrar conta que comprovadamente recebe lançamento nota a nota no período. (2) **Valor só é conferível em nota de CFOP único** — com vários CFOPs não dá pra atribuir a parcela de tributo de cada um. Depois disso: 7 apontamentos em 660 entradas e 2 em 1186 saídas (1200/jun), incluindo uma nota lançada em `43763` quando o plano manda `42763` (erro de dígito) e outra em `25210` ("Gás") quando o CFOP manda `42759` ("Gás Empilhadeiras").
 
-### Extratos (iniciado — só o cadastro)
+### Conciliação
 
-Segunda automação do Contábil: ler extrato bancário (OFX/PDF) e gerar os lançamentos já na conta certa. Está feita a **base**, que é o cadastro de contrapartidas; leitura de arquivo e geração do arquivo de saída ficaram para depois.
+Segunda automação do Contábil: ler extrato bancário (OFX/PDF) e gerar os lançamentos já na conta certa. Leitura e prévia **funcionando**; falta só a exportação do arquivo final.
 
-- **Cadastro** (`/contabil/extratos`): por conta de banco (escolhida no plano do Questor, restrito a 1.1.01 — ver [[Contas bancárias e layout de contabilização no Questor]]), uma lista de regras `termo → contrapartida`, separando **pagamento** de **recebimento** (pode ter só um dos dois). Casamento **exato** ou **contém**.
+Duas abas, `Importar` (a raiz, é o dia a dia) e `Regras` (cadastro).
+
+- **Importar** (`/contabil/conciliacao`): envia OFX ou PDF, aplica as regras e mostra a prévia dos lançamentos, com KPIs e filtro prontos/pendentes. Nada é gravado. Lê **OFX de qualquer banco** e **PDF de 9 bancos** — ver [[Ler extrato bancário em PDF]]. Numa pendência dá para escolher a conta ali mesmo (vale só para aquela importação, não vira regra). O extrato carregado sobrevive à troca de abas dentro da seção e é liberado ao sair dela.
+- **Cadastro** (`/contabil/conciliacao/regras`): por conta de banco (escolhida no plano do Questor, restrito a 1.1.01 — ver [[Contas bancárias e layout de contabilização no Questor]]), uma lista de regras `termo → contrapartida`, separando **pagamento** de **recebimento** (pode ter só um dos dois). Casamento **exato** ou **contém**.
 - **Casamento** (`src/lib/regras-extrato.ts`): normaliza acento/caixa/espaço, então "MAGALHÃES" casa com o termo "MAGALHAES". Quando várias regras casam, vence a **mais específica** — exato ganha de parcial, e entre parciais o termo mais longo ganha. Isso evita ter que gerenciar ordem de prioridade na mão.
 - **Replicação**: copia as regras de uma conta de banco para outras contas da mesma empresa ou para outras empresas, avisando quais contrapartidas não existem no plano do destino (o plano é por empresa).
 - As contas são **validadas contra `planoespec`** ao gravar — dígito errado é recusado na hora, em vez de estourar só na importação.
 
-Falta: leitura de OFX (padrão, tranquilo), leitura de PDF (varia por banco, precisa de amostras) e o arquivo de saída (formato a confirmar com o setor; há uma pista forte em `layoutarqcontabilizacao`).
+Falta só o **arquivo de saída** (formato a confirmar com o setor; há uma pista forte em `layoutarqcontabilizacao`).
+
+Ressalva registrada: o extrato do **Bradesco** (conta escrow) lê todas as linhas com os sinais certos, mas o "SALDO" do rodapé não reconcilia com saldo inicial + lançamentos — parece ser posição de títulos, não caixa. Confirmar com o setor antes de usar em produção.
 
 Próximos passos possíveis no Contábil: balancete/DRE/razão (usar `saldoctb`/`lctoctb`/`planoespec`), mais conferências. Ver [[Módulo contábil do Questor]] e o mapa [[Banco Questor]].
 
@@ -86,6 +91,10 @@ Banco Questor (pasta `03 - Recursos/Banco Questor`):
 - [[Vínculo nota fiscal e lançamento contábil no Questor]]
 - [[Plano de contabilização por CFOP no Questor]]
 - [[Contas bancárias e layout de contabilização no Questor]]
+
+Gerais de dev (continuação):
+- [[Ler extrato bancário em PDF]]
+- [[Armadilhas de child_process no Node]]
 
 Gerais de dev:
 - [[Agregar antes de juntar em tabelas gigantes no Postgres]]
