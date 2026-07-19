@@ -54,7 +54,8 @@ O conhecimento do banco Questor (schema, impostos, canceladas, devoluções, SQL
 - Recharts pros gráficos. Paleta seguindo [[Validar paleta de gráficos antes de escolher cores]].
 - `pg` com pool, conexão **somente leitura** (`default_transaction_read_only=on`, `statement_timeout` 60s) — BI nunca altera o Questor.
 - **Segundo banco, próprio e gravável** (`src/lib/app-db.ts`, pool separado): Postgres 17 em Docker Compose na porta **5433**, migrations SQL versionadas em `migrations/` com runner próprio (`npm run migrate`). Guarda os overrides do plano de contabilização e é onde vão morar login/usuários/permissões. Subir com `npm run db:up && npm run migrate`. O Questor continua intocado.
-- Rodar: porta 3000 do Eduardo já é ocupada por outra app; uso `-- -p 3210`.
+- Rodar em dev: `npm run db:up && npm run migrate && npm run dev`.
+- **Deploy na rede (jul/2026)**: tudo em Docker. `docker compose up -d --build` no computador que hospeda sobe app + banco do BI e deixa acessível em `http://<ip>:4022` para qualquer máquina da rede. Dockerfile multi-estágio com `output: "standalone"` no `next.config.ts` (imagem mínima; `public` e `.next/static` precisam ser copiados à mão, o standalone não os inclui). As **migrations rodam no boot** via `docker-entrypoint.sh`, então não há passo manual. Detalhe que pega: o `APP_DB_URL` do `.env.local` aponta `localhost:5433` (dev) e quebraria dentro do compose — por isso o serviço `app` reexporta `APP_DB_URL` em `environment:`, que tem precedência sobre `env_file:`. O Postgres do BI é publicado só em `127.0.0.1:5433`, sem exposição à rede.
 
 ## Decisões importantes
 
