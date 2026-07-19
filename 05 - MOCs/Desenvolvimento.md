@@ -1,0 +1,38 @@
+---
+tags: [tipo/moc]
+criado: 2026-07-18
+---
+
+# Desenvolvimento
+
+Mapa de tudo relacionado a código, projetos e stack.
+
+## Projetos
+
+- [[Questor BI]]
+
+## Banco Questor (referência do schema)
+
+Mapa dedicado: [[Banco Questor]] (todos os módulos do ERP). Notas em `03 - Recursos/Banco Questor`.
+
+- [[Panorama e convenções do banco Questor]]
+- [[Questor - conexão read-only e regras]]
+- [[Modelo de dados fiscais do Questor]] · [[Impostos no Questor - onde fica cada um]] · [[Canceladas e devoluções no Questor]] · [[Reforma tributária IBS-CBS no Questor]]
+- [[Módulo contábil do Questor]] · [[Módulo de folha e eSocial do Questor]] · [[Módulo financeiro do Questor]] · [[Módulo patrimonial do Questor]]
+- [[Cadastros centrais do Questor - empresa, estab, pessoa]] · [[Logs e auditoria no Questor]]
+- [[Receitas SQL do Questor]] · [[grupoprocessam do Questor não é grupo de empresas]]
+
+## Conceitos e técnicas
+
+Notas atômicas de `03 - Recursos` sobre desenvolvimento.
+
+- [[Agregar antes de juntar em tabelas gigantes no Postgres]]
+- [[router.replace do Next falha no build de produção]]
+- [[Verificar no build de produção, não só em dev]]
+- [[Validar paleta de gráficos antes de escolher cores]]
+
+## Ferramentas e stack
+
+---
+
+Voltar para [[Início]]

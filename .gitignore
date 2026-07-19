@@ -1,0 +1,14 @@
+# Estado de UI e cache do Obsidian (não versionar)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.trash/
+
+# Binários grandes de plugins/temas/ícones (re-baixáveis pelo Obsidian)
+.obsidian/plugins/*/main.js
+.obsidian/plugins/*/styles.css
+.obsidian/themes/
+.obsidian/icons/
+*.zip
+
+.DS_Store
