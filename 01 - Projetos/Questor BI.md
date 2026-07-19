@@ -22,7 +22,15 @@ Módulo **Fiscal** funcionando com dados reais. Navegação pela **sidebar em ac
 - **Conformidade** (`/fiscal/conformidade`): saúde fiscal das saídas — KPIs de pendências (itens com **NCM inválido/genérico** `9999.99.99`/`0000.00.00` + nº de produtos a corrigir; canceladas; **denegadas/inutilizadas** via `cdsituacao`≠0; NFe/NFCe/CTe **sem chave** de 44 díg, só modelos 55/65/57), distribuição de `cdsituacao` e **ranking de empresas com mais pendências**. Descartei gaps de numeração (ruído: empresa não registra a sequência toda → 400k falsos) e itens sem CFOP (=0). Endpoints `/api/fiscal/conformidade{,-empresas}`. Consultas de item (`lctofissaiproduto`) dropam `especies` e usam `incluirCanceladas` (a tabela de item não tem `especienf`/`cancelada`); filtro de NCM inválido vai no WHERE p/ o planner reduzir por produto antes (senão `count(distinct)` sobre 1,2M itens leva ~15s).
 - **Dados** (`/fiscal/dados`): todas as notas em tabela paginada, com filtros (situação todas/normais/canceladas, busca por nº/contraparte, tipo) e **drill-down dos itens**. Padrão SQL em [[Receitas SQL do Questor]].
 
-Fiscal está bem coberto (6 seções; Recebíveis foi criada e depois removida a pedido do Eduardo). Próximo grande passo do projeto: **interligar Fiscal ↔ Contábil** e pensar automações/análise para automação (o Eduardo quer isso depois de esgotar dashboards do Fiscal). Ver [[Módulo contábil do Questor]] e o mapa [[Banco Questor]] para as pontes (duplicatas→financeiro→`lctoctb`, origem `FI`/`CP`/`CR`).
+Fiscal está bem coberto (6 seções; Recebíveis foi criada e depois removida a pedido do Eduardo).
+
+## Módulo Contábil (iniciado)
+
+Primeira automação de fato interligando Fiscal ↔ Contábil. Módulo tem shell/filtro próprios: **uma empresa por vez + período (≤ 1 ano)** (reusa `useFiltros`/`parseFilters`; filtro em `conf-filter-bar`).
+
+- **Conferência Fiscal** (`/contabil/conferencia`): reconciliação — quais notas fiscais **não foram contabilizadas**. Lógica em [[Vínculo nota fiscal e lançamento contábil no Questor]] (lctoctb origem FI, `chaveorigem` = `ME`/`MS` + chave da nota). KPIs por lado (ent/saí): total, contabilizadas, **pendentes** (a lançar, com valor), "não exigem lançamento" (remessas/retornos filtrados pela regra empírica de CFOP contabilizável), canceladas. Tabela das pendentes (nº, data, contraparte, CFOP, valor) com busca. Endpoint `/api/contabil/conferencia`. Validado: empresa 1200/jun → 37 pendentes reais nas entradas (compras esquecidas), 0 nas saídas.
+
+Próximos passos possíveis no Contábil: balancete/DRE/razão (usar `saldoctb`/`lctoctb`/`planoespec`), mais conferências. Ver [[Módulo contábil do Questor]] e o mapa [[Banco Questor]].
 
 Devoluções e cancelamentos hoje entram como **resumo** no Painel (os endpoints detalhados existem no código, se um dia virar seção própria de novo). Apuração foi tirada: era estimativa gerencial (débito−crédito), não a oficial do SPED — ver nota em [[Impostos no Questor - onde fica cada um]].
 
