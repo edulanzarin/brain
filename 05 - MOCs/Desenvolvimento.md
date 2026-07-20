@@ -42,6 +42,8 @@ Notas atômicas de `03 - Recursos` sobre desenvolvimento.
 - [[Componente de ícone não atravessa a fronteira server-client]]
 - [[Portal condicional dispensa o flag de montagem]]
 - [[NoInfer faz o genérico sair da lista, não do valor padrão]]
+- [[Estado de tela pertence à seção, não à página]]
+- [[Cache do React Query não é lugar de estado de interface]]
 
 ## Ferramentas e stack
 

@@ -109,6 +109,20 @@
         }
       },
       {
+        "query": "tag:#projeto/navedesk",
+        "color": {
+          "a": 1,
+          "rgb": 16007790
+        }
+      },
+      {
+        "query": "tag:#projeto/cofre-digital",
+        "color": {
+          "a": 1,
+          "rgb": 399329
+        }
+      },
+      {
         "query": "tag:#tipo/pensamento",
         "color": {
           "a": 1,
@@ -133,7 +147,7 @@
     "repelStrength": 10,
     "linkStrength": 1,
     "linkDistance": 250,
-    "scale": 0.4814665029104141,
+    "scale": 0.495307746805687,
     "close": true
   },
   "openInNewTab": false,

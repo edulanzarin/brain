@@ -61,6 +61,8 @@ Filtros compartilhados no topo (período, empresas multi-seleção, espécie, **
 
 **Padrão de navegação (reusar nos próximos módulos)**: sidebar em **acordeão** (cada módulo expande/colapsa, o ativo abre por padrão — escala pra muitos módulos/seções); módulo → seções (rotas); um `layout` do módulo segura header + filtros compartilhados; cada seção é uma página que busca só os seus dados. Config das seções em `src/lib/fiscal-secoes.ts`.
 
+**Estado de tela por seção** (`src/lib/estado-secao.ts` + o hook `useEstadoSecao`): busca, filtros, paginação e o extrato já carregado **sobrevivem à navegação dentro da seção** (trocar de aba mantém) e são descartados ao sair dela — quem descarta é o shell do módulo, no cleanup do efeito, porque é ele que sabe qual seção está ativa. Vale nos dois módulos. O padrão e as armadilhas em [[Estado de tela pertence à seção, não à página]]; o motivo de não usar o cache do React Query para isso (generalizou o que a Conciliação fazia à mão) em [[Cache do React Query não é lugar de estado de interface]].
+
 O conhecimento do banco Questor (schema, impostos, canceladas, devoluções, SQL) vive aqui no Brain em `03 - Recursos/Banco Questor` — consultar de lá para novas automações.
 
 ## Stack e contexto técnico
