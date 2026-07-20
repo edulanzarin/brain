@@ -11,6 +11,7 @@ Mapa de tudo relacionado a código, projetos e stack.
 
 - [[Questor BI]]
 - [[Navecon Controller]]
+- [[NaveDesk]]
 
 ## Banco Questor (referência do schema)
 
