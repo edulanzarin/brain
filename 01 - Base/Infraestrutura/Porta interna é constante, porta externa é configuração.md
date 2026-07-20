@@ -22,7 +22,7 @@ services:
     ports: ["${APP_PORT:-4011}:3000"]          # 0.0.0.0 — a rede alcança
   db:
     container_name: prospects-db
-    ports: ["127.0.0.1:${DB_PORT:-5411}:5432"] # só o host alcança
+    ports: ["127.0.0.1:${DB_PORT:-5011}:5432"] # só o host alcança
 ```
 
 **A quem a porta é publicada faz parte da configuração.** O app vai em `0.0.0.0`

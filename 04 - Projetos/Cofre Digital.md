@@ -33,7 +33,7 @@ Como ficou:
 | Recurso | Nome | Porta no host |
 |---|---|---|
 | App | `cofre-digital-app` | `0.0.0.0:4004` → 3000 |
-| Banco | `cofre-digital-db` | `127.0.0.1:5404` → 5432 |
+| Banco | `cofre-digital-db` | `127.0.0.1:5004` → 5432 |
 | Migrations | `cofre-digital-migrate` | — |
 | Rede | `cofre-digital-net` | — |
 | Volume | `cofre-digital-db-data` | — |
