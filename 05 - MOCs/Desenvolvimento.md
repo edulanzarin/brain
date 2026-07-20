@@ -33,6 +33,7 @@ Notas atômicas de `03 - Recursos` sobre desenvolvimento.
 - [[Validar paleta de gráficos antes de escolher cores]]
 - [[Plataforma de IA hospedada prende o app pelo banco]]
 - [[Next.js standalone no Docker e o outputFileTracingRoot]]
+- [[Polling substitui webhook quando não há IP público]]
 
 ## Ferramentas e stack
 

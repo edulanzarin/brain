@@ -46,16 +46,31 @@ janela de horário permitido.
 | API | Uso | Trocar é |
 |---|---|---|
 | Abacus LLM (`/v1/chat/completions`) | 7 rotas: extração de balancete, transcrição de ata, resumos | Fácil — é OpenAI-compatible |
-| Abacus `sendNotificationEmail` | Todo e-mail (2FA, convites, cobranças) | Trabalhoso — templates `NOTIF_ID_*` vivem lá |
+| ~~Abacus `sendNotificationEmail`~~ | Todo e-mail (2FA, convites, cobranças) | **Feito** — SMTP/Gmail, fallback pra Abacus |
 | Abacus HTML→PDF | Export de análises | Médio — Gotenberg/Puppeteer resolvem |
 | Acessórias | Sincroniza obrigações contábeis | Só se a Navecon trocar de ferramenta |
-| ZapSign + Autentique | Assinatura de ata (redundantes) | Webhooks exigem IP alcançável de fora |
+| Autentique | Assinatura de ata | **Resolvido por polling** — ZapSign é código morto |
 | AWS S3 | Upload de documentos | Vai quebrar até ter credencial explícita |
 
 ## Aprendizados (viram notas atômicas)
 
 - [[Plataforma de IA hospedada prende o app pelo banco]]
 - [[Next.js standalone no Docker e o outputFileTracingRoot]]
+- [[Polling substitui webhook quando não há IP público]]
+
+## Rodada 2 — saída da LAN sem perder funcionalidade
+
+Objetivo: rodar só na rede interna mantendo tudo funcionando.
+
+- **Assinatura**: webhook é chamada de entrada, não chega atrás de IP privado.
+  Conciliação extraída para `lib/assinatura-sync.ts`, com dois gatilhos
+  idempotentes — webhook e cron de polling. Ver [[Polling substitui webhook quando não há IP público]].
+- **E-mail**: `enviarEmail()` virou ponto único e ganhou motor SMTP
+  (nodemailer/Gmail) com fallback pra Abacus. Migrar = preencher `.env`.
+- Os 11 pontos de envio duplicavam `fetch` **e** a lógica do remetente. Isso
+  espalhava um bug: o remetente vinha do hostname do `NEXTAUTH_URL`, que em LAN
+  é um IP (`noreply@192.168.1.34`), domínio inválido. Com 2FA obrigatório,
+  trancaria todos fora. Centralizar matou 9 cópias do mesmo bug.
 
 ## Próximos passos
 
@@ -64,7 +79,7 @@ janela de horário permitido.
 - [ ] Backup fresco da Abacus antes do cutover (o dump em uso é de 05/07)
 - [ ] Cron do host para `api/cron/*` (o scheduler era da plataforma)
 - [ ] Centralizar as 7 chamadas de LLM num `lib/llm.ts` antes de trocar de provedor
-- [ ] Remover `appllm-lib.js` do `layout.tsx` — script da Abacus, inútil fora de lá
+- [ ] Credenciais SMTP reais (senha de app do Gmail) e primeiro login de validação
 
 ## Links
 
