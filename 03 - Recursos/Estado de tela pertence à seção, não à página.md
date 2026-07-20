@@ -19,14 +19,26 @@ O usuário não vê duas telas — vê um assunto só. E o fluxo real vai e volt
 ver a pendência numa aba, ajustar a regra na outra, voltar. Refazer o recorte
 a cada volta é trabalho jogado fora.
 
-A saída é guardar o estado **por seção do menu lateral**, fora da árvore React:
+A saída é guardar o estado fora da árvore React, num `Map` de módulo, com uma
+chave de três partes:
 
 ```ts
-const estados = new Map<string, unknown>();  // chave: `${secao} ${campo}`
+const estados = new Map<string, unknown>();  // chave: `${secao} ${pagina} ${campo}`
 ```
 
-com um `useState` que restaura da chave e escreve nela a cada mudança. A seção
-sai do `pathname`, então a tela só declara o nome do campo:
+O ponto fino está em **separar identidade de tempo de vida**:
+
+- **página + campo** é a *identidade* — é o que evita a `busca` de uma aba
+  aparecer na outra;
+- **seção** é o *tempo de vida* — está na frente da chave só para limpar a
+  seção inteira de uma vez ao sair dela.
+
+Confundir os dois é o erro fácil (foi o meu): chavear por `seção + campo`
+funciona até duas abas da mesma seção usarem o nome `busca`. Aí o usuário
+filtra numa aba e a outra aparece filtrada sozinha — pior que não persistir,
+porque esconde dados com um filtro que ele não pôs ali.
+
+Seção e página saem as duas do `pathname`, então a tela só declara o campo:
 
 ```ts
 const [busca, setBusca] = useEstadoSecao("busca", "");
@@ -43,14 +55,15 @@ para sempre é pior que não persistir: voltar dias depois numa tela
 pré-filtrada esconde dados sem avisar, e o usuário não lembra que filtrou. A
 regra que se sustenta é "vale enquanto estou no assunto".
 
-Duas armadilhas ao migrar:
+Armadilha ao migrar: o **efeito que zera a paginação**
+(`useEffect(() => setPagina(1), [filtro])`) roda também na remontagem e joga
+fora justamente a página guardada. Comparar com o recorte anterior num `ref` —
+remontar não é mudar.
 
-- **Efeito que zera a paginação** (`useEffect(() => setPagina(1), [filtro])`)
-  roda também na remontagem e joga fora a página guardada. Comparar com o
-  recorte anterior num `ref` — remontar não é mudar.
-- **Campos de mesmo nome em abas diferentes** colidem, porque a chave é da
-  seção. Onde o sentido difere (a "conta" que se importa × a que se cadastra),
-  prefixar o nome.
+E uma lição de projeto de API: a primeira versão pedia prefixo manual no nome
+do campo (`"regras.conta"`) para escapar da colisão. Convenção que depende de
+lembrar não é solução — some na primeira tela nova. Melhor a chave carregar a
+página sozinha e o nome do campo ficar burro.
 
 Vale também para o estado caro: um extrato bancário já lido e casado sobrevive
 à ida à aba de regras, sem pedir o arquivo de novo.
