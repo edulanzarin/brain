@@ -95,6 +95,13 @@
         }
       },
       {
+        "query": "tag:#projeto/navecon-controller",
+        "color": {
+          "a": 1,
+          "rgb": 16090144
+        }
+      },
+      {
         "query": "tag:#banco/questor",
         "color": {
           "a": 1,
@@ -126,7 +133,7 @@
     "repelStrength": 10,
     "linkStrength": 1,
     "linkDistance": 250,
-    "scale": 0.4809031028360872,
+    "scale": 0.4814665029104141,
     "close": true
   },
   "openInNewTab": false,
