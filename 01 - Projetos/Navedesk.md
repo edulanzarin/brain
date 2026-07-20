@@ -5,7 +5,7 @@ status: ativo
 codigo_em: ~/Dev/navedesk
 ---
 
-# NaveDesk
+# Navedesk
 
 > Central interna de chamados (helpdesk) da Navecon. Solicitantes abrem tickets,
 > técnicos atendem com SLA por prioridade, admins configuram usuários, políticas,

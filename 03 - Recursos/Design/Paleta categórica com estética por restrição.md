@@ -12,7 +12,7 @@ criado: 2026-07-19
 
 [[Validar paleta de gráficos antes de escolher cores]] manda computar em vez de
 escolher no olho. Mas se a busca for só "maximizar o menor ΔE2000 entre os pares",
-o otimizador entrega exatamente isso — e nada mais. No [[NaveDesk]] a primeira
+o otimizador entrega exatamente isso — e nada mais. No [[Navedesk]] a primeira
 busca livre devolveu rosa neon `#fe4191`, oliva `#9f8f14` e lima `#bbe40d`:
 ΔE mínimo de 19,3, impecável na métrica, impossível de usar num dashboard.
 
@@ -45,7 +45,7 @@ Enquanto o conjunto não separa, ΔE manda. Depois do teto, quem decide é a
 estética (croma perto de um alvo confortável). O peso pequeno no segundo termo
 garante que beleza nunca compre separação abaixo do teto.
 
-No NaveDesk isso levou de 19,3 (feio) para 12,0 no claro e 12,2 no escuro — ainda
+No Navedesk isso levou de 19,3 (feio) para 12,0 no claro e 12,2 no escuro — ainda
 50% acima do alvo de 8, e com paleta que dá pra olhar.
 
 ## Detalhes que custaram tempo
@@ -60,7 +60,7 @@ No NaveDesk isso levou de 19,3 (feio) para 12,0 no claro e 12,2 no escuro — ai
 
 ## Conexões
 - Faz parte de: [[Design]]
-- Origem: [[NaveDesk]]
+- Origem: [[Navedesk]]
 - Pressuposto: [[Validar paleta de gráficos antes de escolher cores]]
 - Ver também: [[Cor de gráfico e cor de texto pedem contrastes diferentes]],
   [[Sistema de cores e tema do dashboard]]

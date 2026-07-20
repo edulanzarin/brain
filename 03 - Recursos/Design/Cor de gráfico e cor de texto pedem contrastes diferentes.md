@@ -12,7 +12,7 @@ criado: 2026-07-19
 
 Parece elegante fazer o badge de status "andamento" apontar para `--esp-3`, a
 âmbar da paleta de gráficos: uma cor só, um lugar só pra mudar. Foi o que fiz no
-[[NaveDesk]] — e a auditoria de contraste reprovou.
+[[Navedesk]] — e a auditoria de contraste reprovou.
 
 `#c28831` sobre branco dá **3,06:1**. Como série de gráfico está correto (o alvo
 de elemento não-textual é 3:1). Como **texto** de badge está errado: texto normal
@@ -60,6 +60,6 @@ Vale como padrão: auditoria de contraste em CI, não inspeção visual. Ver
 
 ## Conexões
 - Faz parte de: [[Design]]
-- Origem: [[NaveDesk]]
+- Origem: [[Navedesk]]
 - Ver também: [[Paleta categórica com estética por restrição]],
   [[Validar paleta de gráficos antes de escolher cores]]

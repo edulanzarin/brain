@@ -9,7 +9,7 @@ Mapa do sistema visual reutilizável entre projetos. A ideia é que cada projeto
 (dashboard, app) já comece com uma linguagem visual coerente, sem redesenhar do zero.
 
 Nasceu do [[Questor BI]], mas vale pra qualquer dashboard/app. Já foi reusado no
-[[NaveDesk]] — primeira vez que o sistema saiu do projeto de origem, e onde
+[[Navedesk]] — primeira vez que o sistema saiu do projeto de origem, e onde
 ganhou a camada de tokens de domínio.
 
 ## Notas

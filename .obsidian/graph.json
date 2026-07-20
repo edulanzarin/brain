@@ -22,13 +22,6 @@
       }
     },
     {
-      "query": "tag:#projeto/navedesk",
-      "color": {
-        "a": 1,
-        "rgb": 16007790
-      }
-    },
-    {
       "query": "tag:#banco/questor",
       "color": {
         "a": 1,
@@ -60,6 +53,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 0.1142356608113645,
+  "scale": 0.24136578715338886,
   "close": true
 }
