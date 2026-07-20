@@ -36,6 +36,13 @@
       }
     },
     {
+      "query": "tag:#projeto/navedesk",
+      "color": {
+        "a": 1,
+        "rgb": 16007790
+      }
+    },
+    {
       "query": "tag:#tipo/moc",
       "color": {
         "a": 1,

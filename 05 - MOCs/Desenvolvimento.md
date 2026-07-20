@@ -11,6 +11,7 @@ Mapa de tudo relacionado a código, projetos e stack.
 
 - [[Questor BI]]
 - [[Navecon Controller]]
+- [[Navedesk]]
 
 ## Banco Questor (referência do schema)
 
@@ -34,6 +35,10 @@ Notas atômicas de `03 - Recursos` sobre desenvolvimento.
 - [[Plataforma de IA hospedada prende o app pelo banco]]
 - [[Next.js standalone no Docker e o outputFileTracingRoot]]
 - [[Polling substitui webhook quando não há IP público]]
+- [[Migrations em container próprio no Docker Compose]]
+- [[Servir anexo por rota com checagem de permissão]]
+- [[React reseta o formulário ao fim de uma Server Action]]
+- [[Componente de ícone não atravessa a fronteira server-client]]
 
 ## Ferramentas e stack
 

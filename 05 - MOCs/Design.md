@@ -8,13 +8,14 @@ criado: 2026-07-18
 Mapa do sistema visual reutilizável entre projetos. A ideia é que cada projeto novo
 (dashboard, app) já comece com uma linguagem visual coerente, sem redesenhar do zero.
 
-Nasceu do [[Questor BI]], mas vale pra qualquer dashboard/app.
+Nasceu do [[Questor BI]], mas vale pra qualquer dashboard/app — já reusado no [[Navedesk]].
 
 ## Notas
 
 - [[Sistema de cores e tema do dashboard]] — tokens semânticos + claro/escuro.
 - [[Padrões de componentes de dashboard]] — cards, toggles, filtros, sidebar, gráficos.
 - [[Validar paleta de gráficos antes de escolher cores]] — como escolher a paleta categórica.
+- [[Classes de componente vão em @layer components no Tailwind]] — para as utilitárias vencerem.
 
 ## Princípios
 
