@@ -32,7 +32,7 @@ Notas em `03 - Referência/Banco Questor`. Banco é **produção**: acesso somen
 
 ## Quem usa
 
-- [[Questor BI]] — primeiro sistema construído sobre este banco (módulo Fiscal).
+- [[Questor Hub]] — primeiro sistema construído sobre este banco (módulo Fiscal).
 
 ---
 

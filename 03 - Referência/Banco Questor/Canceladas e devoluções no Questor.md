@@ -32,7 +32,7 @@ Vem com espaço/caixa variável — normalizar `upper(btrim(especienf))`. Princi
 `'P'` = a própria empresa emitiu; `'T'` = terceiro. Em entradas, `'P'` normalmente indica devolução de venda (empresa reemitindo). Ver [[Modelo de dados fiscais do Questor]].
 
 ## Conexões
-- Visto em: [[Questor BI]]
+- Visto em: [[Questor Hub]]
 - Índice do banco: [[Banco Questor]]
 - Contexto: [[Modelo de dados fiscais do Questor]] · [[Receitas SQL do Questor]]
 - Mapa: [[Banco Questor]]

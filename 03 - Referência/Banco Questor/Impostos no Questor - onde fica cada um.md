@@ -66,7 +66,7 @@ estimativa; o Questor BI decidiu **não** exibir apuração pra não passar núm
 `lctofissaisubtribut` (ST detalhado: próprio, retido antecipado, FCP-ST), `lctofis*retif` (retificações), `sped*` (blocos do SPED).
 
 ## Conexões
-- Visto em: [[Questor BI]]
+- Visto em: [[Questor Hub]]
 - Índice do banco: [[Banco Questor]]
 - Estrutura geral: [[Modelo de dados fiscais do Questor]]
 - Consultas prontas: [[Receitas SQL do Questor]]

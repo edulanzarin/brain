@@ -48,7 +48,7 @@ Nota com vários CFOPs não permite atribuir a cada um a sua parcela do tributo 
 
 ## Conexões
 - Índice: [[Banco Questor]] · Contábil: [[Módulo contábil do Questor]]
-- Visto em: [[Questor BI]] (abas Configuração e Conferência de Contas)
+- Visto em: [[Questor Hub]] (abas Configuração e Conferência de Contas)
 - Elo nota↔lançamento: [[Vínculo nota fiscal e lançamento contábil no Questor]]
 - Fiscal: [[Modelo de dados fiscais do Questor]] · Tributos: [[Impostos no Questor - onde fica cada um]]
 - Mapa: [[Banco Questor]]

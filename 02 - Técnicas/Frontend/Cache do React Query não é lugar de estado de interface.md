@@ -41,5 +41,5 @@ processado, escolha temporária — mora em outro lugar.
 ## Conexões
 - Princípio: [[Estado compartilhável mora na URL]]
 - Ver também: [[Estado de tela pertence à seção, não à página]]
-- Visto em: [[Questor BI]], na Conciliação (extrato lido guardado no cache)
+- Visto em: [[Questor Hub]], na Conciliação (extrato lido guardado no cache)
 - Mapa: [[Frontend]]

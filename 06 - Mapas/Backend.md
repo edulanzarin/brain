@@ -16,6 +16,12 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Servir anexo por rota com checagem de permissão]] — arquivo protegido não é
   arquivo estático. Princípio: [[Permissão se valida no servidor, não na interface]].
 
+## Autenticação e permissão
+
+- [[Cravar o seam de permissão antes do login]] — stub da sessão + gate num lugar só,
+  pra permissão não virar retrofit. Princípio:
+  [[Permissão se valida no servidor, não na interface]].
+
 ## Integrações
 
 - [[Polling substitui webhook quando não há IP público]] — quando não dá pra receber

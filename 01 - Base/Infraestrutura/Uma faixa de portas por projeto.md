@@ -21,7 +21,7 @@ Mapa atual:
 |---|---|---|
 | [[Cofre Digital]] | 4004 | 5004 |
 | [[Navedesk]] | 4001 | 5401 |
-| [[Questor BI]] | 4022 | 5433 |
+| [[Questor Hub]] | 4022 | 5433 |
 | [[Navecon Controller]] | 4088 | 5432 |
 
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte

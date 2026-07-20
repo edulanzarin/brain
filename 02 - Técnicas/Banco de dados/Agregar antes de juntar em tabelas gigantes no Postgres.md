@@ -9,7 +9,7 @@ criado: 2026-07-18
 
 ## O quê
 
-No [[Questor BI]], os "top 10 produtos" saem de `lctofissaiproduto` (~47M linhas). Juntar `produto` (~2,8M) e `empresa` a cada linha antes de agrupar seria caríssimo. O padrão que funcionou:
+No [[Questor Hub]], os "top 10 produtos" saem de `lctofissaiproduto` (~47M linhas). Juntar `produto` (~2,8M) e `empresa` a cada linha antes de agrupar seria caríssimo. O padrão que funcionou:
 
 ```sql
 with topn as (
@@ -37,5 +37,5 @@ Regra geral de performance SQL: **reduza a cardinalidade antes de enriquecer**. 
 ## Conexões
 - Princípio: [[Verificar no build de produção, não só em dev]]
 - Relacionado: [[Modelo de dados fiscais do Questor]]
-- Visto em: [[Questor BI]]
+- Visto em: [[Questor Hub]]
 - Mapa: [[Dados]]

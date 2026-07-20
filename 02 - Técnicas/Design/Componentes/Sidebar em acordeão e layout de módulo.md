@@ -32,6 +32,21 @@ enquanto o conteúdo troca, e evita que a página inteira recarregue pra mudar d
 Consequência importante: o estado que a barra de filtros controla pertence à seção, não
 à página — ver [[Estado de tela pertence à seção, não à página]].
 
+## Quando o acordeão graduou para launcher
+
+O acordeão sobre todos os módulos serve enquanto são poucos e todo mundo vê todos.
+Quando os módulos viram unidades com **permissão própria** (um usuário acessa Contábil
+mas não Fiscal), a navegação muda de forma: uma tela **launcher** na raiz escolhe o
+módulo — mostrando só os que a sessão libera — e, dentro dele, a sidebar é **escopada**
+(só as seções daquele módulo, com "trocar módulo" pra voltar). O launcher vira, de
+brinde, a primeira porta de permissão.
+
+O que não muda é a ideia de fundo: um **catálogo único** dirige launcher, sidebar e
+gate ao mesmo tempo; cada módulo tem seu `layout` com a sidebar dele; cada seção busca
+só os seus dados. Foi a troca feita no [[Questor Hub]] ao sair de um módulo para vários
+com login à vista. O gate que o launcher inaugura em
+[[Cravar o seam de permissão antes do login]].
+
 ## Conexões
 - Princípio: [[Container tem largura máxima e respiro constante]]
 - Índice: [[Padrões de componentes de dashboard]]

@@ -19,7 +19,7 @@ pesa quando é relevante. Então a memória do assistente vira um **ponteiro** c
 ## Por que importa
 
 Escala melhor: com muitos projetos, uma config enxuta continua barata, e cada
-cérebro ([[Questor BI]] pessoal, cérebro técnico do banco) cresce sem inchar o
+cérebro ([[Questor Hub]] pessoal, cérebro técnico do banco) cresce sem inchar o
 default. É a mesma lógica de [[Agregar antes de juntar em tabelas gigantes no Postgres]]:
 não carregar o que você não vai usar naquele momento.
 
@@ -30,5 +30,5 @@ esse histórico não volta pro contexto. O que economiza é manter enxuto o que 
 recarregado (as instruções globais e a memória-ponteiro).
 
 ## Conexões
-- Visto em: [[Questor BI]]
+- Visto em: [[Questor Hub]]
 - Mapa: [[Pensamentos]]

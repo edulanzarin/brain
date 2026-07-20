@@ -15,7 +15,7 @@ const exec = promisify(execFile);
 await exec("pdftotext", ["-layout", "-", "-"], { input: bytes });
 ```
 
-Não estoura exceção, não loga nada — a requisição fica pendurada até o timeout do servidor. Foi o que aconteceu ao mandar PDF por stdin no [[Questor BI]].
+Não estoura exceção, não loga nada — a requisição fica pendurada até o timeout do servidor. Foi o que aconteceu ao mandar PDF por stdin no [[Questor Hub]].
 
 ## O jeito certo
 
@@ -39,5 +39,5 @@ p.stdin.end(bytes);
 
 ## Conexões
 - Princípio: [[Chamada externa tem timeout e erro tratado]]
-- Visto em: [[Ler extrato bancário em PDF]] · [[Questor BI]]
+- Visto em: [[Ler extrato bancário em PDF]] · [[Questor Hub]]
 - Mapa: [[Backend]]

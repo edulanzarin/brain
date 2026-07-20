@@ -39,7 +39,7 @@ O que eu tinha escrito antes, corrigido:
 
 ## Conexões
 - Índice: [[Banco Questor]] · Contábil: [[Módulo contábil do Questor]]
-- Visto em: [[Questor BI]] (abas Conferência Fiscal, Conferência de Contas e Configuração no módulo Contábil)
+- Visto em: [[Questor Hub]] (abas Conferência Fiscal, Conferência de Contas e Configuração no módulo Contábil)
 - Notas fiscais: [[Modelo de dados fiscais do Questor]] · Impostos apurados: [[Impostos no Questor - onde fica cada um]]
 - Config das contas por CFOP: [[Plano de contabilização por CFOP no Questor]]
 - Mapa: [[Banco Questor]]

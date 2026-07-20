@@ -45,7 +45,7 @@ criado: 2026-07-18
 
 ## Por que importa
 
-É a base de qualquer sistema/automação sobre o Questor ([[Questor BI]] e futuros). Entender estas convenções evita redescobrir o schema tabela a tabela. Para tabelas gigantes, ver [[Agregar antes de juntar em tabelas gigantes no Postgres]].
+É a base de qualquer sistema/automação sobre o Questor ([[Questor Hub]] e futuros). Entender estas convenções evita redescobrir o schema tabela a tabela. Para tabelas gigantes, ver [[Agregar antes de juntar em tabelas gigantes no Postgres]].
 
 ## Conexões
 - Índice do banco: [[Banco Questor]]

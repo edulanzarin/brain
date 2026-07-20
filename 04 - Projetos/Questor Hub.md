@@ -1,19 +1,19 @@
 ---
-tags: [tipo/projeto, projeto/questor-bi]
+tags: [tipo/projeto, projeto/questor-hub]
 criado: 2026-07-18
 status: ativo
 codigo_em: ~/Dev/questor-bi
 ---
 
-# Questor BI
+# Questor Hub
 
-> Dashboard web de Business Intelligence sobre a base PostgreSQL do sistema contábil Questor (banco "Navecon" do escritório). Objetivo: visualizar valores, quantidades e impostos das notas fiscais com muitos filtros, e crescer para outros módulos (Contábil, Folha, Patrimônio).
+> Plataforma web da Navecon sobre a base PostgreSQL do sistema contábil Questor (banco "Navecon" do escritório). Organizada **por módulos** (Fiscal, Contábil, e o que vier — Folha, Patrimônio): cada um com suas próprias telas e permissão. Nasceu como dashboard fiscal (por isso o nome antigo, "Questor BI") e em jul/2026 virou Hub — "BI" era só uma das lentes; o Contábil, por exemplo, é ferramenta operacional, não dashboard.
 
-Código em: `~/Dev/questor-bi`
+Código em: `~/Dev/questor-bi` (pasta mantida; slug e containers passaram a `questor-hub`, par de portas 4022/5433 e nome interno do banco `questorbi` seguem).
 
 ## Estado atual
 
-Módulo **Fiscal** funcionando com dados reais. Navegação pela **sidebar em acordeão**, com 6 seções: Painel, Análises, Tributos, Produtividade, Conformidade, Dados.
+Módulo **Fiscal** funcionando com dados reais, com 6 seções: Painel, Análises, Tributos, Produtividade, Conformidade, Dados. Entra-se nele pelo **launcher** (a raiz `/`), e dentro do módulo a sidebar mostra **só as seções dele** (ver "Arquitetura de módulos e permissão" abaixo).
 
 - **Painel** (`/fiscal/painel`): resumo da movimentação — KPIs (entradas, saídas, empresas, canceladas, variação vs período anterior), resumo de devoluções/cancelamentos, evolução temporal, donut por espécie e o card de impostos (ICMS/ST/IPI/ISS/PIS/COFINS + retenções + DIFAL/FCP/FUNRURAL). Fontes dos impostos: [[Impostos no Questor - onde fica cada um]].
 - **Análises** (`/fiscal/analises`): rankings/distribuições — top empresas, fornecedores/clientes, produtos, CFOPs, UF, municípios e modalidade de frete.
@@ -59,7 +59,11 @@ Filtros compartilhados no topo (período, empresas multi-seleção, espécie, **
 
 **Período limitado a 1 ano** (`MAX_DIAS_PERIODO` em `fiscal-filters.ts`): evita consultas pesadas nas tabelas gigantes e trava. Guardado em duas camadas — `parseFilters` recusa (`400`) qualquer range > 366 dias em todos os endpoints, e o seletor de período personalizado no `filter-bar` já limita o fim a 1 ano (toast avisando). Os presets todos cabem em 1 ano.
 
-**Padrão de navegação (reusar nos próximos módulos)**: sidebar em **acordeão** (cada módulo expande/colapsa, o ativo abre por padrão — escala pra muitos módulos/seções); módulo → seções (rotas); um `layout` do módulo segura header + filtros compartilhados; cada seção é uma página que busca só os seus dados. Config das seções em `src/lib/fiscal-secoes.ts`.
+**Padrão de navegação (reusar nos próximos módulos)**: **launcher** na raiz `/` escolhe o módulo (só entram na grade os que a sessão libera); dentro do módulo, a sidebar é **escopada** — só as seções dele, com "Trocar módulo" pra voltar ao launcher. O `layout` de cada módulo monta essa sidebar e segura header + filtros compartilhados; cada seção é uma página que busca só os seus dados. Catálogo dos módulos (fonte única do launcher, sidebar e gate) em `src/lib/modulos.ts`; seções em `src/lib/fiscal-secoes.ts` / `contabil-secoes.ts`. Isso substituiu a sidebar única em acordeão sobre todos os módulos — o porquê da troca em [[Sidebar em acordeão e layout de módulo]].
+
+### Arquitetura de módulos e permissão
+
+O **seam de permissão** foi cravado antes de o login existir (`src/lib/sessao.ts`): `getSessao()` é hoje um stub (admin de dev com tudo liberado), mas launcher, layouts e rotas já passam por ele — quando o login entrar, só o stub muda e nada é retrofitado. Permissão é **perfil por módulo** (`view`/`edit`), não por cargo. Duas checagens: o layout do módulo faz `assertAcesso` (otimista, redireciona pro launcher), e o `apiRoute` tranca de fato — deriva o módulo do caminho (`/api/<modulo>/...`), então o gate mora num lugar só e nenhuma rota nasce desprotegida (ler exige view, escrever exige edit). Padrão reusável em [[Cravar o seam de permissão antes do login]]; a doutrina em [[Permissão se valida no servidor, não na interface]].
 
 **Estado de tela por seção** (`src/lib/estado-secao.ts` + o hook `useEstadoSecao`): busca, filtros, paginação e o extrato já carregado **sobrevivem à navegação dentro da seção** (trocar de aba mantém) e são descartados ao sair dela — quem descarta é o shell do módulo, no cleanup do efeito, porque é ele que sabe qual seção está ativa. Vale nos dois módulos. O padrão e as armadilhas em [[Estado de tela pertence à seção, não à página]]; o motivo de não usar o cache do React Query para isso (generalizou o que a Conciliação fazia à mão) em [[Cache do React Query não é lugar de estado de interface]].
 
@@ -109,8 +113,8 @@ Design (reutilizável em outros projetos — ver [[Design]]):
 
 ## Próximos passos
 
-- [ ] Login, usuários e permissões (banco próprio já está de pé para isso).
-- [ ] Módulos Folha e Patrimônio (sidebar já tem placeholders) — reusar o padrão de abas.
+- [ ] Login e usuários — o **seam de permissão já está de pé** (`sessao.ts` stub + gates em layout e API); falta a autenticação real (form + sessão em cookie) e o `usuario`/`usuario_modulo` no banco próprio, preenchendo `getSessao()`.
+- [ ] Módulos Folha e Patrimônio (já aparecem no launcher como "em breve") — reusar o padrão de módulo/seção/abas.
 - [ ] Talvez repensar grupos de empresas (hoje só localStorage; poderia ser compartilhado entre máquinas).
 - [ ] Possíveis análises futuras: mapa por UF, exportação Excel.
 

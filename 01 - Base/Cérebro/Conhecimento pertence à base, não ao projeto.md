@@ -18,7 +18,7 @@ usaram aquilo, não só o primeiro.
 ## Por que
 
 O cérebro tinha o vício inverso: quase toda nota de frontend terminava em
-"Origem: [[Questor BI]]". Três efeitos ruins:
+"Origem: [[Questor Hub]]". Três efeitos ruins:
 
 1. **O primeiro projeto virou dono.** Quem chegou depois (Navedesk, Cofre Digital)
    parecia estar pegando emprestado do Questor BI, quando na verdade os três bebem

@@ -36,6 +36,6 @@ Nunca desligar essa flag.
 ## Conexões
 - Ver também: [[Modelo de dados fiscais do Questor]] · [[Receitas SQL do Questor]]
 - Padrão de ranking sobre tabela gigante: [[Agregar antes de juntar em tabelas gigantes no Postgres]].
-- Visto em: [[Questor BI]]
+- Visto em: [[Questor Hub]]
 - Índice do banco: [[Banco Questor]]
 - Mapa: [[Banco Questor]]

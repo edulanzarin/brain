@@ -70,5 +70,5 @@ Vale também para o estado caro: um extrato bancário já lido e casado sobreviv
 
 ## Conexões
 - Ver também: [[Cache do React Query não é lugar de estado de interface]]
-- Visto em: [[Questor BI]], nas seções do módulo Contábil
+- Visto em: [[Questor Hub]], nas seções do módulo Contábil
 - Mapa: [[Base]] · [[Design]]
