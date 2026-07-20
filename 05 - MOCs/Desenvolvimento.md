@@ -10,6 +10,7 @@ Mapa de tudo relacionado a código, projetos e stack.
 ## Projetos
 
 - [[Questor BI]]
+- [[Navecon Controller]]
 
 ## Banco Questor (referência do schema)
 
@@ -30,6 +31,8 @@ Notas atômicas de `03 - Recursos` sobre desenvolvimento.
 - [[router.replace do Next falha no build de produção]]
 - [[Verificar no build de produção, não só em dev]]
 - [[Validar paleta de gráficos antes de escolher cores]]
+- [[Plataforma de IA hospedada prende o app pelo banco]]
+- [[Next.js standalone no Docker e o outputFileTracingRoot]]
 
 ## Ferramentas e stack
 
