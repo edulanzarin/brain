@@ -26,6 +26,16 @@ Mapa atual:
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte
 da verdade, não o `docker ps` da máquina que por acaso está ligada.
 
+## O par são duas portas, não uma
+
+"O projeto roda na 4004" quer dizer que **o app** atende em 4004. O banco do mesmo
+projeto não atende na 4004 também — duas coisas não escutam a mesma porta do mesmo
+host. Daí o par: `4004` app, `5404` banco, ligados pelo final `04`.
+
+E o `54xx` não briga com o Postgres "padrão": 5432 é a porta **dentro** do container, e
+segue 5432 em todo projeto. O `5404` é só onde o host publica aquele container — ver
+[[Porta interna é constante, porta externa é configuração]].
+
 ## Por que
 
 O erro que isso evita não é o conflito de porta (esse o Docker grita na hora). É o

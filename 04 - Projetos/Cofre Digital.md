@@ -17,7 +17,34 @@ Código em: `~/Dev/cofre-digital`
 
 Rodando em Docker, acessível na rede em `http://<ip>:4004`. Três módulos de
 conteúdo (certificados, acessos, alvarás) mais empresas, equipe e configurações.
-Em jul/2026 passou por uma rodada de acabamento do design (ver abaixo).
+Em jul/2026 passou por uma rodada de acabamento do design e, depois, pela
+regularização da infra (ver abaixo).
+
+## Infra (regularizada em 20/07/2026)
+
+Primeiro projeto a receber o chassi do [[Infra]] por inteiro. Antes estava fora dele
+em quase tudo: containers com sufixo do compose (`cofre-digital-db-1`), porta
+`4004:3000` fixa no compose, `"dev": "next dev"` sem porta, volume `pgdata` genérico
+e a porta do banco escondida num `docker-compose.override.yml` gitignorado — que
+ainda por cima divergia do `.env.example` (5435 contra 5433).
+
+Como ficou:
+
+| Recurso | Nome | Porta no host |
+|---|---|---|
+| App | `cofre-digital-app` | `0.0.0.0:4004` → 3000 |
+| Banco | `cofre-digital-db` | `127.0.0.1:5404` → 5432 |
+| Migrations | `cofre-digital-migrate` | — |
+| Rede | `cofre-digital-net` | — |
+| Volume | `cofre-digital-db-data` | — |
+
+O override sumiu: o bind `127.0.0.1` no compose principal dá o mesmo acesso local sem
+expor o banco na rede e sem um segundo arquivo fora do repositório. Um compose só,
+igual em dev e em produção — [[Ambiente de dev sobe igual ao de produção]].
+
+A migração do volume (`cofre-digital_pgdata` → `cofre-digital-db-data`) foi feita com
+`pg_dump` antes e cópia por container intermediário; os 5 certificados e 5 empresas
+seguiram intactos. O volume antigo ficou parado como rede de segurança.
 
 ## O que tem
 

@@ -19,11 +19,21 @@ e em produção. Nada no código, no Dockerfile ou no compose depende de qual po
 services:
   app:
     container_name: prospects-app
-    ports: ["${APP_PORT:-4011}:3000"]
+    ports: ["${APP_PORT:-4011}:3000"]          # 0.0.0.0 — a rede alcança
   db:
     container_name: prospects-db
-    ports: ["${DB_PORT:-5411}:5432"]
+    ports: ["127.0.0.1:${DB_PORT:-5411}:5432"] # só o host alcança
 ```
+
+**A quem a porta é publicada faz parte da configuração.** O app vai em `0.0.0.0`
+porque a rede precisa dele; o banco leva `127.0.0.1:` na frente porque quem consome é
+o container ao lado (pela rede interna) e o `npm run dev` da própria máquina. Publicar
+o Postgres em `0.0.0.0` é abrir o banco para a rede sem precisar.
+
+Escrever o bind assim no compose principal dispensa o velho truque de pôr a porta do
+banco num `docker-compose.override.yml` gitignorado. O override "só de dev" custa caro:
+o compose de dev deixa de ser o mesmo de produção, e o arquivo que explica onde o banco
+escuta não está no repositório — contraria [[Ambiente de dev sobe igual ao de produção]].
 
 E no `package.json`, **um** script só, com a porta vindo do ambiente e um padrão:
 
