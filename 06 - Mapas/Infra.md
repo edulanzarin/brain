@@ -48,7 +48,7 @@ template: `docker logs <slug>-app`, `docker exec -it <slug>-db psql`.
 |---|---|---|
 | [[Cofre Digital]] | 4004 | 5004 |
 | [[Navedesk]] | 4001 | 5401 |
-| [[Questor Hub]] | 4022 | 5433 |
+| [[Questor Hub]] | 4022 | 5022 |
 | [[Navecon Controller]] | 4088 | 5432 |
 
 App `4xxx`, banco espelha trocando o `4` inicial por `5`. Regra e exceções em

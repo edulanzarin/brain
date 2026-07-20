@@ -21,7 +21,7 @@ Mapa atual:
 |---|---|---|
 | [[Cofre Digital]] | 4004 | 5004 |
 | [[Navedesk]] | 4001 | 5401 |
-| [[Questor Hub]] | 4022 | 5433 |
+| [[Questor Hub]] | 4022 | 5022 |
 | [[Navecon Controller]] | 4088 | 5432 |
 
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte
@@ -44,10 +44,12 @@ silencioso: dois projetos com o mesmo banco em 5432, eu abro o cliente SQL apont
 pro que achei que era, e rodo query no banco errado. Com faixa reservada, a porta
 identifica o projeto sozinha.
 
-Só o Cofre Digital segue o espelho `4xxx`→`5xxx` por enquanto. Os outros vieram antes
-dele: Questor BI (5433) e Navecon Controller (5432) nunca tiveram sufixo nenhum, e
-Navedesk (5401) ainda usa o formato antigo `54xx`. Ficam como estão — repontar porta de
-projeto rodando não paga o risco; o espelho vale daqui pra frente.
+Cofre Digital e Questor Hub seguem o espelho `4xxx`→`5xxx`. Os que vieram antes e ainda
+não seguem: Navecon Controller (5432) e Navedesk (5401, formato antigo `54xx`) — ficam
+como estão, repontar porta de projeto rodando não paga o risco; o espelho vale daqui pra
+frente. O Questor Hub era exceção (5433) e passou pro espelho (5022) na renomeação de
+jul/2026, aproveitando que já estava mexendo em tudo — a hora barata de repontar é
+quando o projeto já vai mudar de nome mesmo.
 
 ## Conexões
 - Irmã: [[Porta interna é constante, porta externa é configuração]] · [[O nome do projeto governa o nome dos recursos]]
