@@ -99,11 +99,20 @@ PostgreSQL 17 · Docker Compose. Ícones lucide, PKCS#12 lido no navegador.
 - [[Filtro de lista mora na URL]]
 - [[Portal condicional dispensa o flag de montagem]]
 - [[NoInfer faz o genérico sair da lista, não do valor padrão]]
+- [[Semear teste cria linha nova, não muta linha real]] — aprendido do jeito
+  ruim aqui: a verificação da coluna de grupo apagou uma vinculação real.
+
+## Grupos de empresas (jul/2026)
+
+Grupo econômico: um punhado de empresas do mesmo dono, criado à mão em `/grupos`
+e usado como eixo de filtro. Já aplicado na lista de empresas e, depois, na de
+certificados — Combobox com busca entre a busca livre e os segmentados, aparecendo
+só quando existe grupo, e o filtro morando na URL (`?grupo=`) como os outros. A
+lista de certificados ganhou também a coluna "Grupo" (o certificado carrega o nome
+do grupo da empresa dona pelo `CERT_INCLUDE`).
 
 ## Próximos passos possíveis
 
-- Dropdown de filtro por empresa nas listas (o padrão com busca no topo do
-  [[Padrões de componentes de dashboard]] ainda não foi usado aqui).
 - Skeleton no refetch em vez de só no primeiro load, se o volume crescer.
 - Exportar a lista filtrada (o filtro já está na URL, então o link já serve).
 

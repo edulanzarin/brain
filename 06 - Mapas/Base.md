@@ -42,6 +42,7 @@ Independe de Docker. Técnicas concretas em [[Infra]].
 ## Ofício — como eu trabalho
 
 - [[Verificar no build de produção, não só em dev]]
+- [[Semear teste cria linha nova, não muta linha real]]
 - [[Plataforma de IA hospedada prende o app pelo banco]]
 
 ## Cérebro — como este vault funciona
