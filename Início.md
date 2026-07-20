@@ -49,7 +49,6 @@ Leia primeiro: [[Camadas do conhecimento - princípio, padrão, aplicação]] e
 ## Fluxo
 
 - Captura rápida: `00 - Entrada` — processar e mover, não deixar acumular.
-- Registro do dia: `Diárias`.
 - Projeto encerrado vai pra `05 - Arquivo`, e o conhecimento dele **fica** na base e
   nas técnicas — porque nunca pertenceu ao projeto.
 

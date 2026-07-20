@@ -10,7 +10,7 @@ criado: 2026-07-20
 
 ## A regra
 
-Nota de princípio ou de padrão não tem campo `Origem: [[<projeto>]]` e não leva tag
+Nota de princípio ou de padrão não tem campo `Origem: <nome do projeto>` e não leva tag
 `#projeto/*`. Quem linka é o projeto, na seção de aprendizados. O backlink do Obsidian
 já mostra a origem sem que ela precise ser escrita — e mostra **todos** os projetos que
 usaram aquilo, não só o primeiro.

@@ -57,7 +57,7 @@ Uma nota a mais na base vale mais que dez notas soltas.
 05 - Arquivo/           projetos encerrados
 06 - Mapas/             MOCs
 07 - Pensamentos/       como o Eduardo pensa
-Diárias/  Templates/
+Templates/
 ```
 
 **Uma pasta nova nasce quando um assunto passa de ~6 notas**, não antes. Pasta com duas
@@ -120,7 +120,7 @@ criado: AAAA-MM-DD
 ---
 ```
 
-- `tipo/*`: `atomica`, `projeto`, `moc`, `diaria`, `pensamento`
+- `tipo/*`: `atomica`, `projeto`, `moc`, `pensamento`
 - `camada/*`: `principio`, `padrao`, `referencia`
 - Tema livre: `design`, `infra`, `dev/frontend`, `dev/backend`, `armadilha`, `sql`
 - **Não usar a tag `conceito`** — quase tudo é conceito, então ela não separa nada.
@@ -136,7 +136,7 @@ Bloco final padronizado, sempre `## Conexões` (nunca `## Links`), nesta ordem:
 - Mapa: [[ ]]           obrigatório em toda nota
 ```
 
-Templates em `Templates/`: `Princípio`, `Técnica`, `Projeto`, `Diária`. Cada um traz as
+Templates em `Templates/`: `Princípio`, `Técnica`, `Projeto`. Cada um traz as
 regras num comentário HTML no fim — ler antes de salvar.
 
 ---
@@ -197,7 +197,6 @@ Não mexer em `.obsidian/` sem pedido — exceto `graph.json` `colorGroups`, já
 2. **Nota de projeto** em `04 - Projetos/` — estado, decisões, próximos passos e links
    pros aprendizados. O texto do aprendizado mora na nota atômica, não aqui.
 3. **Linkar** projeto → notas → mapas, e atualizar o mapa correspondente em `06 - Mapas/`.
-4. Se for algo grande, uma linha na diária de hoje.
 
 ---
 
