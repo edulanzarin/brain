@@ -12,6 +12,7 @@ Mapa de tudo relacionado a código, projetos e stack.
 - [[Questor BI]]
 - [[Navecon Controller]]
 - [[Navedesk]]
+- [[Cofre Digital]]
 
 ## Banco Questor (referência do schema)
 
@@ -39,6 +40,8 @@ Notas atômicas de `03 - Recursos` sobre desenvolvimento.
 - [[Servir anexo por rota com checagem de permissão]]
 - [[React reseta o formulário ao fim de uma Server Action]]
 - [[Componente de ícone não atravessa a fronteira server-client]]
+- [[Portal condicional dispensa o flag de montagem]]
+- [[NoInfer faz o genérico sair da lista, não do valor padrão]]
 
 ## Ferramentas e stack
 
