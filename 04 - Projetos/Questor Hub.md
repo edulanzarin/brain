@@ -35,6 +35,12 @@ Primeira automação de fato interligando Fiscal ↔ Contábil. Módulo tem shel
 
 Duas armadilhas que quase mataram a Conferência de Contas (as duas viraram regra no código, detalhe em [[Plano de contabilização por CFOP no Questor]]): (1) **ICMS e IPI de saída são contabilizados na apuração mensal**, não nota a nota — cobrá-los por nota apontava 1170 de 1186 saídas como erradas; a solução foi só cobrar conta que comprovadamente recebe lançamento nota a nota no período. (2) **Valor só é conferível em nota de CFOP único** — com vários CFOPs não dá pra atribuir a parcela de tributo de cada um. Depois disso: 7 apontamentos em 660 entradas e 2 em 1186 saídas (1200/jun), incluindo uma nota lançada em `43763` quando o plano manda `42763` (erro de dígito) e outra em `25210` ("Gás") quando o CFOP manda `42759` ("Gás Empilhadeiras").
 
+### Notas (jul/2026)
+
+Seção própria na sidebar do Contábil (não é aba da Conferência) — o **mesmo explorador de notas do Fiscal** (a seção Dados), pedido pelo Eduardo pra conferir nota a nota à mão dentro do Contábil. Lista todas as notas do recorte (aqui a empresa é única, então sem coluna de empresa), com filtros de situação/contraparte/busca e **drill-down de itens/produtos** no clique.
+
+Reusa o componente `NotasTabela` **inteiro**: a única mudança foi uma prop `modulo` que troca a rota das três consultas do explorador (`/api/contabil/{notas-lista,contrapartes,nota-itens}`). As queries saíram das rotas do Fiscal para libs (`notas-lista.ts`, `contrapartes.ts`, junto do já existente `nota-itens.ts`) e cada módulo serve pela sua rota, gateada pelo caminho no `apiRoute` — o mesmo princípio de [[O que dois módulos compartilham é a query, não a rota]], que agora vale para as três consultas, não só os itens.
+
 ### Conciliação
 
 Segunda automação do Contábil: ler extrato bancário (OFX/PDF) e gerar os lançamentos já na conta certa. Leitura e prévia **funcionando**; falta só a exportação do arquivo final.
