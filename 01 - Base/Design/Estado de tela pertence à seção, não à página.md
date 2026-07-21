@@ -68,6 +68,16 @@ página sozinha e o nome do campo ficar burro.
 Vale também para o estado caro: um extrato bancário já lido e casado sobrevive
 à ida à aba de regras, sem pedir o arquivo de novo.
 
+## Compartilhado entre shell e página
+
+Evolução (jul/2026): o store ganhou **ouvintes** e o hook lê via
+`useSyncExternalStore` — duas instâncias do MESMO campo ficam em sincronia.
+Isso destrava um layout novo: os controles de uma aba (conta, arquivo) podem
+ser renderizados **pelo shell, na linha da barra de filtros**, e a página os
+enxerga na hora, porque ambos leem e gravam o mesmo campo da seção. Sem
+prop-drilling, sem portal, sem contexto novo: o mecanismo que já dava tempo de
+vida ao estado passou a dar também o compartilhamento.
+
 ## Conexões
 - Ver também: [[Cache do React Query não é lugar de estado de interface]]
 - Visto em: [[Questor Hub]], nas seções do módulo Contábil

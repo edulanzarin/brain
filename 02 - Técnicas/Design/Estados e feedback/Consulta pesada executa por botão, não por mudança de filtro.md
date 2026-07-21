@@ -34,9 +34,11 @@ Botão genérico em tudo é regra cega. O catálogo de telas declara a execuçã
 
 - **"Executar"** onde a consulta computa algo (conferência, painéis);
 - **"Carregar"** onde só traz um cadastro pronto;
-- **nenhum botão** onde o gatilho pesado é da própria tela — na conciliação
-  bancária quem executa é o **envio do extrato**; empresa e conta são contexto e
-  aplicam na hora. Botão na barra ali seria um pedágio sem sentido.
+- **gatilho próprio** onde o insumo é da tela — na conciliação bancária o
+  filtro de empresa aplica na hora (é contexto, não consulta), e o Executar
+  processa o **arquivo escolhido**. O refinamento importante: **escolher o
+  arquivo não processa** — só guarda e mostra o nome; o processamento espera o
+  botão, como qualquer consulta. Escolher é escolher, executar é executar.
 
 ## Feedback no ponto do clique
 
