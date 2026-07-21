@@ -33,6 +33,20 @@ O que eu tinha escrito antes, corrigido:
 - `cfoptabctbfis` **não** é o caminho — 7 linhas no banco inteiro (não é "vazia só na 1200"). `cfop.finalidade` zerada segue valendo.
 - A **regra empírica** ("CFOP é contabilizável se ≥1 nota dele foi contabilizada no período") funcionava como aproximação — 951 falsos → 37 gaps reais nas entradas da 1200 — mas foi **substituída** pela config real. Continua útil para outra coisa: calibrar *quais contas recebem lançamento nota a nota*, já que ICMS/IPI de saída são contabilizados na apuração mensal (prefixo `IM`), não na nota.
 
+## Contabilização em duplicidade (contabilizou a mesma nota 2×)
+
+**Sinal limpo (validado jul/2026):** a MESMA partida `(contactbdeb, contactbcred, valorlctoctb)` da nota aparece em **2+ dias distintos** de `datahoralctoctb` → re-rodaram a contabilização. Os dois lançamentos compartilham o `datalctoctb` (competência = data da nota), então o filtro por período da Conferência (que é por `datalctoctb`) captura ambos; quem denuncia é o `datahoralctoctb` (quando foi digitado).
+
+Validado na **empresa 264**: um lote de ~18 notas foi contabilizado em 16/06 e **de novo em 23/06** (R$ 151.828,75 lançados a mais). Ex.: NF 1836, R$ 11.720,83, partida `déb 4538 / créd 5000118` idêntica nos dois dias.
+
+Becos sem saída (não usar, já testados):
+- **`codigolotectb` é NULO** nos lançamentos FI — não serve de chave de lote/batch.
+- **Razão soma/valor ≈ 2 é NORMAL**, não duplicidade: cada linha é débito OU crédito, então `sum(valorlctoctb) ≈ 2 × valorcontabil` numa contabilização única (metade das notas cai em ~2). Duplicata seria ~4, que não apareceu na amostra limpa.
+- **"Qualquer partida repetida" (tot > distintas) é ruidoso**: nota com vários `numerodcto` no mesmo instante repete centavos de imposto iguais entre documentos distintos.
+- **"2+ sessões de horário" sozinho é ruidoso**: nota lançada em parcelas em dias diferentes tem partidas DIFERENTES (não repete) — parcela ≠ duplicata. Por isso o critério exige partida IDÊNTICA em dias distintos.
+
+Na automação isso virou a situação **"duplicada"** da Conferência, com precedência sobre a conferência de conta (com valores dobrados, a divergência de conta seria enganosa).
+
 ## Não confundir
 
 - **`codigooriglctoctb='IP'`** (Importação) = movimento **bancário** (Pix/TED, extrato/conciliação), **não** nota fiscal. Em jun era a maior origem (87k). Ver [[Módulo contábil do Questor]] (mapa de origens).
