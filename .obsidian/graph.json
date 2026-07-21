@@ -8,7 +8,7 @@
   "collapse-color-groups": false,
   "colorGroups": [
     {
-      "query": "tag:#projeto/questor-hub",
+      "query": "tag:#projeto/questor-bi",
       "color": {
         "a": 1,
         "rgb": 3900150
@@ -81,6 +81,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 0.4444444444444439,
+  "scale": 0.15568856757228655,
   "close": true
 }

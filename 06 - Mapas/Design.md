@@ -48,6 +48,8 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 - [[Toast em vez de alert para o feedback do app]] — canal de mensagem próprio.
 - [[Esqueleto de carregamento imita a forma do conteúdo]] — carregar sem saltar.
 - [[Filtro de lista mora na URL]] — estado que sobrevive ao reload.
+- [[Consulta pesada executa por botão, não por mudança de filtro]] — rascunho e
+  aplicado; o verbo do botão segue a ação real da tela.
 
 Princípios: [[Todo estado da tela tem visual]] · [[Estado compartilhável mora na URL]]
 
