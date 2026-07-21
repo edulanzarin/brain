@@ -41,7 +41,11 @@ Seção própria na sidebar do Contábil (não é aba da Conferência) — o **m
 
 Reusa o componente `NotasTabela` **inteiro**: a única mudança foi uma prop `modulo` que troca a rota das três consultas do explorador (`/api/contabil/{notas-lista,contrapartes,nota-itens}`). As queries saíram das rotas do Fiscal para libs (`notas-lista.ts`, `contrapartes.ts`, junto do já existente `nota-itens.ts`) e cada módulo serve pela sua rota, gateada pelo caminho no `apiRoute` — o mesmo princípio de [[O que dois módulos compartilham é a query, não a rota]], que agora vale para as três consultas, não só os itens.
 
-O detalhe da nota virou **modal** nas duas telas do explorador (era expansão inline da linha): sobra espaço pra mostrar o que não cabe na tabela — documento, modelo, empresa, chave de acesso de 44 díg. — além dos itens. `ItensNota` foi extraído pra arquivo próprio (`itens-nota.tsx`) pra os modais do explorador e da Conferência importarem sem ciclo; o modal do explorador (`nota-explorador-modal.tsx`) espelha o visual do `NotaDetalheModal`.
+O detalhe da nota virou **modal** nas duas telas do explorador (era expansão inline da linha): sobra espaço pra mostrar o que não cabe na tabela — documento, modelo, empresa, chave de acesso de 44 díg. — além dos itens. `ItensNota` foi extraído pra arquivo próprio (`itens-nota.tsx`) pra os modais do explorador e da Conferência importarem sem ciclo.
+
+**Casca de modal comum** (`components/ui/modal.tsx`): portal no `body`, ESC/backdrop pra fechar, trava de scroll do fundo e a moldura (card + cabeçalho com título e botão fechar) estavam copiados à mão em 4 modais (detalhe da conferência, explorador, contraparte, grupos). Viraram uma casca `Modal` que os 4 usam; corpo livre por `children`, largura por prop. Modal novo monta em cima dela — regra de sempre priorizar o primitivo reutilizável antes que o sistema encha de modais copiados.
+
+**Itens robustos** (no `ItensNota`, então vale nos dois modais de uma vez): filtro de produto (código ou descrição) e linha de **somatória** — total, ICMS e IPI — que respeita o filtro (soma só o que ficou à vista). Os dois modais de detalhe ficaram mais largos (`max-w-5xl`). O de Conferência é o mesmo, só que ainda mostra as **divergências** (conta errada etc.), que são conceito só dele.
 
 ### Conciliação
 
