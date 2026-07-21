@@ -21,6 +21,8 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Cravar o seam de permissão antes do login]] — stub da sessão + gate num lugar só,
   pra permissão não virar retrofit. Princípio:
   [[Permissão se valida no servidor, não na interface]].
+- [[O que dois módulos compartilham é a query, não a rota]] — reuso de dado entre
+  módulos sem furar o gate por módulo.
 
 ## Integrações
 
