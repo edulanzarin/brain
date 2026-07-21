@@ -46,6 +46,14 @@ Regra que resolve: só cobrar conta que **comprovadamente recebe lançamento not
 
 Nota com vários CFOPs não permite atribuir a cada um a sua parcela do tributo — e o `lctofisent.valoripi` do cabeçalho pode não bater com a soma lançada (visto 2x numa nota de 2 CFOPs). Conferir valor só quando a nota tem um CFOP só; nos demais, conferir apenas conta/natureza/ausência.
 
+## "Este CFOP contabiliza?" — aprender do histórico, NÃO da config
+
+Ter slot preenchido (`codigotabctbfis*`) **não** é sinal confiável de que o CFOP gera lançamento — **corrige** o que [[Vínculo nota fiscal e lançamento contábil no Questor]] dizia ("config é exata, CFOP sem slot = não contabiliza. Não precisa de heurística"). Validado na **empresa 103** (mês fechado): CFOP `8000001` **tem** slot mas lançou em só 2 de 29 notas (não contabiliza); `8002022` **não tem** slot e lançou (contabiliza). A config erra dos dois lados.
+
+O sinal confiável é o **histórico**: nos últimos 12 meses, em que fração das notas do CFOP houve lançamento FI. Contabiliza se **≥50%** — separa limpo o compra (85–97%) do retorno/exceção (<10%). O `≥1` não serve (pegaria os 2 lançamentos-exceção do 8000001 e viraria pendência falsa).
+
+Não dá pra olhar **só o mês da tela**: num mês ainda não fechado (0 contabilizações) tudo cai em "não exige", escondendo as pendências reais (era o bug). Por isso o BI **cadastra** esse aprendizado por empresa+estab+cfop (tabela própria `conf_cfop_contabiliza`) e a Conferência lê de lá. **Precedência: override manual (`conf_regra`) > aprendido (12m) > config do Questor.** Semeado na 1ª conferência da empresa; reaprendível pelo botão "Atualizar do histórico".
+
 ## Conexões
 - Índice: [[Banco Questor]] · Contábil: [[Módulo contábil do Questor]]
 - Visto em: [[Questor Hub]] (abas Configuração e Conferência de Contas)
