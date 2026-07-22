@@ -61,6 +61,17 @@ Becos sem saída (não usar, já testados):
 
 Na automação isso virou a situação **"duplicada"** da Conferência, com precedência sobre a conferência de conta (com valores dobrados, a divergência de conta seria enganosa).
 
+## `classifconta` não é única por conta — não escope drill-down por ela
+
+Várias contas analíticas DISTINTAS no `planoespec` dividem a **mesma**
+`classifconta` — o Questor cria uma conta por pessoa (cada cliente/fornecedor) e
+todas herdam a classificação do grupo (ex.: emp 1015, ~149 contas de cliente com
+`classifconta='1.1.02.001.001'`). Consequência: um **drill-down ou rollup que
+resolve as contas por `classifconta = X or like X.%` soma todas as irmãs**, não a
+conta clicada. Regra: linha **analítica** → escopar por `contactb`; só a
+**sintética** → somar a subárvore por classif. (Bug real no balancete do Questor
+Hub: clicar na conta 142 somava as 149 contas de cliente.)
+
 ## Não confundir
 
 - **`codigooriglctoctb='IP'`** (Importação) = movimento **bancário** (Pix/TED, extrato/conciliação), **não** nota fiscal. Em jun era a maior origem (87k). Ver [[Módulo contábil do Questor]] (mapa de origens).
