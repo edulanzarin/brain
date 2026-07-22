@@ -24,6 +24,7 @@ Independe de CSS, de Tailwind e de React. Técnicas concretas em [[Design]].
 - [[Todo estado da tela tem visual]] — carregando, vazio, erro e sucesso são design.
 - [[Estado compartilhável mora na URL]] — o que descreve a vista vai pro link.
 - [[Estado de tela pertence à seção, não à página]] — estado no menor escopo que resolve.
+- [[Entidade auxiliar se cria no ponto de uso, não em tela própria]] — grupo/etiqueta é campo, não aba.
 
 ## Infraestrutura — como um projeto sobe
 

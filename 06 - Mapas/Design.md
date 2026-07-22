@@ -39,6 +39,8 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 
 - [[Sidebar em acordeão e layout de módulo]] — a estrutura fixa da tela.
 - [[Controles de filtro do dashboard]] — toggle segmentado e dropdown de filtro.
+- [[Seletor cria e gerencia os próprios itens]] — combobox que cria ao digitar e
+  renomeia/exclui no painel, dispensando tela de CRUD do auxiliar.
 - [[Blocos de dado - card, KPI e gráfico]] — card, stat tile, gráfico e tabela.
 
 ## Estados e feedback

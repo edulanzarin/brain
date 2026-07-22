@@ -101,15 +101,32 @@ PostgreSQL 17 · Docker Compose. Ícones lucide, PKCS#12 lido no navegador.
 - [[NoInfer faz o genérico sair da lista, não do valor padrão]]
 - [[Semear teste cria linha nova, não muta linha real]] — aprendido do jeito
   ruim aqui: a verificação da coluna de grupo apagou uma vinculação real.
+- [[Entidade auxiliar se cria no ponto de uso, não em tela própria]] — a aba Grupos
+  virou criação inline no formulário e gestão no filtro.
+- [[Seletor cria e gerencia os próprios itens]] — o Combobox que criou/renomeou/
+  excluiu grupo sem tela dedicada.
 
 ## Grupos de empresas (jul/2026)
 
-Grupo econômico: um punhado de empresas do mesmo dono, criado à mão em `/grupos`
-e usado como eixo de filtro. Já aplicado na lista de empresas e, depois, na de
-certificados — Combobox com busca entre a busca livre e os segmentados, aparecendo
-só quando existe grupo, e o filtro morando na URL (`?grupo=`) como os outros. A
-lista de certificados ganhou também a coluna "Grupo" (o certificado carrega o nome
-do grupo da empresa dona pelo `CERT_INCLUDE`).
+Grupo econômico: um punhado de empresas do mesmo dono, usado como eixo de filtro
+(lista de empresas e de certificados, com a coluna "Grupo" — o certificado carrega
+o nome do grupo da empresa dona pelo `CERT_INCLUDE`). O filtro mora na URL
+(`?grupo=`) como os outros, num Combobox com busca.
+
+Começou com uma **aba Grupos** própria (`/grupos`) pra cadastrar à mão. A aba foi
+**removida**: o grupo passou a nascer e ser gerenciado de onde já é usado, virando
+o primeiro caso de [[Entidade auxiliar se cria no ponto de uso, não em tela própria]].
+Como ficou:
+
+- **Nasce no formulário** da empresa e do certificado: digita um nome que não existe
+  no seletor e ele é criado na hora. No cert isso resolve o atrito real — o cert
+  sobe, puxa a empresa automática, e o grupo entra na mesma tela (atribui à empresa
+  dona, nunca desvincula; vazio não mexe).
+- **Renomeia/exclui dentro do próprio filtro** de grupo (lápis/lixeira no painel).
+- **Grupo sem empresa é podado no servidor** após qualquer mutação que possa
+  esvaziá-lo — some sozinho, sem faxina manual.
+
+O Combobox que sustenta isso virou técnica: [[Seletor cria e gerencia os próprios itens]].
 
 ## Próximos passos possíveis
 
