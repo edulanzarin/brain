@@ -35,6 +35,13 @@ Independe de Docker. Técnicas concretas em [[Infra]].
 - [[Uma faixa de portas por projeto]] — o mapa de portas reservadas.
 - [[Ambiente de dev sobe igual ao de produção]] — mesma receita nos dois lugares.
 
+## Dados e reconciliação — comparar dois mundos
+
+Independe de banco e de domínio (vale contábil, estoque, qualquer conferência).
+
+- [[Balancete é movimento do período, saldo é consequência]] — compare movimento, não saldo.
+- [[Espelhar por balde esconde item no lugar errado]] — a granularidade do espelho decide o que a reconciliação enxerga.
+
 ## Segurança
 
 - [[Permissão se valida no servidor, não na interface]] — esconder botão não é segurança.
