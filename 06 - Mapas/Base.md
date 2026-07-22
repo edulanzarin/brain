@@ -51,6 +51,7 @@ Independe de banco e de domínio (vale contábil, estoque, qualquer conferência
 
 - [[Verificar no build de produção, não só em dev]]
 - [[Semear teste cria linha nova, não muta linha real]]
+- [[Migração de dados mantém o antigo como reserva até a virada]]
 - [[Plataforma de IA hospedada prende o app pelo banco]]
 
 ## Cérebro — como este vault funciona

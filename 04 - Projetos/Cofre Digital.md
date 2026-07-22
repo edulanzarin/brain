@@ -105,6 +105,10 @@ PostgreSQL 17 · Docker Compose. Ícones lucide, PKCS#12 lido no navegador.
   virou criação inline no formulário e gestão no filtro.
 - [[Seletor cria e gerencia os próprios itens]] — o Combobox que criou/renomeou/
   excluiu grupo sem tela dedicada.
+- [[Migração de dados mantém o antigo como reserva até a virada]] — arquivos
+  saindo do banco pra uma pasta sem corte seco.
+- [[Trocar o backend de armazenamento sem downtime]] — a mecânica: ponteiro,
+  leitura de reserva, migração sob demanda.
 
 ## Grupos de empresas (jul/2026)
 
@@ -127,6 +131,23 @@ Como ficou:
   esvaziá-lo — some sozinho, sem faxina manual.
 
 O Combobox que sustenta isso virou técnica: [[Seletor cria e gerencia os próprios itens]].
+
+## Arquivos em pasta na rede (jul/2026)
+
+Os binários (o .pfx do certificado, o PDF do alvará, a imagem de print) eram
+base64 dentro do Postgres. Passaram a poder morar numa **pasta raiz** (um
+compartilhamento de rede montado no container) — dado estruturado fica no banco,
+arquivo vai pro disco. A pasta se define em Configurações, atrás de duas travas:
+admin e uma senha que vive só na env `STORAGE_ROOT_PASSWORD` do servidor.
+
+Feito aditivo e sem susto (o cofre acabava de perder grupos por auto-limpeza):
+`filePath` novo ao lado do `fileData` antigo, gravação nova no disco, leitura
+disco-primeiro-banco-reserva, e um migrador sob demanda que só zera o base64
+depois de gravar o arquivo. Sem pasta configurada, tudo segue no banco. Virou a
+técnica [[Trocar o backend de armazenamento sem downtime]] e o princípio
+[[Migração de dados mantém o antigo como reserva até a virada]] — cujo segundo
+caso é a própria migração de volume Docker deste projeto (dump antes, volume
+antigo parado como rede).
 
 ## Próximos passos possíveis
 

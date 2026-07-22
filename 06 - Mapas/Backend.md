@@ -15,6 +15,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Ler extrato bancário em PDF]] — extrair dado estruturado de PDF.
 - [[Servir anexo por rota com checagem de permissão]] — arquivo protegido não é
   arquivo estático. Princípio: [[Permissão se valida no servidor, não na interface]].
+- [[Trocar o backend de armazenamento sem downtime]] — mover binário do banco pra
+  uma pasta com ponteiro, leitura de reserva e migração sob demanda. Princípio:
+  [[Migração de dados mantém o antigo como reserva até a virada]].
 
 ## Autenticação e permissão
 
