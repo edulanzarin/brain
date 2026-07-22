@@ -18,6 +18,16 @@ criado: 2026-07-19
 
 Conferência = LEFT JOIN da nota (por `chave`) contra o conjunto `substring(chaveorigem from 3)::bigint` dos FI `ME`/`MS` da empresa no período. Nota sem match = **não contabilizada**.
 
+## Prefixos de `chaveorigem` (origem FI não é só nota)
+
+O prefixo de 2 letras do `chaveorigem` diz o que é o lançamento FI:
+- **`ME`/`MS`** = nota individual (entrada/saída) — o elo por chave.
+- **`IM`** = apuração mensal de imposto (ex.: `IMP01`): ICMS/PIS/COFINS a recolher × créditos. Não é nota. **`substring(from 3)` NÃO é numérico aqui** (`IMP01`→`P01`) — cast pra bigint estoura; filtrar `~ '^M[ES][0-9]+$'` antes.
+- **`RE`** = retenção.
+- **`MOV`** = **consolidação** (ex.: `MOVMS202605000001`): venda de varejo/cupom (ECF) agregada do mês num lançamento só. O histórico rotula UMA NF de referência, mas **não é** a nota individual (visto: `MOVMS...` de R$ 210k com histórico "NF 4830", sendo que a nota fiscal 4830 é uma saída de R$ 379,89 — o rótulo engana).
+
+**Armadilha grave da Conferência por nota: venda consolidada gera falso "não contabilizada" em massa.** O varejo lança as vendas em BLOCO (`MOV`), não nota a nota. Como a Conferência procura lançamento `MS` por chave, TODAS as notas consolidadas aparecem como pendentes. Validado emp 1015/mai: **108 notas** CFOP 6107007 (R$ 207,5k) com **zero** lançamento individual, mas 1 consolidação `MOVMS...` de R$ 210,3k cobrindo tudo. Não é erro do escritório. O **balancete fiscal** (que soma TODA origem FI, com MOV/IM espelhados) pega certo; a Conferência ainda precisa reconhecer consolidação.
+
 ## Nem toda nota deve ser contabilizada (senão dá falso positivo)
 
 - **NFSe, CTe, NFCOM, NF3E → 100% contabilizadas.**

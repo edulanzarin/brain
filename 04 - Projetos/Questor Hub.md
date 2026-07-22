@@ -47,6 +47,15 @@ O detalhe da nota virou **modal** nas duas telas do explorador (era expansão in
 
 **Itens robustos** (no `ItensNota`, então vale nos dois modais de uma vez): filtro de produto (código ou descrição) e linha de **somatória** — total, ICMS e IPI — que respeita o filtro (soma só o que ficou à vista). Os dois modais de detalhe ficaram mais largos (`max-w-5xl`). O de Conferência é o mesmo, só que ainda mostra as **divergências** (conta errada etc.), que são conceito só dele.
 
+### Balancete Fiscal (jul/2026)
+
+Seção `/contabil/balancete`: o **balancete hipotético** que as notas DEVERIAM gerar pelas regras, lado a lado com o **real** do contábil, na árvore do plano de contas — pra achar valor na conta errada em nível agregado (a Conferência acha nota a nota; isto é a lente por conta). É **movimento** do período (débito/crédito), não saldo — o saldo é consequência, ver [[Balancete é movimento do período, saldo é consequência]].
+
+- **Motor** (`src/lib/balancete-fiscal.ts`): "replaya" cada nota pelo plano (mesmo motor da Conferência — `planoQuestor` + override + aprendido + `avaliarRegra`), somando por conta. `vlrContICMS` (token mais usado) = `sum(valorcontabilimposto)` do ICMS na `lctofisentcfop` — validado batendo com o lançamento real.
+- **Honesto por construção** (a sacada que fez funcionar): só as contas onde o motor TEM regra (despesa/receita/imposto de mercadoria) mostram divergência. Todo o resto **espelha o real** (fiscal = real → sem falso positivo): contrapartida fornecedor/cliente (por pessoa, sem erro), NFSE de serviço (o fiscal define a conta na mão por nota, não tem regra — ver [[NFSE não tem regra de conta, o fiscal decide na hora]]), e as origens não-nota. O espelho é por **origem do movimento**, não por conta: nota em conta regrada = comparação; consolidação (MOV) / apuração (IM) / retenção (RE) = espelho. Assim receita com nota + cupom bate (nota pelo motor, cupom espelhado). Validado emp 1015/mai: RECEITAS 290.445 fiscal = real; só R$ 1.367 real em Custos.
+- **Árvore e nível**: `classifconta` é a hierarquia (nível = nº de segmentos); botão 1..N corta a profundidade, sintética soma os filhos. **Drill-down**: clicar num valor abre os lançamentos reais (toda origem FI) que compõem a conta, com a nota — cuidado com o cast de `chaveorigem` (ver prefixos em [[Vínculo nota fiscal e lançamento contábil no Questor]]).
+- Escopo atual: o drill-down do lado fiscal e a completude 100% do motor (imposto/retenção nota a nota) são grind aberto — mas a decisão foi que o valor real é **detecção de anomalia** (Auditoria), não reprodução perfeita.
+
 ### Conciliação
 
 Segunda automação do Contábil: ler extrato bancário (OFX/PDF) e gerar os lançamentos já na conta certa. Leitura e prévia **funcionando**; falta só a exportação do arquivo final.
