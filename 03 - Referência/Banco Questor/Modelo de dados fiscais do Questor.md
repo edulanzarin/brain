@@ -63,6 +63,23 @@ cabeçalho pra excluir canceladas). Tabelas enormes (saídas ~47M).
 - `modalidadefrete`: **0** por conta do emitente (CIF), **1** por conta do destinatário (FOB), **2** terceiros, **3** próprio remetente, **4** próprio destinatário, **9** sem frete.
 - Valores de ajuste da nota: `vlrfrete`, `vlrdesc`, `vlrseguro`, `vlroutrdesp` (frete e desconto costumam vir preenchidos; seguro quase sempre 0).
 
+## `lctofis*` pode ter várias linhas por nota (armadilha de "duplicata")
+
+Uma mesma nota (mesma `chavenfe*` de 44 díg.) pode virar **mais de uma linha** de
+cabeçalho `lctofisent`/`lctofissai` — repartida por CFOP, cada linha com o seu
+`valorcontabil` (a soma = valor da nota). Ex. verificado (PAPINHA/488, jun/2026):
+NF-e 451949 = 2 linhas, CFOP 1902002 (R$ 12.781,62) + CFOP 1124002 (R$ 1.064,88),
+`chavelctofissai` distintos. Consequências:
+
+- **Detectar "nota duplicada no fiscal" por chave/documento é falso positivo em
+  massa** — toda nota multi-CFOP parece "lançada 2×". Validado: por chave dava 1890
+  grupos numa empresa; o critério rigoroso (linha idêntica = mesma `chavenfe` + CFOP +
+  `valorcontabil` repetidos em 2+ `chavelctofis*` distintos) deu **0** em todas as
+  empresas/mês testados. Duplicidade fiscal limpa é rara/inexistente nesses dados; a
+  que importa é a **contábil** (re-rodar a contabilização), em [[Vínculo nota fiscal e lançamento contábil no Questor]].
+- Ao somar por nota, agregue as linhas da `chavenfe*` (ou do documento), não trate
+  cada linha como uma nota.
+
 ## Grupos (armadilha)
 
 `grupoprocessam`/`grupoempresa` **não** são grupos de empresas para análise — são de
