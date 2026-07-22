@@ -22,6 +22,14 @@ Semânticos de dado:
 Valores reais (claro / escuro): ent `#2a78d6` / `#3987e5`, sai `#008300` / `#00a300`.
 No escuro as cores são levemente mais claras/saturadas pra manter contraste no fundo escuro.
 
+**Isso vale também pros NEUTROS, não só pras cores de dado.** Reusar o mesmo cinza de
+texto secundário (`--muted`) e a mesma borda nos dois temas parece simétrico, mas no fundo
+escuro o mesmo valor perde contraste perceptual — texto secundário e bordas somem. No
+escuro os neutros sobem um degrau: muted mais claro (`#898781` → `#a3a19a`), hairline com
+mais alpha (10% → 15%), e um passo a mais de separação em `--surface`/`--surface-2`.
+A regra prática: **tema escuro não é o claro invertido — cada camada neutra precisa ser
+recalibrada no fundo escuro** (visto no Questor Hub, jul/2026: "às vezes fica difícil de ver").
+
 ## Claro + escuro
 
 - `:root, :root[data-theme="light"]` define o tema claro; `:root[data-theme="dark"]` o escuro.
