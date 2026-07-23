@@ -20,7 +20,7 @@ Dados que mudam no tempo ficam em tabelas com `datainicial` (PK inclui a data); 
 - `funcsalario` — salário (`valorsal`, `tiposalario`).
 - `funccargo` — cargo/função (`codigocargo` → `cargo`; `codigofuncao` → `funcao`).
 - `funclocal` — lotação por vigência: PK `(codigoempresa, codigofunccontr, datatransf)`; aponta `codigoestab` + `classiforgan` (o **organograma/setor**) e dados CAGED/RAIS. A vigência aqui é `datatransf` (data da transferência), não `datainicial`; lotação atual = maior `datatransf`.
-- `funcescala` (jornada), `funcctps`, `funclegais`, `funcsindicato`, `funcadicional` (insalubridade/periculosidade), etc.
+- `funcescala` (jornada/horário — a vigência liga o contrato à `escala`), `funcctps`, `funclegais`, `funcsindicato`, `funcadicional` (insalubridade/periculosidade), etc. **`escala` é cadastro GLOBAL** (PK só `codigoescala`, sem `codigoempresa`); `descrescala` é o **horário legível** (ex.: "08:00 às 12:00/14:00 às 18:00"), com `turno` e `cargahorsemanal`. A view `funcionario` já traz `codigoescala` (e `descrtipojornada`, que é a jornada por extenso — texto longo, ruim de agrupar; para filtrar/quebrar por "horário", use `escala.descrescala`).
 - `cargo` (`descrcargo`, `cbo` → `cbo`) e `funcao` (`descrfuncao`) são cadastros globais.
 
 ## Rotatividade (turnover): admissão, desligamento e efetivo
