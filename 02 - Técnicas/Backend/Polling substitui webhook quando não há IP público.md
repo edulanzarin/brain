@@ -56,6 +56,6 @@ sem port forward nem IP fixo.
 
 ## Conexões
 - Princípio: [[Configuração vem do ambiente, não do código]]
-- Visto em: [[Navecon Controller]]
+- Visto em: [[Navecon Controller]] · [[Evento Navecon]]
 - Mesma família de problema: [[Plataforma de IA hospedada prende o app pelo banco]]
 - Mapa: [[Backend]]

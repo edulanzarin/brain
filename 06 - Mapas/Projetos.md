@@ -15,6 +15,7 @@ mora aqui: mora em [[Base]] (princípios) e em [[Design]], [[Frontend]], [[Backe
 - [[Navecon Controller]] — automações e integrações.
 - [[Navedesk]] — chamados internos.
 - [[Cofre Digital]] — certificados, acessos e alvarás da intranet.
+- [[Evento Navecon]] — landing da imersão com inscrição e pagamento (Mercado Pago).
 
 ## Regra: projeto não linka projeto
 

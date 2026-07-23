@@ -50,6 +50,7 @@ template: `docker logs <slug>-app`, `docker exec -it <slug>-db psql`.
 | [[Navedesk]] | 4001 | 5401 |
 | [[Questor Hub]] | 4022 | 5022 |
 | [[Navecon Controller]] | 4088 | 5432 |
+| [[Evento Navecon]] | 4099 | 5099 |
 
 App `4xxx`, banco espelha trocando o `4` inicial por `5`. Regra e exceções em
 [[Uma faixa de portas por projeto]].

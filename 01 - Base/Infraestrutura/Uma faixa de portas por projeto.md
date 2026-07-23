@@ -23,6 +23,7 @@ Mapa atual:
 | [[Navedesk]] | 4001 | 5401 |
 | [[Questor Hub]] | 4022 | 5022 |
 | [[Navecon Controller]] | 4088 | 5432 |
+| [[Evento Navecon]] | 4099 | 5099 |
 
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte
 da verdade, não o `docker ps` da máquina que por acaso está ligada.
