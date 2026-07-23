@@ -19,7 +19,7 @@ Dados que mudam no tempo ficam em tabelas com `datainicial` (PK inclui a data); 
 
 - `funcsalario` — salário (`valorsal`, `tiposalario`).
 - `funccargo` — cargo/função (`codigocargo` → `cargo`; `codigofuncao` → `funcao`).
-- `funclocal` — lotação (aponta o `codigoestab` onde trabalha) e dados CAGED/RAIS.
+- `funclocal` — lotação por vigência: PK `(codigoempresa, codigofunccontr, datatransf)`; aponta `codigoestab` + `classiforgan` (o **organograma/setor**) e dados CAGED/RAIS. A vigência aqui é `datatransf` (data da transferência), não `datainicial`; lotação atual = maior `datatransf`.
 - `funcescala` (jornada), `funcctps`, `funclegais`, `funcsindicato`, `funcadicional` (insalubridade/periculosidade), etc.
 - `cargo` (`descrcargo`, `cbo` → `cbo`) e `funcao` (`descrfuncao`) são cadastros globais.
 
@@ -30,9 +30,10 @@ Tudo sai de `funccontrato`, no nível de **contrato**:
 - **Admissões** no período = contratos com `dataadm` dentro do intervalo.
 - **Desligamentos** no período = contratos com `datadem` dentro do intervalo.
 - **Efetivo numa data D** (headcount) = contratos admitidos até D e ainda não desligados: `dataadm <= D and (datadem is null or datadem >= D)`. É estoque, consequência do fluxo — mesma ideia de [[Balancete é movimento do período, saldo é consequência]].
-- **Turnover clássico** = ((admissões + desligamentos) / 2) ÷ efetivo médio × 100, com efetivo médio = (efetivo no início + efetivo no fim) / 2.
+- **Turnover** = ((admissões + desligamentos) / 2) ÷ colaboradores ativos × 100. Existem variantes do denominador — a fórmula "de livro" usa **efetivo médio** ((início+fim)/2), mas o relatório de RH que o escritório usa como referência usa **colaboradores ativos = efetivo no FIM** do intervalo (verificado batendo número a número: setor com 7 ativos, 1 adm e 1 dem → 14,29% = (1+1)/2/7). Alinhar ao denominador do DP, senão os números divergem do que ele confere.
+- **Quebra por setor (organograma)**: atribui cada contrato à sua lotação vigente (`funclocal` → `classiforgan` + `codigoestab`) e junta em `organograma (codigoempresa, codigoestab, classiforgan)` pra pegar `descrorgan` (o nome do setor, ex.: TINTURARIA MALHA). Some por setor os mesmos ativos/adm/dem.
 
-Conta-se por **contrato**, não por pessoa (uma pessoa com dois vínculos conta dois). Armadilha: **transferência** entre estabelecimentos da mesma empresa gera par desligamento+admissão que infla o índice — `codigosit`/`tipovinculo` distinguem, se precisar limpar. Recorte por categoria de vínculo (só CLT) usa `codigocateg`; confirmar os códigos na base antes de assumir. A série mensal sai do padrão [[Estoque e fluxo numa série a partir de datas de início e fim]].
+Conta-se por **contrato**, não por pessoa (uma pessoa com dois vínculos conta dois). Armadilha: **transferência** entre estabelecimentos da mesma empresa gera par desligamento+admissão que infla o índice. Recorte de vínculo: nesta base o `codigocateg` (smallint) vem **nulo** — quem tem valor é `funccontrato.categoria` (varchar, ex.: `'01'` empregado, `'07'`, `'11'`) e `tipovinculo` (varchar, ex.: `'10'` CLT, `'80'` diretor); use esses pra filtrar CLT. E `codigosit` é status cadastral (=1 pra todos), **não** serve de ativo/inativo — o vivo/desligado é `datadem`. A série mensal sai do padrão [[Estoque e fluxo numa série a partir de datas de início e fim]].
 
 ## Cálculo da folha
 
