@@ -109,7 +109,8 @@ Terceiro módulo, primeiro sobre o **RH/folha** do Questor (tabelas `func*` — 
 - **Filtros avançados** (multi-select, recortam TODO o painel): estabelecimento, setor, cargo, vínculo — `/api/folha/filtros` com contagens. Vínculo = `categoria|tipovinculo` (CLT = `01|10`; o `codigocateg` vem nulo, o texto é o que vale).
 - **Movimentações** (`/api/folha/movimentacoes`): lista de admitidos/desligados; cada linha abre a **ficha** do colaborador em modal (`/api/folha/funcionario`: CPF, cargo, função, setor, estab, sexo, idade, escolaridade, salário, cidade, motivo).
 - **Drill em qualquer quebra** (`/api/folha/pessoas`): clicar num setor/cargo/estab/sexo/faixa/motivo/tempo abre as pessoas do grupo → ficha. Dimensões de filtro entram na base; demográficas/motivo/tempo viram predicado com as MESMAS expressões da quebra (`EXPR_FAIXA_ETARIA`/`EXPR_TENURE_FAIXA` na lib `folha-turnover`), pro recorte bater exato com o número. Componentes reusados: `FichaModal`, `PessoasTabela`, `PessoasModal`; `RotatividadeQuebra`/`Barras` ganharam `dim`+`onDrill`. Verificado end-to-end (emp 1200): quebras e drill batem número a número.
-- **Pendente possível**: quebra por escolaridade/estado civil (dados já na view), exportação; rótulo do vínculo fora do CLT ainda é cru.
+- **Quebras demográficas** (escolaridade por `grauinstr`, estado civil) drilláveis como as demais; **comparativo com o período anterior** (mesma duração, via `periodoAnterior` na própria consulta-mãe) com delta nos KPIs (turnover subiu 5,9%→14,5% no semestre); **exportação CSV** das movimentações (sep `;` + BOM p/ Excel pt-BR). Insight: Solteiro gira ~2× o Casado; Superior incompleto (estagiário) gira mais.
+- **Pendente possível**: quebra por raça/cor (códigos RAIS, dado sensível — avaliar), exportação dos agregados, e o rótulo do vínculo fora do CLT ainda é cru.
 
 ## Stack e contexto técnico
 
