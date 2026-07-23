@@ -16,7 +16,10 @@ Ao montar ou comparar balancetes, **compare movimento contra movimento** no mesm
 
 Foi a correção que destravou o balancete fiscal do Questor: parei de perseguir saldo e passei a somar débito/crédito por conta no mês.
 
+Não é só contabilidade. O mesmo formato reaparece na **folha**: o efetivo (headcount) é o estoque, admissões e desligamentos são o fluxo; o turnover se calcula do fluxo sobre o efetivo, sem tabela de saldo. Onde há data de início e fim, o estoque numa data é consequência — ver [[Estoque e fluxo numa série a partir de datas de início e fim]].
+
 ## Conexões
-- Visto em: [[Questor Hub]] (Balancete Fiscal)
+- Aplicação em query: [[Estoque e fluxo numa série a partir de datas de início e fim]]
+- Visto em: [[Questor Hub]] (Balancete Fiscal, Folha/Rotatividade)
 - Dados/plano de contas do Questor: [[Vínculo nota fiscal e lançamento contábil no Questor]]
 - Mapa: [[Base]]

@@ -101,6 +101,13 @@ O **seam de permissão** foi cravado antes de o login existir (`src/lib/sessao.t
 
 O conhecimento do banco Questor (schema, impostos, canceladas, devoluções, SQL) vive aqui no Brain em `03 - Recursos/Banco Questor` — consultar de lá para novas automações.
 
+## Módulo Folha (iniciado)
+
+Terceiro módulo, primeiro sobre o **RH/folha** do Questor (tabelas `func*` — ver [[Módulo de folha e eSocial do Questor]]). Reusa a casca de módulo inteira: entrou como uma linha no catálogo `modulos.ts` (`ativo: true`, home `/folha/rotatividade`), o gate de sessão liberou `folha`, o `apiRoute` passou a casar `/api/folha/...`, e launcher + sidebar (dirigidos por `MODULOS`) propagaram sozinhos. Shell próprio como o Contábil: **uma empresa por vez + período (≤ 1 ano)** via `ConfFilterBar`/`useFiltros`, execução por botão.
+
+- **Rotatividade** (`/folha/rotatividade`): o **turnover** por empresa. Índice clássico ((admissões + desligamentos) / 2 ÷ efetivo médio × 100) a partir de `funccontrato` — admissão/desligamento por `dataadm`/`datadem`, efetivo numa data = admitido até ela e ainda não desligado. Método e armadilhas (conta por contrato; transferência infla; recorte CLT via `codigocateg`) em [[Módulo de folha e eSocial do Questor]]; o padrão de query em [[Estoque e fluxo numa série a partir de datas de início e fim]]. KPIs (turnover %, admissões, desligamentos, efetivo médio início→fim) + série mensal num gráfico composto (barras adm/dem em `--good`/`--critical` + linha do índice em `--esp-5`). Endpoint `/api/folha/turnover` (consolidado do período + série mensal). Foi pedido pelo DP.
+- **Pendente**: recorte por categoria de vínculo (ex.: só CLT) ficou de fora do v1 — o banco estava inacessível na construção e os `codigocateg` precisam ser conferidos contra dados reais antes de assumir o mapeamento. Hoje o índice considera **todos os vínculos** da empresa.
+
 ## Stack e contexto técnico
 
 - Next.js 16 (App Router) + React 19, TypeScript, Tailwind v4.
@@ -146,7 +153,8 @@ Design (reutilizável em outros projetos — ver [[Design]]):
 ## Próximos passos
 
 - [ ] Login e usuários — o **seam de permissão já está de pé** (`sessao.ts` stub + gates em layout e API); falta a autenticação real (form + sessão em cookie) e o `usuario`/`usuario_modulo` no banco próprio, preenchendo `getSessao()`.
-- [ ] Módulos Folha e Patrimônio (já aparecem no launcher como "em breve") — reusar o padrão de módulo/seção/abas.
+- [ ] Folha: recorte por categoria de vínculo na Rotatividade (só CLT), quando o banco estiver acessível e os `codigocateg` confirmados; outras telas de folha (custo de pessoal, headcount, provisões).
+- [ ] Módulo Patrimônio (ainda "em breve" no launcher) — reusar o padrão de módulo/seção/abas.
 - [ ] Talvez repensar grupos de empresas (hoje só localStorage; poderia ser compartilhado entre máquinas).
 - [ ] Possíveis análises futuras: mapa por UF, exportação Excel.
 

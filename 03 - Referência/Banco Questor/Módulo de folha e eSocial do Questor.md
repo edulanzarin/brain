@@ -23,6 +23,17 @@ Dados que mudam no tempo ficam em tabelas com `datainicial` (PK inclui a data); 
 - `funcescala` (jornada), `funcctps`, `funclegais`, `funcsindicato`, `funcadicional` (insalubridade/periculosidade), etc.
 - `cargo` (`descrcargo`, `cbo` → `cbo`) e `funcao` (`descrfuncao`) são cadastros globais.
 
+## Rotatividade (turnover): admissão, desligamento e efetivo
+
+Tudo sai de `funccontrato`, no nível de **contrato**:
+
+- **Admissões** no período = contratos com `dataadm` dentro do intervalo.
+- **Desligamentos** no período = contratos com `datadem` dentro do intervalo.
+- **Efetivo numa data D** (headcount) = contratos admitidos até D e ainda não desligados: `dataadm <= D and (datadem is null or datadem >= D)`. É estoque, consequência do fluxo — mesma ideia de [[Balancete é movimento do período, saldo é consequência]].
+- **Turnover clássico** = ((admissões + desligamentos) / 2) ÷ efetivo médio × 100, com efetivo médio = (efetivo no início + efetivo no fim) / 2.
+
+Conta-se por **contrato**, não por pessoa (uma pessoa com dois vínculos conta dois). Armadilha: **transferência** entre estabelecimentos da mesma empresa gera par desligamento+admissão que infla o índice — `codigosit`/`tipovinculo` distinguem, se precisar limpar. Recorte por categoria de vínculo (só CLT) usa `codigocateg`; confirmar os códigos na base antes de assumir. A série mensal sai do padrão [[Estoque e fluxo numa série a partir de datas de início e fim]].
+
 ## Cálculo da folha
 
 - **`periodocalculo`** — o período/competência: PK `(codigoempresa, codigopercalculo)`; `compet` (competência), `datainicialfolha`/`datafinalfolha`, `datapgto`, `codigotipocalc` → `tipocalculo`, `fechado`.

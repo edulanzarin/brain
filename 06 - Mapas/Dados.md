@@ -14,6 +14,9 @@ de sistema externo é referência e tem mapa próprio.
 
 - [[Agregar antes de juntar em tabelas gigantes no Postgres]] — reduzir antes de
   juntar; o padrão que salvou consulta em tabela de 47M linhas.
+- [[Estoque e fluxo numa série a partir de datas de início e fim]] — de datas de
+  início/fim saem fluxo (entrou/saiu) e estoque (ativos numa data); série densa
+  com `generate_series` + `count filter`.
 
 ## Referência de schema externo
 
