@@ -15,11 +15,14 @@ Código em: `~/Dev/evento-navecon`
 
 ## Estado atual
 
-Landing pronta (React/Vite). Backend de pagamento construído e verificado
-end-to-end **localmente** (migration, inscrição, `/api/payment/status`, fallback
-do SPA) com token do MP e SMTP falsos — o fluxo até o Mercado Pago está provado.
-Falta rodar com **credenciais reais**, definir o domínio público
-(`PUBLIC_BASE_URL`) e o deploy. Vive na branch `feat/mercadopago-checkout`.
+Landing + backend de pagamento prontos e verificados. A stack inteira sobe via
+`docker compose up --build` (migration aplica e sai, app sobe em produção). O
+**Mercado Pago foi validado com o token real** — `/api/register` gera um checkout
+de verdade (`mercadopago.com.br/checkout/...`). Hardening de produção feito
+(helmet/CSP, rate limit, banco em loopback, TLS no Caddy). Falta: rodar no
+servidor com o **domínio** (DNS + Caddy emite o cert), validar o **SMTP** no
+ambiente real (não testei daqui pra não disparar alerta de login do Gmail) e
+mergear. Vive na branch `feat/mercadopago-checkout`.
 
 ## Infra
 
@@ -48,6 +51,9 @@ app) · **Mercado Pago Checkout Pro** (redirect).
   [[Polling substitui webhook quando não há IP público]].
 - **6x com juros pro cliente** (a loja recebe o valor cheio) — decisão de
   negócio; muda só a config no painel do MP e o texto exibido.
+- **Nada exposto direto; Caddy na frente.** App e Postgres publicam só em
+  `127.0.0.1`; o Caddy (compose de prod) termina o TLS (Let's Encrypt) e faz
+  proxy pro `app:3000`. Mais helmet/CSP e rate limit no `/api/register`.
 
 ## Aprendizados (viraram notas)
 
@@ -60,9 +66,11 @@ Só links. O texto mora na nota de técnica/princípio.
 
 - [ ] Preencher o `.env` real (access token do MP, senha de app do Gmail, senha do Postgres)
 - [ ] Ativar **pix** e **parcelamento até 6x** no painel do Mercado Pago
-- [ ] Definir `PUBLIC_BASE_URL` (domínio) e, com IP público, o webhook `/api/mp/webhook`
+- [ ] Apontar o **domínio** (DNS A/AAAA) e subir com `docker-compose.prod.yml` (Caddy/TLS)
+- [ ] Definir `PUBLIC_BASE_URL=https://<domínio>` e, com isso, o webhook `/api/mp/webhook`
+- [ ] Validar o envio de e-mail no servidor real (SMTP não testado do ambiente de dev)
 - [ ] **Rotacionar** o access token e a senha de app (foram colados em chat)
-- [ ] Deploy e merge da branch `feat/mercadopago-checkout`
+- [ ] Merge da branch `feat/mercadopago-checkout`
 
 ## Conexões
 - Usa: [[Design]] · [[Infra]]
