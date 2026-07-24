@@ -2,14 +2,14 @@
 tags: [tipo/projeto, projeto/navetech-hub]
 criado: 2026-07-18
 status: ativo
-codigo_em: ~/Dev/questor-hub
+codigo_em: ~/Dev/navetech-hub
 ---
 
 # Navetech Hub
 
 > Plataforma web da Navecon sobre a base PostgreSQL do sistema contábil Questor (banco "Navecon" do escritório). Organizada **por módulos** (Fiscal, Contábil, e o que vier — Folha, Patrimônio): cada um com suas próprias telas e permissão. Nasceu como dashboard fiscal ("Questor BI"), virou "Questor Hub" quando "BI" ficou pequeno (é também ferramenta operacional, não só dashboard) e em **jul/2026 virou Navetech Hub** — o produto passou a ir além do Questor, então o nome não devia mais amarrar a ele.
 
-Código em: `~/Dev/questor-hub` (pasta local mantida; o nome do projeto não depende dela). Slug `navetech-hub`, containers `navetech-hub-app`/`navetech-hub-db`, banco próprio `navetechhub` (recriado do zero na renomeação), par de portas **4022 app / 5022 banco**. O sistema externo lido segue sendo o **Questor** (banco `Navecon`), intocado.
+Código em: `~/Dev/navetech-hub` (pasta local renomeada junto com o projeto em jul/2026; o nome do projeto não depende dela). Remote `git@github.com:edulanzarin/navetech-hub.git`. Slug `navetech-hub`, containers `navetech-hub-app`/`navetech-hub-db`, banco próprio `navetechhub` (recriado do zero na renomeação), par de portas **4022 app / 5022 banco**. O sistema externo lido segue sendo o **Questor** (banco `Navecon`), intocado.
 
 ## Estado atual
 
@@ -159,6 +159,7 @@ Gerais de dev:
 - [[Agregar antes de juntar em tabelas gigantes no Postgres]]
 - [[router.replace do Next falha no build de produção]]
 - [[Validar paleta de gráficos antes de escolher cores]]
+- [[Versão é corte deliberado em SemVer, não efeito de cada merge]]
 
 Design (reutilizável em outros projetos — ver [[Design]]):
 - [[Sistema de cores e tema do dashboard]]

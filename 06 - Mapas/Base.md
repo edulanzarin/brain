@@ -53,6 +53,7 @@ Independe de banco e de domínio (vale contábil, estoque, qualquer conferência
 - [[Semear teste cria linha nova, não muta linha real]]
 - [[Migração de dados mantém o antigo como reserva até a virada]]
 - [[Plataforma de IA hospedada prende o app pelo banco]]
+- [[Versão é corte deliberado em SemVer, não efeito de cada merge]]
 
 ## Cérebro — como este vault funciona
 
