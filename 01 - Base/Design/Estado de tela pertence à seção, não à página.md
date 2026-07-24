@@ -80,5 +80,5 @@ vida ao estado passou a dar também o compartilhamento.
 
 ## Conexões
 - Ver também: [[Cache do React Query não é lugar de estado de interface]]
-- Visto em: [[Questor Hub]], nas seções do módulo Contábil
+- Visto em: [[Navetech Hub]], nas seções do módulo Contábil
 - Mapa: [[Base]] · [[Design]]

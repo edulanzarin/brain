@@ -9,7 +9,7 @@ criado: 2026-07-18
 
 ## O quê
 
-Ao fazer dashboards ([[Questor Hub]]), a ordem certa é: primeiro escolher a **forma** do gráfico pelo trabalho do dado (magnitude, identidade, comparação), e a **cor por último**. As cores categóricas devem ser atribuídas em ordem fixa (nunca cicladas) e a paleta passar por checagens objetivas:
+Ao fazer dashboards ([[Navetech Hub]]), a ordem certa é: primeiro escolher a **forma** do gráfico pelo trabalho do dado (magnitude, identidade, comparação), e a **cor por último**. As cores categóricas devem ser atribuídas em ordem fixa (nunca cicladas) e a paleta passar por checagens objetivas:
 
 - banda de luminosidade e piso de croma (não pode "virar cinza"),
 - separação entre pares adjacentes sob daltonismo (protan/deutan/tritan) — alvo ΔE ≥ 8,
@@ -24,5 +24,5 @@ Evita o erro clássico de paleta bonita mas ilegível pra ~8% dos homens (dalton
 ## Conexões
 - Princípio: [[Token semântico em vez de valor literal]]
 - Ver também: [[Projetos]]
-- Visto em: [[Questor Hub]]
+- Visto em: [[Navetech Hub]]
 - Mapa: [[Design]]

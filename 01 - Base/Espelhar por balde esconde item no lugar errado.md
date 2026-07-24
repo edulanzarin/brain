@@ -16,6 +16,6 @@ Excluir do espelho **tudo** de um item que o motor reproduziu só em parte cria 
 Duas perguntas parecem a mesma e não são: "o total bate?" (lente agregada) e "cada item está no lugar certo?" (lente item a item). Espelho por balde responde só a primeira. Com o espelho por item, a lente agregada passa a mostrar também o deslocamento — em pares que se anulam — sem perder a honestidade (o que o motor não reproduz continua espelhado e não gera falso positivo).
 
 ## Conexões
-- Visto em: [[Questor Hub]] — Balancete Fiscal: empresa com dezenas de notas na conta errada dava "tudo ok"; espelho por nota (com exclusão só no bypass) expôs os pares ±, mantendo dupla partida e reconciliação exata; excluir tudo da nota reproduzida criou fantasma de milhões (PIS/COFINS a recuperar sem substituto).
+- Visto em: [[Navetech Hub]] — Balancete Fiscal: empresa com dezenas de notas na conta errada dava "tudo ok"; espelho por nota (com exclusão só no bypass) expôs os pares ±, mantendo dupla partida e reconciliação exata; excluir tudo da nota reproduzida criou fantasma de milhões (PIS/COFINS a recuperar sem substituto).
 - Parente: [[Balancete é movimento do período, saldo é consequência]]
 - Mapa: [[Base]] · [[Dados]]

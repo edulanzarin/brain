@@ -52,5 +52,5 @@ sozinho. Skeleton cobre o primeiro load da área; ver
 ## Conexões
 - Princípio: [[Todo estado da tela tem visual]] · [[Estado compartilhável mora na URL]]
 - Irmã: [[Controles de filtro do dashboard]] · [[Filtro de lista mora na URL]]
-- Visto em: [[Questor Hub]]
+- Visto em: [[Navetech Hub]]
 - Mapa: [[Design]]

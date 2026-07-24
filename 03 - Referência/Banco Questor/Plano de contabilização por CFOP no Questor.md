@@ -56,7 +56,7 @@ Não dá pra olhar **só o mês da tela**: num mês ainda não fechado (0 contab
 
 ## Conexões
 - Índice: [[Banco Questor]] · Contábil: [[Módulo contábil do Questor]]
-- Visto em: [[Questor Hub]] (abas Configuração e Conferência de Contas)
+- Visto em: [[Navetech Hub]] (abas Configuração e Conferência de Contas)
 - Elo nota↔lançamento: [[Vínculo nota fiscal e lançamento contábil no Questor]]
 - Fiscal: [[Modelo de dados fiscais do Questor]] · Tributos: [[Impostos no Questor - onde fica cada um]]
 - Mapa: [[Banco Questor]]

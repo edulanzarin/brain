@@ -29,5 +29,5 @@ de altura. Enxuta + modal separa os dois momentos — **procurar** (a lista) e
 [[Todo estado da tela tem visual]]: o modal é onde o estado "detalhe" ganha forma.
 
 ## Conexões
-- Visto em: [[Questor Hub]]
+- Visto em: [[Navetech Hub]]
 - Mapa: [[Pensamentos]]

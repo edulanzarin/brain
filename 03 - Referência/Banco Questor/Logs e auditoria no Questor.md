@@ -23,7 +23,7 @@ Quase toda tabela transacional já carrega, por linha:
 - `datahoralcto` / `datahoralctofis` / `datahoralctoctb` — carimbo de quando foi lançado.
 - `origemdado` — como entrou (`3` integração, `2` importado, `1` manual).
 
-Para "quem lançou esta nota / este lançamento contábil", leia essas colunas direto na tabela do dado — sem tocar em `loggeral`. (Foi assim que o [[Questor Hub]] fez a análise de quem lançou a nota.)
+Para "quem lançou esta nota / este lançamento contábil", leia essas colunas direto na tabela do dado — sem tocar em `loggeral`. (Foi assim que o [[Navetech Hub]] fez a análise de quem lançou a nota.)
 
 ## Rastros de exclusão/retificação
 

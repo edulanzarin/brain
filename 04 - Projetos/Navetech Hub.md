@@ -1,15 +1,15 @@
 ---
-tags: [tipo/projeto, projeto/questor-hub]
+tags: [tipo/projeto, projeto/navetech-hub]
 criado: 2026-07-18
 status: ativo
-codigo_em: ~/Dev/questor-bi
+codigo_em: ~/Dev/questor-hub
 ---
 
-# Questor Hub
+# Navetech Hub
 
-> Plataforma web da Navecon sobre a base PostgreSQL do sistema contábil Questor (banco "Navecon" do escritório). Organizada **por módulos** (Fiscal, Contábil, e o que vier — Folha, Patrimônio): cada um com suas próprias telas e permissão. Nasceu como dashboard fiscal (por isso o nome antigo, "Questor BI") e em jul/2026 virou Hub — "BI" era só uma das lentes; o Contábil, por exemplo, é ferramenta operacional, não dashboard.
+> Plataforma web da Navecon sobre a base PostgreSQL do sistema contábil Questor (banco "Navecon" do escritório). Organizada **por módulos** (Fiscal, Contábil, e o que vier — Folha, Patrimônio): cada um com suas próprias telas e permissão. Nasceu como dashboard fiscal ("Questor BI"), virou "Questor Hub" quando "BI" ficou pequeno (é também ferramenta operacional, não só dashboard) e em **jul/2026 virou Navetech Hub** — o produto passou a ir além do Questor, então o nome não devia mais amarrar a ele.
 
-Código em: `~/Dev/questor-bi` (pasta mantida; slug `questor-hub`, containers `questor-hub-app`/`questor-hub-db`, par de portas **4022 app / 5022 banco** — passou pro espelho na renomeação; nome interno do banco `questorbi` segue).
+Código em: `~/Dev/questor-hub` (pasta local mantida; o nome do projeto não depende dela). Slug `navetech-hub`, containers `navetech-hub-app`/`navetech-hub-db`, banco próprio `navetechhub` (recriado do zero na renomeação), par de portas **4022 app / 5022 banco**. O sistema externo lido segue sendo o **Questor** (banco `Navecon`), intocado.
 
 ## Estado atual
 

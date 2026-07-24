@@ -40,5 +40,5 @@ lançada**; a não lançada agora aparece como o que é — uma falta.
 
 ## Conexões
 - Vínculo nota↔lançamento: [[Vínculo nota fiscal e lançamento contábil no Questor]]
-- Visto em: [[Questor Hub]] (Balancete Fiscal, NFSE-espelho e pendentes)
+- Visto em: [[Navetech Hub]] (Balancete Fiscal, NFSE-espelho e pendentes)
 - Mapa: [[Banco Questor]]

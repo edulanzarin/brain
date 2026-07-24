@@ -28,7 +28,7 @@ escuro o mesmo valor perde contraste perceptual — texto secundário e bordas s
 escuro os neutros sobem um degrau: muted mais claro (`#898781` → `#a3a19a`), hairline com
 mais alpha (10% → 15%), e um passo a mais de separação em `--surface`/`--surface-2`.
 A regra prática: **tema escuro não é o claro invertido — cada camada neutra precisa ser
-recalibrada no fundo escuro** (visto no Questor Hub, jul/2026: "às vezes fica difícil de ver").
+recalibrada no fundo escuro** (visto no Navetech Hub, jul/2026: "às vezes fica difícil de ver").
 
 ## Claro + escuro
 

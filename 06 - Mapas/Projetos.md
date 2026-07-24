@@ -11,7 +11,7 @@ mora aqui: mora em [[Base]] (princípios) e em [[Design]], [[Frontend]], [[Backe
 
 ## Ativos
 
-- [[Questor Hub]] — dashboard fiscal e contábil sobre o banco do ERP.
+- [[Navetech Hub]] — dashboard fiscal e contábil sobre o banco do ERP.
 - [[Navecon Controller]] — automações e integrações.
 - [[Navedesk]] — chamados internos.
 - [[Cofre Digital]] — certificados, acessos e alvarás da intranet.
@@ -22,7 +22,7 @@ mora aqui: mora em [[Base]] (princípios) e em [[Design]], [[Frontend]], [[Backe
 Dois sistemas que não trocam dado **não se linkam**, mesmo que compartilhem stack,
 visual ou servidor. O que eles têm em comum não é um o outro — é a base.
 
-Errado: `Navedesk — Reusa o visual de: [[Questor Hub]]`
+Errado: `Navedesk — Reusa o visual de: [[Navetech Hub]]`
 Certo: `Navedesk — Usa: [[Design]]`
 
 O primeiro cria uma ponte falsa: sugere dependência onde não existe, faz o projeto mais

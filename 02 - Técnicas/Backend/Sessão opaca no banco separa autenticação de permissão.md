@@ -40,5 +40,5 @@ mesma renderização compartilharem uma leitura só.
 - Princípio: [[Permissão se valida no servidor, não na interface]]
 - Irmã: [[Cravar o seam de permissão antes do login]]
 - Depende de: [[Configuração vem do ambiente, não do código]]
-- Visto em: [[Questor Hub]]
+- Visto em: [[Navetech Hub]]
 - Mapa: [[Backend]]

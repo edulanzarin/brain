@@ -46,7 +46,7 @@ Uma linha por produto (`seq`): `codigoproduto`, `codigocfop`, `unidademedida`,
 [[Impostos no Questor - onde fica cada um]]. **Não têm `cancelada`** (juntar ao
 cabeçalho pra excluir canceladas). Tabelas enormes (saídas ~47M).
 
-**Auditoria é só no cabeçalho**: as tabelas de item têm apenas `datalctofis`, **não** têm `codigousuario` nem `datahoralctofis`. Quem lançou e quando (análise de produtividade por colaborador, ritmo horário) sai do cabeçalho: `codigousuario` → `usuario` e `datahoralctofis` (timestamp) dão hora/dia-da-semana. `codigousuario = 0` = ADMINISTRADOR/importação automática. Foi essa a base da seção Produtividade do [[Questor Hub]].
+**Auditoria é só no cabeçalho**: as tabelas de item têm apenas `datalctofis`, **não** têm `codigousuario` nem `datahoralctofis`. Quem lançou e quando (análise de produtividade por colaborador, ritmo horário) sai do cabeçalho: `codigousuario` → `usuario` e `datahoralctofis` (timestamp) dão hora/dia-da-semana. `codigousuario = 0` = ADMINISTRADOR/importação automática. Foi essa a base da seção Produtividade do [[Navetech Hub]].
 
 ## Tabelas de apoio
 
@@ -87,12 +87,12 @@ processamento interno. Ver [[grupoprocessam do Questor não é grupo de empresas
 
 ## Por que importa
 
-Base de qualquer relatório/BI sobre o Questor — usado no [[Questor Hub]]. Consultar essas
+Base de qualquer relatório/BI sobre o Questor — usado no [[Navetech Hub]]. Consultar essas
 tabelas gigantes exige [[Agregar antes de juntar em tabelas gigantes no Postgres]].
 
 ## Conexões
 - Ver também: [[Canceladas e devoluções no Questor]] · [[Receitas SQL do Questor]] · [[grupoprocessam do Questor não é grupo de empresas]]
-- Visto em: [[Questor Hub]]
+- Visto em: [[Navetech Hub]]
 - Índice do banco: [[Banco Questor]] · Convenções gerais: [[Panorama e convenções do banco Questor]]
 - Conexão: [[Questor - conexão read-only e regras]]
 - Detalha impostos: [[Impostos no Questor - onde fica cada um]] · Reforma: [[Reforma tributária IBS-CBS no Questor]]

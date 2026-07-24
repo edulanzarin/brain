@@ -63,7 +63,7 @@ Saldos **já acumulados** por conta (evita somar 32M de lançamentos).
 
 ## Por que importa
 
-Base de qualquer relatório contábil (balancete, DRE, razão, livro diário) e da futura seção Contábil do [[Questor Hub]]. O `codigooriglctoctb` conecta este módulo a folha, fiscal, financeiro e patrimônio.
+Base de qualquer relatório contábil (balancete, DRE, razão, livro diário) e da futura seção Contábil do [[Navetech Hub]]. O `codigooriglctoctb` conecta este módulo a folha, fiscal, financeiro e patrimônio.
 
 ## Conexões
 - Índice do banco: [[Banco Questor]] · Convenções: [[Panorama e convenções do banco Questor]]

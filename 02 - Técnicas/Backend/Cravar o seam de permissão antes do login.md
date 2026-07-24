@@ -58,5 +58,5 @@ o botão; a do servidor tranca a porta.
 ## Conexões
 - Princípio: [[Permissão se valida no servidor, não na interface]]
 - Depende de: [[Configuração vem do ambiente, não do código]]
-- Visto em: [[Questor Hub]]
+- Visto em: [[Navetech Hub]]
 - Mapa: [[Backend]]

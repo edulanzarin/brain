@@ -20,6 +20,6 @@ Não é só contabilidade. O mesmo formato reaparece na **folha**: o efetivo (he
 
 ## Conexões
 - Aplicação em query: [[Estoque e fluxo numa série a partir de datas de início e fim]]
-- Visto em: [[Questor Hub]] (Balancete Fiscal, Folha/Rotatividade)
+- Visto em: [[Navetech Hub]] (Balancete Fiscal, Folha/Rotatividade)
 - Dados/plano de contas do Questor: [[Vínculo nota fiscal e lançamento contábil no Questor]]
 - Mapa: [[Base]]

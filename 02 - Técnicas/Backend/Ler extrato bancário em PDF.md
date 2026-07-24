@@ -55,6 +55,6 @@ Validação forte quando se tem os dois formatos do mesmo extrato: ler OFX e PDF
 ## Conexões
 - Princípio: [[Chamada externa tem timeout e erro tratado]]
 - Relacionado: [[Agregar antes de juntar em tabelas gigantes no Postgres]] (mesma ideia: deixar o dado se validar)
-- Visto em: [[Questor Hub]] (seção Conciliação)
+- Visto em: [[Navetech Hub]] (seção Conciliação)
 - Contas contábeis do banco: [[Contas bancárias e layout de contabilização no Questor]]
 - Mapa: [[Backend]]

@@ -40,10 +40,10 @@ O produto cartesiano `m × f` só compensa quando o fato é pequeno (dezenas de 
 
 ## Por que importa
 
-Vale para qualquer métrica de rotatividade/ocupação sobre registros com vigência. No [[Questor Hub]] é o turnover da Folha: `funccontrato` tem `dataadm`/`datadem`, o efetivo numa data é "admitido e ainda não desligado", e a série mensal alimenta o índice ((admissões+desligamentos)/2 ÷ efetivo médio).
+Vale para qualquer métrica de rotatividade/ocupação sobre registros com vigência. No [[Navetech Hub]] é o turnover da Folha: `funccontrato` tem `dataadm`/`datadem`, o efetivo numa data é "admitido e ainda não desligado", e a série mensal alimenta o índice ((admissões+desligamentos)/2 ÷ efetivo médio).
 
 ## Conexões
 - Princípio: [[Balancete é movimento do período, saldo é consequência]]
 - Relacionado: [[Agregar antes de juntar em tabelas gigantes no Postgres]]
-- Visto em: [[Questor Hub]] (Folha — Rotatividade)
+- Visto em: [[Navetech Hub]] (Folha — Rotatividade)
 - Mapa: [[Dados]]

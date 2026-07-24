@@ -21,7 +21,7 @@ Mapa atual:
 |---|---|---|
 | [[Cofre Digital]] | 4004 | 5004 |
 | [[Navedesk]] | 4001 | 5401 |
-| [[Questor Hub]] | 4022 | 5022 |
+| [[Navetech Hub]] | 4022 | 5022 |
 | [[Navecon Controller]] | 4088 | 5432 |
 | [[Evento Navecon]] | 4099 | 5099 |
 
@@ -45,10 +45,10 @@ silencioso: dois projetos com o mesmo banco em 5432, eu abro o cliente SQL apont
 pro que achei que era, e rodo query no banco errado. Com faixa reservada, a porta
 identifica o projeto sozinha.
 
-Cofre Digital e Questor Hub seguem o espelho `4xxx`→`5xxx`. Os que vieram antes e ainda
+Cofre Digital e Navetech Hub seguem o espelho `4xxx`→`5xxx`. Os que vieram antes e ainda
 não seguem: Navecon Controller (5432) e Navedesk (5401, formato antigo `54xx`) — ficam
 como estão, repontar porta de projeto rodando não paga o risco; o espelho vale daqui pra
-frente. O Questor Hub era exceção (5433) e passou pro espelho (5022) na renomeação de
+frente. O Navetech Hub era exceção (5433) e passou pro espelho (5022) na renomeação de
 jul/2026, aproveitando que já estava mexendo em tudo — a hora barata de repontar é
 quando o projeto já vai mudar de nome mesmo.
 

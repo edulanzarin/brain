@@ -48,7 +48,7 @@ Ou seja, a ordem de campos é **data · conta débito · conta crédito · valor
 
 ## Conexões
 - Índice: [[Banco Questor]] · Contábil: [[Módulo contábil do Questor]]
-- Visto em: [[Questor Hub]] (seção Extratos no módulo Contábil)
+- Visto em: [[Navetech Hub]] (seção Extratos no módulo Contábil)
 - Plano de contas: [[Cadastros centrais do Questor - empresa, estab, pessoa]]
 - Contabilização de nota: [[Plano de contabilização por CFOP no Questor]]
 - Mapa: [[Banco Questor]]

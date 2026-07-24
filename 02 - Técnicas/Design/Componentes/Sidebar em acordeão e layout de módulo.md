@@ -43,7 +43,7 @@ brinde, a primeira porta de permissão.
 
 O que não muda é a ideia de fundo: um **catálogo único** dirige launcher, sidebar e
 gate ao mesmo tempo; cada módulo tem seu `layout` com a sidebar dele; cada seção busca
-só os seus dados. Foi a troca feita no [[Questor Hub]] ao sair de um módulo para vários
+só os seus dados. Foi a troca feita no [[Navetech Hub]] ao sair de um módulo para vários
 com login à vista. O gate que o launcher inaugura em
 [[Cravar o seam de permissão antes do login]].
 

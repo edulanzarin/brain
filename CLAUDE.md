@@ -81,8 +81,8 @@ exemplo, nunca todas.
   mostra *todos* os projetos que usaram, não só o primeiro.
 - **Projeto não linka projeto.** Dois sistemas que não trocam dado não se linkam, mesmo
   compartilhando stack, visual ou servidor. O que têm em comum não é um o outro — é a
-  base. Errado: `Navedesk — Reusa o visual de: [[Questor Hub]]`. Certo:
-  `Navedesk — Usa: [[Design]]`. (O exemplo cita `[[Questor Hub]]`, antigo "Questor
+  base. Errado: `Navedesk — Reusa o visual de: [[Navetech Hub]]`. Certo:
+  `Navedesk — Usa: [[Design]]`. (O exemplo cita `[[Navetech Hub]]`, antigo "Questor
   BI".) Só linke projeto a projeto se houver relação real:
   consome a API do outro, compartilha banco, ou substituiu o outro.
 - **Projeto arquivado não leva conhecimento junto.** Se levar, o link estava errado.
@@ -183,7 +183,7 @@ satélites pequenos.
 - `camada/principio` âmbar `16090144` · `camada/padrao` teal `1352385` ·
   `camada/referencia` ciano `399329` · `tipo/pensamento` roxo `11032055` ·
   `tipo/moc` cinza `7041664`
-- Um projeto, uma cor, **só na nota do projeto**: questor-hub azul `3900150` ·
+- Um projeto, uma cor, **só na nota do projeto**: navetech-hub azul `3900150` ·
   navedesk rosa `16007790` · cofre-digital verde-limão `8378422` ·
   navecon-controller coral `14707802`
 - **Projeto novo**: `colorGroup` com `"query": "tag:#projeto/<slug>"` e cor nova distinta.

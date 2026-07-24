@@ -133,7 +133,7 @@ select f.seq, f.codigoproduto, pr.descrproduto, f.codigocfop, cf.descrcfop,
 ```
 
 ## Conexões
-- Visto em: [[Questor Hub]]
+- Visto em: [[Navetech Hub]]
 - Índice do banco: [[Banco Questor]]
 - Contexto: [[Modelo de dados fiscais do Questor]] · [[Impostos no Questor - onde fica cada um]] · [[Canceladas e devoluções no Questor]]
 - Mapa: [[Banco Questor]]
