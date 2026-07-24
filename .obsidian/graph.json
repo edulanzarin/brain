@@ -36,13 +36,6 @@
       }
     },
     {
-      "query": "tag:#projeto/evento-navecon",
-      "color": {
-        "a": 1,
-        "rgb": 3066993
-      }
-    },
-    {
       "query": "tag:#tipo/moc",
       "color": {
         "a": 1,
@@ -88,6 +81,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 0.23168351065741746,
+  "scale": 0.4419647715960986,
   "close": true
 }

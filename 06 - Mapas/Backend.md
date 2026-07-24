@@ -24,6 +24,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Cravar o seam de permissão antes do login]] — stub da sessão + gate num lugar só,
   pra permissão não virar retrofit. Princípio:
   [[Permissão se valida no servidor, não na interface]].
+- [[Sessão opaca no banco separa autenticação de permissão]] — cookie só carrega o
+  token; permissão vem do banco a cada request (revogável, sempre atual).
+- [[Escopo de dado se clampa no servidor, num funil só]] — a lista de "o que o
+  usuário pediu" não é confiável; a restrição real mora num funil único.
 - [[O que dois módulos compartilham é a query, não a rota]] — reuso de dado entre
   módulos sem furar o gate por módulo.
 
