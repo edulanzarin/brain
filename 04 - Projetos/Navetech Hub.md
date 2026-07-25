@@ -122,6 +122,56 @@ Terceiro módulo, primeiro sobre o **RH/folha** do Questor (tabelas `func*` — 
 - **Quebras demográficas** (escolaridade por `grauinstr`, estado civil) drilláveis como as demais; **comparativo com o período anterior** (mesma duração, via `periodoAnterior` na própria consulta-mãe) com delta nos KPIs (turnover subiu 5,9%→14,5% no semestre); **exportação CSV** das movimentações (sep `;` + BOM p/ Excel pt-BR). Insight: Solteiro gira ~2× o Casado; Superior incompleto (estagiário) gira mais.
 - **Pendente possível**: quebra por raça/cor (códigos RAIS, dado sensível — avaliar), exportação dos agregados, e o rótulo do vínculo fora do CLT ainda é cru.
 
+## Módulo RH (interno da Navecon — jul/2026)
+
+Quarto módulo, o primeiro **interno** (não é sobre os clientes do escritório, e
+sim sobre o pessoal da própria Navecon). Escopo FIXO em **duas empresas do
+Questor**: NAVECON (`codigoempresa 1`, o próprio escritório) e FOUR
+(`codigoempresa 888`) — ~82 ativos. O escopo é forçado (`EMPRESAS_RH = [1, 888]`
+em `src/lib/rh.ts`), **ignorando o grupo de empresas da sessão** de propósito: o
+grupo padrão do Hub é "Todas menos NAVECON", que esconderia justo a empresa 1. O
+gate do módulo é ter as seções do RH; o dado sempre se limita a essas duas.
+Reusa a casca inteira (uma linha em `modulos.ts`, `rh-secoes.ts`, gate por seção).
+
+- **Diretório** (`/rh/diretorio`): funcionários ativos das duas empresas, filtro
+  por empresa/setor + busca e contagem por empresa (tudo no cliente — dataset
+  pequeno); ficha em modal. A ficha reusa a QUERY da Folha extraída para
+  `funcionario-ficha.ts`, cada módulo servindo pela sua rota — de novo
+  [[O que dois módulos compartilham é a query, não a rota]].
+- **Gestores** (`/rh/gestores`): cadastro (banco do app) de supervisores/
+  coordenadores POR SETOR do organograma, N por setor (nome + e-mail + papel). É
+  o que o Questor não tem — ver [[Módulo de folha e eSocial do Questor]] (buraco
+  de supervisor/e-mail). Alimenta o destinatário do formulário de experiência.
+- **Experiência** (`/rh/experiencia`): o coração. Contrato CLT = **45 + 45 dias**;
+  dois marcos de avaliação (45 = prorrogar? / 90 = efetivar ou desligar). O
+  painel projeta os marcos dos contratos em curso com status (aguardando ·
+  respondido · **atraso**). Um **job diário** (`/api/rh/cron/experiencia`,
+  protegido por `RH_CRON_SECRET`, batido por cron do host) dispara o lembrete
+  devido de cada marco — **D-15/10/5/1** antes e um aviso de **atraso** depois —,
+  um por rodada e idempotente (log de lembrete com unique por slot). O e-mail vai
+  para todos os gestores do setor via SMTP (`nodemailer`, com driver de log
+  quando não configurado).
+- **Formulário público** (`/experiencia/[token]`): o supervisor responde **sem
+  logar**, por link com token opaco. Critérios numa escala, recomendação por
+  marco e comentários; salva a resposta e marca a experiência como respondida.
+  Padrão em [[Formulário público por token opaco fica fora do gate de sessão]].
+- **Rotatividade** (`/rh/rotatividade`): o turnover das duas empresas, período +
+  empresa, reusando a Folha inteira. A consulta-mãe saiu para
+  `folha-turnover-query.ts` (turnover + movimentações + pessoas) e `construirBase`
+  ganhou "empresa forçada": a Folha usa o escopo da sessão, o RH força NAVECON/
+  FOUR — a query é compartilhada, a rota não. Como o painel mistura as duas
+  empresas, `FolhaMovimentacao` passou a carregar `codigoempresa` e a ficha abre
+  pela empresa da linha (contrato é PK por empresa, colide entre as duas).
+
+Migration `008_rh.sql`: `rh_setor_gestor`, `rh_experiencia` (1 por empresa×
+contrato×marco, com token e status), `rh_experiencia_resposta`,
+`rh_experiencia_lembrete` (log por slot). Verificado ponta a ponta contra os
+bancos reais (materializa → token → resposta → status respondido). Env novo:
+`APP_URL`, `SMTP_*`, `RH_CRON_SECRET`. Pendências combinadas com o Eduardo: SMTP
+real (dev usa log), o cron do host, e conceder as seções do RH a um cargo no
+/admin. Branch `feat/rh` (baseada na `feat/cargos-e-admin`, ainda não mesclada —
+mescla depois dela).
+
 ## Stack e contexto técnico
 
 - Next.js 16 (App Router) + React 19, TypeScript, Tailwind v4.

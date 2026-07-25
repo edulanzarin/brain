@@ -30,6 +30,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   usuário pediu" não é confiável; a restrição real mora num funil único.
 - [[O que dois módulos compartilham é a query, não a rota]] — reuso de dado entre
   módulos sem furar o gate por módulo.
+- [[Formulário público por token opaco fica fora do gate de sessão]] — quem não
+  tem login responde por link; o token é a credencial, a exceção ao gate é
+  cirúrgica.
 
 ## Integrações
 
