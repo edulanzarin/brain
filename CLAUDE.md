@@ -176,17 +176,16 @@ Já decididas, documentadas em `[[Infra]]`. Seguir sem perguntar:
 
 ## 9. Cores do grafo
 
-Grafo nativo (`.obsidian/graph.json` → `colorGroups`), colorido por **camada primeiro,
-projeto depois**: o conhecimento forma um tronco de cor própria e os projetos são
-satélites pequenos.
+Grafo nativo (`.obsidian/graph.json` → `colorGroups`): **só os projetos têm cor, o
+resto é cinza**. Cada projeto é um ponto colorido; todo o conhecimento (princípio,
+padrão, referência, pensamento, moc) fica no cinza padrão, sem grupo de cor. Os
+projetos saltam, o tronco de conhecimento é fundo neutro.
 
-- `camada/principio` âmbar `16090144` · `camada/padrao` teal `1352385` ·
-  `camada/referencia` ciano `399329` · `tipo/pensamento` roxo `11032055` ·
-  `tipo/moc` cinza `7041664`
 - Um projeto, uma cor, **só na nota do projeto**: navetech-hub azul `3900150` ·
   navedesk rosa `16007790` · cofre-digital verde-limão `8378422` ·
   navecon-controller coral `14707802`
-- **Projeto novo**: `colorGroup` com `"query": "tag:#projeto/<slug>"` e cor nova distinta.
+- **Projeto novo**: adicionar um `colorGroup` com `"query": "tag:#projeto/<slug>"` e
+  cor nova distinta. Nada de grupo de cor para camada ou tipo.
 - Templates e `CLAUDE.md` ficam fora do grafo pelo filtro `search`.
 
 Não mexer em `.obsidian/` sem pedido — exceto `graph.json` `colorGroups`, já autorizado.
