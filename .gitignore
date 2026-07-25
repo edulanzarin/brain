@@ -12,3 +12,6 @@
 *.zip
 
 .DS_Store
+
+# Estado volátil do plugin do grafo (muda sozinho quando o Obsidian roda)
+.obsidian/plugins/extended-graph/data.json
