@@ -88,7 +88,7 @@
     "collapse-color-groups": false,
     "colorGroups": [
       {
-        "query": "tag:#projeto/questor-bi",
+        "query": "tag:#projeto/navetech-hub",
         "color": {
           "a": 1,
           "rgb": 3900150
@@ -161,7 +161,7 @@
     "repelStrength": 10,
     "linkStrength": 1,
     "linkDistance": 250,
-    "scale": 0.3475252659861264,
+    "scale": 0.4419647715960986,
     "close": true
   },
   "openInNewTab": false,

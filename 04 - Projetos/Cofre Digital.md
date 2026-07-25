@@ -149,6 +149,15 @@ técnica [[Trocar o backend de armazenamento sem downtime]] e o princípio
 caso é a própria migração de volume Docker deste projeto (dump antes, volume
 antigo parado como rede).
 
+## Passada de copy (jul/2026)
+
+Depois do armazenamento, uma varredura de texto no app inteiro para um tom de
+sistema de cliente: fora todo travessão de frase, fora o jargão de backend que
+tinha vazado pra tela (o campo de pasta falava de `.env`, container, banco) e
+corte dos textos que só explicavam funcionalidade (subtítulos de modal de
+cadastro, toasts que narravam efeito). Virou o pensamento
+[[Interface de cliente fala pouco e esconde o backend]].
+
 ## Próximos passos possíveis
 
 - Skeleton no refetch em vez de só no primeiro load, se o volume crescer.

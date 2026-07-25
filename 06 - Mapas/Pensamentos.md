@@ -13,6 +13,9 @@ verdade, é sobre o que eu escolho.
 
 - [[Manter o tooling enxuto e o conhecimento no cérebro]] — ferramenta enxuta e
   conhecimento registrado, em vez de encher o setup de configuração.
+- [[Detalhe em modal, linha enxuta]] — lista densa para varrer, detalhe sob demanda.
+- [[Interface de cliente fala pouco e esconde o backend]] — voz quieta, sem texto
+  de funcionalidade nem jargão técnico na tela.
 
 ## O que entra aqui
 
