@@ -186,13 +186,22 @@ aparece só quando há **uma** empresa em escopo e ela tem >1 filial — `codigo
 não é comparável entre empresas (com várias selecionadas, some; a princípio nada
 seleciona mais de uma). Endpoint `/api/empresas/estabs`.
 
-**Fiscal saiu 100% na hora** (tudo passa pelo buildWhere). **Contábil ficou
-desligado**: Conferência, Conferência de Contas e Balancete têm **query própria**
-(não usam buildWhere), então filtrariam só parte do módulo — precisam costurar
-`estabs` em cada scan (e no Balancete, nos DOIS lados do espelho, senão a
-reconciliação desalinha), com o teste de regressão "todas as filiais = o
-consolidado de antes". Lição virou [[Filtro transversal só é honesto se todo o
-funil o honra]]. A Folha já tinha filtro de estabelecimento próprio (por rótulo).
+**Fiscal saiu 100% na hora** (tudo passa pelo buildWhere). **Contábil precisou
+costurar à mão**: Conferência e Balancete têm **query própria** (não usam
+buildWhere). Feito e verificado:
+- **Conferência**: recorte nos scans de FATO (notas + consolidação MOV); os
+  scans "por chave" (lctoctb/itens) seguem as notas já filtradas.
+- **Balancete** (o delicado): `estabs` em TODOS os scans dos DOIS lados do
+  espelho — motor (notas, param dinâmico), lado real (lctoctb FI), `pendentesNfse`
+  (só as pendentes; a previsão de conta fica por empresa) e os 4 drills
+  (calibração `observadas`/`lancadas` passa a ser por filial, pro drill bater com
+  a célula). Verificado na 863 (30 filiais): partição do lado real bate exata com
+  o consolidado (R$ 87,8 MI). A calibração vira filial-scoped — correto, mas é o
+  que torna o filtro delicado: filtrar só um lado desalinha.
+
+"Conferência de Contas" não é rota — é lib pura (`divergencias.ts`), coberta pela
+Conferência. A Folha já tinha filtro de estabelecimento próprio (por rótulo).
+Lição virou [[Filtro transversal só é honesto se todo o funil o honra]].
 Branch `feat/filial` (a partir da `main`).
 
 ## Stack e contexto técnico
