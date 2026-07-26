@@ -172,6 +172,29 @@ real (dev usa log), o cron do host, e conceder as seções do RH a um cargo no
 /admin. Branch `feat/rh` (baseada na `feat/cargos-e-admin`, ainda não mesclada —
 mescla depois dela).
 
+## Filial (estabelecimento) no filtro — jul/2026
+
+O sistema filtrava só por **empresa** (`codigoempresa`); no Questor a empresa
+tem N **filiais** (`codigoestab`), e o `buildWhere` (funil de todo o Fiscal/
+Contábil) somava todas as filiais cegamente — sem como isolar. **163 empresas
+têm mais de uma filial** (extremo: a 863 com 31). Toda tabela do funil (nota,
+item, `lctoctb`) tem `codigoestab`, então dá pra recortar.
+
+Adicionado `estabs: number[]` ao filtro (vazio = todas = consolidado); o
+`buildWhere` aplica `codigoestab = any(...)`. Um `FilialDropdown` (multi-seleção)
+aparece só quando há **uma** empresa em escopo e ela tem >1 filial — `codigoestab`
+não é comparável entre empresas (com várias selecionadas, some; a princípio nada
+seleciona mais de uma). Endpoint `/api/empresas/estabs`.
+
+**Fiscal saiu 100% na hora** (tudo passa pelo buildWhere). **Contábil ficou
+desligado**: Conferência, Conferência de Contas e Balancete têm **query própria**
+(não usam buildWhere), então filtrariam só parte do módulo — precisam costurar
+`estabs` em cada scan (e no Balancete, nos DOIS lados do espelho, senão a
+reconciliação desalinha), com o teste de regressão "todas as filiais = o
+consolidado de antes". Lição virou [[Filtro transversal só é honesto se todo o
+funil o honra]]. A Folha já tinha filtro de estabelecimento próprio (por rótulo).
+Branch `feat/filial` (a partir da `main`).
+
 ## Stack e contexto técnico
 
 - Next.js 16 (App Router) + React 19, TypeScript, Tailwind v4.
