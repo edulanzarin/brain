@@ -33,6 +33,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Formulário público por token opaco fica fora do gate de sessão]] — quem não
   tem login responde por link; o token é a credencial, a exceção ao gate é
   cirúrgica.
+- [[Permissão composta por papéis somados, não exceção por usuário]] — o cargo
+  concentra tudo; a pessoa acumula papéis e o acesso é a união, sem override por
+  gente. Princípio: [[Permissão se valida no servidor, não na interface]].
 - [[Filtro transversal só é honesto se todo o funil o honra]] — dimensão de
   filtro nova (filial) precisa chegar a toda consulta; funil compartilhado
   propaga, query própria é buraco silencioso.

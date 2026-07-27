@@ -1,11 +1,13 @@
 {
   "cssTheme": "",
-  "textFontFamily": "Adwaita Sans",
-  "interfaceFontFamily": "Adwaita Sans",
-  "monospaceFontFamily": "Adwaita Mono",
+  "textFontFamily": "SF Pro Rounded",
+  "interfaceFontFamily": "SF Pro Rounded",
+  "monospaceFontFamily": "JetBrains Mono",
   "nativeMenus": true,
   "enabledCssSnippets": [
     "cor-links",
     "opacidade-linhas"
-  ]
+  ],
+  "showViewHeader": true,
+  "showRibbon": true
 }

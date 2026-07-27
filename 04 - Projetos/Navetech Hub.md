@@ -7,7 +7,7 @@ codigo_em: ~/Dev/navetech-hub
 
 # Navetech Hub
 
-> Plataforma web da Navecon sobre a base PostgreSQL do sistema contábil Questor (banco "Navecon" do escritório). Organizada **por módulos** (Fiscal, Contábil, e o que vier — Folha, Patrimônio): cada um com suas próprias telas e permissão. Nasceu como dashboard fiscal ("Questor BI"), virou "Questor Hub" quando "BI" ficou pequeno (é também ferramenta operacional, não só dashboard) e em **jul/2026 virou Navetech Hub** — o produto passou a ir além do Questor, então o nome não devia mais amarrar a ele.
+> Plataforma web da Navecon sobre a base PostgreSQL do sistema contábil Questor (banco "Navecon" do escritório). Organizada **por módulos** (Fiscal, Contábil, e o que vier — Folha, Patrimônio): cada um com suas próprias telas e permissão. Nasceu como dashboard fiscal ("Questor BI"), virou "Questor Hub" quando "BI" ficou pequeno (é também ferramenta operacional, não só dashboard), em jul/2026 virou "Navetech Hub" e **ainda em jul/2026 virou "Nexo"** — nome/slug/banco/repositório renomeados (repo agora `git@github.com:edulanzarin/nexo.git`). Esta nota mantém o título "Navetech Hub" só pra não quebrar links; o produto é o **Nexo**.
 
 Código em: `~/Dev/navetech-hub` (pasta local renomeada junto com o projeto em jul/2026; o nome do projeto não depende dela). Remote `git@github.com:edulanzarin/navetech-hub.git`. Slug `navetech-hub`, containers `navetech-hub-app`/`navetech-hub-db`, banco próprio `navetechhub` (recriado do zero na renomeação), par de portas **4022 app / 5022 banco**. O sistema externo lido segue sendo o **Questor** (banco `Navecon`), intocado.
 
@@ -110,6 +110,8 @@ O **seam de permissão** foi cravado antes do login (`src/lib/sessao.ts`) e em *
 3. **Empresa** — o usuário só vê empresas de **grupos reutilizáveis** (`empresa_grupo`) + extras individuais, ou `todas_empresas`. Aplicado no servidor num funil só: `buildWhere` (fiscal/contábil) e `construirBase` (folha, que filtra por estabelecimento) viram session-aware e clampam — nunca confia na lista do cliente. Ver [[Escopo de dado se clampa no servidor, num funil só]].
 
 Login por email/senha (Server Action, `scrypt` do `node:crypto`), `proxy.ts` (ex-`middleware`, redirect otimista pro `/login`), e **área `/admin`** (fora do catálogo de módulos, só admin) pra gerir usuários, perfis por seção e grupos de empresa. Validado ponta a ponta: 401 sem sessão, 403 em seção sem acesso, lista de empresas recortada e empresa forjada retorna vazio.
+
+**Permissão 100% do cargo, multi-cargo (jul/2026, migration 010)**: o modelo dos "três eixos" acima ganhou ajuste fino por usuário (override de seção em `usuario_secao`, grupos/empresas avulsas por pessoa) e virou exceção por gente. Reformulado: **toda a permissão vem do CARGO** (seções + grupos de empresa + os flags `admin` e `todas_empresas`, que saíram do usuário e viraram colunas do cargo), e a pessoa passa a ter **vários cargos** (`usuario_cargo` N:N) — o acesso é a **UNIÃO** deles. Sem ajuste por usuário: precisou de algo diferente, cria/atribui outro cargo. "Admin" agora é um **cargo** de acesso total (criado idempotente no seed e vinculado ao usuário admin). A sessão deriva admin/seções/empresas com `where cargo_id = any($cargos)`. Form de usuário virou só o seletor de cargos (múltiplo); form de cargo ganhou os dois checks. As tabelas de override (`usuario_secao`/`usuario_grupo`/`usuario_empresa`) e as colunas antigas do usuário ficaram mortas (dropar depois). Padrão em [[Permissão composta por papéis somados, não exceção por usuário]].
 
 **Perfil de usuário** (migration 005, feito pra crescer): além de nome/email, tem cargo, setor (rótulo, não regra), telefone, último acesso e **foto de perfil** — a foto mora numa tabela `usuario_avatar` (bytea, self-contained, sem storage externo) e é servida por rota com checagem de sessão, aplicando [[Servir anexo por rota com checagem de permissão]]; o `Avatar` cai pra iniciais quando não há foto. Grupo de empresas padrão **"Todas menos NAVECON"** (1476 empresas) via `scripts/seed-grupo-padrao.mjs` — snapshot, reconcilia rodando de novo.
 
@@ -244,6 +246,7 @@ Gerais de dev (continuação):
 - [[Armadilhas de child_process no Node]]
 
 Gerais de dev:
+- [[Permissão composta por papéis somados, não exceção por usuário]]
 - [[Agregar antes de juntar em tabelas gigantes no Postgres]]
 - [[router.replace do Next falha no build de produção]]
 - [[Validar paleta de gráficos antes de escolher cores]]
