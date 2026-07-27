@@ -52,6 +52,7 @@ Independe de banco e de domínio (vale contábil, estoque, qualquer conferência
 - [[Verificar no build de produção, não só em dev]]
 - [[Semear teste cria linha nova, não muta linha real]]
 - [[Migração de dados mantém o antigo como reserva até a virada]]
+- [[A definição em dado dirige o comportamento, não um caso no código]] — o que varia por um eixo conhecido vira dado que uma peça lê.
 - [[Plataforma de IA hospedada prende o app pelo banco]]
 - [[Versão é corte deliberado em SemVer, não efeito de cada merge]]
 

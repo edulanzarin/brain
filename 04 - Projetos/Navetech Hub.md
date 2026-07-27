@@ -2,14 +2,14 @@
 tags: [tipo/projeto, projeto/navetech-hub]
 criado: 2026-07-18
 status: ativo
-codigo_em: ~/Dev/navetech-hub
+codigo_em: ~/Dev/nexo
 ---
 
 # Navetech Hub
 
 > Plataforma web da Navecon sobre a base PostgreSQL do sistema contábil Questor (banco "Navecon" do escritório). Organizada **por módulos** (Fiscal, Contábil, e o que vier — Folha, Patrimônio): cada um com suas próprias telas e permissão. Nasceu como dashboard fiscal ("Questor BI"), virou "Questor Hub" quando "BI" ficou pequeno (é também ferramenta operacional, não só dashboard), em jul/2026 virou "Navetech Hub" e **ainda em jul/2026 virou "Nexo"** — nome/slug/banco/repositório renomeados (repo agora `git@github.com:edulanzarin/nexo.git`). Esta nota mantém o título "Navetech Hub" só pra não quebrar links; o produto é o **Nexo**.
 
-Código em: `~/Dev/navetech-hub` (pasta local renomeada junto com o projeto em jul/2026; o nome do projeto não depende dela). Remote `git@github.com:edulanzarin/navetech-hub.git`. Slug `navetech-hub`, containers `navetech-hub-app`/`navetech-hub-db`, banco próprio `navetechhub` (recriado do zero na renomeação), par de portas **4022 app / 5022 banco**. O sistema externo lido segue sendo o **Questor** (banco `Navecon`), intocado.
+Código em: `~/Dev/nexo` (pasta local renomeada junto com o projeto; o nome do projeto não depende dela). Remote `git@github.com:edulanzarin/nexo.git`. Slug `nexo`, containers `nexo-app`/`nexo-db`, imagem `nexo-app`, banco/role/volume/rede `nexo`, par de portas **4022 app / 5022 banco**. O sistema externo lido segue sendo o **Questor** (banco `Navecon`), intocado.
 
 ## Estado atual
 
@@ -150,19 +150,33 @@ Reusa a casca inteira (uma linha em `modulos.ts`, `rh-secoes.ts`, gate por seç�
   coordenadores POR SETOR do organograma, N por setor (nome + e-mail + papel). É
   o que o Questor não tem — ver [[Módulo de folha e eSocial do Questor]] (buraco
   de supervisor/e-mail). Alimenta o destinatário do formulário de experiência.
-- **Experiência** (`/rh/experiencia`): o coração. Contrato CLT = **45 + 45 dias**;
-  dois marcos de avaliação (45 = prorrogar? / 90 = efetivar ou desligar). O
-  painel projeta os marcos dos contratos em curso com status (aguardando ·
-  respondido · **atraso**). Um **job diário** (`/api/rh/cron/experiencia`,
-  protegido por `RH_CRON_SECRET`, batido por cron do host) dispara o lembrete
-  devido de cada marco — **D-15/10/5/1** antes e um aviso de **atraso** depois —,
-  um por rodada e idempotente (log de lembrete com unique por slot). O e-mail vai
-  para todos os gestores do setor via SMTP (`nodemailer`, com driver de log
-  quando não configurado).
-- **Formulário público** (`/experiencia/[token]`): o supervisor responde **sem
-  logar**, por link com token opaco. Critérios numa escala, recomendação por
-  marco e comentários; salva a resposta e marca a experiência como respondida.
-  Padrão em [[Formulário público por token opaco fica fora do gate de sessão]].
+- **Formulários** (`/rh/formularios`): construtor tipo Google Forms (jul/2026) —
+  a RH monta formulários com campos de **escrever**, **marcação** (uma/várias
+  opções), **nota** (escala) e **pontuação**, cada um uma pergunta, com preview ao
+  vivo. `config` jsonb por tipo guarda opções/escala/intervalo (o form evolui sem
+  migration). Um campo `selecao_unica` pode ser marcado como **decisão** — vira o
+  destaque nos painéis, no lugar da antiga "recomendação" fixa. Vários formulários,
+  status rascunho/ativo/arquivado. Padrão em [[Formulário montado pelo usuário — a
+  definição no banco dirige renderer e validação]].
+- **Experiência** (`/rh/experiencia`): o coração. Contrato CLT = **45 + 45 dias**,
+  dois marcos (45/90). Os critérios **deixaram de ser fixos no código**: a RH
+  **liga um formulário ativo a cada marco** e define a **antecedência** do aviso
+  (padrão **7 dias** antes) na própria tela (`rh_experiencia_config`). O painel
+  projeta os marcos em curso com status (aguardando · respondido · **atraso**). O
+  **job diário** (`/api/rh/cron/experiencia`, `RH_CRON_SECRET`) dispara **um**
+  lembrete na antecedência configurada + um aviso de **atraso** (antes eram
+  D-15/10/5/1), idempotente por slot. E-mail para todos os gestores do setor via
+  SMTP (`nodemailer`, driver de log quando não configurado).
+- **Formulário público** (`/f/[token]`, unificado): o gestor responde **sem
+  logar**, por token opaco. Renderizado **dinamicamente** a partir da definição do
+  formulário; validação de verdade **no servidor**. Serve tanto a experiência
+  quanto as campanhas; `/experiencia/[token]` virou **redirect** (links antigos
+  valem). Padrão em [[Formulário público por token opaco fica fora do gate de sessão]].
+- **Campanhas de envio** (aba **Envios** em Formulários): a RH envia qualquer
+  formulário ativo para gestores (**todos ou alguns**) e/ou **e-mails avulsos**,
+  **agora ou agendado**. Cada destinatário recebe token próprio, responde uma vez,
+  e a RH acompanha as respostas. Job `/api/rh/cron/envios` (mesmo segredo) dispara
+  as agendadas.
 - **Rotatividade** (`/rh/rotatividade`): o turnover das duas empresas, período +
   empresa, reusando a Folha inteira. A consulta-mãe saiu para
   `folha-turnover-query.ts` (turnover + movimentações + pessoas) e `construirBase`
@@ -171,14 +185,17 @@ Reusa a casca inteira (uma linha em `modulos.ts`, `rh-secoes.ts`, gate por seç�
   empresas, `FolhaMovimentacao` passou a carregar `codigoempresa` e a ficha abre
   pela empresa da linha (contrato é PK por empresa, colide entre as duas).
 
-Migration `008_rh.sql`: `rh_setor_gestor`, `rh_experiencia` (1 por empresa×
-contrato×marco, com token e status), `rh_experiencia_resposta`,
-`rh_experiencia_lembrete` (log por slot). Verificado ponta a ponta contra os
-bancos reais (materializa → token → resposta → status respondido). Env novo:
-`APP_URL`, `SMTP_*`, `RH_CRON_SECRET`. Pendências combinadas com o Eduardo: SMTP
-real (dev usa log), o cron do host, e conceder as seções do RH a um cargo no
-/admin. Branch `feat/rh` (baseada na `feat/cargos-e-admin`, ainda não mesclada —
-mescla depois dela).
+Migrations do RH: `008_rh.sql` (gestores + experiência: `rh_setor_gestor`,
+`rh_experiencia`, `rh_experiencia_resposta`, `rh_experiencia_lembrete`),
+`011_formularios.sql` (`formulario`/`formulario_campo`), `012_experiencia_formulario.sql`
+(`rh_experiencia_config` por marco, `formulario_id` na experiência, recomendação
+relaxada p/ nullable), `013_envios.sql` (`envio`/`envio_destinatario`). As respostas
+moram junto do envio que gerou o token (experiência ou campanha); o formulário é só
+a definição. Verificado ponta a ponta (form dinâmico → token → resposta → status;
+cron de campanha em modo log, sem e-mail real). **SMTP real** configurado (Gmail
+`noreply.navecon@gmail.com`, senha de app no `.env` gitignored); `RH_CRON_SECRET`
+setado — falta só o cron do host apontar as duas rotas e conceder a seção
+`formularios` ao cargo da gestora no /admin. Branch `feat/rh-formularios`.
 
 ## Filial (estabelecimento) no filtro — jul/2026
 

@@ -17,6 +17,9 @@ de sistema externo é referência e tem mapa próprio.
 - [[Estoque e fluxo numa série a partir de datas de início e fim]] — de datas de
   início/fim saem fluxo (entrou/saiu) e estoque (ativos numa data); série densa
   com `generate_series` + `count filter`.
+- [[Formulário montado pelo usuário — a definição no banco dirige renderer e validação]]
+  — campos tipados + `config` jsonb por tipo; uma peça só renderiza, pré-visualiza e
+  valida. Princípio: [[A definição em dado dirige o comportamento, não um caso no código]].
 
 ## Referência de schema externo
 
