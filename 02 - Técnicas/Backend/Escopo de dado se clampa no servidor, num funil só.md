@@ -48,5 +48,7 @@ mesma regra.
 ## Conexões
 - Princípio: [[Permissão se valida no servidor, não na interface]]
 - Irmã: [[Cravar o seam de permissão antes do login]]
+- Complemento: [[Drill-down por id foge do funil de escopo e precisa de gate próprio]] —
+  o funil cobre a lista; a rota de detalhe por id escapa dele e precisa de gate próprio.
 - Visto em: [[Navetech Hub]]
 - Mapa: [[Backend]]

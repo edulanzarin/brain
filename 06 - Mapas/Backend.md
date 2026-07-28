@@ -28,6 +28,8 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   token; permissão vem do banco a cada request (revogável, sempre atual).
 - [[Escopo de dado se clampa no servidor, num funil só]] — a lista de "o que o
   usuário pediu" não é confiável; a restrição real mora num funil único.
+- [[Drill-down por id foge do funil de escopo e precisa de gate próprio]] — a rota
+  de detalhe por `?empresa=` não passa pelo funil; re-checar o dono do registro.
 - [[O que dois módulos compartilham é a query, não a rota]] — reuso de dado entre
   módulos sem furar o gate por módulo.
 - [[Formulário público por token opaco fica fora do gate de sessão]] — quem não
