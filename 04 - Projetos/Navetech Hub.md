@@ -133,13 +133,18 @@ Terceiro módulo, primeiro sobre o **RH/folha** do Questor (tabelas `func*` — 
 ## Módulo RH (interno da Navecon — jul/2026)
 
 Quarto módulo, o primeiro **interno** (não é sobre os clientes do escritório, e
-sim sobre o pessoal da própria Navecon). Escopo FIXO em **duas empresas do
-Questor**: NAVECON (`codigoempresa 1`, o próprio escritório) e FOUR
-(`codigoempresa 888`) — ~82 ativos. O escopo é forçado (`EMPRESAS_RH = [1, 888]`
-em `src/lib/rh.ts`), **ignorando o grupo de empresas da sessão** de propósito: o
-grupo padrão do Hub é "Todas menos NAVECON", que esconderia justo a empresa 1. O
-gate do módulo é ter as seções do RH; o dado sempre se limita a essas duas.
-Reusa a casca inteira (uma linha em `modulos.ts`, `rh-secoes.ts`, gate por seção).
+sim sobre o pessoal da própria Navecon). Escopo FIXO nas **empresas Navecon do
+Questor**: NAVECON (`codigoempresa 1`, o próprio escritório), FOUR
+(`codigoempresa 888`) e **FINAVE (`codigoempresa 746`, incluída jul/2026)** — mesma
+Navecon, CNPJs distintos, mesmos departamentos. O escopo é forçado
+(`EMPRESAS_RH = [1, 888, 746]` em `src/lib/rh.ts`), **ignorando o grupo de empresas
+da sessão** de propósito: o grupo padrão do Hub é "Todas menos NAVECON", que
+esconderia justo a empresa 1. O gate do módulo é ter as seções do RH; o dado sempre
+se limita a essas empresas. Como TUDO deriva de `EMPRESAS_RH`/`nomeEmpresaRh`,
+incluir uma empresa é uma linha só (diretório, gestores, experiência, envios e
+rotatividade propagam sozinhos) — o resto do trabalho foi só corrigir textos que
+diziam "as duas empresas". Reusa a casca inteira (uma linha em `modulos.ts`,
+`rh-secoes.ts`, gate por seção).
 
 - **Diretório** (`/rh/diretorio`): funcionários ativos das duas empresas, filtro
   por empresa/setor + busca e contagem por empresa (tudo no cliente — dataset
