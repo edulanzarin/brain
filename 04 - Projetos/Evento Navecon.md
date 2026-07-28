@@ -15,14 +15,15 @@ Código em: `~/Dev/evento-navecon`
 
 ## Estado atual
 
-Landing + backend de pagamento prontos e verificados. A stack inteira sobe via
-`docker compose up --build` (migration aplica e sai, app sobe em produção). O
-**Mercado Pago foi validado com o token real** — `/api/register` gera um checkout
-de verdade (`mercadopago.com.br/checkout/...`). Hardening de produção feito
-(helmet/CSP, rate limit, banco em loopback, TLS no Caddy). Falta: rodar no
-servidor com o **domínio** (DNS + Caddy emite o cert), validar o **SMTP** no
-ambiente real (não testei daqui pra não disparar alerta de login do Gmail) e
-mergear. Vive na branch `feat/mercadopago-checkout`.
+Pronto e **mergeado na `main`** (push feito). A stack sobe via
+`docker compose up --build`. O **Mercado Pago foi validado com o token real** —
+`/api/register` gera um checkout de verdade. Vai rodar em
+**`navecon.net.br/imersao`** (subcaminho atrás do servidor web do TI, que já
+serve a raiz); o suporte a subcaminho está pronto — ver
+[[App sob subcaminho fica na raiz e o proxy tira o prefixo]]. Hardening feito
+(helmet/CSP, rate limit, banco em loopback). Falta: o TI subir em `/imersao`
+(proxy com strip do prefixo) e **validar o SMTP no ambiente real** (não testei
+daqui pra não disparar alerta de login do Gmail).
 
 ## Infra
 
@@ -51,9 +52,36 @@ app) · **Mercado Pago Checkout Pro** (redirect).
   [[Polling substitui webhook quando não há IP público]].
 - **6x com juros pro cliente** (a loja recebe o valor cheio) — decisão de
   negócio; muda só a config no painel do MP e o texto exibido.
-- **Nada exposto direto; Caddy na frente.** App e Postgres publicam só em
-  `127.0.0.1`; o Caddy (compose de prod) termina o TLS (Let's Encrypt) e faz
-  proxy pro `app:3000`. Mais helmet/CSP e rate limit no `/api/register`.
+- **Nada exposto direto.** App e Postgres publicam só em `127.0.0.1`. Em domínio
+  próprio, o Caddy (compose de prod) termina o TLS; em `navecon.net.br/imersao`,
+  quem termina o TLS e faz o proxy é o servidor web do TI. Mais helmet/CSP e
+  rate limit no `/api/register`.
+- **Subcaminho sem tocar no backend.** O app fica montado na raiz; o build do
+  frontend deriva assets/endpoint/rota de um caminho base só (`APP_BASE_PATH`),
+  e o proxy do TI tira o prefixo `/imersao`. Ver
+  [[App sob subcaminho fica na raiz e o proxy tira o prefixo]].
+- **Fonte da marca no allowlist da CSP.** Montserrat vem do Google Fonts; a CSP
+  do helmet precisou liberar `fonts.googleapis.com`/`fonts.gstatic.com` — só
+  quebrava em produção. Ver [[CSP só aparece no build de produção, toda origem externa vai no allowlist]].
+
+## Fluxo operacional e lacunas
+
+Como funciona hoje (uma via só): o visitante preenche o form → a inscrição é
+gravada como `pending` **antes** do redirect e a responsável do mkt recebe um
+e-mail de "nova inscrição" → o visitante é mandado pro checkout do MP → ao
+aprovar, a conciliação vira `paid` e sai o e-mail de confirmação **pro inscrito**
+(cópia pro mkt). Dois e-mails, ambos best-effort.
+
+- **"Quero conversar antes de pagar" já é coberto em parte:** o lead não se
+  perde — os dados ficam salvos em `pending` e o mkt é avisado, mesmo se a pessoa
+  fechar o checkout.
+- **Assistido pelo WhatsApp funciona:** o mkt cadastra os dados da pessoa no
+  próprio site, pega o link do checkout do MP e manda pelo WhatsApp; a pessoa
+  paga por esse link e o sistema confirma sozinho (e-mail pro e-mail que o mkt
+  digitou).
+- **Lacunas (não existe ainda):** botão de "cadastrar sem ir pro checkout";
+  painel admin/lista de leads; **marcar pago manualmente** (se pagar por fora do
+  MP, o status não vira `paid`); reenviar o link de pagamento sem recadastrar.
 
 ## Aprendizados (viraram notas)
 
@@ -61,16 +89,19 @@ Só links. O texto mora na nota de técnica/princípio.
 
 - [[Polling substitui webhook quando não há IP público]]
 - [[Migrations em container próprio no Docker Compose]]
+- [[App sob subcaminho fica na raiz e o proxy tira o prefixo]]
+- [[CSP só aparece no build de produção, toda origem externa vai no allowlist]]
 
 ## Próximos passos
 
-- [ ] Preencher o `.env` real (access token do MP, senha de app do Gmail, senha do Postgres)
+- [x] Merge da branch `feat/mercadopago-checkout` na `main` (push feito)
+- [ ] TI subir em `navecon.net.br/imersao`: `APP_BASE_PATH=/imersao/`,
+  `PUBLIC_BASE_URL=https://navecon.net.br/imersao`, proxy com strip do prefixo
 - [ ] Ativar **pix** e **parcelamento até 6x** no painel do Mercado Pago
-- [ ] Apontar o **domínio** (DNS A/AAAA) e subir com `docker-compose.prod.yml` (Caddy/TLS)
-- [ ] Definir `PUBLIC_BASE_URL=https://<domínio>` e, com isso, o webhook `/api/mp/webhook`
 - [ ] Validar o envio de e-mail no servidor real (SMTP não testado do ambiente de dev)
+- [ ] Testar o pagamento em **modo de teste do MP** (token `TEST-` + cartões de teste)
 - [ ] **Rotacionar** o access token e a senha de app (foram colados em chat)
-- [ ] Merge da branch `feat/mercadopago-checkout`
+- [ ] Decidir se entram as lacunas operacionais (pagar depois / painel / marcar pago manual)
 
 ## Conexões
 - Usa: [[Design]] · [[Infra]]

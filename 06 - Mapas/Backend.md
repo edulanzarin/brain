@@ -48,6 +48,12 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Polling substitui webhook quando não há IP público]] — quando não dá pra receber
   chamada de fora. Princípio: [[Configuração vem do ambiente, não do código]].
 
+## Cabeçalhos HTTP
+
+- [[CSP só aparece no build de produção, toda origem externa vai no allowlist]] —
+  o dev server não tem CSP; recurso externo (fonte, tile) só quebra em prod.
+  Princípio: [[Verificar no build de produção, não só em dev]].
+
 ## Princípios que mandam aqui
 
 - [[Permissão se valida no servidor, não na interface]]

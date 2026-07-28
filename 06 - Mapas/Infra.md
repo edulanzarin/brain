@@ -62,6 +62,8 @@ App `4xxx`, banco espelha trocando o `4` inicial por `5`. Regra e exceções em
 - [[Migrations em container próprio no Docker Compose]] — migration não sobe com o app.
 - [[Next.js standalone no Docker e o outputFileTracingRoot]] — imagem enxuta sem
   quebrar o trace de arquivos.
+- [[App sob subcaminho fica na raiz e o proxy tira o prefixo]] — servir em
+  `/imersao` sem remontar o app; base única no front, strip no proxy.
 
 Relacionado, no [[Backend]]:
 [[Polling substitui webhook quando não há IP público]] — integração sem abrir porta.
