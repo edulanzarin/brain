@@ -32,6 +32,8 @@ Dentro de `1.1` (Ativo Circulante), subgrupos estáveis úteis pra liquidez: **`
 
 3. **Contra-parte com saldo de sinal atípico não é anomalia.** No Questor cada cliente/fornecedor/sócio é uma **conta própria** sob o **mesmo `classifconta`** (ver [[Vínculo nota fiscal e lançamento contábil no Questor]]). Um fornecedor devedor = adiantamento/nota de crédito/pagamento a maior — normal. "Muitas irmãs sob o mesmo classif" (ex.: ≥ 3) identifica conta de terceiro: colapse num resumo, não liste uma a uma. O sinal invertido só é alarme em conta **impossível** (caixa/banco/aplicação/estoque negativo) ou **estrutural única** (Capital devedor, tributo a recuperar credor).
 
+4. **Conta redutora carrega saldo de sinal oposto de propósito.** O escritório marca as redutoras (contra) com o prefixo **"(-)"** na descrição — "(-) Prejuízos do Exercício", "(-) Depreciação Acumulada", "(-) Lucros Distribuídos", "(-) Ajuste a Valor Presente" (dezenas de milhares delas). Um prejuízo é **devedor dentro do PL credor**; depreciação é **credora dentro do ativo devedor**. O `natursaldo` cadastrado costuma seguir o grupo, não a função contra, então testar "sinal vs natureza" acusa a redutora como anomalia — falso positivo: o saldo invertido é o esperado. Regra prática: **descrição que começa com "(-)" → pular a checagem de sinal** (a magnitude do grupo já fica certa somando deb−cred). Aqui as redutoras sem "(-)" são desprezíveis.
+
 ## Compensação e escrituração
 
 - **Contas de compensação** (`1.4`, `2.9`, ou descrição "compensação") são memorando: inflam os dois lados igual e batem entre si. Fora de todo total e do fechamento.
