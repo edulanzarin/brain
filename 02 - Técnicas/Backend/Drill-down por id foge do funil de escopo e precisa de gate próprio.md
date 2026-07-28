@@ -41,15 +41,10 @@ export async function assertEmpresaVisivel(codigo: number) {
 Auditar a cobertura é um grep: liste toda rota que extrai `empresa` avulsa e
 confirme que cada uma ou passa por um funil ou chama o guard. O que sobrar é o furo.
 
-## Corolário: "vê todas" não é "vê tudo"
-
-O ramo curinga do escopo (`todas` = sem filtro) é o segundo ponto cego. Se existe
-dado que é de **outra jurisdição** — no [[Navetech Hub]], as empresas do RH que só
-aquele módulo enxerga — o "vê todas" o inclui por omissão. O curinga precisa de
-**exclusão explícita**, e como os códigos são constantes ela entra literal no SQL,
-sem parâmetro: `and codigoempresa not in (1, 888, 746)`. Mesma regra vale no
-`podeVerEmpresa` (recusa esses códigos antes de olhar o escopo) — assim o guard do
-drill-down e o funil da lista herdam a exclusão de um lugar só.
+O guard reusa o mesmo escopo do funil (`podeVerEmpresa` sobre a sessão), então
+respeita a mesma regra de negócio: se o cargo do usuário libera aquela empresa, o
+drill-down passa; senão, 403. Não é uma exclusão à parte — é o escopo do cargo
+aplicado no ponto que o funil não alcança.
 
 ## Conexões
 - Irmã: [[Escopo de dado se clampa no servidor, num funil só]] — o funil que este
