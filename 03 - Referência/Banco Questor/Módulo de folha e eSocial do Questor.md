@@ -52,6 +52,17 @@ Conta-se por **contrato**, não por pessoa (uma pessoa com dois vínculos conta 
 - **`funcpercalculo`** (~273k) — liga um contrato a um período calculado.
 - **`calculoevento`** (~5,1M) — **o resultado da folha**: PK `(codigoempresa, codigopercalculo, codigofunccontr, codigoevento)`; `referevento` (referência: horas/dias/%), `valorevento` (R$), `baseevento`. É "quanto cada rubrica rendeu para cada funcionário em cada período".
 
+## Quem lançou/calculou — produtividade do DP
+
+Cada trabalho do DP mora numa tabela própria, e todas carregam a **auditoria embutida** (`codigousuario` → `usuario.nomeusuario`, `datahoralcto` = quando; ver [[Logs e auditoria no Questor]]). Isso é o que permite medir "o que cada pessoa do DP fez no período" sem tocar no `loggeral`:
+
+- **Avisos prévios cadastrados** → `funcavisoprevio` (PK `(codigoempresa, codigofunccontr, seq, complementar)`): `codigocausa` → `causademissao`, `dataavprevio`, `dataresc`, e `enviouavisoprevioesocial` ('1'/'0').
+- **Rescisões calculadas** → `rescisao`: `codigocausa`, `dataavprevio`, `dataresc`, `codigopercalculo`. `datahoralcto` é o carimbo do **último cálculo**.
+- **Admissões feitas** → `funccontrato` (a própria linha do contrato): `dataadm`, `origemdado` (1 manual, 2 importado, 3 integração). Armadilha: `datahoralcto` é reescrito a cada edição do contrato, não só na criação — para "produtividade" (o que o DP mexeu no período) serve; para "admissões cujo fato ocorreu no período" filtre por `dataadm`.
+- **Férias calculadas** → `reciboferias` (PK inclui `datainicial` = início do **período aquisitivo**): `datainicialferias`/`datafinalferias` (gozo), `datapgto`.
+
+Recorte de produtividade = `datahoralcto::date between início e fim`, por `codigousuario`. Empresa via `codigoempresa` em cada tabela (não precisa da view). Usado no dashboard de Produtividade do DP em [[Navetech Hub]].
+
 ## Rubricas — `evento`
 
 Cadastro das rubricas/verbas (`codigoevento` → `descrevento`), com dezenas de flags de incidência (`inssmensal`, `fgtsmensal`, `irrfmensal`…). `tipoevento` classifica (observado): `1` provento/vencimento, `2` reembolso/salário-família, `3` desconto, `4` base de cálculo/informativo, `5` afastamento, `6` outros (banco de horas, abono). Confirmar por amostragem ao usar — os limites entre 3/4/6 são fluidos.
@@ -63,6 +74,12 @@ A view `funcionario` junta `funccontrato` + `funcpessoa` + **o registro mais rec
 ## eSocial (staging técnico — não é a folha)
 
 `esocial*` (~429 tabelas) + `xml*` (~228) guardam **eventos, lotes e XML do eSocial** e seus retornos (`esocialret*`, `esocialdadoss*`, `esocialxml` ~10 GB de XML, `esocialeventoretornorubricas`…). É infraestrutura de transmissão ao governo. Para a folha "de negócio" (o que cada um ganhou), use `calculoevento` + `func*`, **não** as `esocial*`.
+
+### Foi transmitido/aceito? A tabela de controle é `esocialtransacao`
+
+Para saber o **status de transmissão** de um evento (S-2200 admissão, S-2299 rescisão, S-2206 alteração…), a fonte é `esocialtransacao` — uma linha por evento gerado: `(codigoempresa, codigoesocialtransacao)` PK, `evento` (`'S-2200'`…), `status` (smallint), `recibo`, `protocolo`, `codigorespostaesocial`, `datahoralcto`, e `track` = `'(FUNCCONTRATO::<n>)'`. **Regra prática: `recibo` preenchido = aceito pelo governo**; transação sem recibo = pendente/erro (status 13 + `codigorespostaesocial` 401 é rejeição); sem transação nenhuma = não enviado.
+
+Ligar o evento ao contrato: pelas tabelas `esocialdadoss<NNNN>` (ex.: `esocialdadoss2200` para admissão) — `(codigoempresa, codigofunccontr) → codigoesocialtransacao` → `esocialtransacao`. Pegue a **última** por `datahoralcto` (retransmissões geram várias). Armadilha: **`xml2200evtadmissao` (e as `xml*` de layout) vêm VAZIAS** nesta base — são staging de montagem do XML, limpo após enviar; não sirva status delas. Verificado no dashboard de Produtividade do DP.
 
 ## Contrato de experiência e o buraco de supervisor/e-mail
 
