@@ -17,7 +17,7 @@ Notas em `03 - Referência/Banco Questor`. Banco é **produção**: acesso somen
 ## Módulos
 
 - **Fiscal** — [[Modelo de dados fiscais do Questor]] · [[Impostos no Questor - onde fica cada um]] · [[Canceladas e devoluções no Questor]] · [[Reforma tributária IBS-CBS no Questor]]
-- **Contábil** — [[Módulo contábil do Questor]] · [[Vínculo nota fiscal e lançamento contábil no Questor]] · [[Plano de contabilização por CFOP no Questor]] · [[Contas bancárias e layout de contabilização no Questor]]
+- **Contábil** — [[Módulo contábil do Questor]] · [[Plano de contas padrão do Questor e leitura do balancete]] · [[Vínculo nota fiscal e lançamento contábil no Questor]] · [[Plano de contabilização por CFOP no Questor]] · [[Contas bancárias e layout de contabilização no Questor]]
 - **Folha / eSocial** — [[Módulo de folha e eSocial do Questor]]
 - **Financeiro** — [[Módulo financeiro do Questor]]
 - **Patrimonial** — [[Módulo patrimonial do Questor]]

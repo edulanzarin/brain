@@ -67,6 +67,7 @@ Base de qualquer relatório contábil (balancete, DRE, razão, livro diário) e 
 
 ## Conexões
 - Índice do banco: [[Banco Questor]] · Convenções: [[Panorama e convenções do banco Questor]]
+- Plano de contas e balancete: [[Plano de contas padrão do Questor e leitura do balancete]]
 - Alimentado por: [[Modelo de dados fiscais do Questor]] · [[Módulo de folha e eSocial do Questor]] · [[Módulo financeiro do Questor]] · [[Módulo patrimonial do Questor]]
 - Contas por empresa: [[Cadastros centrais do Questor - empresa, estab, pessoa]]
 - Mapa: [[Banco Questor]]
