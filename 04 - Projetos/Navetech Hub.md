@@ -176,7 +176,15 @@ Reusa a casca inteira (uma linha em `modulos.ts`, `rh-secoes.ts`, gate por seç�
   formulário ativo para gestores (**todos ou alguns**) e/ou **e-mails avulsos**,
   **agora ou agendado**. Cada destinatário recebe token próprio, responde uma vez,
   e a RH acompanha as respostas. Job `/api/rh/cron/envios` (mesmo segredo) dispara
-  as agendadas.
+  as agendadas. **Sobre um colaborador (jul/2026)**: além do broadcast, a campanha
+  pode ser uma avaliação SOBRE colaboradores específicos — a RH marca vários, cada
+  um vira uma avaliação enviada aos gestores do departamento dele (`classiforgan`)
+  e aceita UMA resposta (o primeiro gestor que responde fecha), igual à experiência.
+  Reusa `envio_destinatario` com colunas de colaborador + `email` nullable (os
+  destinatários reais saem no disparo, resolvidos do setor); colaborador sem gestor
+  no depto é ignorado e reportado; índice único evita repetir o mesmo colaborador; o
+  form público mostra o contexto do colaborador. Padrão em [[Uma resposta canônica
+  de um grupo é um token compartilhado]].
 - **Rotatividade** (`/rh/rotatividade`): o turnover das duas empresas, período +
   empresa, reusando a Folha inteira. A consulta-mãe saiu para
   `folha-turnover-query.ts` (turnover + movimentações + pessoas) e `construirBase`
@@ -189,7 +197,9 @@ Migrations do RH: `008_rh.sql` (gestores + experiência: `rh_setor_gestor`,
 `rh_experiencia`, `rh_experiencia_resposta`, `rh_experiencia_lembrete`),
 `011_formularios.sql` (`formulario`/`formulario_campo`), `012_experiencia_formulario.sql`
 (`rh_experiencia_config` por marco, `formulario_id` na experiência, recomendação
-relaxada p/ nullable), `013_envios.sql` (`envio`/`envio_destinatario`). As respostas
+relaxada p/ nullable), `013_envios.sql` (`envio`/`envio_destinatario`),
+`014_envio_sobre_colaborador.sql` (colaborador em `envio_destinatario`, `email`
+nullable, índice único por colaborador). As respostas
 moram junto do envio que gerou o token (experiência ou campanha); o formulário é só
 a definição. Verificado ponta a ponta (form dinâmico → token → resposta → status;
 cron de campanha em modo log, sem e-mail real). **SMTP real** configurado (Gmail

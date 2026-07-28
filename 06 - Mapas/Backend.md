@@ -33,6 +33,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Formulário público por token opaco fica fora do gate de sessão]] — quem não
   tem login responde por link; o token é a credencial, a exceção ao gate é
   cirúrgica.
+- [[Uma resposta canônica de um grupo é um token compartilhado]] — vários podem
+  responder, mas só uma resposta vale: um token para o grupo, o primeiro fecha.
+  Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[Permissão composta por papéis somados, não exceção por usuário]] — o cargo
   concentra tudo; a pessoa acumula papéis e o acesso é a união, sem override por
   gente. Princípio: [[Permissão se valida no servidor, não na interface]].
@@ -50,6 +53,7 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Permissão se valida no servidor, não na interface]]
 - [[Configuração vem do ambiente, não do código]]
 - [[Ambiente de dev sobe igual ao de produção]]
+- [[Um invariante se garante na estrutura, não no processo]]
 
 ---
 
