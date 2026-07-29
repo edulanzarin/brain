@@ -50,5 +50,5 @@ mesma regra.
 - Irmã: [[Cravar o seam de permissão antes do login]]
 - Complemento: [[Drill-down por id foge do funil de escopo e precisa de gate próprio]] —
   o funil cobre a lista; a rota de detalhe por id escapa dele e precisa de gate próprio.
-- Visto em: [[Navetech Hub]]
+- Visto em: [[Navetech Hub]] · [[navetalks]]
 - Mapa: [[Backend]]

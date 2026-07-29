@@ -53,5 +53,5 @@ await enviarEmail({ para, assunto, html: linkUnico });
 ## Conexões
 - Princípio: [[Um invariante se garante na estrutura, não no processo]]
 - Irmã: [[Formulário público por token opaco fica fora do gate de sessão]]
-- Visto em: [[Navetech Hub]]
+- Visto em: [[Navetech Hub]] · [[navetalks]]
 - Mapa: [[Backend]]

@@ -49,6 +49,8 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 - [[Polling substitui webhook quando não há IP público]] — quando não dá pra receber
   chamada de fora. Princípio: [[Configuração vem do ambiente, não do código]].
+- [[Adapter de canal isola o app do provider de mensageria]] — provider externo trocável
+  (WhatsApp: Baileys ou Cloud API) fica atrás de uma interface; o app não vê o fornecedor.
 
 ## Cabeçalhos HTTP
 
