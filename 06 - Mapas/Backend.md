@@ -56,6 +56,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   dígito verificador; conferir no funil barra o número digitado errado antes que
   ele crie a entidade errada. Princípio:
   [[Um invariante se garante na estrutura, não no processo]].
+- [[Importação em massa passa pela API, não pelo banco]] — migrar mandando cada
+  registro pelo endpoint de cadastro herda validação, dono e dedup; INSERT direto
+  reimplementa tudo na mão e diverge. Princípio:
+  [[Um invariante se garante na estrutura, não no processo]].
 - [[Atributo efetivo é o do dono, ou o local quando não há dono]] — atributo que
   mora numa entidade dona, mas o filho às vezes não tem dono: campo local opcional
   + efetivo `dono ?? proprio`, guardando o local só sem dono. Princípio:

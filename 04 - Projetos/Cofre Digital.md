@@ -122,6 +122,9 @@ PostgreSQL 17 · Docker Compose. Ícones lucide, PKCS#12 lido no navegador.
 - [[Dígito verificador rejeita o documento errado na entrada]] — o "Automático
   pelo CNPJ" criava empresa a partir de qualquer número; agora o funil confere o
   dígito verificador antes de deixar o documento entrar.
+- [[Importação em massa passa pela API, não pelo banco]] — a migração dos ~1156
+  certificados do sistema antigo sobe cada um pelo endpoint de cadastro, herdando
+  validação, empresa pelo CNPJ e grupo, em vez de INSERT direto.
 
 ## Grupos de empresas (jul/2026)
 
@@ -216,6 +219,22 @@ Uma passada pra endurecer cadastro/edição e deixar o histórico dizer o que mu
 Branch `feat/certificados-robustez`. O diff de histórico (snapshot antes/depois +
 descrever só o que mudou, sem evento vazio) é candidato a virar técnica própria se
 aparecer num segundo sistema.
+
+## Migração do sistema antigo (jul/2026)
+
+O cofre antigo (outro Next.js, "Controle de Certificados", em `192.168.5.250:3004`)
+tinha ~1156 certificados e o societário ia recadastrar tudo à mão. Sem acesso ao
+banco dele, mas a **API dele mesma exportou**: `GET /api/certificados` devolvia os
+1156 num request só, com a senha em texto. Faltavam AC e emissão (a API não tinha)
+— mas o `.pfx` na pasta de rede tem, então a importação lê o arquivo. A ponte é o
+**nome do arquivo** (`NOME - CNPJ.pfx`), conferido como único (0 nomes e 0 CNPJs
+duplicados).
+
+Ferramentas em `scripts/` (`exportar-sistema-antigo.mjs`, `importar-certificados.mjs`,
+`README-migracao.md`): exporta o mapa, e importa uma pasta local de `.pfx`/`.p12`
+mandando cada um pelo endpoint de cadastro — herda validação, cria empresa pelo
+CNPJ e anexa o grupo, idempotente. Virou [[Importação em massa passa pela API, não
+pelo banco]]. As senhas exportadas ficam fora do repositório (`~/cofre-migracao`).
 
 ## Próximos passos possíveis
 
