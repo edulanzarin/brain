@@ -111,6 +111,8 @@ PostgreSQL 17 · Docker Compose. Ícones lucide, PKCS#12 lido no navegador.
   leitura de reserva, migração sob demanda.
 - [[Trocar o arquivo repede a senha e relê os dados]] — o `.pfx` renovado com
   senha diferente que salvava errado; leitura vira parte de escolher o arquivo.
+- [[No pfx renovado o titular é a folha de validade mais recente]] — o `.pfx`
+  renovado que trazia o cert antigo junto e continuava marcando "Vencido".
 
 ## Grupos de empresas (jul/2026)
 

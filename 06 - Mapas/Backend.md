@@ -18,6 +18,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Trocar o backend de armazenamento sem downtime]] — mover binário do banco pra
   uma pasta com ponteiro, leitura de reserva e migração sob demanda. Princípio:
   [[Migração de dados mantém o antigo como reserva até a virada]].
+- [[No pfx renovado o titular é a folha de validade mais recente]] — um `.pfx`
+  embute a cadeia e às vezes o cert antigo; entre as folhas, escolher a de maior
+  validade em vez da primeira. Princípio:
+  [[Um invariante se garante na estrutura, não no processo]].
 
 ## Autenticação e permissão
 
