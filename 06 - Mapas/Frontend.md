@@ -22,6 +22,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 
 - [[Cache do React Query não é lugar de estado de interface]]
 - [[Portal condicional dispensa o flag de montagem]]
+- [[Trocar o arquivo repede a senha e relê os dados]] — estado derivado do arquivo
+  se recalcula ao trocar a fonte, não se herda. Princípio:
+  [[Um invariante se garante na estrutura, não no processo]].
 
 Princípios: [[Estado compartilhável mora na URL]] ·
 [[Estado de tela pertence à seção, não à página]]

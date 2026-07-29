@@ -109,6 +109,8 @@ PostgreSQL 17 · Docker Compose. Ícones lucide, PKCS#12 lido no navegador.
   saindo do banco pra uma pasta sem corte seco.
 - [[Trocar o backend de armazenamento sem downtime]] — a mecânica: ponteiro,
   leitura de reserva, migração sob demanda.
+- [[Trocar o arquivo repede a senha e relê os dados]] — o `.pfx` renovado com
+  senha diferente que salvava errado; leitura vira parte de escolher o arquivo.
 
 ## Grupos de empresas (jul/2026)
 
@@ -157,6 +159,25 @@ tinha vazado pra tela (o campo de pasta falava de `.env`, container, banco) e
 corte dos textos que só explicavam funcionalidade (subtítulos de modal de
 cadastro, toasts que narravam efeito). Virou o pensamento
 [[Interface de cliente fala pouco e esconde o backend]].
+
+## Edição de certificado (jul/2026)
+
+Editar certificado dava "erro ao salvar" em produção. Três problemas se somavam, e
+a correção mexeu nos três:
+
+- **Senha herdada do estado antigo.** Trocar por um `.pfx` renovado (senha
+  diferente) mantinha a senha antiga no formulário e salvava com ela. Agora
+  escolher o arquivo abre um modalzinho que pede a senha e lê os dados na hora — o
+  arquivo só é adotado depois de a senha decifrá-lo, e o botão "Ler dados" solto
+  sumiu. Virou [[Trocar o arquivo repede a senha e relê os dados]].
+- **Regravava o arquivo à toa.** O form recarregava os bytes do `.pfx` e os
+  reenviava a cada save, fazendo toda edição reescrever o arquivo na rede (SMB via
+  smbclient) — mesmo mudando só uma observação. Agora os bytes só voltam quando o
+  arquivo muda de fato.
+- **Erro real escondido.** O `catch` do PUT devolvia "Certificado não encontrado"
+  pra qualquer falha, inclusive a de gravação na rede. Agora registra no servidor
+  e devolve a causa — segundo caso de [[Chamada externa tem timeout e erro tratado]]
+  (capturar o canal de erro em vez do genérico).
 
 ## Próximos passos possíveis
 
