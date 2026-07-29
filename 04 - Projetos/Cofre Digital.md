@@ -116,6 +116,9 @@ PostgreSQL 17 · Docker Compose. Ícones lucide, PKCS#12 lido no navegador.
 - [[Criar e editar passam pelo mesmo funil de resolução]] — a edição não resolvia
   a empresa dona pelo CNPJ como o cadastro; trocar por um `.pfx` de outro CNPJ
   deixava o cert na empresa errada. Virou uma regra só (`resolveCertCompany`).
+- [[Atributo efetivo é o do dono, ou o local quando não há dono]] — grupo era só
+  de empresa; e-CPF sem empresa perdia o grupo em silêncio. Ganhou `groupId`
+  próprio, efetivo = grupo da empresa quando há uma, senão o do cert.
 
 ## Grupos de empresas (jul/2026)
 
