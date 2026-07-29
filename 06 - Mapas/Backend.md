@@ -48,6 +48,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Filtro transversal só é honesto se todo o funil o honra]] — dimensão de
   filtro nova (filial) precisa chegar a toda consulta; funil compartilhado
   propaga, query própria é buraco silencioso.
+- [[Criar e editar passam pelo mesmo funil de resolução]] — o lado da escrita: a
+  regra que resolve dono/vínculo tem que rodar em criar E editar; edição com
+  regra própria (ou nenhuma) aceita o que o cadastro recusa. Princípio:
+  [[Um invariante se garante na estrutura, não no processo]].
 
 ## Integrações
 

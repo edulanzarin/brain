@@ -113,6 +113,9 @@ PostgreSQL 17 · Docker Compose. Ícones lucide, PKCS#12 lido no navegador.
   senha diferente que salvava errado; leitura vira parte de escolher o arquivo.
 - [[No pfx renovado o titular é a folha de validade mais recente]] — o `.pfx`
   renovado que trazia o cert antigo junto e continuava marcando "Vencido".
+- [[Criar e editar passam pelo mesmo funil de resolução]] — a edição não resolvia
+  a empresa dona pelo CNPJ como o cadastro; trocar por um `.pfx` de outro CNPJ
+  deixava o cert na empresa errada. Virou uma regra só (`resolveCertCompany`).
 
 ## Grupos de empresas (jul/2026)
 
