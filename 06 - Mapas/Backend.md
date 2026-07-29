@@ -52,6 +52,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   regra que resolve dono/vínculo tem que rodar em criar E editar; edição com
   regra própria (ou nenhuma) aceita o que o cadastro recusa. Princípio:
   [[Um invariante se garante na estrutura, não no processo]].
+- [[Dígito verificador rejeita o documento errado na entrada]] — CPF/CNPJ tem
+  dígito verificador; conferir no funil barra o número digitado errado antes que
+  ele crie a entidade errada. Princípio:
+  [[Um invariante se garante na estrutura, não no processo]].
 - [[Atributo efetivo é o do dono, ou o local quando não há dono]] — atributo que
   mora numa entidade dona, mas o filho às vezes não tem dono: campo local opcional
   + efetivo `dono ?? proprio`, guardando o local só sem dono. Princípio:

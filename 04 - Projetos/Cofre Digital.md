@@ -119,6 +119,9 @@ PostgreSQL 17 · Docker Compose. Ícones lucide, PKCS#12 lido no navegador.
 - [[Atributo efetivo é o do dono, ou o local quando não há dono]] — grupo era só
   de empresa; e-CPF sem empresa perdia o grupo em silêncio. Ganhou `groupId`
   próprio, efetivo = grupo da empresa quando há uma, senão o do cert.
+- [[Dígito verificador rejeita o documento errado na entrada]] — o "Automático
+  pelo CNPJ" criava empresa a partir de qualquer número; agora o funil confere o
+  dígito verificador antes de deixar o documento entrar.
 
 ## Grupos de empresas (jul/2026)
 
@@ -186,6 +189,33 @@ a correção mexeu nos três:
   pra qualquer falha, inclusive a de gravação na rede. Agora registra no servidor
   e devolve a causa — segundo caso de [[Chamada externa tem timeout e erro tratado]]
   (capturar o canal de erro em vez do genérico).
+
+## Robustez do certificado (jul/2026)
+
+Uma passada pra endurecer cadastro/edição e deixar o histórico dizer o que mudou.
+
+- **Validação forte no funil** (`parseCertBody`, um só pra criar e editar):
+  CNPJ/CPF conferido por dígito verificador (não só tamanho), tipo x documento
+  (e-CNPJ/NF-e exigem CNPJ, e-CPF exige CPF), mídia x tipo (A1/NF-e arquivo, A3
+  cartão), vencimento depois da emissão, e documento gravado sempre canônico. Cada
+  recusa devolve o motivo exato, não um "dados inválidos" genérico. Virou
+  [[Dígito verificador rejeita o documento errado na entrada]].
+- **Bloquear, não avisar** (decisão do Eduardo): documento com dígito inválido é
+  recusado no servidor. Como o `.pfx` de teste tinha um CNPJ fake
+  (`12.345.678/0001-90`), foi **regenerado** com um CNPJ válido
+  (`11.222.333/0001-81`, senha `1234`) em vez de afrouxar a checagem.
+- **Histórico do que mudou.** A linha do tempo dizia só "Dados atualizados".
+  Agora um diff antes/depois monta "• Campo: antes → depois" por alteração real
+  (titular, documento, tipo, mídia, emissor, datas, senha — só "alterada", nunca
+  o valor —, empresa, grupo, observações, arquivo). Edição sem mudança nenhuma
+  não gera evento; o cadastro registra como o cert entrou (arquivo/sem/cartão).
+- **Guardas no formulário.** Editar e escolher um `.pfx` de outro documento avisa
+  que é substituição, não renovação (a identidade não muda em silêncio); dicas em
+  tempo real de CNPJ/CPF inválido e tipo incompatível com o documento.
+
+Branch `feat/certificados-robustez`. O diff de histórico (snapshot antes/depois +
+descrever só o que mudou, sem evento vazio) é candidato a virar técnica própria se
+aparecer num segundo sistema.
 
 ## Próximos passos possíveis
 
