@@ -60,6 +60,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   registro pelo endpoint de cadastro herda validação, dono e dedup; INSERT direto
   reimplementa tudo na mão e diverge. Princípio:
   [[Um invariante se garante na estrutura, não no processo]].
+- [[Para alimentar o ERP, gere o arquivo de importação dele]] — o espelho, virado
+  pra fora: pra escrever num sistema de terceiro (Questor), prepare o arquivo de
+  importação dele em vez de INSERT no banco; ele aplica os invariantes na ingestão.
+  Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[Atributo efetivo é o do dono, ou o local quando não há dono]] — atributo que
   mora numa entidade dona, mas o filho às vezes não tem dono: campo local opcional
   + efetivo `dono ?? proprio`, guardando o local só sem dono. Princípio:
@@ -71,6 +75,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   chamada de fora. Princípio: [[Configuração vem do ambiente, não do código]].
 - [[Adapter de canal isola o app do provider de mensageria]] — provider externo trocável
   (WhatsApp: Baileys ou Cloud API) fica atrás de uma interface; o app não vê o fornecedor.
+- [[De-para determinístico com override que vira aprendizado]] — casar conta/código
+  de dois sistemas por cascata (chave → estrutura → descrição restrita), sem IA; a
+  correção do humano vira override salvo e o de-para melhora a cada uso. Princípio:
+  [[A definição em dado dirige o comportamento, não um caso no código]].
 
 ## Cabeçalhos HTTP
 

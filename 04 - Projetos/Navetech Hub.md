@@ -96,6 +96,18 @@ Falta só o **arquivo de saída** (formato a confirmar com o setor; há uma pist
 
 Ressalva registrada: o extrato do **Bradesco** (conta escrow) lê todas as linhas com os sinais certos, mas o "SALDO" do rodapé não reconcilia com saldo inicial + lançamentos — parece ser posição de títulos, não caixa. Confirmar com o setor antes de usar em produção.
 
+### Implantação de Saldos (jul/2026)
+
+Seção `/contabil/implantacao`: quando uma empresa entra no escritório, lança o **balancete de abertura** da contabilidade anterior no plano de contas dela no Questor. O Nexo **não escreve no Questor** (produção, read-only) — prepara o **arquivo de importação** e o contador importa lá. O layout é o mesmo `.nli` que faltava na Conciliação (`knowledge/layout importacao lancamentos contabeis`): uma partida por linha, `C;empresa;estab;data;contaDeb;contaCred;histórico;complemento;valor`, delimitado por `;`, decimal com vírgula, `TIPOLANCAMENTO='LN'`/`ORIGEMDADO='3'` fixos pelo layout. Princípio em [[Para alimentar o ERP, gere o arquivo de importação dele]] — a Conciliação pode reusar o mesmo gerador.
+
+O problema real (dito pelo Eduardo): entram muitas empresas por mês, de softwares diferentes, e a numeração das contas nunca bate. A saída para isso: **a saída é uma só, a entrada é que varia**. Um **formato canônico** (`LinhaOrigem`) no meio — o parser por software multiplica na frente, mas de-para, validação e gerador são escritos uma vez. No MVP a entrada é **colar/subir a tabela** (CSV/Excel/PDF colado), com detecção de colunas por cabeçalho; parsers de PDF por software vêm depois alimentando o mesmo canônico, sem mexer no resto.
+
+- **Parser** (`src/lib/implantacao-entrada.ts`): detecta separador e colunas, interpreta D/C (sufixo, parênteses, sinal) e **filtra sintéticas por hierarquia de prefixo** — só analíticas entram, senão o saldo dos grupos duplicaria. Natureza vem da origem quando marcada, senão do plano de destino (Systemar não marca D/C, o Patrimonium marca).
+- **De-para** (`src/lib/implantacao-depara.ts`): cascata determinística (sem IA) override salvo → classificação → descrição normalizada (Dice, restrita a mesma classe e natureza). Detalhe reutilizável em [[De-para determinístico com override que vira aprendizado]].
+- **Gerador** (`src/lib/implantacao-gerar.ts`): uma linha por conta contra uma **conta transitória de implantação**; débito/crédito pelo lado da natureza; a transitória zera quando o balancete fecha (`Σdeb = Σcred`) — se não zerar, o balancete não fechava e a tela avisa. Testado ponta a ponta com os dois balancetes de exemplo.
+- **Escolhas na tela**: **data dos lançamentos** (a data de entrada da empresa), **conta transitória** e **código de histórico** — todos selecionáveis, com **padrão salvo por empresa** em `implantacao_config` (decisão do Eduardo: fixar em código era arriscado, alguém vai querer mudar). O de-para confirmado à mão vira override em `implantacao_depara` (banco do app; nada disso toca o Questor). Geração é evento auditável (`contabil.implantacao.gerar`).
+- **Pendente**: parsers de PDF por software (Systemar, Patrimonium…) para dispensar a colagem; validar o arquivo gerado importando de fato num ambiente Questor de teste (o formato do valor — com ou sem separador de milhar — a confirmar contra uma importação real).
+
 Próximos passos possíveis no Contábil: balancete/DRE/razão (usar `saldoctb`/`lctoctb`/`planoespec`), mais conferências. Ver [[Módulo contábil do Questor]] e o mapa [[Banco Questor]].
 
 Devoluções e cancelamentos hoje entram como **resumo** no Painel (os endpoints detalhados existem no código, se um dia virar seção própria de novo). Apuração foi tirada: era estimativa gerencial (débito−crédito), não a oficial do SPED — ver nota em [[Impostos no Questor - onde fica cada um]].
@@ -299,6 +311,8 @@ Gerais de dev:
 - [[router.replace do Next falha no build de produção]]
 - [[Validar paleta de gráficos antes de escolher cores]]
 - [[Versão é corte deliberado em SemVer, não efeito de cada merge]]
+- [[Para alimentar o ERP, gere o arquivo de importação dele]]
+- [[De-para determinístico com override que vira aprendizado]]
 
 Design (reutilizável em outros projetos — ver [[Design]]):
 - [[Sistema de cores e tema do dashboard]]
