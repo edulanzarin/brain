@@ -52,6 +52,17 @@ Conta-se por **contrato**, não por pessoa (uma pessoa com dois vínculos conta 
 - **`funcpercalculo`** (~273k) — liga um contrato a um período calculado.
 - **`calculoevento`** (~5,1M) — **o resultado da folha**: PK `(codigoempresa, codigopercalculo, codigofunccontr, codigoevento)`; `referevento` (referência: horas/dias/%), `valorevento` (R$), `baseevento`. É "quanto cada rubrica rendeu para cada funcionário em cada período".
 
+### Custo de folha (leitura) — `calculoevento` × `evento`
+
+Para "quanto a folha custou no período": `sum(ce.valorevento)` de `calculoevento`, juntando `periodocalculo` (recorte pelo **fim da folha** `datafinalfolha between início e fim`) e classificando a rubrica pelo `evento.tipoevento` — **`1` = provento (o custo de remuneração)**, `3` = desconto (INSS/IRRF retido, vales, faltas), `líquido = provento − desconto`.
+
+- **Excluir os tipos de folha que duplicam/não são pagamento** (`periodocalculo.codigotipocalc not in (8, 70, 71, 80)`): `8` adiantamento **antecipa** a mensal (somar os dois infla o provento — o adiantamento aparece na folha 8 e o salário cheio na 1), `70/71` provisão é accrual (e nem existe nesta base), `80` transferência é movimentação interna. Mantém mensal(1), 13º(20-23), férias(50/52), rescisão(60), intermitente(40), PLR(10/12), dissídio(6).
+- **Encargos patronais (FGTS, INSS patronal, terceiros/RAT) NÃO são evento por funcionário** — não estão em `calculoevento`. O "custo" que sai daqui é a **remuneração** (proventos); o custo-empresa cheio precisa da apuração patronal (fonte ainda a mapear no banco — a doc fala em "Cálculo Patronal"/"débitos de INSS", tabela a achar). Não estime por alíquota (RAT/FAP/desoneração variam).
+- **`evento`** (rubricas) é tratado como cadastro **global** (como cargo/função/escala). Classificar provento/desconto **por array de códigos** (`ce.codigoevento = any($prov)`) em vez de juntar `evento` evita o join numa varredura de 5M linhas — e evita o risco do join sem `codigoempresa` (o `provisoes.ts` junta `evento` só por `codigoevento`, mas como filtra tipo 70/71 inexistente, esse join nunca rodou de fato).
+- **Setor/cargo/estab do custo**: juntar a view `funcionario` por `codigofunccontr` (mesma resolução do turnover). Dá o setor/cargo **atual**, não o da época da folha — aproximação aceitável para agregado gerencial.
+
+Visto em: [[Navetech Hub]] (Folha → Custo de Folha).
+
 ## Quem lançou/calculou — produtividade do DP
 
 Cada trabalho do DP mora numa tabela própria, e todas carregam a **auditoria embutida** (`codigousuario` → `usuario.nomeusuario`, `datahoralcto` = quando; ver [[Logs e auditoria no Questor]]). Isso é o que permite medir "o que cada pessoa do DP fez no período" sem tocar no `loggeral`:
