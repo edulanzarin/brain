@@ -63,6 +63,20 @@ Cada trabalho do DP mora numa tabela própria, e todas carregam a **auditoria em
 
 Recorte de produtividade = `datahoralcto::date between início e fim`, por `codigousuario`. Empresa via `codigoempresa` em cada tabela (não precisa da view). Usado no dashboard de Produtividade do DP em [[Navetech Hub]].
 
+## Provisão de férias/13º NÃO é folha (tipo 70/71 não existe)
+
+Armadilha cara: a lenda de `tipocalculo` diz "70/71 Provisão", mas **nesta base `periodocalculo` não tem UMA linha sequer de tipo 70/71** (verificado na base inteira, todas as empresas). Provisão de férias e 13º **não** é calculada como uma folha em `calculoevento` — mora em **tabelas próprias** por funcionário × competência:
+
+- **`provisao13` / `provisao13rat`** — provisão de 13º (a `rat` é o rateio por centro de custo).
+- **`provisaoferias` / `provisaoferrat`** — provisão de férias, **método clássico** (colunas `mes`, `mes1terc`, `mesinss`, `mesfgts`, `ajuste*`, `saldo`).
+- **`provisaoferiasemdias` / `provisaoferiasemdiasrateio`** — provisão de férias, **método "em dias"** (91 colunas: `provisaomesremuneracao`, `provisaomestercoferias`, `provisaomesinss`, `provisaomesfgts`, `ajuste*`, `saldoanterior*`/`saldofinal*`, `pago*`, `diferencapagamento*`). Uma empresa usa **um** dos dois métodos — a SANTA ORANNA (1015) usa "em dias" e `provisaoferias` (clássico) veio **vazia** para ela (0 empresas usando clássico nesta base). Cubra os dois no código.
+
+Chave: `(codigoempresa, codigofunccontr, compet)`, `compet` é **date = 1º dia do mês**. `provisaoferiasemdias` tem `codigoestab` direto; as outras não (filtre filial via `funccontrato`).
+
+**Provisão do mês (accrual) = `provisaomes* + ajuste*`** (em dias) / `mes* + ajuste*` (clássico e 13), por componente: remuneração (+1/3), INSS, FGTS (PIS existe mas normalmente não tem conta contábil). Validado ao centavo contra o contábil de abr/2026 da 1015: férias 9762,86 + 13º 2928,72 = **12.691,58** = exatamente o lançado FP.
+
+**Armadilha da conferência contábil × DP:** o movimento das **contas de provisão no contábil (origem `FP`)** mistura **accrual (provisão do mês) com realização (baixa quando férias/13º é pago)** — meses de pagamento dão movimento gigante ou negativo (ex.: 1015 fev/2026 contábil −42.666, DP accrual +6.940). Os dois lados só batem em mês **sem baixa** (abr/2026 bate porque só teve accrual). Pior: a **integração DP→contábil é mês a mês e pode estar dessincronizada** — jan-mar/2026 a 1015 tinha provisão calculada no DP e **zero** lançamento FP no contábil. Logo, conferir "provisão calculada × lançada" exige comparar **accrual com accrual** (isolar as baixas dos dois lados), não o movimento líquido cru da conta. Visto em: [[Navetech Hub]] (tela Provisões do Contábil).
+
 ## Rubricas — `evento`
 
 Cadastro das rubricas/verbas (`codigoevento` → `descrevento`), com dezenas de flags de incidência (`inssmensal`, `fgtsmensal`, `irrfmensal`…). `tipoevento` classifica (observado): `1` provento/vencimento, `2` reembolso/salário-família, `3` desconto, `4` base de cálculo/informativo, `5` afastamento, `6` outros (banco de horas, abono). Confirmar por amostragem ao usar — os limites entre 3/4/6 são fluidos.
