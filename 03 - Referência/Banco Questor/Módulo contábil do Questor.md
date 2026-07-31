@@ -66,7 +66,9 @@ O Questor tem uma **função própria de Implantação de Saldos**, separada dos
 - **Não tem contrapartida, histórico nem complemento** — uma linha = uma conta com saldo e natureza. É o oposto de importar lançamentos contra uma conta transitória "Saldos a Implantar".
 - Origens dedicadas em `origemlctoctb`: `IS` "Alteração Saldo Inicial Societário", `IF` "Alteração Saldo Inicial Fiscal" (fora `IP` Importação genérica).
 - Auxiliares: `implsaldoger` (por centro de custo, vazia aqui) e `implsaldoctbrecsal` (recálculo).
-- **Dois caminhos para implantar saldo, então:** (a) importar **lançamentos** (layout de lançamentos, vira `lctoctb`, precisa de transitória + histórico + complemento) ou (b) a **Implantação de Saldos nativa** (vira `implsaldoctb`, só conta + natureza + valor). Se o Questor expõe layout de importação para (b), ele dispensa transitória/histórico/complemento. Visto em: [[Navetech Hub]] (seção Contábil, implantação de saldos).
+- A tela que popula `implsaldoctb` é **"Cadastro: Saldos Contábeis"** (Contabilidade Questor): campos Filial, Moeda (Real=0), Tipo Lançamento (Normal=LN), Conta Contábil, Data Saldo, Natureza do Saldo (Débito/Crédito), Valor do Saldo — 1:1 com a tabela.
+- **Mas essa tela NÃO tem importador** (verificado jul/2026): é digitação manual, uma conta por vez. Inviável para um balancete inteiro.
+- **Consequência prática:** para implantar saldo em massa, o único caminho automatizável é importar **lançamentos** (a tela de Lançamentos tem layout de importação), gerando partida dobrada em `lctoctb` contra uma conta transitória "Saldos a Implantar" — que exige histórico e complemento. O caminho "saldo direto" existe no modelo de dados mas não é importável. Visto em: [[Navetech Hub]] (seção Contábil, implantação de saldos).
 
 ## Lotes e histórico
 
