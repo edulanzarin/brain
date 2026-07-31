@@ -69,6 +69,13 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   + efetivo `dono ?? proprio`, guardando o local só sem dono. Princípio:
   [[Um invariante se garante na estrutura, não no processo]].
 
+## Composição e honestidade do resultado
+
+- [[Fluxo de fechamento é orquestração dos motores que já existem]] — a tela de
+  "posso fechar?" reusa os motores validados e só decide a cor; não recalcula.
+- [[Deixar o método da conferência visível quando o SQL não foi validado]] — heurística
+  que não deu pra validar mostra a memória de cálculo, pra o humano com o dado validar.
+
 ## Integrações
 
 - [[Polling substitui webhook quando não há IP público]] — quando não dá pra receber
