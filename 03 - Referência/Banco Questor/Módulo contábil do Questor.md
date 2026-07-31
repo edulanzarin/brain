@@ -50,6 +50,24 @@ Saldos **já acumulados** por conta (evita somar 32M de lançamentos).
 - Separados por `tipolancamento` (LN/LF/LS) → dá para ler saldo societário e fiscal.
 - Para balancete/balanço, preferir `saldoctb*` a varrer `lctoctb`.
 
+## Implantação de saldos — `implsaldoctb` (função nativa)
+
+O Questor tem uma **função própria de Implantação de Saldos**, separada dos lançamentos. Em vez de partida dobrada em `lctoctb`, ela grava o saldo de abertura **direto por conta** em `implsaldoctb` (~12k linhas, em uso):
+
+| Coluna | O que é |
+|---|---|
+| `contactb` | conta → `planoespec.contactb` |
+| `datasaldo` (date) | data do saldo de abertura |
+| `naturezasaldo` (smallint) | **`1` = devedor, `-1` = credor** |
+| `valorsaldo` (numeric) | o saldo (positivo; a natureza dá o lado) |
+| `tipolancamento` (char) | `LN` | `codigomoeda` `0` | `origemdado` `2` |
+| `codigoempresa`, `codigoestab`, `codigousuario`, `datahoraimplsaldoctb` | chave + auditoria |
+
+- **Não tem contrapartida, histórico nem complemento** — uma linha = uma conta com saldo e natureza. É o oposto de importar lançamentos contra uma conta transitória "Saldos a Implantar".
+- Origens dedicadas em `origemlctoctb`: `IS` "Alteração Saldo Inicial Societário", `IF` "Alteração Saldo Inicial Fiscal" (fora `IP` Importação genérica).
+- Auxiliares: `implsaldoger` (por centro de custo, vazia aqui) e `implsaldoctbrecsal` (recálculo).
+- **Dois caminhos para implantar saldo, então:** (a) importar **lançamentos** (layout de lançamentos, vira `lctoctb`, precisa de transitória + histórico + complemento) ou (b) a **Implantação de Saldos nativa** (vira `implsaldoctb`, só conta + natureza + valor). Se o Questor expõe layout de importação para (b), ele dispensa transitória/histórico/complemento. Visto em: [[Navetech Hub]] (seção Contábil, implantação de saldos).
+
 ## Lotes e histórico
 
 - `lotectb` — agrupador de lançamentos: PK `(codigoempresa, codigolotectb)`; `descrlotectb`, `datainicial/finallotectb`, `situacaolotectb`.
