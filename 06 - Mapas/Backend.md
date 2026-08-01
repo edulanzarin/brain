@@ -73,6 +73,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 - [[Fluxo de fechamento é orquestração dos motores que já existem]] — a tela de
   "posso fechar?" reusa os motores validados e só decide a cor; não recalcula.
+- [[Fila de exceção recomputa o achado e persiste só a triagem]] — worklist sobre
+  fonte read-only: recomputa os achados a cada carga e grava só a decisão humana
+  (resolver/ignorar), com identidade estável. Princípio:
+  [[Um invariante se garante na estrutura, não no processo]].
 - [[Deixar o método da conferência visível quando o SQL não foi validado]] — heurística
   que não deu pra validar mostra a memória de cálculo, pra o humano com o dado validar.
 
