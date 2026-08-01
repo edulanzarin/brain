@@ -44,9 +44,9 @@ Seção e página saem as duas do `pathname`, então a tela só declara o campo:
 const [busca, setBusca] = useEstadoSecao("busca", "");
 ```
 
-Quem **descarta** é o shell da seção, no cleanup do efeito — é ele que sabe
-qual seção está ativa, e o cleanup cobre tanto trocar de seção quanto sair do
-módulo.
+Quem **descarta** é o shell do módulo, no cleanup do efeito de unmount — trocar
+de seção mantém, só "Trocar módulo" solta. (O tempo de vida subiu da seção para
+o módulo; ver o fim da nota.)
 
 ## Por que importa
 
@@ -77,6 +77,33 @@ ser renderizados **pelo shell, na linha da barra de filtros**, e a página os
 enxerga na hora, porque ambos leem e gravam o mesmo campo da seção. Sem
 prop-drilling, sem portal, sem contexto novo: o mecanismo que já dava tempo de
 vida ao estado passou a dar também o compartilhamento.
+
+## Tempo de vida subiu da seção para o módulo (jul/2026)
+
+Refinamento do "quando soltar": o dono do tempo de vida não é a **seção**, é a
+**fronteira de layout que sobrevive à navegação que o estado precisa
+atravessar** — no app, o **shell do módulo**. Ele persiste ao trocar de seção e
+só desmonta em "Trocar módulo", então é o unmount dele que descarta, não a troca
+de seção.
+
+O que forçou a correção: ir da Conferência ao Balancete (duas seções do mesmo
+módulo) e voltar jogava fora o extrato/prévia já importado — dado que **não dá
+pra reconstruir da URL** —, obrigando a reimportar. O fluxo real de trabalho
+atravessa seções irmãs, não só as abas de uma.
+
+Estender o tempo de vida é **seguro** graças à própria separação identidade ×
+tempo de vida: a chave já carrega a seção, então cada seção guarda o seu recorte
+e uma não vê o da outra mesmo todas vivas ao mesmo tempo. Só o *quando soltar*
+mudou — a identidade ficou igual.
+
+A memória de filtro (o `ap` e o recorte na URL, guardados por seção) encurtou no
+mesmo movimento — de "sessão inteira" para "módulo" —, pra reentrar num módulo
+começar limpo em vez de restaurar recorte de outra visita. O módulo virou a
+unidade que persiste e zera junto, alinhando Contábil/Fiscal/Folha ao RH, que já
+descartava por módulo (`use-estado-modulo`). O medo antigo ("voltar dias depois
+numa tela pré-filtrada") continua válido — só que o ponto certo de soltar é
+**sair do módulo**, não sair da seção: dentro do módulo você está no trabalho, e
+aí lembrar é recurso, não armadilha.
 
 ## Conexões
 - Ver também: [[Cache do React Query não é lugar de estado de interface]]
