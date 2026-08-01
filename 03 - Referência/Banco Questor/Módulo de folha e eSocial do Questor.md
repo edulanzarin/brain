@@ -106,6 +106,8 @@ Para saber o **status de transmissão** de um evento (S-2200 admissão, S-2299 r
 
 Ligar o evento ao contrato: pelas tabelas `esocialdadoss<NNNN>` (ex.: `esocialdadoss2200` para admissão) — `(codigoempresa, codigofunccontr) → codigoesocialtransacao` → `esocialtransacao`. Pegue a **última** por `datahoralcto` (retransmissões geram várias). Armadilha: **`xml2200evtadmissao` (e as `xml*` de layout) vêm VAZIAS** nesta base — são staging de montagem do XML, limpo após enviar; não sirva status delas. Verificado no dashboard de Produtividade do DP.
 
+A **rescisão** liga pelo mesmo caminho no evento **S-2299** (tabela `esocialdadoss2299`, mesmo padrão do 2200 — a confirmar na base). Para um **panorama de conformidade** (sem ligar ao contrato): agrupe `esocialtransacao` por `evento` no período (`datahoralcto::date`) e classifique cada linha — `recibo` preenchido = **aceito**, sem recibo e `status = 13` = **rejeitado**, o resto = **pendente**. Dá o volume transmitido × resultado por tipo de evento. Visto em: [[Navetech Hub]] (Folha → eSocial).
+
 ## Contrato de experiência e o buraco de supervisor/e-mail
 
 - **Experiência CLT = 45 + 45 dias**. O Questor guarda em `funccontrato.diaprorrogcontrexp` (observado `= 45` nas admissões recentes) e `justprorrog` (justificativa da prorrogação). Não há uma "data de fim de experiência" pronta — calcula-se `dataadm + 45` (1º período, decidir prorrogar) e `dataadm + 90` (efetivar ou desligar). `motivocontrat` e `codigotipocontr` classificam o contrato; empregado CLT filtra por `categoria = '01'`.

@@ -187,6 +187,10 @@ Decisões de escopo (com o Eduardo): **"custo" = proventos** (`evento.tipoevento
 
 Detalhe que vale além daqui: a rubrica é classificada **por array de códigos** (`ce.codigoevento = any($prov)`) carregados de um Map do cadastro `evento`, em vez de juntar `evento` na varredura de 5M linhas — separa a **taxonomia** (resolvida fora da query) do **somatório** (na query), corta um join pesado e desvia do join sem `codigoempresa` que o `provisoes.ts` tem latente. Compila (tsc+eslint+build); **números a validar** contra uma empresa conhecida (o `evento` como cadastro global e a classificação provento/desconto são a heurística a conferir).
 
+### Conformidade eSocial (jul/2026)
+
+Quarta seção da Folha (`/folha/esocial`), segunda do Tier 1: o que foi transmitido, aceito, rejeitado ou está pendente no eSocial da empresa no período. Fonte `esocialtransacao` (regra em [[Módulo de folha e eSocial do Questor]]: `recibo` preenchido = aceito; sem recibo + `status` 13 = rejeitado; sem recibo, sem rejeição = pendente). Duas lentes: **panorama por tipo de evento** (S-2200, S-2299, S-1200… × situação, com barra de proporção aceito/pendente/rejeitado, direto de `esocialtransacao` agrupado por `evento`) e as **pendências obrigatórias** que o DP tem de resolver — admissões sem S-2200 aceito e rescisões sem S-2299 aceito, ligando contrato→transação pela `esocialdadoss<NNNN>` (última por `datahoralcto`), o mesmo padrão que a Produtividade do DP já usava para o status do S-2200. KPIs (transmitidos/aceitos/pendentes/rejeitados), as duas listas de pendência em destaque e a tabela por evento. Compila (tsc+eslint+build); **a validar no banco**: `esocialdadoss2299` (rescisão) e `status=13` (rejeitado) — a tela expõe as pendências e o resultado por evento, então um erro se denuncia. **Falta do Tier 1**: Controle de Férias (vencidas / a vencer).
+
 ## Módulo RH (interno da Navecon — jul/2026)
 
 Quarto módulo, o primeiro **interno** (não é sobre os clientes do escritório, e
