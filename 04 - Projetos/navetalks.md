@@ -41,11 +41,32 @@ contra o Postgres seedado):
   Atendimento (inbox: lista/thread/composer/copiloto + painel perfil/histórico/negócios),
   Contatos, Funil (kanban), Campanhas, Chatbot (canvas de fluxo), Relatórios, Config.
 - **Schema Prisma multiempresa** (Org na raiz) + seed com a org demo *Nexo Contábil*
-  (equipe, filas, canais, 10 contatos, conversas com mensagens, funil, campanhas,
-  fluxo do bot, snapshot de relatório).
+  (equipe, filas, canais, 9 empresas / 14 contatos, 11 conversas com mensagens, funil,
+  campanhas, fluxo do bot, snapshot de relatório).
 - **Docker igual em dev e prod:** compose app/db/migrate, imagem standalone multi-stage,
   `docker compose up -d --build`. Migrate roda `prisma db push` + seed.
 - Ações de escrita ainda em **modo demo** (feedback por toast, sem persistir).
+
+## Modelo de domínio (linhagem B)
+
+Corrigido com o Eduardo em ago/2026 — vale registrar porque contradiz o palpite inicial:
+
+- **Empresa 1—* Contato.** O cliente contábil é a **Empresa** (CNPJ, regime, honorário,
+  obrigações, certificado). Uma empresa tem **vários Contatos** (pessoas), cada um com o
+  próprio telefone. Contato pode não ter empresa (autônomo/MEI/lead).
+- **Diretório compartilhado, sem dono.** Todo colaborador vê todos os clientes e pode
+  puxar conversa com qualquer um. Existe "responsável contábil" na empresa, mas é só
+  informativo — **não** tranca acesso. (O Eduardo foi enfático: cliente não pertence a um
+  funcionário.)
+- **Uma conversa por Contato, compartilhada.** O time inteiro vê o mesmo chat daquele
+  contato — caixa compartilhada clássica, não thread privada por atendente (ele cogitou
+  privado-por-colaborador e voltou atrás na hora). Ver
+  [[Uma resposta canônica de um grupo é um token compartilhado]].
+- **Números compartilhados por setor** (fila), não um número por colaborador.
+
+Reflexo na UI: a antiga tela "Contatos" virou **Clientes** (empresa expansível → seus
+contatos + seção de autônomos), e o painel da inbox mostra pessoa + bloco da empresa +
+"outros contatos da mesma empresa".
 
 ## Infra
 
