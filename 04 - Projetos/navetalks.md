@@ -38,35 +38,44 @@ contra o Postgres seedado):
   progress, toast, skeleton, empty/error-state, ícones). Aplica
   [[Sistema de cores e tema do dashboard]] com estética arredondada/glass.
 - **As 7 telas** renderizando o seed via camada de queries (`src/lib/queries.ts`):
-  Atendimento (inbox: lista/thread/composer/copiloto + painel perfil/histórico/negócios),
+  Atendimento (inbox: lista/thread/composer/copiloto + painel perfil/histórico),
   Contatos, Funil (kanban), Campanhas, Chatbot (canvas de fluxo), Relatórios, Config.
-- **Schema Prisma multiempresa** (Org na raiz) + seed com a org demo *Nexo Contábil*
-  (equipe, filas, canais, 9 empresas / 14 contatos, 11 conversas com mensagens, funil,
-  campanhas, fluxo do bot, snapshot de relatório).
+- **Schema Prisma** (Org na raiz, hoje só a Navecon) + seed: equipe com papéis, 5 filas
+  com número, 14 contatos-pessoa, 11 conversas com mensagens, funil, campanhas, fluxo do
+  bot, snapshot de relatório.
 - **Docker igual em dev e prod:** compose app/db/migrate, imagem standalone multi-stage,
   `docker compose up -d --build`. Migrate roda `prisma db push` + seed.
 - Ações de escrita ainda em **modo demo** (feedback por toast, sem persistir).
 
 ## Modelo de domínio (linhagem B)
 
-Corrigido com o Eduardo em ago/2026 — vale registrar porque contradiz o palpite inicial:
+O modelo passou por idas e voltas com o Eduardo (ago/2026). O estado **atual** é este —
+as versões anteriores (Empresa 1—* Contato; thread privada por atendente) foram
+descartadas por ele, ficam só como histórico:
 
-- **Empresa 1—* Contato.** O cliente contábil é a **Empresa** (CNPJ, regime, honorário,
-  obrigações, certificado). Uma empresa tem **vários Contatos** (pessoas), cada um com o
-  próprio telefone. Contato pode não ter empresa (autônomo/MEI/lead).
-- **Diretório compartilhado, sem dono.** Todo colaborador vê todos os clientes e pode
-  puxar conversa com qualquer um. Existe "responsável contábil" na empresa, mas é só
-  informativo — **não** tranca acesso. (O Eduardo foi enfático: cliente não pertence a um
-  funcionário.)
-- **Uma conversa por Contato, compartilhada.** O time inteiro vê o mesmo chat daquele
-  contato — caixa compartilhada clássica, não thread privada por atendente (ele cogitou
-  privado-por-colaborador e voltou atrás na hora). Ver
-  [[Uma resposta canônica de um grupo é um token compartilhado]].
-- **Números compartilhados por setor** (fila), não um número por colaborador.
+- **Contato = pessoa.** Nome livre (quem cadastra decide, tipo "Julia Luiza - RA
+  Transportes"), telefone, etiquetas. **Sem entidade Empresa por ora** — religar contato a
+  uma empresa é backend futuro. Não modelar empresa antes da hora.
+- **Um único escritório.** Hoje só existe a **Navecon**. Tirei o "tenant rail" de trocar
+  de conta: o app inteiro É a lógica do escritório. Vender o CRM pra outros escritórios
+  (multi-tenant de verdade) é decisão de backend lá na frente, não UI agora.
+- **Marca:** o produto/sistema é **Navetalks**; o escritório (org) é **Navecon**. Aba do
+  browser = Navetalks.
+- **Papéis:** Admin, Gestor, Funcionário.
+- **Fila = setor com um número de WhatsApp.** Usuários pertencem a filas. A conversa entra
+  por um número → fica na fila daquele número. **O escopo de acesso segue o número de
+  entrada:** Funcionário só vê as conversas das suas filas; um do Contábil NÃO vê quem
+  mandou pro número do Fiscal. Admin/Gestor veem todas. Aplicação de
+  [[Escopo de dado se clampa no servidor, num funil só]] — a chave do escopo aqui é a fila
+  (canal de entrada), não o dono do registro.
 
-Reflexo na UI: a antiga tela "Contatos" virou **Clientes** (empresa expansível → seus
-contatos + seção de autônomos), e o painel da inbox mostra pessoa + bloco da empresa +
-"outros contatos da mesma empresa".
+Sem auth ainda: o "usuário logado" vem de um cookie **"ver como" (demo)** que troca o
+usuário pra exibir o escopo na prática. É o ponto onde a sessão real entra depois.
+
+Reflexo na UI: **Atendimento** sem filtro de setor (Todas / **Fila de espera** =
+conversas que ninguém puxou / Resolvidas); **Contatos** é lista simples de pessoas;
+**Configurações** tem filas/números com membros + equipe com papéis; **Mensagens
+prontas** viraram um modal de respostas salvas (busca + categorias, preenche {{nome}}).
 
 ## Infra
 
@@ -85,7 +94,8 @@ como Server Components lendo o Postgres; ilhas client (inbox, filtros, tema) por
       org+setor no servidor).
 - [ ] Mutações reais por Server Action (assumir/resolver/enviar, novo contato, mover
       card do funil) trocando os toasts de demo.
-- [ ] Multi-tenant real: o rail troca de org de verdade (hoje é visual).
+- [ ] Multi-escritório de verdade (se virar produto pra vender): separação por org no
+      backend. Hoje é escritório único (Navecon), sem UI de troca.
 - [ ] Integração WhatsApp por adapter (Baileys primeiro, Cloud API depois) + realtime.
 
 ## Aprendizados (viraram notas)
