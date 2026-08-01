@@ -80,9 +80,12 @@ Reflexo na UI (estado atual):
 - **Atendimento** filtra por **estado** (Todas / Em atendimento / **Fila de espera** =
   conversas que ninguém puxou) — **sem "Resolvida"** (o Eduardo cortou o conceito). Mais
   filtros: busca na lista, por fila e por responsável (minhas / sem dono).
-- **Contatos** é lista de pessoas com **linhas expansíveis** e filtro por etiqueta.
-- **Etiquetas = rótulos operacionais** (Cliente ouro, VIP, Inadimplente, Lead) que a
-  equipe cola pra segmentar/filtrar — não é empresa nem cargo.
+- **Contatos** é só pessoa: nome + telefone + nota interna, em **linhas expansíveis**.
+  **Sem etiquetas** — o Eduardo considerou etiqueta/tags coisa de CRM (ago/2026) e mandou
+  tirar; "é pra ter só o contato e atendimento". Volta se/quando o CRM entrar.
+- **Layout colapsável** (pedido dele: "fica sempre tudo apertado"): a sidebar recolhe pra
+  rail de ícones (persiste no localStorage) e, na inbox, dá pra ocultar a lista de
+  conversas e o painel de contexto — pelos botões no cabeçalho da conversa.
 - **Configurações** tem filas/números com membros + equipe com papéis; **Mensagens
   prontas** viraram um modal de respostas salvas (busca + categorias, preenche {{nome}}).
 
