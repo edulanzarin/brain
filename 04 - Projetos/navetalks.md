@@ -7,9 +7,10 @@ codigo_em: ~/Dev/navetalks
 
 # navetalks
 
-> CRM de atendimento multicanal centrado em WhatsApp: vários atendentes e setores
-> respondem os clientes por uma caixa compartilhada na plataforma, e o cliente recebe
-> tudo no WhatsApp dele. SaaS multiempresa. É a linhagem Evotalks/Whaticket.
+> Plataforma de **atendimento omnichannel** centrada em WhatsApp: vários atendentes e
+> setores respondem os clientes por uma caixa compartilhada, e o cliente recebe tudo no
+> WhatsApp dele. É a linhagem Evotalks/Whaticket. **Não é um CRM** — o Eduardo foi claro
+> (ago/2026): o foco é atendimento; funil/campanhas e afins são CRM e ficam pra depois.
 
 Código em: `~/Dev/navetalks` · remote `git@github.com:edulanzarin/navetalks.git`
 
@@ -72,10 +73,18 @@ descartadas por ele, ficam só como histórico:
 Sem auth ainda: o "usuário logado" vem de um cookie **"ver como" (demo)** que troca o
 usuário pra exibir o escopo na prática. É o ponto onde a sessão real entra depois.
 
-Reflexo na UI: **Atendimento** sem filtro de setor (Todas / **Fila de espera** =
-conversas que ninguém puxou / Resolvidas); **Contatos** é lista simples de pessoas;
-**Configurações** tem filas/números com membros + equipe com papéis; **Mensagens
-prontas** viraram um modal de respostas salvas (busca + categorias, preenche {{nome}}).
+Reflexo na UI (estado atual):
+- **É plataforma de atendimento, não CRM.** Funil e Campanhas (CRM) saíram do menu —
+  viram `HIDDEN_MODULES` no `catalog.tsx` (rota viva, fora da navegação). Reativar é só
+  mover de volta pra `MODULES`.
+- **Atendimento** filtra por **estado** (Todas / Em atendimento / **Fila de espera** =
+  conversas que ninguém puxou) — **sem "Resolvida"** (o Eduardo cortou o conceito). Mais
+  filtros: busca na lista, por fila e por responsável (minhas / sem dono).
+- **Contatos** é lista de pessoas com **linhas expansíveis** e filtro por etiqueta.
+- **Etiquetas = rótulos operacionais** (Cliente ouro, VIP, Inadimplente, Lead) que a
+  equipe cola pra segmentar/filtrar — não é empresa nem cargo.
+- **Configurações** tem filas/números com membros + equipe com papéis; **Mensagens
+  prontas** viraram um modal de respostas salvas (busca + categorias, preenche {{nome}}).
 
 ## Infra
 
