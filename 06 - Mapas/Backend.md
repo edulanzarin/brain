@@ -80,6 +80,14 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Deixar o método da conferência visível quando o SQL não foi validado]] — heurística
   que não deu pra validar mostra a memória de cálculo, pra o humano com o dado validar.
 
+## IA e LLM
+
+- [[Coleta determinística, LLM só interpreta]] — o código coleta e calcula tudo;
+  o LLM recebe os dados prontos e só interpreta, nunca busca nem faz a conta.
+- [[Censurar a identificação antes de mandar pro LLM externo]] — nome e CNPJ do
+  cliente saem antes do envio (marcador na origem + scrub) e voltam só depois; a
+  identificação não cruza a fronteira do terceiro.
+
 ## Integrações
 
 - [[Polling substitui webhook quando não há IP público]] — quando não dá pra receber

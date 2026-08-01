@@ -19,4 +19,6 @@ Ganhos concretos: custo baixo (manda só o essencial), resultado auditável (o d
 Complementos práticos: **saída estruturada** (JSON schema) pra resposta cair direto na UI/PDF sem parsing frágil; **prompt caching** no system prompt fixo (as instruções não mudam entre execuções); e a chamada externa com timeout/erro tratado — ver [[Chamada externa tem timeout e erro tratado]].
 
 - Princípio: [[Chamada externa tem timeout e erro tratado]]
-- Visto em: [[Navetech Hub]] (Análise de Balancete: saldos vêm do Questor por SQL, o Claude escreve o laudo)
+- Irmã: [[Censurar a identificação antes de mandar pro LLM externo]]
+- Visto em: [[Navetech Hub]] (Análise de Balancete: saldos vêm do Questor por SQL, o LLM escreve o laudo)
+- Mapa: [[Backend]]
