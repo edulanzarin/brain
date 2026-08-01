@@ -65,6 +65,8 @@ App `4xxx`, banco espelha trocando o `4` inicial por `5`. Regra e exceções em
   quebrar o trace de arquivos.
 - [[App sob subcaminho fica na raiz e o proxy tira o prefixo]] — servir em
   `/imersao` sem remontar o app; base única no front, strip no proxy.
+- [[Volume de dev sobrevive entre versões do projeto e traz schema velho]] — rebuild
+  no mesmo slug reencontra o banco antigo; recriar o volume, não forçar reset.
 
 Relacionado, no [[Backend]]:
 [[Polling substitui webhook quando não há IP público]] — integração sem abrir porta.
