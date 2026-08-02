@@ -17,6 +17,8 @@ tradução deles em CSS, Tailwind e React, ramificadas por assunto.
 
 - [[Sistema de cores e tema do dashboard]] — os tokens semânticos, claro/escuro e o
   script que evita o flash no carregamento.
+- [[Vidro flutuante precisa de superfície mais opaca que a chrome]] — dois níveis de
+  vidro: chrome arejada vs overlay opaco e legível.
 - [[Validar paleta de gráficos antes de escolher cores]] — forma primeiro, cor por
   último; checagens objetivas antes de fechar a paleta.
 

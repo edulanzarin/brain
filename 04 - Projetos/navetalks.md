@@ -37,6 +37,10 @@ contra o Postgres seedado):
   carvão), **fonte Inter**, muito **vidro** (blur + transparência + brilho superior) e
   animações de entrada. Tokens semânticos claro/escuro no Tailwind v4, anti-flash. Kit de
   primitivos em `src/components/ui`. Aplica [[Sistema de cores e tema do dashboard]].
+  O vidro tem **dois níveis**: chrome arejada (`.glass`/`.glass-2`) e overlay opaco e
+  legível (`.glass-over`, token `--surface-over`) pra tudo que flutua sobre o conteúdo —
+  ver [[Vidro flutuante precisa de superfície mais opaca que a chrome]] (ago/2026, depois
+  de o menu "ver como" ficar ilegível de tão translúcido).
   A **sidebar é sempre um rail de ícones com tooltips** (o Eduardo achou melhor, e "fica
   menos apertado"); na inbox dá pra ocultar a lista de conversas.
 - **Dashboard é a landing** (`/` → `/dashboard`), **escopado por papel**: FUNCIONARIO vê
