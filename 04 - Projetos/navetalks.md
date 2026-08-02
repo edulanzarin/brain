@@ -88,10 +88,21 @@ Reflexo na UI (estado atual):
   viram `HIDDEN_MODULES` no `catalog.tsx` (rota viva, fora da navegação). Reativar é só
   mover de volta pra `MODULES`.
 - **Atendimento** filtra por **estado** (Todas / Em atendimento / **Fila de espera** =
-  conversas que ninguém puxou) — **sem "Resolvida"** (o Eduardo cortou o conceito). Mais
-  filtros: busca na lista, por fila e por responsável (minhas / sem dono). Os dropdowns
-  de fila/responsável são `Select` de **vidro custom** (o `<select>` nativo tinha popup
-  feio) — ver [[Controles de filtro do dashboard]].
+  conversas que ninguém puxou) — **sem "Resolvida"** (o Eduardo cortou o conceito). As abas
+  são **ícone + contagem** (caixa/mensagem/relógio), não texto, pra não quebrar layout com
+  muitos dígitos. Mais filtros: busca na lista, por fila e por responsável (minhas / sem
+  dono). Os dropdowns são `Select` de **vidro custom** (o `<select>` nativo tinha popup
+  feio) — ver [[Controles de filtro do dashboard]]. **Sem botão "limpar"**: limpar é
+  reselecionar Todas/Qualquer um.
+- **A lista de conversas recolhe pra um rail de ~72px** (só fotos + badge de não lidas +
+  barra de acento rente à esquerda); o toggle mora na própria lista. Recolher **não some
+  com tudo** — vira índice visual.
+- **SLA é sinal por conversa, não contador agregado** (ago/2026): saiu a linha "X fora do
+  SLA" e cada conversa mostra a **hora da última mensagem + relógio colorido** — vermelho
+  (atrasado, `slaBreach`), âmbar (aguardando resposta = na fila ou com não lidas), neutro
+  (em dia). SLA é **core de atendimento** (tempo de resposta, o mesmo do TMR no topo), não
+  CRM. O âmbar é derivado do que existe hoje (`slaBreach`+status+unread) em `slaSignal()`;
+  com campo de prazo real, é só trocar essa função.
 - **Ficha do contato deixou de ser painel fixo na lateral** (comia espaço da conversa) e
   virou **modal grandão** — perfil + histórico em duas colunas, aberto ao clicar na
   foto/nome do contato no cabeçalho (ago/2026). O `protocolo` (ex. `#48118`) é o número
