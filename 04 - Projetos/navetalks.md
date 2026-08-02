@@ -33,17 +33,23 @@ Push do local sobrescreve a linhagem A no remote — decisão do Eduardo, não a
 Base de pé e verificada (build de produção limpo + as 7 rotas respondendo 200 em SSR
 contra o Postgres seedado):
 
-- **Design "Aurora Glass":** tokens semânticos claro/escuro (vidro, raio, gradiente
-  aurora) expostos ao Tailwind v4, script anti-flash. Kit de primitivos reutilizáveis
-  em `src/components/ui` (button, card, badge, avatar, input, segmented, stat-tile,
-  progress, toast, skeleton, empty/error-state, ícones). Aplica
-  [[Sistema de cores e tema do dashboard]] com estética arredondada/glass.
-- **As 7 telas** renderizando o seed via camada de queries (`src/lib/queries.ts`):
-  Atendimento (inbox: lista/thread/composer/copiloto + painel perfil/histórico),
-  Contatos, Funil (kanban), Campanhas, Chatbot (canvas de fluxo), Relatórios, Config.
-- **Schema Prisma** (Org na raiz, hoje só a Navecon) + seed: equipe com papéis, 5 filas
-  com número, 14 contatos-pessoa, 11 conversas com mensagens, funil, campanhas, fluxo do
-  bot, snapshot de relatório.
+- **Design "Aurora Glass" (roxo):** tema **roxo/violeta**, modo noturno mais preto (quase
+  carvão), **fonte Inter**, muito **vidro** (blur + transparência + brilho superior) e
+  animações de entrada. Tokens semânticos claro/escuro no Tailwind v4, anti-flash. Kit de
+  primitivos em `src/components/ui`. Aplica [[Sistema de cores e tema do dashboard]].
+  A **sidebar é sempre um rail de ícones com tooltips** (o Eduardo achou melhor, e "fica
+  menos apertado"); na inbox dá pra ocultar lista e painel.
+- **Dashboard é a landing** (`/` → `/dashboard`), **escopado por papel**: FUNCIONARIO vê
+  sobre ele, GESTOR sobre suas filas, ADMIN sobre o escritório. KPIs (atendimentos, em
+  atendimento, fila de espera, tempo de 1ª resposta, SLA, bot), volume/hora, distribuição
+  por fila, ranking, SLA, CSAT e atividade recente.
+- **As 8 telas** via camada de queries (`src/lib/queries.ts`): Dashboard, Atendimento
+  (inbox), Contatos, Chatbot, Relatórios, Config (Funil e Campanhas existem mas ocultos —
+  são CRM).
+- **Schema Prisma** (Org na raiz, hoje só a Navecon). **Contact é objeto CORE mínimo**
+  (id, nome, telefone, nota) — CRM futuro vira tabela satélite, sem alterar Contact:
+  [[Entidade núcleo cresce por tabela satélite, não por coluna]]. Seed: equipe com papéis,
+  5 filas com número, 14 contatos, 11 conversas, fluxo do bot, snapshot de relatório.
 - **Docker igual em dev e prod:** compose app/db/migrate, imagem standalone multi-stage,
   `docker compose up -d --build`. Migrate roda `prisma db push` + seed.
 - Ações de escrita ainda em **modo demo** (feedback por toast, sem persistir).

@@ -20,6 +20,8 @@ de sistema externo é referência e tem mapa próprio.
 - [[Formulário montado pelo usuário — a definição no banco dirige renderer e validação]]
   — campos tipados + `config` jsonb por tipo; uma peça só renderiza, pré-visualiza e
   valida. Princípio: [[A definição em dado dirige o comportamento, não um caso no código]].
+- [[Entidade núcleo cresce por tabela satélite, não por coluna]] — mantém a tabela central
+  mínima; feature nova é tabela que referencia, não coluna adicionada. Escala por composição.
 
 ## Referência de schema externo
 
