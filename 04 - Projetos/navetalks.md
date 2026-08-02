@@ -38,7 +38,7 @@ contra o Postgres seedado):
   animações de entrada. Tokens semânticos claro/escuro no Tailwind v4, anti-flash. Kit de
   primitivos em `src/components/ui`. Aplica [[Sistema de cores e tema do dashboard]].
   A **sidebar é sempre um rail de ícones com tooltips** (o Eduardo achou melhor, e "fica
-  menos apertado"); na inbox dá pra ocultar lista e painel.
+  menos apertado"); na inbox dá pra ocultar a lista de conversas.
 - **Dashboard é a landing** (`/` → `/dashboard`), **escopado por papel**: FUNCIONARIO vê
   sobre ele, GESTOR sobre suas filas, ADMIN sobre o escritório. KPIs (atendimentos, em
   atendimento, fila de espera, tempo de 1ª resposta, SLA, bot), volume/hora, distribuição
@@ -85,13 +85,20 @@ Reflexo na UI (estado atual):
   mover de volta pra `MODULES`.
 - **Atendimento** filtra por **estado** (Todas / Em atendimento / **Fila de espera** =
   conversas que ninguém puxou) — **sem "Resolvida"** (o Eduardo cortou o conceito). Mais
-  filtros: busca na lista, por fila e por responsável (minhas / sem dono).
+  filtros: busca na lista, por fila e por responsável (minhas / sem dono). Os dropdowns
+  de fila/responsável são `Select` de **vidro custom** (o `<select>` nativo tinha popup
+  feio) — ver [[Controles de filtro do dashboard]].
+- **Ficha do contato deixou de ser painel fixo na lateral** (comia espaço da conversa) e
+  virou **modal grandão** — perfil + histórico em duas colunas, aberto ao clicar na
+  foto/nome do contato no cabeçalho (ago/2026). O `protocolo` (ex. `#48118`) é o número
+  do atendimento/ticket, campo da Conversation pra referenciar aquele atendimento depois.
 - **Contatos** é só pessoa: nome + telefone + nota interna, em **linhas expansíveis**.
   **Sem etiquetas** — o Eduardo considerou etiqueta/tags coisa de CRM (ago/2026) e mandou
   tirar; "é pra ter só o contato e atendimento". Volta se/quando o CRM entrar.
 - **Layout colapsável** (pedido dele: "fica sempre tudo apertado"): a sidebar recolhe pra
   rail de ícones (persiste no localStorage) e, na inbox, dá pra ocultar a lista de
-  conversas e o painel de contexto — pelos botões no cabeçalho da conversa.
+  conversas pelo botão no cabeçalho. (O painel de contexto fixo saiu — virou modal da
+  ficha do contato, ver acima.)
 - **Configurações** tem filas/números com membros + equipe com papéis; **Mensagens
   prontas** viraram um modal de respostas salvas (busca + categorias, preenche {{nome}}).
 
