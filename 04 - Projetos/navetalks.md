@@ -50,13 +50,16 @@ contra o Postgres seedado):
 - **As 8 telas** via camada de queries (`src/lib/queries.ts`): Dashboard, Atendimento
   (inbox), Contatos, Chatbot, Relatórios, Config (Funil e Campanhas existem mas ocultos —
   são CRM).
-- **Schema Prisma** (Org na raiz, hoje só a Navecon). **Contact é objeto CORE mínimo**
-  (id, nome, telefone, **email**, nota) — CRM futuro (empresa, honorário, etiquetas) vira
-  tabela satélite, sem alterar Contact: [[Entidade núcleo cresce por tabela satélite, não por coluna]].
-  Nuance (ago/2026): **email entrou direto na Contact**, não como satélite — a regra do
-  satélite vale pra *atributo de CRM*, não pra **canal de contato** (email é irmão do
-  telefone: é como se alcança a pessoa, dado core). Seed: equipe (20 usuários), 5 filas
-  com número, 14 contatos, 11 conversas, fluxo do bot, snapshot de relatório.
+- **Schema Prisma** (Org na raiz, hoje só a Navecon). **Contact é objeto CORE + poucos campos
+  próprios** (id, nome, telefone, email, **company** texto, **traits** características) — o CRM
+  pesado (empresa como entidade, honorário, etiquetas) vira tabela satélite, sem inchar
+  Contact: [[Entidade núcleo cresce por tabela satélite, não por coluna]]. Duas decisões de
+  fronteira (ago/2026): (a) **email entrou direto na Contact**, não como satélite — a regra do
+  satélite vale pra *atributo de CRM*, não pra **canal de contato** (email é irmão do telefone,
+  dado core); (b) **anotações viraram satélite `ContactNote`** (log datado autor+data), que é o
+  2º caso concreto do princípio do satélite. `company` é texto por ora, gancho pra virar
+  relação no CRM. Seed: equipe (20 usuários), 5 filas com número, 14 contatos (com empresa/
+  características/anotações), 11 conversas, fluxo do bot, snapshot de relatório.
 - **Docker igual em dev e prod:** compose app/db/migrate, imagem standalone multi-stage,
   `docker compose up -d --build`. Migrate roda `prisma db push` + seed.
 - **Escritas internas agora persistem** (ago/2026), não são mais demo: Server Actions em
@@ -166,16 +169,27 @@ Reflexo na UI (estado atual):
   Contatos — a linha que expandia no diretório virou clique que abre a ficha (ago/2026). O
   Eduardo cortou a divergência: mesma casca em todo lugar. Componente
   `components/inbox/contact-modal.tsx`, `size lg`. Topo: **só foto, nome e número**.
-- **A ficha é CONTATO + ANOTAÇÕES — SEM histórico** (ago/2026, o Eduardo fechou a questão
-  depois de idas e voltas). O raciocínio dele, que vale gravar: **aqui é a parte de conversa,
-  estilo WhatsApp — o "histórico" JÁ são as mensagens no próprio fio**, então uma linha do
-  tempo na ficha é redundante. A ficha é só: dados do cliente (telefone, email, cada um numa
-  linha) + **Anotações** (bloco com espaço pra escrever). Nada de "conversa iniciada", nada
-  de marcos. Removi o `fetchContactTimeline`/`lib/actions/history.ts` inteiro.
+- **A ficha é DADOS DO CLIENTE + ANOTAÇÕES DATADAS — sem linha do tempo** (ago/2026, várias
+  iterações até fechar). O raciocínio do Eduardo, que vale gravar: **aqui é a parte de
+  conversa, estilo WhatsApp — o "histórico de conversa" JÁ são as mensagens no fio**, então
+  timeline de "conversa iniciada" na ficha é redundante (foi tentada e cortada; removi o
+  `fetchContactTimeline`/`history.ts`). Mas ele quis a ficha **mais robusta e completa**,
+  já preparando o CRM:
+  - **Esquerda = dados**: telefone, email, **empresa** (novo `Contact.company`, texto por
+    ora — é o gancho pra ligar contato→entidade Company no CRM depois) e **características**
+    (novo `Contact.traits`, texto livre de preferências: "gosta de ser atendido de tarde").
+  - **Direita = anotações datadas**: um **log** que o atendente vai escrevendo, cada entrada
+    com autor + data. Tabela satélite **`ContactNote`** (contactId, author, body, createdAt) —
+    aplicação concreta de [[Entidade núcleo cresce por tabela satélite, não por coluna]] (2º
+    caso, junto do "Contact mínimo"). Actions `fetchContactNotes`/`addContactNote` em
+    `lib/actions/contact-notes.ts`; o modal carrega no open e adiciona inline (⌘/Ctrl+Enter),
+    assinado pelo usuário atual. O antigo `Contact.note` (nota única) foi **removido**.
+  - Modal **maior** (`size 2xl` = ~82vw até 1120px) — o Eduardo liberou ocupar 70–80% da tela.
   - Fronteira nítida: **este app = conversa** (contatos + mensagens + robustez na fila);
-    **CRM = produto/menu separado e futuro** (empresa, vários contatos por empresa, histórico
-    rico). Não antecipar CRM na parte de conversa. `Conversation.createdAt`/`resolvedAt`
-    seguem no banco como metadata dormente (sem uso na UI hoje).
+    o **CRM** (empresa como entidade, vários contatos por empresa, histórico rico) é
+    produto/menu separado e futuro. Empresa/características/anotações aqui são a base mínima
+    que já encaixa nesse CRM sem retrabalho. `Conversation.createdAt`/`resolvedAt` seguem no
+    banco como metadata dormente.
 - **"Protocolo" saiu da UI** (ago/2026): era o número do atendimento/ticket — exatamente a
   moldura de "atendimento" que o Eduardo rejeitou (ver a correção de direção acima). Tirado
   do modal e do cabeçalho da conversa na inbox. O campo `Conversation.protocol` segue no
