@@ -140,14 +140,19 @@ Reflexo na UI (estado atual):
   do atendimento/ticket, campo da Conversation pra referenciar aquele atendimento depois.
 - **Histórico é atrelado ao CONTATO, não a um atendimento** (ago/2026): a coluna direita
   da ficha lista todos os atendimentos da pessoa ao longo do tempo, cada um com o **rótulo
-  da fila** (o mesmo contato pode ter falado com Fiscal num mês e DP no outro). É **paginado
-  por mês**: abre no mês atual e um botão **"Ver antigas" traz um mês por vez pra trás**
-  (some quando não há mais). Carregado sob demanda por `fetchContactHistory(contactId,
-  monthsBack)` (server), com janela = início do mês atual menos N meses. **Escopo:** por ora
-  segue as filas do usuário (FUNCIONARIO só vê atendimentos das suas filas; ADMIN/GESTOR
-  veem tudo) — decisão a confirmar com o Eduardo (o "todos podem ver" dele pode querer
-  histórico completo independente de fila). Seed ganhou atendimentos passados em meses/filas
-  variados pra exercitar a paginação.
+  da fila** (o mesmo contato pode ter falado com Fiscal num mês e DP no outro) + data e
+  status. **Paginado por lote, não por mês** (o Eduardo cortou o "mensal"): carrega os N
+  mais recentes e um botão **"Mostrar conversas antigas" aumenta o limite** e traz mais, até
+  acabar (`hasMore`). `fetchContactHistory(contactId, limit)` (server) faz `take: limit`
+  ordenado por `lastAt desc`. **Escopo:** por ora segue as filas do usuário (FUNCIONARIO só
+  vê atendimentos das suas filas; ADMIN/GESTOR veem tudo) — decisão a confirmar (o "todos
+  podem ver" dele pode querer histórico completo). Seed ganhou atendimentos passados
+  variados (o Marcelo Tavares tem 7) pra exercitar a paginação.
+- **Thread mostra a conversa real do contato** (ago/2026): o seed reusava uma mensagem
+  `generic` em vários contatos, o que dava sensação de "conversa fixa" — agora cada contato
+  tem mensagens próprias. Também saiu o banner de data fixo ("01 ago 2026") da thread.
+- **Copiloto (sugestão de IA) removido** do composer (ago/2026) — a prop `aiOn` saiu ponta
+  a ponta. IA de resposta não faz parte do escopo agora.
 - **Contatos** é só pessoa: nome + telefone + nota interna, em **linhas expansíveis**.
   **Sem etiquetas** — o Eduardo considerou etiqueta/tags coisa de CRM (ago/2026) e mandou
   tirar; "é pra ter só o contato e atendimento". Volta se/quando o CRM entrar.
