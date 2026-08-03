@@ -110,12 +110,21 @@ Reflexo na UI (estado atual):
   viram `HIDDEN_MODULES` no `catalog.tsx` (rota viva, fora da navegação). Reativar é só
   mover de volta pra `MODULES`.
 - **Atendimento** filtra por **estado** (Todas / Em atendimento / **Fila de espera** =
-  conversas que ninguém puxou) — **sem "Resolvida"** (o Eduardo cortou o conceito). As abas
-  são **ícone + contagem** (caixa/mensagem/relógio), não texto, pra não quebrar layout com
-  muitos dígitos. Mais filtros: busca na lista, por fila e por responsável (minhas / sem
-  dono). Os dropdowns são `Select` de **vidro custom** (o `<select>` nativo tinha popup
-  feio) — ver [[Controles de filtro do dashboard]]. **Sem botão "limpar"**: limpar é
-  reselecionar Todas/Qualquer um.
+  conversas que ninguém puxou) — **sem aba "Resolvida"**. As abas são **ícone + contagem**
+  (caixa/mensagem/relógio), não texto, pra não quebrar layout com muitos dígitos. Mais
+  filtros: busca na lista, por fila e por responsável (minhas / sem dono). Os dropdowns são
+  `Select` de **vidro custom** (o `<select>` nativo tinha popup feio) — ver
+  [[Controles de filtro do dashboard]]. **Sem botão "limpar"**: limpar é reselecionar
+  Todas/Qualquer um.
+- **Finalizar (não "resolver"):** o botão do cabeçalho da conversa é **Finalizar** — o
+  Eduardo achou "resolver" sem sentido (ago/2026). Finalizar **encerra o atendimento e tira
+  a conversa da inbox**; o contato fica só no diretório de **Contatos**. No dado é o status
+  terminal `RESOLVIDA` (zera não lidas e SLA), e a inbox passou a filtrar `status != RESOLVIDA`.
+  Reabrir virá pelo contato. A **mensagem padrão de finalização** (enviada ao cliente) será
+  **definida nas Configurações** — envio depende do conector de WhatsApp, então fica pro fim.
+- **Configurações vai ser robusto** (aviso do Eduardo, ago/2026): não é a tela simples de
+  hoje; vira o centro de definição do produto (mensagens padrão, filas/números, equipe,
+  regras). Tratar como área que vai crescer, não como formulário fixo.
 - **A lista de conversas recolhe pra um rail de ~72px** (só fotos + badge de não lidas +
   barra de acento rente à esquerda); o toggle mora na própria lista. Recolher **não some
   com tudo** — vira índice visual.
