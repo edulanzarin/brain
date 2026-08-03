@@ -1,11 +1,17 @@
 ---
 tags: [tipo/projeto, projeto/navetalks]
 criado: 2026-07-28
-status: ativo
+status: substituido
 codigo_em: ~/Dev/navetalks
 ---
 
 # navetalks
+
+> **Substituído pelo [[Navehub]]** (ago/2026): o Eduardo decidiu recomeçar num
+> produto único que une atendimento + CRM, em vez de manter o atendimento aqui e
+> o CRM à parte. Esta nota fica como registro da linhagem e das decisões de
+> modelagem que valem a pena carregar pro Navehub. O código em `~/Dev/navetalks`
+> não evolui mais.
 
 > Plataforma de **atendimento omnichannel** centrada em WhatsApp: vários atendentes e
 > setores respondem os clientes por uma caixa compartilhada, e o cliente recebe tudo no

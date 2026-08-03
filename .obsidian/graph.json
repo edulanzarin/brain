@@ -41,6 +41,13 @@
         "a": 1,
         "rgb": 6514417
       }
+    },
+    {
+      "query": "tag:#projeto/navehub",
+      "color": {
+        "a": 1,
+        "rgb": 8019143
+      }
     }
   ],
   "collapse-display": true,
@@ -53,6 +60,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 0.4789783992325532,
+  "scale": 0.3193189328217021,
   "close": true
 }

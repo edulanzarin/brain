@@ -16,7 +16,11 @@ mora aqui: mora em [[Base]] (princípios) e em [[Design]], [[Frontend]], [[Backe
 - [[Navedesk]] — chamados internos.
 - [[Cofre Digital]] — certificados, acessos e alvarás da intranet.
 - [[Evento Navecon]] — landing da imersão com inscrição e pagamento (Mercado Pago).
-- [[navetalks]] — CRM de atendimento multicanal no WhatsApp (multiatendimento, SaaS).
+- [[Navehub]] — CRM + atendimento por WhatsApp para contabilidade (SaaS multi-tenant).
+
+## Substituídos
+
+- [[navetalks]] — atendimento multicanal no WhatsApp; substituído pelo [[Navehub]] (ago/2026).
 
 ## Regra: projeto não linka projeto
 
