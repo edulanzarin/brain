@@ -56,7 +56,21 @@ contra o Postgres seedado):
   5 filas com número, 14 contatos, 11 conversas, fluxo do bot, snapshot de relatório.
 - **Docker igual em dev e prod:** compose app/db/migrate, imagem standalone multi-stage,
   `docker compose up -d --build`. Migrate roda `prisma db push` + seed.
-- Ações de escrita ainda em **modo demo** (feedback por toast, sem persistir).
+- **Escritas internas agora persistem** (ago/2026), não são mais demo: Server Actions em
+  `src/lib/actions/` (um arquivo por domínio), escopadas por papel/fila e com
+  `revalidatePath`. Inbox (assumir/devolver/resolver/reabrir/transferir + marcar lida),
+  Contatos (criar/editar), Config (convidar usuário, registrar fila+número, gerenciar
+  membros), e — nos módulos CRM ocultos — Funil (criar/editar/remover negócio) e
+  Campanhas (criar rascunho/template). A escrita reusa o mesmo funil de escopo da leitura
+  (`loadConv` espelha `filaScope`): [[Escopo de dado se clampa no servidor, num funil só]].
+- **Segue demo de propósito o que depende do conector externo de WhatsApp** (decisão do
+  Eduardo, ago/2026 — "só se tiver outro jeito de conectar"): enviar mensagem, anexo e
+  áudio no composer, importar CSV, e a conexão real do número (o registro interno já entra
+  como `DESCONECTADO`). É o "último passo", não bug. Conector: pensar via
+  [[Adapter de canal isola o app do provider de mensageria]].
+- **Nuance CRM:** as escritas de Funil e Campanhas foram feitas sobre os `HIDDEN_MODULES`
+  (rota viva, fora do menu — são CRM, parkados). Estão prontas e testadas; pra aparecerem,
+  é só mover de `HIDDEN_MODULES` pra `MODULES` no `catalog.tsx`.
 
 ## Modelo de domínio (linhagem B)
 
@@ -131,9 +145,10 @@ como Server Components lendo o Postgres; ilhas client (inbox, filtros, tema) por
 ## Próximos passos (linhagem B)
 
 - [ ] Auth/sessão (pode reaproveitar o desenho da linhagem A: sessão opaca, escopo por
-      org+setor no servidor).
-- [ ] Mutações reais por Server Action (assumir/resolver/enviar, novo contato, mover
-      card do funil) trocando os toasts de demo.
+      org+setor no servidor). Hoje ainda é o cookie "ver como" em `current-user.ts`.
+- [x] Mutações reais por Server Action trocando os toasts de demo — **feito** (ago/2026),
+      menos o que depende do WhatsApp (enviar/anexo/áudio/conexão do número), que ficou de
+      propósito pro fim. Ver seção de estado.
 - [ ] Multi-escritório de verdade (se virar produto pra vender): separação por org no
       backend. Hoje é escritório único (Navecon), sem UI de troca.
 - [ ] Integração WhatsApp por adapter (Baileys primeiro, Cloud API depois) + realtime.
