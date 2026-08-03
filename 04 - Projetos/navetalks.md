@@ -87,12 +87,20 @@ descartadas por ele, ficam só como histórico:
 - **Marca:** o produto/sistema é **Navetalks**; o escritório (org) é **Navecon**. Aba do
   browser = Navetalks.
 - **Papéis:** Admin, Gestor, Funcionário.
-- **Fila = setor com um número de WhatsApp.** Usuários pertencem a filas. A conversa entra
-  por um número → fica na fila daquele número. **O escopo de acesso segue o número de
-  entrada:** Funcionário só vê as conversas das suas filas; um do Contábil NÃO vê quem
-  mandou pro número do Fiscal. Admin/Gestor veem todas. Aplicação de
-  [[Escopo de dado se clampa no servidor, num funil só]] — a chave do escopo aqui é a fila
+- **Fila = a fila de espera de um número de WhatsApp** (não "setor com número"). O Eduardo
+  corrigiu (ago/2026): nem todo setor tem número próprio — pode haver **um número geral do
+  escritório e um só do DP**, por exemplo. Quem messageia um número entra na fila daquele
+  número. Usuários têm acesso a filas. **O escopo segue o número de entrada:** Funcionário
+  só vê/atende as conversas das suas filas; quem só tem o número do DP não vê quem mandou
+  pro número geral. Admin/Gestor veem todas. Aplicação de
+  [[Escopo de dado se clampa no servidor, num funil só]] — a chave do escopo é a fila
   (canal de entrada), não o dono do registro.
+- **Transferência é para colaborador, não para outra fila.** A conversa entrou por um
+  número e **fica nele** — não faz sentido "mudar de fila/número" (o cliente chamou aquele
+  número). Transferir = passar o **responsável** para outro colaborador que **tenha acesso
+  à mesma fila**; não dá pra transferir pra quem não tem acesso. No código: `transferToUser`
+  valida a elegibilidade do destino contra `conv.fila`. "Devolver à fila" é o inverso:
+  solta o dono e a conversa volta pra espera daquele número, pra outro com acesso puxar.
 
 Sem auth ainda: o "usuário logado" vem de um cookie **"ver como" (demo)** que troca o
 usuário pra exibir o escopo na prática. É o ponto onde a sessão real entra depois.
