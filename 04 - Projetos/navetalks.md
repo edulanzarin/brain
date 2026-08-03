@@ -165,22 +165,17 @@ Reflexo na UI (estado atual):
 - **Ficha do contato é UM modal só**, o mesmo na inbox (clique na foto) e no diretório de
   Contatos — a linha que expandia no diretório virou clique que abre a ficha (ago/2026). O
   Eduardo cortou a divergência: mesma casca em todo lugar. Componente
-  `components/inbox/contact-modal.tsx`, `size xl`. Topo: **só foto, nome e número**.
-- **A ficha é PERFIL + HISTÓRICO DE CONVERSAS** (redesenho ago/2026):
-  - **Esquerda = perfil**: os *dados do cliente* (telefone, email) + nota interna. Saiu o
-    bloco "atendimento atual"/fila que existia na versão da inbox — *na inbox a fila já
-    aparece na própria tela*, não repetir. Rótulo em cima do valor pra e-mail longo caber
-    **numa linha só** (coluna ~264px, `truncate` + tooltip).
-  - **Direita = histórico de conversas do cliente**, NÃO as mensagens e NÃO "atendimentos".
-    Uma entrada **"Conversa iniciada"** por conversa (ícone + risco vertical), fila +
-    data·hora, do mais recente ao mais antigo. Sem protocolo, sem "finalizado/em aberto" — é
-    a **espinha do CRM futuro**: novos tipos de marco entram como mais um evento tipado.
-    `fetchContactTimeline(contactId, limit)` devolve itens simples (id, fila, `createdAt`),
-    paginado por lote ("Mostrar mais antigas", `hasMore`), escopado pelas filas do usuário.
-    Como "vai ter muita conversa", o formato final do histórico é **a repensar** ("dps
-    pensamos" — Eduardo).
-  - `Conversation.createdAt`/`resolvedAt` existem no banco (`finishConversation` grava
-    `resolvedAt`; `reopen` limpa), mas o histórico hoje só usa `createdAt` (início).
+  `components/inbox/contact-modal.tsx`, `size lg`. Topo: **só foto, nome e número**.
+- **A ficha é CONTATO + ANOTAÇÕES — SEM histórico** (ago/2026, o Eduardo fechou a questão
+  depois de idas e voltas). O raciocínio dele, que vale gravar: **aqui é a parte de conversa,
+  estilo WhatsApp — o "histórico" JÁ são as mensagens no próprio fio**, então uma linha do
+  tempo na ficha é redundante. A ficha é só: dados do cliente (telefone, email, cada um numa
+  linha) + **Anotações** (bloco com espaço pra escrever). Nada de "conversa iniciada", nada
+  de marcos. Removi o `fetchContactTimeline`/`lib/actions/history.ts` inteiro.
+  - Fronteira nítida: **este app = conversa** (contatos + mensagens + robustez na fila);
+    **CRM = produto/menu separado e futuro** (empresa, vários contatos por empresa, histórico
+    rico). Não antecipar CRM na parte de conversa. `Conversation.createdAt`/`resolvedAt`
+    seguem no banco como metadata dormente (sem uso na UI hoje).
 - **"Protocolo" saiu da UI** (ago/2026): era o número do atendimento/ticket — exatamente a
   moldura de "atendimento" que o Eduardo rejeitou (ver a correção de direção acima). Tirado
   do modal e do cabeçalho da conversa na inbox. O campo `Conversation.protocol` segue no
