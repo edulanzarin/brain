@@ -63,10 +63,23 @@ contra o Postgres seedado):
   membros), e — nos módulos CRM ocultos — Funil (criar/editar/remover negócio) e
   Campanhas (criar rascunho/template). A escrita reusa o mesmo funil de escopo da leitura
   (`loadConv` espelha `filaScope`): [[Escopo de dado se clampa no servidor, num funil só]].
-- **Segue demo de propósito o que depende do conector externo de WhatsApp** (decisão do
-  Eduardo, ago/2026 — "só se tiver outro jeito de conectar"): enviar mensagem, anexo e
-  áudio no composer, importar CSV, e a conexão real do número (o registro interno já entra
-  como `DESCONECTADO`). É o "último passo", não bug. Conector: pensar via
+- **Envio de mensagem de texto agora é real** (ago/2026): o composer parou de dar toast
+  "demo" — a Server Action `sendTextMessage` persiste a resposta (`OUT`), atualiza resumo
+  e último-em, zera não lidas e **assume o atendimento** (tira da fila de espera) sem
+  roubar de quem já atende; bloqueia se a conversa está finalizada; reusa o mesmo
+  `loadConv` escopado por fila. A **entrega ao cliente** passa por um seam em
+  `src/lib/whatsapp/transport.ts` (`deliverText`): com conector configurado (env
+  `WHATSAPP_TOKEN`+`WHATSAPP_PHONE_ID`) e número `CONECTADO` envia pela Cloud API e grava
+  o `wamid`; sem conector a mensagem fica **`pendente`** e sai quando o número conectar —
+  nada fingido. É a aplicação de
+  [[Persistir a mensagem não espera a entrega, a entrega é status]]. Campo novo
+  `Message.externalId` (wamid) pra correlacionar os webhooks de status. UI otimista com
+  `useOptimistic` (bolha "enviando" na hora, reconciliada no revalidate) e recibos por
+  status no balão (relógio/1 tique/2 tiques/2 azuis).
+- **Segue demo de propósito só o resto que depende do conector externo** (decisão do
+  Eduardo, ago/2026): anexo e áudio no composer, importar CSV, e a **conexão real do
+  número** (o registro interno entra como `DESCONECTADO`; falta o adapter que liga de
+  fato). Anexo/áudio hoje avisam "chega com o conector do WhatsApp". Conector: pensar via
   [[Adapter de canal isola o app do provider de mensageria]].
 - **Nuance CRM:** as escritas de Funil e Campanhas foram feitas sobre os `HIDDEN_MODULES`
   (rota viva, fora do menu — são CRM, parkados). Estão prontas e testadas; pra aparecerem,
@@ -184,11 +197,17 @@ como Server Components lendo o Postgres; ilhas client (inbox, filtros, tema) por
 - [ ] Multi-escritório de verdade (se virar produto pra vender): separação por org no
       backend. Hoje é escritório único (Navecon), sem UI de troca.
 - [ ] Integração WhatsApp por adapter (Baileys primeiro, Cloud API depois) + realtime.
+      O seam de **saída** já existe (`deliverText`); falta a **entrada** (webhook/ingestão
+      de mensagens recebidas + recibos de status que sobem `pendente→enviado→entregue→lida`
+      pelo `externalId`) e a conexão real do número.
+- [ ] Anexo/áudio no composer e importar CSV — dependem do conector/armazenamento, seguem
+      de propósito pro fim.
 
 ## Aprendizados (viraram notas)
 
 - [[Volume de dev sobrevive entre versões do projeto e traz schema velho]]
 - [[Adapter de canal isola o app do provider de mensageria]] (linhagem A)
+- [[Persistir a mensagem não espera a entrega, a entrega é status]] (envio real, ago/2026)
 
 ---
 
@@ -217,5 +236,5 @@ Decisões que valem revisitar ao evoluir a linhagem B:
   [[Uma resposta canônica de um grupo é um token compartilhado]].
 
 ## Conexões
-- Usa: [[Infra]] · [[Sistema de cores e tema do dashboard]] · [[Sidebar em acordeão e layout de módulo]] · [[Volume de dev sobrevive entre versões do projeto e traz schema velho]] · [[Sessão opaca no banco separa autenticação de permissão]] · [[Cravar o seam de permissão antes do login]] · [[Permissão composta por papéis somados, não exceção por usuário]] · [[Escopo de dado se clampa no servidor, num funil só]] · [[Adapter de canal isola o app do provider de mensageria]] · [[Uma resposta canônica de um grupo é um token compartilhado]] · [[Polling substitui webhook quando não há IP público]] · [[Migrations em container próprio no Docker Compose]] · [[Next.js standalone no Docker e o outputFileTracingRoot]]
+- Usa: [[Infra]] · [[Sistema de cores e tema do dashboard]] · [[Sidebar em acordeão e layout de módulo]] · [[Volume de dev sobrevive entre versões do projeto e traz schema velho]] · [[Sessão opaca no banco separa autenticação de permissão]] · [[Cravar o seam de permissão antes do login]] · [[Permissão composta por papéis somados, não exceção por usuário]] · [[Escopo de dado se clampa no servidor, num funil só]] · [[Adapter de canal isola o app do provider de mensageria]] · [[Persistir a mensagem não espera a entrega, a entrega é status]] · [[Uma resposta canônica de um grupo é um token compartilhado]] · [[Polling substitui webhook quando não há IP público]] · [[Migrations em container próprio no Docker Compose]] · [[Next.js standalone no Docker e o outputFileTracingRoot]]
 - Mapa: [[Projetos]]

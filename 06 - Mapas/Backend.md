@@ -94,6 +94,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   chamada de fora. Princípio: [[Configuração vem do ambiente, não do código]].
 - [[Adapter de canal isola o app do provider de mensageria]] — provider externo trocável
   (WhatsApp: Baileys ou Cloud API) fica atrás de uma interface; o app não vê o fornecedor.
+- [[Persistir a mensagem não espera a entrega, a entrega é status]] — gravar (durável,
+  interno) e entregar (externo, falível) são passos separados; a entrega vira status da
+  mensagem (`pendente → enviado → entregue → lida`), nunca pré-requisito da gravação.
 - [[De-para determinístico com override que vira aprendizado]] — casar conta/código
   de dois sistemas por cascata (chave → estrutura → descrição restrita), sem IA; a
   correção do humano vira override salvo e o de-para melhora a cada uso. Princípio:
