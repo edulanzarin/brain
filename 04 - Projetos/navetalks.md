@@ -51,9 +51,12 @@ contra o Postgres seedado):
   (inbox), Contatos, Chatbot, Relatórios, Config (Funil e Campanhas existem mas ocultos —
   são CRM).
 - **Schema Prisma** (Org na raiz, hoje só a Navecon). **Contact é objeto CORE mínimo**
-  (id, nome, telefone, nota) — CRM futuro vira tabela satélite, sem alterar Contact:
-  [[Entidade núcleo cresce por tabela satélite, não por coluna]]. Seed: equipe com papéis,
-  5 filas com número, 14 contatos, 11 conversas, fluxo do bot, snapshot de relatório.
+  (id, nome, telefone, **email**, nota) — CRM futuro (empresa, honorário, etiquetas) vira
+  tabela satélite, sem alterar Contact: [[Entidade núcleo cresce por tabela satélite, não por coluna]].
+  Nuance (ago/2026): **email entrou direto na Contact**, não como satélite — a regra do
+  satélite vale pra *atributo de CRM*, não pra **canal de contato** (email é irmão do
+  telefone: é como se alcança a pessoa, dado core). Seed: equipe (20 usuários), 5 filas
+  com número, 14 contatos, 11 conversas, fluxo do bot, snapshot de relatório.
 - **Docker igual em dev e prod:** compose app/db/migrate, imagem standalone multi-stage,
   `docker compose up -d --build`. Migrate roda `prisma db push` + seed.
 - **Escritas internas agora persistem** (ago/2026), não são mais demo: Server Actions em
@@ -147,20 +150,29 @@ Reflexo na UI (estado atual):
   (em dia). SLA é **core de atendimento** (tempo de resposta, o mesmo do TMR no topo), não
   CRM. O âmbar é derivado do que existe hoje (`slaBreach`+status+unread) em `slaSignal()`;
   com campo de prazo real, é só trocar essa função.
-- **Ficha do contato deixou de ser painel fixo na lateral** (comia espaço da conversa) e
-  virou **modal grandão** — perfil + histórico em duas colunas, aberto ao clicar na
-  foto/nome do contato no cabeçalho (ago/2026). O `protocolo` (ex. `#48118`) é o número
-  do atendimento/ticket, campo da Conversation pra referenciar aquele atendimento depois.
-- **Histórico é atrelado ao CONTATO, não a um atendimento** (ago/2026): a coluna direita
-  da ficha lista todos os atendimentos da pessoa ao longo do tempo, cada um com o **rótulo
-  da fila** (o mesmo contato pode ter falado com Fiscal num mês e DP no outro) + data e
-  status. **Paginado por lote, não por mês** (o Eduardo cortou o "mensal"): carrega os N
-  mais recentes e um botão **"Mostrar conversas antigas" aumenta o limite** e traz mais, até
-  acabar (`hasMore`). `fetchContactHistory(contactId, limit)` (server) faz `take: limit`
-  ordenado por `lastAt desc`. **Escopo:** por ora segue as filas do usuário (FUNCIONARIO só
-  vê atendimentos das suas filas; ADMIN/GESTOR veem tudo) — decisão a confirmar (o "todos
-  podem ver" dele pode querer histórico completo). Seed ganhou atendimentos passados
-  variados (o Marcelo Tavares tem 7) pra exercitar a paginação.
+- **Ficha do contato é UM modal só**, o mesmo na inbox (clique na foto) e no diretório de
+  Contatos — a linha que expandia no diretório virou clique que abre a ficha (ago/2026). O
+  Eduardo cortou a divergência: mesma casca em todo lugar. Componente
+  `components/inbox/contact-modal.tsx`, `size xl`. Topo: **só foto, nome e número**.
+- **A ficha é PERFIL + LINHA DO TEMPO** (redesenho ago/2026, o Eduardo foi enfático):
+  - **Esquerda = perfil**: os *dados do cliente* (telefone, email) + nota interna. Saiu o
+    bloco "atendimento atual"/fila que existia na versão da inbox — *na inbox a fila já
+    aparece na própria tela*, não repetir no modal.
+  - **Direita = linha do tempo do cliente**, NÃO as mensagens. Marcos de atendimento
+    (iniciado / finalizado / em aberto) com ícone + risco vertical, do mais recente ao mais
+    antigo, cada um com fila + protocolo + data·hora. "É o histórico de tudo desse cliente" —
+    a **espinha do CRM futuro**: novos tipos de marco (negócio, documento) entram como mais
+    um evento tipado, sem mexer em quem consome. `fetchContactTimeline(contactId, limit)`
+    devolve **eventos**, não mensagens; paginado por lote ("Mostrar mais antigos", `hasMore`),
+    escopado pelas filas do usuário.
+  - Os marcos vêm de campos novos na Conversation: **`createdAt` (iniciado) e `resolvedAt`
+    (finalizado)**. `finishConversation` grava `resolvedAt`; `reopen` limpa. Seed data os
+    históricos (início + fim ~75min depois) e o atual (início hoje, no horário da 1ª msg).
+- **Protocolo** (ex. `#48118`) é o **número único do atendimento (ticket)** — campo da
+  Conversation pra referenciar aquele atendimento depois; um contato acumula vários ao
+  longo do tempo. O Eduardo não sabia o que era (ago/2026): ganhou **dica (tooltip)** no
+  modal. Um mesmo contato pode ter falado com Fiscal num mês e DP no outro — por isso a fila
+  aparece por marco. Seed tem históricos variados (Marcelo Tavares com 7) pra exercitar a paginação.
 - **Thread mostra a conversa real do contato** (ago/2026): o seed reusava uma mensagem
   `generic` em vários contatos, o que dava sensação de "conversa fixa" — agora cada contato
   tem mensagens próprias. Também saiu o banner de data fixo ("01 ago 2026") da thread.
