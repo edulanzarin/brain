@@ -122,6 +122,18 @@ Sem auth ainda: o "usuário logado" vem de um cookie **"ver como" (demo)** que t
 usuário pra exibir o escopo na prática. É o ponto onde a sessão real entra depois.
 
 Reflexo na UI (estado atual):
+- **CORREÇÃO DE DIREÇÃO (ago/2026, Eduardo enfático): é CONVERSA, não "atendimento".** O
+  modelo mental é **WhatsApp**, não ticket/chamado: um fio contínuo por contato onde os dois
+  lados falam quando quiserem — "eu posso chamar o cliente a qualquer hora assim como ele
+  pode". Nada de "atendimento iniciado/finalizado", nada de **protocolo**. Já aplicado no
+  modal do contato e no cabeçalho da inbox. **Pendente (dps pensamos):** o resto da UI ainda
+  fala "atendimento" — botão **Finalizar**, **fila de espera**, status `RESOLVIDA`, KPIs de
+  atendimento. Esses termos abaixo refletem o estado ANTES da correção; a varredura ampla
+  pra trocar a moldura toda ainda não foi feita. Não reintroduzir a moldura de ticket.
+- **[[Interface enxuta e compacta, sem desperdício de espaço]]** (preferência dele, ago/2026):
+  manter o glass bonito/moderno, mas **compacto** — "coisas ocupando muito espaço fica ruim
+  pra um sistema desse". Densidade alta (tipos menores, paddings curtos) pra caber mais
+  informação; o modal pode ser largo/alto, o que não pode é desperdiçar espaço.
 - **É plataforma de atendimento, não CRM.** Funil e Campanhas (CRM) saíram do menu —
   viram `HIDDEN_MODULES` no `catalog.tsx` (rota viva, fora da navegação). Reativar é só
   mover de volta pra `MODULES`.
@@ -154,25 +166,25 @@ Reflexo na UI (estado atual):
   Contatos — a linha que expandia no diretório virou clique que abre a ficha (ago/2026). O
   Eduardo cortou a divergência: mesma casca em todo lugar. Componente
   `components/inbox/contact-modal.tsx`, `size xl`. Topo: **só foto, nome e número**.
-- **A ficha é PERFIL + LINHA DO TEMPO** (redesenho ago/2026, o Eduardo foi enfático):
+- **A ficha é PERFIL + HISTÓRICO DE CONVERSAS** (redesenho ago/2026):
   - **Esquerda = perfil**: os *dados do cliente* (telefone, email) + nota interna. Saiu o
     bloco "atendimento atual"/fila que existia na versão da inbox — *na inbox a fila já
-    aparece na própria tela*, não repetir no modal.
-  - **Direita = linha do tempo do cliente**, NÃO as mensagens. Marcos de atendimento
-    (iniciado / finalizado / em aberto) com ícone + risco vertical, do mais recente ao mais
-    antigo, cada um com fila + protocolo + data·hora. "É o histórico de tudo desse cliente" —
-    a **espinha do CRM futuro**: novos tipos de marco (negócio, documento) entram como mais
-    um evento tipado, sem mexer em quem consome. `fetchContactTimeline(contactId, limit)`
-    devolve **eventos**, não mensagens; paginado por lote ("Mostrar mais antigos", `hasMore`),
-    escopado pelas filas do usuário.
-  - Os marcos vêm de campos novos na Conversation: **`createdAt` (iniciado) e `resolvedAt`
-    (finalizado)**. `finishConversation` grava `resolvedAt`; `reopen` limpa. Seed data os
-    históricos (início + fim ~75min depois) e o atual (início hoje, no horário da 1ª msg).
-- **Protocolo** (ex. `#48118`) é o **número único do atendimento (ticket)** — campo da
-  Conversation pra referenciar aquele atendimento depois; um contato acumula vários ao
-  longo do tempo. O Eduardo não sabia o que era (ago/2026): ganhou **dica (tooltip)** no
-  modal. Um mesmo contato pode ter falado com Fiscal num mês e DP no outro — por isso a fila
-  aparece por marco. Seed tem históricos variados (Marcelo Tavares com 7) pra exercitar a paginação.
+    aparece na própria tela*, não repetir. Rótulo em cima do valor pra e-mail longo caber
+    **numa linha só** (coluna ~264px, `truncate` + tooltip).
+  - **Direita = histórico de conversas do cliente**, NÃO as mensagens e NÃO "atendimentos".
+    Uma entrada **"Conversa iniciada"** por conversa (ícone + risco vertical), fila +
+    data·hora, do mais recente ao mais antigo. Sem protocolo, sem "finalizado/em aberto" — é
+    a **espinha do CRM futuro**: novos tipos de marco entram como mais um evento tipado.
+    `fetchContactTimeline(contactId, limit)` devolve itens simples (id, fila, `createdAt`),
+    paginado por lote ("Mostrar mais antigas", `hasMore`), escopado pelas filas do usuário.
+    Como "vai ter muita conversa", o formato final do histórico é **a repensar** ("dps
+    pensamos" — Eduardo).
+  - `Conversation.createdAt`/`resolvedAt` existem no banco (`finishConversation` grava
+    `resolvedAt`; `reopen` limpa), mas o histórico hoje só usa `createdAt` (início).
+- **"Protocolo" saiu da UI** (ago/2026): era o número do atendimento/ticket — exatamente a
+  moldura de "atendimento" que o Eduardo rejeitou (ver a correção de direção acima). Tirado
+  do modal e do cabeçalho da conversa na inbox. O campo `Conversation.protocol` segue no
+  banco, sem uso na tela.
 - **Thread mostra a conversa real do contato** (ago/2026): o seed reusava uma mensagem
   `generic` em vários contatos, o que dava sensação de "conversa fixa" — agora cada contato
   tem mensagens próprias. Também saiu o banner de data fixo ("01 ago 2026") da thread.
