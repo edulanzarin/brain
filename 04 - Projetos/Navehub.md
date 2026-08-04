@@ -25,23 +25,31 @@ migrate+app na 4030, build de produção e typecheck limpos, `/conversas` em 200
 contra o Postgres seedado, e a **regra de fila conferida ao vivo** (Bruno, só Geral,
 não vê o DP nem na lista nem abrindo a conversa por URL direta; Carla, Geral+DP, vê).
 
-- **Caixa de entrada de 3 colunas** (filas / lista de conversas / conversa), com a
-  **ficha do contato em modal** (não coluna fixa). Design Aurora Glass roxo, denso,
-  dois níveis de vidro (o overlay opaco é a base dos modais). Assumir, responder
-  (envio **otimista** com `useOptimistic`), transferir e **finalizar** por server
-  actions; filtros na URL; SLA por conversa (relógio colorido).
-- **Modais** (pedido do Eduardo): ficha do contato (carrega notas via TanStack,
-  edita, timeline de anotações), transferir (só membros da fila), nova conversa
-  (picker de contato), respostas salvas, e confirmação do finalizar.
-- **Núcleo de permissão = fila** (número de WhatsApp cadastrado como caixa). Quem
-  vê/responde uma conversa é MEMBRO da fila (`fila_membro`), ou admin do
-  escritório; transferência só vai para outro membro da mesma fila. Tudo trancado
-  no servidor. Verificado com o exemplo Geral/DP: Bruno (só Geral) não enxerga
-  conversa do DP; Carla (membro do DP) enxerga.
+- **Inbox de fila compartilhada estilo Gestta** (2ª iteração, ago/2026 — o Eduardo
+  achou a 1ª confusa, com filtros redundantes). Duas colunas (lista + conversa),
+  ficha do contato em **modal**. A lista virou **abas**: **Fila de espera** (sem dono,
+  com atividade), **Meus chats** (dono = eu) e **Equipe** (só supervisor/admin: o
+  atendimento do time). Sumiram os filtros de estado/responsável e as pills; fila
+  virou **select** (escala pra muitas). Envio **otimista**; SLA por conversa.
+- **Posse explícita**: o que ninguém puxou fica na espera "apitando". Puxar (ou
+  **enviar**) me torna dono e tira da espera. Fio contínuo por (fila, contato) — uma
+  conversa persistente por par (UNIQUE); **"abrir conversa"** é find-or-create e traz
+  o histórico (nunca "nova").
+- **Permissão robusta escopada ao setor**: papel global só admin|funcionário; o
+  **supervisor é por fila** (`fila_membro.supervisor`), não cargo global. Funcionário
+  comum vê espera + as suas; **lê** conversa de colega dentro da fila (modo leitura,
+  sem composer), mas não manda nem puxa. **Transferir** (pra qualquer usuário, de
+  qualquer setor) é só do supervisor da fila ou admin. Tudo trancado no servidor; a
+  UI recebe flags (`pode_responder`/`pode_gerenciar`/`sou_dono`). Verificado ao vivo:
+  Bruno (Geral comum) não vê o DP nem a conversa da Carla na lista, mas lê a da Carla
+  em modo leitura; Diego (supervisor Geral) vê a aba Equipe do Geral e transfere.
+- **Modais**: ficha do contato (notas via TanStack, edita, timeline), transferir
+  (todos os usuários da org, busca), abrir conversa (picker), respostas salvas,
+  confirmação do finalizar.
 - **Multi-tenant por `org`**: toda linha carrega `org_id`.
-- Envio ao WhatsApp é um **gancho** (`enviarAoProvedor`), ainda stub.
+- Envio ao WhatsApp é um **seam** (`deliverText`), ainda sem conector (fica `pendente`).
 - Login ainda não existe: em dev o "usuário atual" vem de um cookie (seletor "Ver
-  como") pra demonstrar a regra de fila ao vivo.
+  como") pra demonstrar posse e permissão ao vivo.
 
 ## Infra
 
@@ -59,7 +67,12 @@ SQL direto) · TanStack Query · lucide · sonner.
 - **Atendimento + CRM juntos**, ao contrário do navetalks (só atendimento). O CRM
   que faltava lá — empresa como entidade, contato rico — é razão de existir aqui.
 - **Fila como unidade de permissão** do atendimento, não cargo global: o acesso
-  segue a associação pessoa↔fila, e a transferência respeita a mesma fronteira.
+  segue a associação pessoa↔fila. **Supervisor é papel escopado à fila**
+  (`fila_membro.supervisor`), não global — quem transfere/gerencia o setor. A
+  transferência, porém, pode cruzar setor (o supervisor manda pra qualquer usuário);
+  o número não muda, a posse sim. Aplica [[Escopo de dado se clampa no servidor, num funil só]].
+- **Fila compartilhada com posse explícita** (modelo Gestta): espera → puxar/enviar
+  vira posse → finalizar/devolver solta. Leitura aberta no setor, escrita do dono.
 - **SQL direto com `pg`**, não Prisma (o navetalks usava Prisma) — mesma escolha
   do Navetech Hub/Nexo.
 - **WhatsApp atrás de adapter**: Cloud API oficial como default, mas o app fala
