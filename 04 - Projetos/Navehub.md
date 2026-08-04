@@ -18,12 +18,21 @@ Código em: `~/Dev/navehub` · sem remote ainda (commit local em dia).
 
 ## Estado atual
 
-Fundação de pé e verificada (build de produção limpo, typecheck limpo, `/inbox`
-em 200 SSR contra o Postgres seedado):
+**Refeito do zero (ago/2026)** — o Eduardo pediu rebuild com os melhores métodos,
+escalabilidade, design moderno e **muitos modais**; a fundação anterior tinha sumido
+(pasta vazia). Estado atual de pé e verificado: `docker compose up -d --build` sobe
+migrate+app na 4030, build de produção e typecheck limpos, `/conversas` em 200 SSR
+contra o Postgres seedado, e a **regra de fila conferida ao vivo** (Bruno, só Geral,
+não vê o DP nem na lista nem abrindo a conversa por URL direta; Carla, Geral+DP, vê).
 
-- **Caixa de entrada de 3 colunas** (filas / lista de conversas / conversa /
-  detalhes), no visual herdado do design system. Puxar da fila, responder,
-  transferir e resolver por server actions.
+- **Caixa de entrada de 3 colunas** (filas / lista de conversas / conversa), com a
+  **ficha do contato em modal** (não coluna fixa). Design Aurora Glass roxo, denso,
+  dois níveis de vidro (o overlay opaco é a base dos modais). Assumir, responder
+  (envio **otimista** com `useOptimistic`), transferir e **finalizar** por server
+  actions; filtros na URL; SLA por conversa (relógio colorido).
+- **Modais** (pedido do Eduardo): ficha do contato (carrega notas via TanStack,
+  edita, timeline de anotações), transferir (só membros da fila), nova conversa
+  (picker de contato), respostas salvas, e confirmação do finalizar.
 - **Núcleo de permissão = fila** (número de WhatsApp cadastrado como caixa). Quem
   vê/responde uma conversa é MEMBRO da fila (`fila_membro`), ou admin do
   escritório; transferência só vai para outro membro da mesma fila. Tudo trancado
@@ -67,6 +76,11 @@ Só links; o texto mora na nota de princípio/técnica.
 - [[Entidade núcleo cresce por tabela satélite, não por coluna]]
 - [[Persistir a mensagem não espera a entrega, a entrega é status]]
 - [[Sistema de cores e tema do dashboard]]
+- [[Runner de migration em SQL puro dispensa o CLI do ORM]]
+- [[Numeric e bigint do Postgres chegam como string no driver pg]]
+- [[Navegação de dois níveis - trilho de produto e sidebar de contexto]] (o rail de
+  ícones dirigido por catálogo já é o nível 1; a sidebar de contexto entra quando virar suíte)
+- [[Primitivos, reaproveitamento e modularidade vêm antes da escala]] (pensamento)
 
 ## Próximos passos
 

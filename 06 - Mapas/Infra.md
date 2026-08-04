@@ -62,6 +62,8 @@ App `4xxx`, banco espelha trocando o `4` inicial por `5`. Regra e exceções em
 `02 - Técnicas/Infra e deploy`
 
 - [[Migrations em container próprio no Docker Compose]] — migration não sobe com o app.
+- [[Runner de migration em SQL puro dispensa o CLI do ORM]] — sem ORM, o migrator é
+  um script de ~30 linhas; some o peso do CLI do Prisma na imagem standalone.
 - [[Next.js standalone no Docker e o outputFileTracingRoot]] — imagem enxuta sem
   quebrar o trace de arquivos.
 - [[App sob subcaminho fica na raiz e o proxy tira o prefixo]] — servir em
