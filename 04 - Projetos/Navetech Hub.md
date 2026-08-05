@@ -291,6 +291,48 @@ cron de campanha em modo log, sem e-mail real). **SMTP real** configurado (Gmail
 setado — falta só o cron do host apontar as duas rotas e conceder a seção
 `formularios` ao cargo da gestora no /admin. Branch `feat/rh-formularios`.
 
+### Canal de denúncia + Clima (ago/2026)
+
+Duas seções pedidas pela RH: um **canal de denúncia anônimo** (assédio /
+irregularidades, atende a Lei 14.457/2022) e uma **avaliação anônima da empresa**
+(clima), ambas com painel de gestão. Branch `feat/canal-rh`, migration 018.
+
+- **Acesso é por LINK PÚBLICO aberto** (sem login, sem token por pessoa),
+  diferente da experiência (token por destinatário, responde uma vez, exige nome).
+  Forçar denúncia/clima no pipeline `/f/[token]` distorceria aquele fluxo, então
+  ganharam **rotas públicas próprias** (`/denuncia`, `/denuncia/acompanhar`,
+  `/clima/[slug]`) reusando só as peças finas (validação, hash, componentes) — de
+  novo a exceção cirúrgica de [[Formulário público por token opaco fica fora do
+  gate de sessão]]. **Pegadinha do proxy**: como as rotas eram novas e fora da
+  lista de exceções do `src/proxy.ts`, o redirect otimista mandava o visitante
+  anônimo pro `/login` — precisou liberar `denuncia`/`clima` no matcher (sem barra,
+  então `/rh/denuncias` e `/rh/clima`, que começam com `rh`, seguem protegidos).
+- **Anonimato por desenho** (o aprendizado que virou nota):
+  [[Canal anônimo não guarda quem, e o retorno é um segredo do denunciante]].
+  Nenhuma tabela grava IP/identidade; o denunciante acompanha por **protocolo +
+  senha** (senha só como hash scrypt, irrecuperável); no clima, resposta sem nome.
+  O dashboard suprime recorte por setor abaixo de N respostas pra não deanonimizar.
+- **Denúncia** (`/rh/denuncias`): fila com filtro por status/assunto, mini-dashboard
+  (total, aguardando RH, em análise, tempo de 1ª resposta) e painel de tratativa
+  (relato + thread com o denunciante anônimo + responder + mudar status).
+- **Clima** (`/rh/clima`): rodadas (criar/abrir/fechar, link próprio por slug) e
+  dashboard — **eNPS** (0–10, promotores−detratores) + breakdown, distribuição
+  colorida por faixa, média por tema (temas configuráveis em jsonb na rodada),
+  tendência entre rodadas, recorte por setor e comentários. Uma rodada seed
+  (`clima-2026`) já nasce aberta.
+- Gestão gateada pelo `apiRoute` (seções `rh/denuncias`, `rh/clima` no
+  `api-secoes`; entram sozinhas no /admin por virem do catálogo de código). A
+  caixa de link público monta a URL via `useSyncExternalStore` pra não brigar com
+  a hidratação (parente de [[Portal condicional dispensa o flag de montagem]]).
+- Verificado ponta a ponta: build + tsc + eslint limpos; fluxos públicos por curl
+  (criar denúncia → protocolo+senha → consultar; senha errada → 404; clima
+  responde e valida faixa; mensagem do denunciante entra na thread); rotas de
+  gestão dão 401 sem sessão e a página 307→login; as queries de dashboard rodadas
+  direto no banco. **Pendente** (precisa de sessão real, não dá pra dirigir daqui):
+  conceder as seções `denuncias`/`clima` ao cargo da gestora no /admin, e o
+  passeio autenticado pelos dois painéis. QR do link ficou de fora (sem lib de QR;
+  hoje é copiar/abrir o link) — follow-up fácil.
+
 ## Filial (estabelecimento) no filtro — jul/2026
 
 O sistema filtrava só por **empresa** (`codigoempresa`); no Questor a empresa
@@ -357,6 +399,7 @@ Gerais de dev (continuação):
 - [[Armadilhas de child_process no Node]]
 
 Gerais de dev:
+- [[Canal anônimo não guarda quem, e o retorno é um segredo do denunciante]]
 - [[Permissão composta por papéis somados, não exceção por usuário]]
 - [[Agregar antes de juntar em tabelas gigantes no Postgres]]
 - [[router.replace do Next falha no build de produção]]

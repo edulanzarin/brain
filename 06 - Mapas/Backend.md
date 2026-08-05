@@ -39,6 +39,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Formulário público por token opaco fica fora do gate de sessão]] — quem não
   tem login responde por link; o token é a credencial, a exceção ao gate é
   cirúrgica.
+- [[Canal anônimo não guarda quem, e o retorno é um segredo do denunciante]] —
+  quando o canal promete anonimato, não se grava identidade nenhuma; o retorno é
+  um protocolo+senha (hash) que só o denunciante tem, e o agregado suprime recorte
+  pequeno. Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[Uma resposta canônica de um grupo é um token compartilhado]] — vários podem
   responder, mas só uma resposta vale: um token para o grupo, o primeiro fecha.
   Princípio: [[Um invariante se garante na estrutura, não no processo]].
