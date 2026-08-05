@@ -50,6 +50,11 @@ não vê o DP nem na lista nem abrindo a conversa por URL direta; Carla, Geral+D
 - Envio ao WhatsApp é um **seam** (`deliverText`), ainda sem conector (fica `pendente`).
 - Login ainda não existe: em dev o "usuário atual" vem de um cookie (seletor "Ver
   como") pra demonstrar posse e permissão ao vivo.
+- **Contato é da org, não da fila** (correção ago/2026): o número (fila) é só o canal.
+  Módulo **Contatos** (menu próprio) é o diretório de clientes com a ficha — dados,
+  **conversas do cliente** (em vários números) e anotações. **"Abrir conversa" saiu
+  da inbox** e virou ação da ficha: escolhe o número e abre/reusa o fio
+  (find-or-create). A inbox ficou só pra atender o que já existe.
 
 ## Infra
 
@@ -102,8 +107,10 @@ Só links; o texto mora na nota de princípio/técnica.
 - [ ] Integração WhatsApp Cloud API: webhook de entrada + gancho de saída +
       credenciais por fila, via [[Adapter de canal isola o app do provider de mensageria]].
 - [ ] Tempo real na inbox (LISTEN/NOTIFY ou SSE).
-- [ ] CRM: empresa como entidade, contato rico (aproveitar o que o navetalks já
-      pensou de modelagem), relatórios.
+- [x] CRM base: **módulo Contatos** (diretório + ficha com conversas e anotações);
+      contato é da org, abrir conversa escolhe o número. **feito** (ago/2026).
+- [ ] CRM: empresa como **entidade** (hoje é texto), contato rico (honorário,
+      etiquetas via satélite), relatórios.
 - [ ] Configurar remote e primeiro push.
 
 ## Conexões
