@@ -15,10 +15,11 @@ Código em: `~/Dev/navecon-crm`
 
 ## Estado atual
 
-Esqueleto completo rodando local: build de produção passa, as cinco telas leem do
-Postgres e as ações de atendimento (puxar, transferir, encerrar, reabrir, enviar
-mensagem/nota) mutam o banco por Server Actions. Seed porta os dados do protótipo em
-`docs/`. Sem auth ainda — a persona logada ("Marina Alves") é fixa. Sem remote git.
+Esqueleto completo rodando local: build de produção passa, as seis telas (Início,
+Mensagens, Empresas, Contatos, Tarefas, Relatórios) leem do Postgres e as ações de
+atendimento (puxar, transferir, encerrar, reabrir, enviar mensagem/nota) mutam o banco
+por Server Actions. Seed porta os dados do protótipo em `docs/`. Sem auth ainda — a
+persona logada ("Marina Alves") é fixa. Sem remote git.
 
 ## Infra
 
@@ -42,6 +43,11 @@ em `@layer`).
   chegando ao sistema. Grupos em acordeão (o da rota aberto) que colapsam para rail de
   ícones — ganha tela num CRM denso. Um catálogo de navegação num array só. Padrão em
   [[Sidebar em acordeão e layout de módulo]].
+- **Contato é objeto de primeira classe, não campo da empresa.** Pertence a uma empresa,
+  mas tem ficha própria (dados, CPF, aniversário, preferência de canal, atendimentos dele)
+  e aba própria — os dois se linkam nos dois sentidos. Empresa também engrossou: nome
+  fantasia, IE/IM, situação cadastral, endereço, contato, honorário/vencimento e validade
+  do certificado. Migration aditiva (002), sem quebrar o que já existia.
 - **SQL puro, sem ORM.** Migrator é um script de ~30 linhas; seed é node com `pg`. Ver
   [[Runner de migration em SQL puro dispensa o CLI do ORM]].
 - **Histórico da ficha vem de `atendimentos`, não de tabela à parte.** Os atendimentos
