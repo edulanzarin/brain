@@ -16,6 +16,8 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[router.replace do Next falha no build de produção]] — funciona em `dev`, falha
   calado em `build`. Princípio: [[Verificar no build de produção, não só em dev]].
 - [[Componente de ícone não atravessa a fronteira server-client]]
+- [[Componente de terceiro que usa Context não roda em Server Component]] — ícone/lib
+  com `useContext` quebra no server; usar a entrada `/ssr` context-free.
 - [[React reseta o formulário ao fim de uma Server Action]]
 
 ## Estado e renderização

@@ -108,6 +108,7 @@ Só links; o texto mora na nota de princípio/técnica.
 - [[Sistema de cores e tema do dashboard]]
 - [[Cor de marca precisa de variante acessível por tema]]
 - [[Modal com conteúdo que cresce tem teto de altura e área que rola]]
+- [[Componente de terceiro que usa Context não roda em Server Component]]
 - [[Runner de migration em SQL puro dispensa o CLI do ORM]]
 - [[Numeric e bigint do Postgres chegam como string no driver pg]]
 - [[Navegação de dois níveis - trilho de produto e sidebar de contexto]] (o rail de
