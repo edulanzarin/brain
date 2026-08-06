@@ -18,6 +18,8 @@ verdade, é sobre o que eu escolho.
   pode ser grande, o conteúdo não desperdiça espaço.
 - [[Interface de cliente fala pouco e esconde o backend]] — voz quieta, sem texto
   de funcionalidade nem jargão técnico na tela.
+- [[Estética é por projeto, princípio de design é que se reusa]] — o que viaja entre
+  sistemas é o princípio; a cara cada projeto escolhe a sua.
 
 ## O que entra aqui
 

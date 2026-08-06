@@ -5,11 +5,15 @@ criado: 2026-07-20
 
 # Design
 
-O sistema visual reutilizável entre projetos: todo projeto novo começa com uma
-linguagem coerente, sem redesenhar do zero.
+**O que se reusa entre projetos é o princípio, não a estética.** Os princípios (por
+quê) moram em [[Base]] e sobrevivem a qualquer redesign. As técnicas daqui (como) são
+um *dialeto* concreto — o dashboard denso "Aurora Glass" — traduzido em CSS, Tailwind
+e React, ramificado por assunto. É uma opção de cara, boa pra sistema de trabalho tipo
+dashboard, não uma linguagem que todo projeto tenha que herdar:
+[[Estética é por projeto, princípio de design é que se reusa]].
 
-Os **princípios** (por quê) estão em [[Base]]. Aqui ficam as **técnicas** (como) — a
-tradução deles em CSS, Tailwind e React, ramificadas por assunto.
+Projeto novo herda os princípios sempre; puxa este dialeto só se for da mesma forma
+(admin/dashboard). Landing, app de cliente ou mobile escolhem a própria estética.
 
 ## Cor e tema
 
