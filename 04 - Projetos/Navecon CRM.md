@@ -38,6 +38,10 @@ em `@layer`).
   Mantive a identidade (roxo, cores de departamento, tokens claro/escuro) mas troquei
   vidro por superfície sólida, raio 20px→11px, base tipográfica para 13px, KPI 30px→22px.
   É exatamente o que a base já prega: [[Estética é por projeto, princípio de design é que se reusa]].
+- **Navegação em sidebar, não barra no topo.** A pedido do Eduardo, com muita coisa
+  chegando ao sistema. Grupos em acordeão (o da rota aberto) que colapsam para rail de
+  ícones — ganha tela num CRM denso. Um catálogo de navegação num array só. Padrão em
+  [[Sidebar em acordeão e layout de módulo]].
 - **SQL puro, sem ORM.** Migrator é um script de ~30 linhas; seed é node com `pg`. Ver
   [[Runner de migration em SQL puro dispensa o CLI do ORM]].
 - **Histórico da ficha vem de `atendimentos`, não de tabela à parte.** Os atendimentos
@@ -67,5 +71,5 @@ Só links. O texto mora na nota atômica.
 ## Conexões
 - Usa: [[Design]] · [[Infra]]
 - Base: [[Configuração vem do ambiente, não do código]] · [[Estética é por projeto, princípio de design é que se reusa]]
-- Técnicas: [[Sistema de cores e tema do dashboard]] · [[Runner de migration em SQL puro dispensa o CLI do ORM]] · [[Next.js standalone no Docker e o outputFileTracingRoot]]
+- Técnicas: [[Sistema de cores e tema do dashboard]] · [[Sidebar em acordeão e layout de módulo]] · [[Runner de migration em SQL puro dispensa o CLI do ORM]] · [[Next.js standalone no Docker e o outputFileTracingRoot]]
 - Mapa: [[Projetos]]
