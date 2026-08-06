@@ -25,6 +25,8 @@ Projeto novo herda os princípios sempre; puxa este dialeto só se for da mesma 
   vidro: chrome arejada vs overlay opaco e legível.
 - [[Validar paleta de gráficos antes de escolher cores]] — forma primeiro, cor por
   último; checagens objetivas antes de fechar a paleta.
+- [[Cor de marca precisa de variante acessível por tema]] — a cor crua do cliente
+  reprova contraste como texto; derive uma variante por tema e compute.
 
 Princípios: [[Token semântico em vez de valor literal]] ·
 [[Hierarquia por superfície, não por borda]]
@@ -48,6 +50,8 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 - [[Seletor cria e gerencia os próprios itens]] — combobox que cria ao digitar e
   renomeia/exclui no painel, dispensando tela de CRUD do auxiliar.
 - [[Blocos de dado - card, KPI e gráfico]] — card, stat tile, gráfico e tabela.
+- [[Modal com conteúdo que cresce tem teto de altura e área que rola]] — overlay não
+  pode crescer sem fim: teto no painel, scroll na parte que cresce.
 
 ## Estados e feedback
 

@@ -55,6 +55,18 @@ não vê o DP nem na lista nem abrindo a conversa por URL direta; Carla, Geral+D
   **conversas do cliente** (em vários números) e anotações. **"Abrir conversa" saiu
   da inbox** e virou ação da ficha: escolhe o número e abre/reusa o fio
   (find-or-create). A inbox ficou só pra atender o que já existe.
+- **Home = Painel operacional** (ago/2026): a `/` deixou de redirecionar e virou
+  painel escopado por fila — KPIs (espera, SLA, meus, ativas), "espera por fila",
+  "carga da equipe" (só supervisor) e a lista acionável "precisam de atenção".
+  Gráficos em SVG/CSS com tom único (cor de fila não separa sob daltonismo).
+- **Contatos virou diretório-CRM robusto** (ago/2026): tabela com empresa, telefone
+  e nº de conversas; filtro por empresa; criar/editar/excluir. A ficha abre em duas
+  colunas (identidade + conversas | anotações com teto e scroll) e a **empresa é
+  clicável** — view da empresa com seus contatos, tudo como troca de view no mesmo
+  modal (sem empilhar). "Abrir conversa" pede o número de propósito (evita o errado).
+- **Tema Laranja + Verde + Branco** (ago/2026, troca do roxo): fundo neutro e
+  chapado (aurora removida), escuro grafite/preto; a marca tem variante acessível
+  por tema, validada por cálculo de contraste.
 
 ## Infra
 
@@ -94,6 +106,8 @@ Só links; o texto mora na nota de princípio/técnica.
 - [[Entidade núcleo cresce por tabela satélite, não por coluna]]
 - [[Persistir a mensagem não espera a entrega, a entrega é status]]
 - [[Sistema de cores e tema do dashboard]]
+- [[Cor de marca precisa de variante acessível por tema]]
+- [[Modal com conteúdo que cresce tem teto de altura e área que rola]]
 - [[Runner de migration em SQL puro dispensa o CLI do ORM]]
 - [[Numeric e bigint do Postgres chegam como string no driver pg]]
 - [[Navegação de dois níveis - trilho de produto e sidebar de contexto]] (o rail de
@@ -107,10 +121,11 @@ Só links; o texto mora na nota de princípio/técnica.
 - [ ] Integração WhatsApp Cloud API: webhook de entrada + gancho de saída +
       credenciais por fila, via [[Adapter de canal isola o app do provider de mensageria]].
 - [ ] Tempo real na inbox (LISTEN/NOTIFY ou SSE).
-- [x] CRM base: **módulo Contatos** (diretório + ficha com conversas e anotações);
-      contato é da org, abrir conversa escolhe o número. **feito** (ago/2026).
-- [ ] CRM: empresa como **entidade** (hoje é texto), contato rico (honorário,
-      etiquetas via satélite), relatórios.
+- [x] CRM base: **módulo Contatos** robusto (tabela, filtro por empresa, CRUD,
+      ficha em duas colunas) + **painel** operacional na home. **feito** (ago/2026).
+- [ ] CRM: empresa como **entidade** de verdade — hoje é texto e a "view da empresa"
+      agrupa contatos por esse texto; falta tabela `empresa`, ficha própria e o
+      módulo Empresas (rail). Contato rico (honorário, etiquetas via satélite), relatórios.
 - [ ] Configurar remote e primeiro push.
 
 ## Conexões
