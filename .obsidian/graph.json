@@ -48,6 +48,13 @@
         "a": 1,
         "rgb": 8019143
       }
+    },
+    {
+      "query": "tag:#projeto/navecon-crm",
+      "color": {
+        "a": 1,
+        "rgb": 1357990
+      }
     }
   ],
   "collapse-display": true,
@@ -60,6 +67,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 0.5074843919746027,
+  "scale": 0.3764716241005452,
   "close": true
 }

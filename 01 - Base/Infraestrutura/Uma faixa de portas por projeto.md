@@ -26,9 +26,22 @@ Mapa atual:
 | [[Evento Navecon]] | 4099 | 5099 |
 | [[navetalks]] | 4050 | 5050 |
 | [[Navehub]] | 4030 | 5030 |
+| [[Navecon CRM]] | 4046 | 5046 |
 
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte
 da verdade, não o `docker ps` da máquina que por acaso está ligada.
+
+## Uma porta livre ainda pode ser proibida pelo navegador
+
+A porta escolhida não pode ser só "livre no host" — tem que ser aceita pelo **navegador**.
+Chromium e Firefox mantêm uma lista de portas *unsafe* (herança de serviços antigos:
+lockd, X11, IRC…) e recusam conectar nelas; o Next inclusive se recusa a subir com
+`next start -p 4045` ("Bad port: 4045 is reserved for npp"). Por isso Navecon CRM ficou em
+**4046**, não 4045 (o próximo número na sequência caía justo numa porta bloqueada).
+
+A regra do espelho `4xxx`→`5xxx` continua, mas ao reservar o par, pule qualquer porta da
+lista unsafe do navegador — no range `4xxx` a que morde é a **4045**. Visto em
+[[Navecon CRM]] (ago/2026).
 
 ## O par são duas portas, não uma
 
