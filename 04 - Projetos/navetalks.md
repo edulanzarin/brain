@@ -53,16 +53,21 @@ Funcionário do Fiscal só enxerga as conversas das filas dele).
   assumir, devolver, finalizar. **Entrega passa por um seam** (`src/lib/whatsapp.ts`
   `deliverText`): sem conector a mensagem fica `pendente` e sai quando o número conectar —
   [[Persistir a mensagem não espera a entrega, a entrega é status]].
+- **Os 4 módulos de pé** (ago/2026): além de Conversas — **Contatos** (diretório + ficha
+  em modal com identidade, dados enxutos e timeline de anotações; a mesma ficha abre pela
+  inbox no clique do contato), **Configurações** (seções deep-linkáveis por `?s=`: Filas &
+  Números com membros, Equipe com papéis/convite, Mensagens prontas) e **Relatórios**
+  (KPIs escopados por papel). Mensagens prontas viram picker no composer com `{{nome}}`.
 - **Sem auth ainda**: usuário logado vem do cookie **"ver como"** (demo) em
-  `current-user.ts`, que troca o ator pra demonstrar o escopo. Contatos, Relatórios e
-  Configurações estão como placeholders ("em construção").
+  `current-user.ts`, que troca o ator pra demonstrar o escopo (as escritas de config são
+  gated por papel no servidor).
 - **Stack/infra**: Next 15 (App Router) · React 19 · TS · Tailwind v4 · Postgres · Prisma.
   Chassi `navetalks` app `4050` / banco `5050`, compose db+migrate+app, Dockerfile
   standalone Prisma-aware. 5 commits temáticos, sem remote configurado local.
 
 ### Próximos passos (linhagem C)
-- [ ] Contatos (diretório + ficha em modal), Relatórios, Configurações (área robusta:
-      filas/números, equipe, mensagens padrão).
+- [x] Contatos, Configurações (filas/números, equipe, mensagens prontas) e Relatórios —
+      feitos (ago/2026).
 - [ ] Auth/sessão real trocando o cookie "ver como".
 - [ ] Adapter de WhatsApp: **entrada** (webhook/ingestão + recibos de status pelo
       `externalId`) e conexão real do número; realtime na inbox.
