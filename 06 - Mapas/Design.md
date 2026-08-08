@@ -52,6 +52,10 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 - [[Blocos de dado - card, KPI e gráfico]] — card, stat tile, gráfico e tabela.
 - [[Modal com conteúdo que cresce tem teto de altura e área que rola]] — overlay não
   pode crescer sem fim: teto no painel, scroll na parte que cresce.
+- [[Primitiva de botão fecha o tamanho e abre só a variante]] — o botão vira
+  componente que expõe cor, não tamanho; o `!h-7` por instância deixa de existir.
+
+Princípios: [[A variante de um controle muda a intenção, não o tamanho]]
 
 ## Estados e feedback
 

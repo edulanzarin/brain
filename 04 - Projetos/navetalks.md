@@ -53,11 +53,25 @@ Funcionário do Fiscal só enxerga as conversas das filas dele).
   assumir, devolver, finalizar. **Entrega passa por um seam** (`src/lib/whatsapp.ts`
   `deliverText`): sem conector a mensagem fica `pendente` e sai quando o número conectar —
   [[Persistir a mensagem não espera a entrega, a entrega é status]].
-- **Os 4 módulos de pé** (ago/2026): além de Conversas — **Contatos** (diretório + ficha
-  em modal com identidade, dados enxutos e timeline de anotações; a mesma ficha abre pela
-  inbox no clique do contato), **Configurações** (seções deep-linkáveis por `?s=`: Filas &
-  Números com membros, Equipe com papéis/convite, Mensagens prontas) e **Relatórios**
-  (KPIs escopados por papel). Mensagens prontas viram picker no composer com `{{nome}}`.
+  - **Abas de estado (ago/2026, ajuste do Eduardo):** a 1ª aba virou **Comigo** (as
+    conversas atribuídas ao usuário logado, `assigneeId = actor.id`), não mais "Todas".
+    Ordem: **Comigo · Em atendimento · Fila de espera**, e Comigo é o default — "preciso
+    ver de cara o que está comigo".
+- **Os 4 módulos de pé** (ago/2026): além de Conversas — **Contatos** (diretório **em
+  tabela** — Contato/Empresa/Telefone/Email/Atividade, colunas responsivas, linha clicável
+  que abre a ficha; virou tabela no lugar de cards a pedido do Eduardo, "lê melhor com
+  muitos contatos") com a **ficha em modal** (identidade, dados enxutos e timeline de
+  anotações; a mesma ficha abre pela inbox no clique do contato — e a **lista de anotações
+  tem altura fixa (~4) com scroll próprio**, pra não esticar o modal inteiro),
+  **Configurações** (seções deep-linkáveis por `?s=`: Filas & Números com membros, Equipe
+  com papéis/convite, Mensagens prontas) e **Relatórios** (KPIs escopados por papel).
+  Mensagens prontas viram picker no composer com `{{nome}}`.
+- **Rail liberado + primitivas de botão (ago/2026):** os 4 módulos estavam presos em
+  `ready:false` no `catalog.tsx` (ícone esmaecido, clique bloqueado) — liberados. E os
+  botões, que tinham "grande/pequeno" na mesma tela por override de instância
+  (`!h-7`/`!w-9`/`!text-[9px]`), viraram primitivas `Button`/`IconButton`/`Chip`: um
+  gabarito só, a variante escolhe a cor, não o tamanho —
+  [[Primitiva de botão fecha o tamanho e abre só a variante]].
 - **Sem auth ainda**: usuário logado vem do cookie **"ver como"** (demo) em
   `current-user.ts`, que troca o ator pra demonstrar o escopo (as escritas de config são
   gated por papel no servidor).
@@ -302,6 +316,8 @@ como Server Components lendo o Postgres; ilhas client (inbox, filtros, tema) por
 - [[Volume de dev sobrevive entre versões do projeto e traz schema velho]]
 - [[Adapter de canal isola o app do provider de mensageria]] (linhagem A)
 - [[Persistir a mensagem não espera a entrega, a entrega é status]] (envio real, ago/2026)
+- [[Primitiva de botão fecha o tamanho e abre só a variante]] (padronização de botões, ago/2026)
+- [[A variante de um controle muda a intenção, não o tamanho]] (o princípio por trás)
 
 ---
 
