@@ -72,6 +72,12 @@ Funcionário do Fiscal só enxerga as conversas das filas dele).
   (`!h-7`/`!w-9`/`!text-[9px]`), viraram primitivas `Button`/`IconButton`/`Chip`: um
   gabarito só, a variante escolhe a cor, não o tamanho —
   [[Primitiva de botão fecha o tamanho e abre só a variante]].
+- **Chrome recomposto (ago/2026, pedido do Eduardo):** a **barra de topo virou
+  contextual** — saiu a busca global fixa; cada módulo injeta suas ferramentas no
+  topo via slot/portal (`TopbarSlotProvider/Target/Portal`), e o topo muda conforme
+  a tela (no Contatos: busca + "Novo contato"; o container fica só com a tabela). A
+  **identidade ("ver como") e o tema desceram pro rodapé do rail** (44px, tooltip,
+  menu abrindo pra cima). [[Barra de topo contextual - o módulo injeta suas ferramentas via portal]].
 - **Sem auth ainda**: usuário logado vem do cookie **"ver como"** (demo) em
   `current-user.ts`, que troca o ator pra demonstrar o escopo (as escritas de config são
   gated por papel no servidor).
