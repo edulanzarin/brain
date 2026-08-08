@@ -1,17 +1,20 @@
 ---
 tags: [tipo/projeto, projeto/navetalks]
 criado: 2026-07-28
-status: substituido
+atualizado: 2026-08-08
+status: ativo
 codigo_em: ~/Dev/navetalks
 ---
 
 # navetalks
 
-> **Substituído pelo [[Navehub]]** (ago/2026): o Eduardo decidiu recomeçar num
-> produto único que une atendimento + CRM, em vez de manter o atendimento aqui e
-> o CRM à parte. Esta nota fica como registro da linhagem e das decisões de
-> modelagem que valem a pena carregar pro Navehub. O código em `~/Dev/navetalks`
-> não evolui mais.
+> **Retomado (ago/2026), agora standalone.** A ideia de fundir atendimento + CRM
+> num produto único (o Navehub) foi deixada de lado: o Eduardo voltou ao navetalks
+> como **plataforma de conversas própria e NÃO CRM**. Começou de novo do zero
+> (**linhagem C**) — o código da linhagem B foi apagado. A cara mudou: saiu o
+> "Aurora Glass" roxo e o experimento neutro; entrou uma estética **macOS / Liquid
+> Glass** com fonte **Geist**. Estado atual da linhagem C logo abaixo; A e B ficam
+> como histórico da linhagem no fim.
 
 > Plataforma de **atendimento omnichannel** centrada em WhatsApp: vários atendentes e
 > setores respondem os clientes por uma caixa compartilhada, e o cliente recebe tudo no
@@ -19,22 +22,66 @@ codigo_em: ~/Dev/navetalks
 > (ago/2026): o foco é atendimento; funil/campanhas e afins são CRM e ficam pra depois.
 
 Código em: `~/Dev/navetalks` · remote `git@github.com:edulanzarin/navetalks.git`
+(remote ainda tem a linhagem A; push local sobrescreve — decisão do Eduardo, não automática).
 
-## Duas linhagens (atenção)
+## Estado atual (linhagem C — rebuild macOS/Liquid Glass, ago/2026)
 
-Existem duas bases distintas com este nome — não confundir:
+Greenfield de novo, verificado (typecheck + build de produção limpos + as 6 rotas
+respondendo 200 em SSR contra o Postgres seedado; escopo por papel conferido — o
+Funcionário do Fiscal só enxerga as conversas das filas dele).
+
+- **Estética macOS / Liquid Glass** (nova, decisão do Eduardo): janela flutuante com
+  wallpaper mesh nas frestas pro vidro puxar cor. **Três materiais**: `.glass` (chrome:
+  rail e topbar), `.glass-card` (card translúcido com curvatura/brilho no topo) e
+  `.glass-over` (overlay flutuante). Fonte **Geist** (não mais Inter), raios grandes,
+  scrollbar discreta. Aplica [[Sistema de cores e tema do dashboard]] com token por tema.
+  - **Regra que o Eduardo cravou aqui (ago/2026):** container pode ser vidro, mas
+    **onde há texto o fundo tem que ser sólido** — o overlay do dropdown estava deixando
+    o texto da lista atrás vazar. Overlay ficou quase opaco (~0.99). É o 2º caso concreto
+    de [[Vidro flutuante precisa de superfície mais opaca que a chrome]].
+  - **Contraste verificado (WCAG 4.5:1)**: introduzido `--accent-solid` (violeta mais
+    fundo) só pro **fill com texto branco** (balão OUT, botão) — o violeta de acento cru
+    reprovava branco por cima. [[Cor de marca precisa de variante acessível por tema]].
+- **Modelo de domínio herdado da linhagem B** (segue valendo, ver seção abaixo): Contato =
+  pessoa; **Fila = a fila de espera de um número de WhatsApp**; papéis Admin/Gestor/
+  Funcionário; conversa é **fio contínuo, não ticket**; transferência é pra colaborador
+  com acesso à mesma fila. Escopo clampado no servidor —
+  [[Escopo de dado se clampa no servidor, num funil só]].
+- **Conversas (inbox) de pé**: lista com filtros na URL (estado/fila/responsável/busca),
+  abas ícone+contagem, fio com balões e recibos de status, composer real. Escritas por
+  **Server Action** escopada por papel/fila: enviar (assume sem roubar de quem já atende),
+  assumir, devolver, finalizar. **Entrega passa por um seam** (`src/lib/whatsapp.ts`
+  `deliverText`): sem conector a mensagem fica `pendente` e sai quando o número conectar —
+  [[Persistir a mensagem não espera a entrega, a entrega é status]].
+- **Sem auth ainda**: usuário logado vem do cookie **"ver como"** (demo) em
+  `current-user.ts`, que troca o ator pra demonstrar o escopo. Contatos, Relatórios e
+  Configurações estão como placeholders ("em construção").
+- **Stack/infra**: Next 15 (App Router) · React 19 · TS · Tailwind v4 · Postgres · Prisma.
+  Chassi `navetalks` app `4050` / banco `5050`, compose db+migrate+app, Dockerfile
+  standalone Prisma-aware. 5 commits temáticos, sem remote configurado local.
+
+### Próximos passos (linhagem C)
+- [ ] Contatos (diretório + ficha em modal), Relatórios, Configurações (área robusta:
+      filas/números, equipe, mensagens padrão).
+- [ ] Auth/sessão real trocando o cookie "ver como".
+- [ ] Adapter de WhatsApp: **entrada** (webhook/ingestão + recibos de status pelo
+      `externalId`) e conexão real do número; realtime na inbox.
+      [[Adapter de canal isola o app do provider de mensageria]].
+- [ ] Anexo/áudio no composer e importar CSV (dependem do conector/armazenamento).
+
+## Linhagens anteriores (histórico)
+
+Existem três bases com este nome ao longo do tempo — não confundir:
 
 - **Remote / GitHub (linhagem A):** o app anterior, backend-first — auth de sessão
   opaca, escopo por org+setor, inbox, worker persistente e integração Baileys real.
   Descrito na seção "Linhagem A" abaixo. Ainda vive no remote (`main`, ~10 commits).
-- **Local / working copy (linhagem B):** rebuild **greenfield** feito em ago/2026 a
-  partir de um esboço de design. Design-first, as 7 telas de pé, sem auth ainda. É o
-  que está hoje em `~/Dev/navetalks` (repo git novo, sem remote configurado). O Eduardo
-  optou por recomeçar do zero aqui em vez de restaurar a linhagem A.
+- **Local (linhagem B):** rebuild greenfield de ago/2026 a partir de um esboço de
+  design (design-first, 7 telas, sem auth). Chegou a ganhar persistência real e passou
+  por um experimento de base **neutra**. **Foi apagado** e substituído pela linhagem C —
+  fica aqui só como registro das decisões de modelagem, que a C herdou.
 
-Push do local sobrescreve a linhagem A no remote — decisão do Eduardo, não automática.
-
-## Estado atual (linhagem B — local)
+## Linhagem B (histórico — greenfield anterior, design-first)
 
 Base de pé e verificada (build de produção limpo + as 7 rotas respondendo 200 em SSR
 contra o Postgres seedado):
