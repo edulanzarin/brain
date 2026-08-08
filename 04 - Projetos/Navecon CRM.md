@@ -44,15 +44,22 @@ em `@layer`).
   ícones — ganha tela num CRM denso. Um catálogo de navegação num array só. Padrão em
   [[Sidebar em acordeão e layout de módulo]].
 - **Contato é objeto de primeira classe, não campo da empresa.** Pertence a uma empresa,
-  mas tem ficha própria (dados, CPF, aniversário, preferência de canal, atendimentos dele)
-  e aba própria — os dois se linkam nos dois sentidos. Empresa também engrossou: nome
-  fantasia, IE/IM, situação cadastral, endereço, contato, honorário/vencimento e validade
-  do certificado. Migration aditiva (002), sem quebrar o que já existia.
+  mas tem ficha própria (dados, CPF, aniversário, preferência de canal, conversa) num
+  **modal grande** reutilizado em Contatos, Empresas e Mensagens. Empresa também engrossou:
+  nome fantasia, IE/IM, situação, endereço, contato, honorário/vencimento e validade do
+  certificado. Migration aditiva (002), sem quebrar o que já existia.
+- **A conversa é o fio do contato, não um "chamado com assunto".** Correção de rumo do
+  Eduardo: não é sistema de tickets. O cliente manda mensagem → a conversa entra na fila →
+  o responsável puxa (ou recebe por transferência) → encerra e ela some da fila. Não há
+  "assunto" nem histórico de chamados; o histórico É o próprio fio (com os eventos de
+  sistema: puxou, transferiu, encerrou). Mensagens destaca o **contato** (não a empresa),
+  e o painel direito são os **detalhes da conversa** — documentos trocados (migration 003)
+  e dados. A empresa mostra suas conversas por contato, sem assunto.
 - **SQL puro, sem ORM.** Migrator é um script de ~30 linhas; seed é node com `pg`. Ver
   [[Runner de migration em SQL puro dispensa o CLI do ORM]].
-- **Histórico da ficha vem de `atendimentos`, não de tabela à parte.** Os atendimentos
-  encerrados sem conversa alimentam o "Histórico" da empresa; a tela de Mensagens só
-  mostra os que têm mensagem (`EXISTS`). Uma fonte da verdade, dois recortes.
+- **Geist em tudo, sem monospace.** Números, CNPJ e telefones também em Geist; a classe
+  `.mono` só liga `tabular-nums` para alinhar dígitos, mantendo a mesma fonte. Diverge do
+  dialeto do Brain (que usa Geist Mono) — preferência deste projeto.
 - **Seed com timestamps relativos a `now()`** — a fila mostra "espera 2h", o chat agrupa
   por dia, sem congelar numa data fixa. A UI parece viva a cada visita.
 - **Agregados de relatório em tabelas próprias** (`volume_diario`, `pico_horario`,
