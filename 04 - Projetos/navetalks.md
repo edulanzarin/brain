@@ -64,9 +64,11 @@ Funcionário do Fiscal só enxerga as conversas das filas dele).
   anotações; a mesma ficha abre pela inbox no clique do contato — e a **lista de anotações
   tem altura fixa (~4) com scroll próprio**, pra não esticar o modal inteiro),
   **Configurações** (seções deep-linkáveis por `?s=`: Filas & Números com membros, Equipe
-  com **CRUD de usuários** — adicionar/editar/remover + papel, gated por Admin no servidor;
-  remover devolve as conversas do removido pra fila —, Mensagens prontas) e **Relatórios**
-  (KPIs escopados por papel).
+  com **CRUD de usuários numa ficha em modal** — clicar na pessoa abre tudo: editar
+  nome/email/papel, **trocar foto** e remover, gated por Admin no servidor; remover devolve
+  as conversas do removido pra fila. A foto é thumbnail data URL gerado no cliente, sem
+  storage ainda: [[Foto sem storage vira thumbnail data URL gerado no cliente]]. Mais
+  Mensagens prontas) e **Relatórios** (KPIs escopados por papel).
   Mensagens prontas viram picker no composer com `{{nome}}`.
 - **Rail liberado + primitivas de botão (ago/2026):** os 4 módulos estavam presos em
   `ready:false` no `catalog.tsx` (ícone esmaecido, clique bloqueado) — liberados. E os
