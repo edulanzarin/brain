@@ -101,6 +101,13 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Persistir a mensagem não espera a entrega, a entrega é status]] — gravar (durável,
   interno) e entregar (externo, falível) são passos separados; a entrega vira status da
   mensagem (`pendente → enviado → entregue → lida`), nunca pré-requisito da gravação.
+- [[Webhook de provedor chega repetido e fora de ordem, a borda tolera os dois]] —
+  entrega at-least-once e sem ordem: idempotência numa chave única, status que só avança,
+  200 rápido. Princípio: [[Um invariante se garante na estrutura, não no processo]].
+- [[Webhook de terceiro se valida pela assinatura antes de confiar no corpo]] — URL
+  pública é hostil; conferir o HMAC sobre o corpo cru com o segredo do app antes do parse.
+- [[Casar telefone brasileiro tolerando o nono dígito]] — o mesmo celular tem duas grafias
+  (com/sem o 9); casar por classe de equivalência pra não duplicar contato na ingestão.
 - [[De-para determinístico com override que vira aprendizado]] — casar conta/código
   de dois sistemas por cascata (chave → estrutura → descrição restrita), sem IA; a
   correção do humano vira override salvo e o de-para melhora a cada uso. Princípio:

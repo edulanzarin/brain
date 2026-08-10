@@ -1,7 +1,7 @@
 ---
 tags: [tipo/projeto, projeto/navetalks]
 criado: 2026-07-28
-atualizado: 2026-08-08
+atualizado: 2026-08-10
 status: ativo
 codigo_em: ~/Dev/navetalks
 ---
@@ -57,6 +57,26 @@ Funcionário do Fiscal só enxerga as conversas das filas dele).
     conversas atribuídas ao usuário logado, `assigneeId = actor.id`), não mais "Todas".
     Ordem: **Comigo · Em atendimento · Fila de espera**, e Comigo é o default — "preciso
     ver de cara o que está comigo".
+- **Conector WhatsApp (Cloud API) real — feito (ago/2026)**, o que faltava do adapter:
+  - **Envio** preenche o seam (`deliverText`/`deliverTemplate` → `POST` no Graph, devolve o
+    `wamid`); config de app no `.env` (`WHATSAPP_TOKEN`/`APP_SECRET`/`VERIFY_TOKEN`/`WABA_ID`),
+    com **timeout** ([[Chamada externa tem timeout e erro tratado]]).
+  - **Entrada** por webhook `/api/webhooks/whatsapp`: GET (challenge) + POST (mensagens
+    recebidas + recibos de status), assinatura HMAC obrigatória, idempotente pelo `wamid`
+    (`externalId @unique`), status monotônico. Cria contato/conversa e casa o 9º dígito BR.
+    [[Webhook de provedor chega repetido e fora de ordem, a borda tolera os dois]] ·
+    [[Webhook de terceiro se valida pela assinatura antes de confiar no corpo]] ·
+    [[Casar telefone brasileiro tolerando o nono dígito]].
+  - **Identidade do número mudou de lugar:** o `phone_number_id` da Cloud API saiu do env e
+    virou campo da **fila** (`Queue.wabaPhoneNumberId`) — é ele que envia E roteia o inbound.
+    Conectar = colar o Phone Number ID em Configurações → Filas (só conecta com ID).
+  - **Templates + janela de 24h:** aba Templates (sync do WhatsApp Manager via Graph); o
+    composer troca pro modo template quando a janela fecha. É o modelo da Meta —
+    [[Janela de 24h do WhatsApp - dentro é grátis, fora é só template pago]].
+  - Verificado ponta a ponta com smoke test contra o app local (challenge, rejeição de
+    assinatura, criação de conversa, casamento BR, idempotência, status monotônico — 10/10).
+    Checklist do setup da Meta em `docs/whatsapp-cloud-api.md`. Feito em branch
+    `feat/whatsapp-cloud-api`.
 - **Os 4 módulos de pé** (ago/2026): além de Conversas — **Contatos** (diretório **em
   tabela** — Contato/Empresa/Telefone/Email/Atividade, colunas responsivas, linha clicável
   que abre a ficha; virou tabela no lugar de cards a pedido do Eduardo, "lê melhor com
@@ -92,11 +112,14 @@ Funcionário do Fiscal só enxerga as conversas das filas dele).
 ### Próximos passos (linhagem C)
 - [x] Contatos, Configurações (filas/números, equipe, mensagens prontas) e Relatórios —
       feitos (ago/2026).
+- [x] Adapter de WhatsApp (Cloud API): envio, webhook de entrada + recibos de status pelo
+      `externalId`, conexão do número por Phone Number ID e templates — feito (ago/2026).
+      [[Adapter de canal isola o app do provider de mensageria]]. Falta o **setup do lado da
+      Meta** (o Eduardo faz: app, token permanente de System User, verificação de negócio) e
+      **realtime na inbox** (hoje atualiza no revalidate do webhook, não há push ao cliente).
 - [ ] Auth/sessão real trocando o cookie "ver como".
-- [ ] Adapter de WhatsApp: **entrada** (webhook/ingestão + recibos de status pelo
-      `externalId`) e conexão real do número; realtime na inbox.
-      [[Adapter de canal isola o app do provider de mensageria]].
-- [ ] Anexo/áudio no composer e importar CSV (dependem do conector/armazenamento).
+- [ ] Anexo/áudio no composer (precisa baixar o asset do WhatsApp + armazenamento) e
+      importar CSV. Hoje mídia recebida entra rotulada (`[imagem]`, `[áudio]`).
 
 ## Linhagens anteriores (histórico)
 
@@ -328,6 +351,10 @@ como Server Components lendo o Postgres; ilhas client (inbox, filtros, tema) por
 - [[Persistir a mensagem não espera a entrega, a entrega é status]] (envio real, ago/2026)
 - [[Primitiva de botão fecha o tamanho e abre só a variante]] (padronização de botões, ago/2026)
 - [[A variante de um controle muda a intenção, não o tamanho]] (o princípio por trás)
+- [[Janela de 24h do WhatsApp - dentro é grátis, fora é só template pago]] (conector, ago/2026)
+- [[Webhook de provedor chega repetido e fora de ordem, a borda tolera os dois]] (webhook, ago/2026)
+- [[Webhook de terceiro se valida pela assinatura antes de confiar no corpo]] (webhook, ago/2026)
+- [[Casar telefone brasileiro tolerando o nono dígito]] (ingestão do webhook, ago/2026)
 
 ---
 
@@ -356,5 +383,5 @@ Decisões que valem revisitar ao evoluir a linhagem B:
   [[Uma resposta canônica de um grupo é um token compartilhado]].
 
 ## Conexões
-- Usa: [[Infra]] · [[Sistema de cores e tema do dashboard]] · [[Sidebar em acordeão e layout de módulo]] · [[Volume de dev sobrevive entre versões do projeto e traz schema velho]] · [[Sessão opaca no banco separa autenticação de permissão]] · [[Cravar o seam de permissão antes do login]] · [[Permissão composta por papéis somados, não exceção por usuário]] · [[Escopo de dado se clampa no servidor, num funil só]] · [[Adapter de canal isola o app do provider de mensageria]] · [[Persistir a mensagem não espera a entrega, a entrega é status]] · [[Uma resposta canônica de um grupo é um token compartilhado]] · [[Polling substitui webhook quando não há IP público]] · [[Migrations em container próprio no Docker Compose]] · [[Next.js standalone no Docker e o outputFileTracingRoot]]
+- Usa: [[Infra]] · [[Sistema de cores e tema do dashboard]] · [[Sidebar em acordeão e layout de módulo]] · [[Volume de dev sobrevive entre versões do projeto e traz schema velho]] · [[Sessão opaca no banco separa autenticação de permissão]] · [[Cravar o seam de permissão antes do login]] · [[Permissão composta por papéis somados, não exceção por usuário]] · [[Escopo de dado se clampa no servidor, num funil só]] · [[Adapter de canal isola o app do provider de mensageria]] · [[Persistir a mensagem não espera a entrega, a entrega é status]] · [[Janela de 24h do WhatsApp - dentro é grátis, fora é só template pago]] · [[Webhook de provedor chega repetido e fora de ordem, a borda tolera os dois]] · [[Webhook de terceiro se valida pela assinatura antes de confiar no corpo]] · [[Casar telefone brasileiro tolerando o nono dígito]] · [[Chamada externa tem timeout e erro tratado]] · [[Uma resposta canônica de um grupo é um token compartilhado]] · [[Polling substitui webhook quando não há IP público]] · [[Migrations em container próprio no Docker Compose]] · [[Next.js standalone no Docker e o outputFileTracingRoot]]
 - Mapa: [[Projetos]]
