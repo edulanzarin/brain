@@ -71,6 +71,8 @@ portas *unsafe* que o navegador recusa, como a 4045) em [[Uma faixa de portas po
   `/imersao` sem remontar o app; base única no front, strip no proxy.
 - [[Volume de dev sobrevive entre versões do projeto e traz schema velho]] — rebuild
   no mesmo slug reencontra o banco antigo; recriar o volume, não forçar reset.
+- [[Agenda recorrente é um serviço do compose, não um crontab do host]] — o
+  agendador dos jobs sobe junto no deploy, não é config manual do servidor.
 
 Relacionado, no [[Backend]]:
 [[Polling substitui webhook quando não há IP público]] — integração sem abrir porta.

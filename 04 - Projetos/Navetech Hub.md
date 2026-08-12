@@ -301,13 +301,51 @@ Migrations do RH: `008_rh.sql` (gestores + experiência: `rh_setor_gestor`,
 (`rh_experiencia_config` por marco, `formulario_id` na experiência, recomendação
 relaxada p/ nullable), `013_envios.sql` (`envio`/`envio_destinatario`),
 `014_envio_sobre_colaborador.sql` (colaborador em `envio_destinatario`, `email`
-nullable, índice único por colaborador). As respostas
+nullable, índice único por colaborador), `024_pj_experiencia.sql` (`tem_experiencia`
+no PJ) e `025_envio_regra.sql` (`envio_regra`, regra de envio automático). As respostas
 moram junto do envio que gerou o token (experiência ou campanha); o formulário é só
 a definição. Verificado ponta a ponta (form dinâmico → token → resposta → status;
 cron de campanha em modo log, sem e-mail real). **SMTP real** configurado (Gmail
 `noreply.navecon@gmail.com`, senha de app no `.env` gitignored); `RH_CRON_SECRET`
-setado — falta só o cron do host apontar as duas rotas e conceder a seção
-`formularios` ao cargo da gestora no /admin. Branch `feat/rh-formularios`.
+setado. O disparo automático **deixou de depender do cron do host**: um serviço
+`scheduler` no compose bate as rotas sozinho (ver a leva de ago/2026 abaixo). Falta só
+conceder a seção `formularios` ao cargo da gestora no /admin. Branch `feat/rh-formularios`.
+
+### Formulários, envio automático e PJ na experiência (ago/2026)
+
+Segunda leva do RH, deixando o envio de formulários **robusto e automatizável**:
+
+- **PJ na experiência**: prestador PJ (cadastrado à mão) ganhou a caixinha
+  `tem_experiencia` (cadastro e ficha). Marcado, entra na **mesma trilha** dos CLT —
+  marcos 45/90 a partir da data de início, via o contrato sintético
+  (`PJ_CONTRATO_OFFSET + id`), indo aos gestores do setor. Reusou tudo: só uni o PJ à
+  consulta de contratos e ao `buscarUmContrato` do reenvio.
+- **Excluir avaliação de experiência**: antes só dava pra ver as respostas (envio de
+  teste ficava preso). `DELETE /api/rh/experiencia?id=` + lixeira no painel; o `on
+  delete cascade` leva resposta e lembretes. Como o painel projeta do contrato, a
+  pessoa volta a aparecer como pendente.
+- **Disparo automático garantido**: o código dos jobs existia, mas nada os agendava.
+  Novo serviço `scheduler` no compose (imagem do app, entrypoint próprio sem
+  migrations) bate `/api/rh/cron/envios` (15 min) e `/api/rh/cron/experiencia` (1x/dia).
+  Técnica em [[Agenda recorrente é um serviço do compose, não um crontab do host]].
+- **Modal de envio com dois eixos**: o toggle "Para gestores / Sobre colaboradores"
+  misturava *quem responde* com *sobre quem é o formulário*. Virou dois seletores —
+  **Quem responde** (gestores / colaboradores / e-mails avulsos) e **Sobre quem**
+  (genérico / um colaborador), este só quando o gestor responde. Novo caminho: enviar
+  **direto ao colaborador**. Como o Questor não tem e-mail, o campo passou a viver no
+  **overlay do Diretório** (e no PJ) — aplicação de
+  [[Sobre fonte read-only, o editável mora no seu banco chaveado pela identidade dela]];
+  quem não tem e-mail é sinalizado e ignorado.
+- **Envio automático recorrente**: nova aba **Automático** com regras (`envio_regra`)
+  que enviam um formulário sozinhas — mensal no dia X ou a cada N dias, para gestores
+  ou colaboradores, alvo todos / por setor / colaboradores específicos. O job resolve o
+  público no disparo (reusa `criarEnvio`) e reprograma; roda dentro de
+  `/api/rh/cron/envios`. Técnica em
+  [[Regra de envio recorrente materializa uma campanha e reprograma]], sobre o princípio
+  [[Recorrência guarda a receita e o próximo disparo, não N ocorrências futuras]] — que
+  a experiência já seguia (materializa a linha só ao entrar na janela). Verificado o SQL
+  do motor contra o banco (CTE insert-returning, jsonb do alvo, seleção das vencidas e
+  reprogramação), build/lint/tsc limpos.
 
 ### Canal de denúncia + Clima (ago/2026)
 
@@ -415,6 +453,9 @@ Banco Questor (pasta `03 - Recursos/Banco Questor`):
 Gerais de dev (continuação):
 - [[Ler extrato bancário em PDF]]
 - [[Armadilhas de child_process no Node]]
+- [[Recorrência guarda a receita e o próximo disparo, não N ocorrências futuras]] (princípio)
+- [[Regra de envio recorrente materializa uma campanha e reprograma]]
+- [[Agenda recorrente é um serviço do compose, não um crontab do host]]
 
 Gerais de dev:
 - [[Canal anônimo não guarda quem, e o retorno é um segredo do denunciante]]

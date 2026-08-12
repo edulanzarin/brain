@@ -83,6 +83,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 - [[Fluxo de fechamento é orquestração dos motores que já existem]] — a tela de
   "posso fechar?" reusa os motores validados e só decide a cor; não recalcula.
+- [[Regra de envio recorrente materializa uma campanha e reprograma]] — regra =
+  formulário + público + frequência + ponteiro; o cron resolve o público de hoje,
+  reusa o disparo manual e avança a data. Princípio:
+  [[Recorrência guarda a receita e o próximo disparo, não N ocorrências futuras]].
 - [[Fila de exceção recomputa o achado e persiste só a triagem]] — worklist sobre
   fonte read-only: recomputa os achados a cada carga e grava só a decisão humana
   (resolver/ignorar), com identidade estável. Princípio:

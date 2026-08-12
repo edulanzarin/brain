@@ -56,6 +56,7 @@ Independe de banco e de domínio (vale contábil, estoque, qualquer conferência
 - [[Migração de dados mantém o antigo como reserva até a virada]]
 - [[A definição em dado dirige o comportamento, não um caso no código]] — o que varia por um eixo conhecido vira dado que uma peça lê.
 - [[Um invariante se garante na estrutura, não no processo]] — "no máximo uma X" recusa-se no schema, não na expectativa do fluxo.
+- [[Recorrência guarda a receita e o próximo disparo, não N ocorrências futuras]] — periódico é receita + ponteiro; o job materializa uma por vez.
 - [[Plataforma de IA hospedada prende o app pelo banco]]
 - [[Versão é corte deliberado em SemVer, não efeito de cada merge]]
 
