@@ -52,6 +52,8 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 - [[Blocos de dado - card, KPI e gráfico]] — card, stat tile, gráfico e tabela.
 - [[Modal com conteúdo que cresce tem teto de altura e área que rola]] — overlay não
   pode crescer sem fim: teto no painel, scroll na parte que cresce.
+- [[Janela flutuante é o primo não-modal do modal]] — mesma casca do modal, intenção
+  oposta: coexistem, fundo vivo, arrasta e foca; pra consultar e comparar lado a lado.
 - [[Primitiva de botão fecha o tamanho e abre só a variante]] — o botão vira
   componente que expõe cor, não tamanho; o `!h-7` por instância deixa de existir.
 - [[Barra de topo contextual - o módulo injeta suas ferramentas via portal]] — o
