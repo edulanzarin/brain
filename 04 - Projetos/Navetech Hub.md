@@ -238,11 +238,16 @@ rotatividade propagam sozinhos) — o resto do trabalho foi só corrigir textos 
 diziam "as duas empresas". Reusa a casca inteira (uma linha em `modulos.ts`,
 `rh-secoes.ts`, gate por seção).
 
-- **Diretório** (`/rh/diretorio`): funcionários ativos das duas empresas, filtro
+- **Diretório** (`/rh/diretorio`): funcionários ativos das empresas do RH, filtro
   por empresa/setor + busca e contagem por empresa (tudo no cliente — dataset
   pequeno); ficha em modal. A ficha reusa a QUERY da Folha extraída para
   `funcionario-ficha.ts`, cada módulo servindo pela sua rota — de novo
-  [[O que dois módulos compartilham é a query, não a rota]].
+  [[O que dois módulos compartilham é a query, não a rota]]. **Editável (ago/2026):**
+  o Questor vinha bagunçado e sem os PJ, então o Diretório ganhou uma camada
+  gravável no app-db — corrigir qualquer campo do funcionário (overlay), incluir
+  pessoas PJ (aba própria) e renomear/criar setores. O Questor segue intocado;
+  padrão em [[O que o Questor não dá mora no app-db chaveado pela identidade dele]].
+  PJ também entra nos formulários "sobre um colaborador" (roteado por setor→gestor).
 - **Gestores** (`/rh/gestores`): cadastro (banco do app) de supervisores/
   coordenadores POR SETOR do organograma, N por setor (nome + e-mail + papel). É
   o que o Questor não tem — ver [[Módulo de folha e eSocial do Questor]] (buraco

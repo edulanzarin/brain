@@ -42,6 +42,7 @@ Independe de banco e de domínio (vale contábil, estoque, qualquer conferência
 
 - [[Balancete é movimento do período, saldo é consequência]] — compare movimento, não saldo.
 - [[Espelhar por balde esconde item no lugar errado]] — a granularidade do espelho decide o que a reconciliação enxerga.
+- [[Sobre fonte read-only, o editável mora no seu banco chaveado pela identidade dela]] — a fonte que você não pode escrever fica intacta; correção, inclusão e renomeação moram do seu lado, o merge é seu.
 
 ## Segurança
 
