@@ -52,6 +52,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Permissão composta por papéis somados, não exceção por usuário]] — o cargo
   concentra tudo; a pessoa acumula papéis e o acesso é a união, sem override por
   gente. Princípio: [[Permissão se valida no servidor, não na interface]].
+- [[Posse numa permissão binária é duas seções e recorte por linha]] — "dono vê os
+  seus, gestor vê todos" não é view/edit: duas seções + recorte por `autor` no
+  servidor. Princípio: [[Permissão se valida no servidor, não na interface]].
 - [[Filtro transversal só é honesto se todo o funil o honra]] — dimensão de
   filtro nova (filial) precisa chegar a toda consulta; funil compartilhado
   propaga, query própria é buraco silencioso.

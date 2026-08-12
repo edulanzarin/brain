@@ -22,6 +22,8 @@ de sistema externo é referência e tem mapa próprio.
   valida. Princípio: [[A definição em dado dirige o comportamento, não um caso no código]].
 - [[Entidade núcleo cresce por tabela satélite, não por coluna]] — mantém a tabela central
   mínima; feature nova é tabela que referencia, não coluna adicionada. Escala por composição.
+- [[Campo que vira indicador é coluna, o resto do documento é jsonb]] — num documento de
+  forma fixa, o que se agrega/filtra vira coluna; narrativa e listas variáveis vão em jsonb.
 - [[Numeric e bigint do Postgres chegam como string no driver pg]] — o `node-pg`
   entrega `numeric`/`bigint` como string; castar pra `float8` pra receber number.
 - [[Consumir recurso de uso único é UPDATE condicional, não checar antes]] —

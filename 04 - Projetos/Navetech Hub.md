@@ -209,6 +209,19 @@ Quinta seção da Folha (`/folha/ferias`), **fecha o Tier 1**: quem tem férias 
 
 Com isso o **Tier 1 do módulo Folha está completo** (Custo de Folha, Conformidade eSocial, Controle de Férias) — os três com números a validar contra uma empresa conhecida no banco read-only. As três seções nasceram em branches próprias (`feat/folha-custo`, `feat/folha-esocial`, `feat/folha-ferias`), empilhadas sobre a `feat/contabil-auditoria`.
 
+### Relatório Post Mortem do DP (ago/2026)
+
+Sexta seção da Folha e a primeira em que o usuário **preenche** (as outras leem o Questor): um **Relatório Post Mortem** de incidente do DP, pedido pelo Eduardo a partir de um modelo Word. Nessa entrega o módulo **Folha virou "DP"** no launcher — só o rótulo em `modulos.ts`; id e rotas seguem `folha` pra não migrar permissão nem quebrar URL (Folha e DP são a mesma coisa pro Eduardo). Branch `feat/dp-post-mortem`.
+
+O analista logado preenche de forma web; o nº do relatório é **sequencial**, alocado no ENVIO (uma `sequence`, sem corrida entre envios). Campos de escolha: **criticidade** (4 níveis do Word) e **grupo** (dropdown de `empresa_grupo`, os grupos do admin).
+
+- **Posse por seção + linha**: como a permissão do Hub é binária, "analista vê os SEUS / gestor vê TODOS" virou **duas seções** (`post-mortem` e `post-mortem-gestao`) + recorte por `autor` no servidor (na rota e na página), em vez de um nível view/edit — [[Posse numa permissão binária é duas seções e recorte por linha]].
+- **Modelagem**: o que vira indicador/filtro (nº, criticidade, grupo, datas, status) é **coluna**; a narrativa e as tabelas repetíveis (linha do tempo, 5 porquês, ações) vão em **jsonb** — [[Campo que vira indicador é coluna, o resto do documento é jsonb]]. Migration 019.
+- **`apiRoute`** passou a repassar o `ctx` (params) ao handler, pra a rota dinâmica `[id]` autenticada ler o segmento sem sair do gate central.
+- O shell da Folha **pula o filtro de empresa** nessas seções (são self-contained, como as telas internas do RH).
+
+Verificado: tsc/eslint/build e round-trip do SQL contra o banco (rascunho → salvar jsonb → enviar/sequence → ler com joins). **Pendente (v2)**: extração + IA (reuso [[Coleta determinística, LLM só interpreta]] + [[Censurar a identificação antes de mandar pro LLM externo]]) + indicadores na tela de Gestão.
+
 ## Módulo RH (interno da Navecon — jul/2026)
 
 Quarto módulo, o primeiro **interno** (não é sobre os clientes do escritório, e
