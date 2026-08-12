@@ -31,7 +31,7 @@ corrida de 6 pedidos simultâneos liberando só uma vaga). Falta em produção: 
 migração `002_coupons` (o container `migrate` já faz) e gerar os códigos com
 `npm run coupons -- gen`.
 
-**Painel `/admin` (12/08/2026, branch `feat/admin-painel`):** visão completa de
+**Painel `/admin` (12/08/2026, mergeado na `main`):** visão completa de
 inscrições e pagamentos, com login por usuário/senha da env, filtro/busca, export
 CSV e ações (marcar pago manual, reenviar link). Validado ponta a ponta (auth,
 cookie forjado rejeitado, escape XSS, filtros, CSV, ações). Falta em produção:
