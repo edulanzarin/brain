@@ -25,17 +25,18 @@ serve a raiz); o suporte a subcaminho está pronto — ver
 (proxy com strip do prefixo) e **validar o SMTP no ambiente real** (não testei
 daqui pra não disparar alerta de login do Gmail).
 
-**Cupom de cortesia 100% + ingresso digital (11/08/2026, mergeado na `main`):**
-validado ponta a ponta contra um Postgres efêmero (migração, resgate de uso único,
-corrida de 6 pedidos simultâneos liberando só uma vaga). Falta em produção: subir a
-migração `002_coupons` (o container `migrate` já faz) e gerar os códigos com
-`npm run coupons -- gen`.
+**Cupom de cortesia 100% + ingresso digital (mergeado na `main`):** ingresso na
+tela de sucesso com nome/data/local; cupom libera vaga grátis sem passar pelo MP.
 
-**Painel `/admin` (12/08/2026, mergeado na `main`):** visão completa de
-inscrições e pagamentos, com login por usuário/senha da env, filtro/busca, export
-CSV e ações (marcar pago manual, reenviar link). Validado ponta a ponta (auth,
-cookie forjado rejeitado, escape XSS, filtros, CSV, ações). Falta em produção:
-preencher `ADMIN_USER`/`ADMIN_PASSWORD` no `.env`.
+**Painel `/admin` (mergeado na `main`):** inscrições e pagamentos com login por
+usuário/senha da env, filtro/busca, CSV e ações (marcar pago manual, reenviar
+link). Falta em produção: preencher `ADMIN_USER`/`ADMIN_PASSWORD` no `.env`.
+
+**Cupom com código escolhido e N usos (12/08/2026, branch
+`feat/cupom-multiuso-admin`):** trocou o código aleatório de uso único (e o CLI)
+por código memorável (`NAVECON100`) com limite de usos, criado e gerido na aba
+Cupons do painel. Validado ponta a ponta (criar, limite sob corrida, esgotado,
+inativo, quem usou, excluir). A gestão de cupons agora é toda no `/admin`.
 
 ## Infra
 
@@ -65,12 +66,16 @@ app) · **Mercado Pago Checkout Pro** (redirect).
 - **6x com juros pro cliente** (a loja recebe o valor cheio) — decisão de
   negócio; muda só a config no painel do MP e o texto exibido.
 - **Cupom de cortesia (100%) desvia do Mercado Pago.** Convidado ganha entrada
-  por código de uso único (`NAVE-XXXX`); como o MP não aceita cobrança de R$ 0, o
-  cupom válido pula o checkout — a inscrição nasce `paid`/`cortesia` e o código é
-  resgatado num UPDATE atômico (uso único é do banco, não do fluxo). Inscrição
-  órfã se desfaz se o resgate perde a corrida. Ver
-  [[Consumir recurso de uso único é UPDATE condicional, não checar antes]]. Gestão
-  dos códigos por CLI (`npm run coupons -- gen/list/revoke`), sem painel admin.
+  por cupom; como o MP não aceita cobrança de R$ 0, o cupom válido pula o checkout
+  — a inscrição nasce `paid`/`cortesia` e o resgate é um UPDATE atômico (o limite
+  é do banco, não do fluxo). Inscrição órfã se desfaz se o resgate perde a corrida.
+  Ver [[Consumir recurso de uso único é UPDATE condicional, não checar antes]].
+- **Cupom é código escolhido com N usos, gerido no `/admin`.** Começou como código
+  aleatório de uso único via CLI, mas trocou a pedido: código memorável
+  (`NAVECON100`) com limite de usos, criado na aba Cupons do painel — dá pra
+  divulgar um código só pra vários convidados. O resgate atômico virou
+  `uses < max_uses`; "quem usou" vem de `registrations.coupon_code` (uma linha por
+  resgate). O CLI saiu.
 - **Ingresso digital na tela de sucesso.** Quem paga ou entra por cortesia vê um
   cartão com nome, data, local e localizador (8 chars do id da inscrição). O
   `GET /api/payment/status` passou a devolver o primeiro nome e o localizador só
@@ -92,7 +97,9 @@ app) · **Mercado Pago Checkout Pro** (redirect).
   no mesmo container, subcaminho `/admin`, sem link na home. Login por
   usuário/senha da env com sessão num cookie assinado (HMAC), ver
   [[Sessão de painel interno é um cookie assinado, não uma tabela de sessões]].
-  Todo dado dinâmico é escapado (defesa contra XSS num render de string).
+  Todo dado dinâmico é escapado (defesa contra XSS num render de string). Duas
+  abas: **Inscrições** (resumo, filtro/busca, CSV, marcar pago, reenviar link) e
+  **Cupons** (criar, ver uso X/N e quem usou, ativar/desativar, excluir).
 
 ## Fluxo operacional e lacunas
 

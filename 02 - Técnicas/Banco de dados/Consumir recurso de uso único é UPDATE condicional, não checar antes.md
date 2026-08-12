@@ -48,6 +48,11 @@ UPDATE`, sem lock de aplicação — a atomicidade do próprio UPDATE basta.
 - Vale para **transição de estado disparada uma vez** (livre→usado,
   pendente→enviado), não para "no máximo uma linha" pura — essa é `unique` +
   `on conflict do nothing`.
+- **Generaliza para limite N** trocando só a condição: um cupom que vale N vezes é
+  `UPDATE ... SET uses = uses + 1 WHERE code = $1 AND uses < max_uses` — a corrida
+  pelo último uso continua decidida pelo `rowCount`, sem lock. Uso único é o caso
+  N=1 (no Evento Navecon o cupom passou de `redeemed_at IS NULL` para esse contador
+  sem mudar a ideia).
 
 ## Conexões
 - Princípio: [[Um invariante se garante na estrutura, não no processo]]
