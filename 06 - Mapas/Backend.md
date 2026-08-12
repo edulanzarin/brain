@@ -30,6 +30,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   [[Permissão se valida no servidor, não na interface]].
 - [[Sessão opaca no banco separa autenticação de permissão]] — cookie só carrega o
   token; permissão vem do banco a cada request (revogável, sempre atual).
+- [[Sessão de painel interno é um cookie assinado, não uma tabela de sessões]] — o
+  outro extremo: painel de 1-2 pessoas, sessão stateless num cookie HMAC, sem store.
+  Princípio: [[A assinatura autentica o dado, não quem o trouxe]].
 - [[Escopo de dado se clampa no servidor, num funil só]] — a lista de "o que o
   usuário pediu" não é confiável; a restrição real mora num funil único.
 - [[Drill-down por id foge do funil de escopo e precisa de gate próprio]] — a rota

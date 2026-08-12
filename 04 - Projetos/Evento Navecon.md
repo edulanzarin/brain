@@ -31,6 +31,12 @@ corrida de 6 pedidos simultâneos liberando só uma vaga). Falta em produção: 
 migração `002_coupons` (o container `migrate` já faz) e gerar os códigos com
 `npm run coupons -- gen`.
 
+**Painel `/admin` (12/08/2026, branch `feat/admin-painel`):** visão completa de
+inscrições e pagamentos, com login por usuário/senha da env, filtro/busca, export
+CSV e ações (marcar pago manual, reenviar link). Validado ponta a ponta (auth,
+cookie forjado rejeitado, escape XSS, filtros, CSV, ações). Falta em produção:
+preencher `ADMIN_USER`/`ADMIN_PASSWORD` no `.env`.
+
 ## Infra
 
 Slug `evento-navecon` · app `evento-navecon-app` na `4099` · banco
@@ -80,6 +86,13 @@ app) · **Mercado Pago Checkout Pro** (redirect).
 - **Fonte da marca no allowlist da CSP.** Montserrat vem do Google Fonts; a CSP
   do helmet precisou liberar `fonts.googleapis.com`/`fonts.gstatic.com` — só
   quebrava em produção. Ver [[CSP só aparece no build de produção, toda origem externa vai no allowlist]].
+- **Painel `/admin` server-rendered, não no SPA.** O painel é HTML gerado no
+  Express (sem JS no cliente), o que evita mexer no build do Vite, no roteamento
+  do SPA e na CSP (que só libera `script 'self'`) — as ações são forms POST. Fica
+  no mesmo container, subcaminho `/admin`, sem link na home. Login por
+  usuário/senha da env com sessão num cookie assinado (HMAC), ver
+  [[Sessão de painel interno é um cookie assinado, não uma tabela de sessões]].
+  Todo dado dinâmico é escapado (defesa contra XSS num render de string).
 
 ## Fluxo operacional e lacunas
 
@@ -98,10 +111,12 @@ aprovar, a conciliação vira `paid` e sai o e-mail de confirmação **pro inscr
   digitou).
 - **Cadastrar sem passar pelo checkout já existe para convidados:** o cupom de
   cortesia é justamente uma via de inscrição sem pagamento (marca `paid`/`cortesia`
-  direto). Não cobre "pagou por fora do MP" — isso é outra coisa.
-- **Lacunas (não existe ainda):** painel admin/lista de leads; **marcar pago
-  manualmente** quando o cliente paga por fora do MP (o status não vira `paid`
-  sozinho); reenviar o link de pagamento sem recadastrar.
+  direto). Não cobre "pagou por fora do MP" — para isso há o "marcar pago manual".
+- **Painel `/admin` cobre a operação:** lista de leads/pagamentos com filtro/busca,
+  export CSV, **marcar pago manual** (paga por fora do MP) e **reenviar o link** de
+  pagamento sem recadastrar. Resolveu as lacunas operacionais que faltavam.
+- **Lacunas que sobram:** e-mail automático de "faltou pagar" (lembrete); múltiplos
+  usuários de admin com perfis (hoje é um login só, sessão stateless).
 
 ## Aprendizados (viraram notas)
 
@@ -112,6 +127,7 @@ Só links. O texto mora na nota de técnica/princípio.
 - [[App sob subcaminho fica na raiz e o proxy tira o prefixo]]
 - [[CSP só aparece no build de produção, toda origem externa vai no allowlist]]
 - [[Consumir recurso de uso único é UPDATE condicional, não checar antes]]
+- [[Sessão de painel interno é um cookie assinado, não uma tabela de sessões]]
 
 ## Próximos passos
 

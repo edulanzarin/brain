@@ -46,6 +46,7 @@ Independe de banco e de domínio (vale contábil, estoque, qualquer conferência
 ## Segurança
 
 - [[Permissão se valida no servidor, não na interface]] — esconder botão não é segurança.
+- [[A assinatura autentica o dado, não quem o trouxe]] — confie na assinatura (HMAC), não no canal; vale pro webhook externo e pro cookie de sessão próprio.
 
 ## Ofício — como eu trabalho
 

@@ -39,12 +39,7 @@ Dois detalhes que quebram silenciosamente:
 Não confunda: o verify token autentica o **cadastro**; a assinatura autentica **cada payload**.
 
 ## Conexões
+- Princípio: [[A assinatura autentica o dado, não quem o trouxe]]
 - Irmã: [[Webhook de provedor chega repetido e fora de ordem, a borda tolera os dois]]
 - Visto em: [[navetalks]]
 - Mapa: [[Backend]]
-
-<!-- Folha por ora: o princípio-mãe ("entrada de fora da fronteira é hostil até se provar o
-     contrário") ainda não está na Base. Ecoa em validar dígito verificador na entrada e em
-     escopo clampado no servidor, mas ali é conteúdo/permissão, aqui é autenticidade da
-     origem. Candidato a princípio num segundo caso concreto de assinatura/HMAC. Não inventar
-     o link agora (regra dos dois casos). -->
