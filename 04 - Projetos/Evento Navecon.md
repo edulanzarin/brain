@@ -25,11 +25,11 @@ serve a raiz); o suporte a subcaminho está pronto — ver
 (proxy com strip do prefixo) e **validar o SMTP no ambiente real** (não testei
 daqui pra não disparar alerta de login do Gmail).
 
-**Branch `feat/cupom-cortesia-ingresso` (11/08/2026, não mergeada):** cupom de
-cortesia 100% + ingresso digital na tela de sucesso. Validado ponta a ponta contra
-um Postgres efêmero (migração, resgate de uso único, corrida de 6 pedidos
-simultâneos liberando só uma vaga). Falta: o Eduardo revisar, mergear e, depois de
-migrar em produção, gerar os códigos com `npm run coupons -- gen`.
+**Cupom de cortesia 100% + ingresso digital (11/08/2026, mergeado na `main`):**
+validado ponta a ponta contra um Postgres efêmero (migração, resgate de uso único,
+corrida de 6 pedidos simultâneos liberando só uma vaga). Falta em produção: subir a
+migração `002_coupons` (o container `migrate` já faz) e gerar os códigos com
+`npm run coupons -- gen`.
 
 ## Infra
 
