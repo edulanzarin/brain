@@ -25,6 +25,12 @@ serve a raiz); o suporte a subcaminho está pronto — ver
 (proxy com strip do prefixo) e **validar o SMTP no ambiente real** (não testei
 daqui pra não disparar alerta de login do Gmail).
 
+**Branch `feat/cupom-cortesia-ingresso` (11/08/2026, não mergeada):** cupom de
+cortesia 100% + ingresso digital na tela de sucesso. Validado ponta a ponta contra
+um Postgres efêmero (migração, resgate de uso único, corrida de 6 pedidos
+simultâneos liberando só uma vaga). Falta: o Eduardo revisar, mergear e, depois de
+migrar em produção, gerar os códigos com `npm run coupons -- gen`.
+
 ## Infra
 
 Slug `evento-navecon` · app `evento-navecon-app` na `4099` · banco
@@ -52,6 +58,17 @@ app) · **Mercado Pago Checkout Pro** (redirect).
   [[Polling substitui webhook quando não há IP público]].
 - **6x com juros pro cliente** (a loja recebe o valor cheio) — decisão de
   negócio; muda só a config no painel do MP e o texto exibido.
+- **Cupom de cortesia (100%) desvia do Mercado Pago.** Convidado ganha entrada
+  por código de uso único (`NAVE-XXXX`); como o MP não aceita cobrança de R$ 0, o
+  cupom válido pula o checkout — a inscrição nasce `paid`/`cortesia` e o código é
+  resgatado num UPDATE atômico (uso único é do banco, não do fluxo). Inscrição
+  órfã se desfaz se o resgate perde a corrida. Ver
+  [[Consumir recurso de uso único é UPDATE condicional, não checar antes]]. Gestão
+  dos códigos por CLI (`npm run coupons -- gen/list/revoke`), sem painel admin.
+- **Ingresso digital na tela de sucesso.** Quem paga ou entra por cortesia vê um
+  cartão com nome, data, local e localizador (8 chars do id da inscrição). O
+  `GET /api/payment/status` passou a devolver o primeiro nome e o localizador só
+  pra montar o cartão — nenhum outro dado pessoal sai daí.
 - **Nada exposto direto.** App e Postgres publicam só em `127.0.0.1`. Em domínio
   próprio, o Caddy (compose de prod) termina o TLS; em `navecon.net.br/imersao`,
   quem termina o TLS e faz o proxy é o servidor web do TI. Mais helmet/CSP e
@@ -79,9 +96,12 @@ aprovar, a conciliação vira `paid` e sai o e-mail de confirmação **pro inscr
   próprio site, pega o link do checkout do MP e manda pelo WhatsApp; a pessoa
   paga por esse link e o sistema confirma sozinho (e-mail pro e-mail que o mkt
   digitou).
-- **Lacunas (não existe ainda):** botão de "cadastrar sem ir pro checkout";
-  painel admin/lista de leads; **marcar pago manualmente** (se pagar por fora do
-  MP, o status não vira `paid`); reenviar o link de pagamento sem recadastrar.
+- **Cadastrar sem passar pelo checkout já existe para convidados:** o cupom de
+  cortesia é justamente uma via de inscrição sem pagamento (marca `paid`/`cortesia`
+  direto). Não cobre "pagou por fora do MP" — isso é outra coisa.
+- **Lacunas (não existe ainda):** painel admin/lista de leads; **marcar pago
+  manualmente** quando o cliente paga por fora do MP (o status não vira `paid`
+  sozinho); reenviar o link de pagamento sem recadastrar.
 
 ## Aprendizados (viraram notas)
 
@@ -91,6 +111,7 @@ Só links. O texto mora na nota de técnica/princípio.
 - [[Migrations em container próprio no Docker Compose]]
 - [[App sob subcaminho fica na raiz e o proxy tira o prefixo]]
 - [[CSP só aparece no build de produção, toda origem externa vai no allowlist]]
+- [[Consumir recurso de uso único é UPDATE condicional, não checar antes]]
 
 ## Próximos passos
 

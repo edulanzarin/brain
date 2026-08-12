@@ -24,6 +24,9 @@ de sistema externo é referência e tem mapa próprio.
   mínima; feature nova é tabela que referencia, não coluna adicionada. Escala por composição.
 - [[Numeric e bigint do Postgres chegam como string no driver pg]] — o `node-pg`
   entrega `numeric`/`bigint` como string; castar pra `float8` pra receber number.
+- [[Consumir recurso de uso único é UPDATE condicional, não checar antes]] —
+  cupom/vaga/estoque de um: o `WHERE estado_livre` no UPDATE decide a corrida pelo
+  `rowCount`, sem lock. Princípio: [[Um invariante se garante na estrutura, não no processo]].
 
 ## Referência de schema externo
 
