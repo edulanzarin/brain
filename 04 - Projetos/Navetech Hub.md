@@ -98,6 +98,8 @@ Falta só o **arquivo de saída** (formato a confirmar com o setor; há uma pist
 
 Ressalva registrada: o extrato do **Bradesco** (conta escrow) lê todas as linhas com os sinais certos, mas o "SALDO" do rodapé não reconcilia com saldo inicial + lançamentos — parece ser posição de títulos, não caixa. Confirmar com o setor antes de usar em produção.
 
+**Bradesco "Extrato Mensal / Por Período" (ago/2026)**: o layout do Net Empresa não cabia no motor tabular — a data só aparece na 1ª linha do dia e o lançamento ocupa 2–3 linhas — então lia **um lançamento por dia**, e ainda casava por engano no config genérico por causa de "BRADESCO SEGUROS" numa descrição. Leitor de layout próprio `bradescoMensal` (âncora na linha de valor, valor pela diferença de saldo, tem precedência sobre o config genérico), validado contra um extrato real: **195 lançamentos, créditos/débitos batendo exatamente com os totais impressos**. Método em [[Ler extrato bancário em PDF]].
+
 ### Implantação de Saldos (jul/2026)
 
 Seção `/contabil/implantacao`: quando uma empresa entra no escritório, lança o **balancete de abertura** da contabilidade anterior no plano de contas dela no Questor. O Nexo **não escreve no Questor** (produção, read-only) — prepara o **arquivo de importação** e o contador importa lá. O layout é o mesmo `.nli` que faltava na Conciliação (`knowledge/layout importacao lancamentos contabeis`): uma partida por linha, `C;empresa;estab;data;contaDeb;contaCred;histórico;complemento;valor`, delimitado por `;`, decimal com vírgula, `TIPOLANCAMENTO='LN'`/`ORIGEMDADO='3'` fixos pelo layout. Princípio em [[Para alimentar o ERP, gere o arquivo de importação dele]] — a Conciliação pode reusar o mesmo gerador.

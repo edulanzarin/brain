@@ -32,11 +32,23 @@ Detalhes que quebram parser ingênuo:
 - **Rodapé colando na descrição**: no Nubank o rodapé ("Tem alguma dúvida?…") virava continuação da última transação da página. Transações são indentadas e o rodapé começa na coluna 1 — exigir indentação resolve.
 - **PDF com senha**: o C6 exporta protegido. `pdftotext -upw SENHA` abre; a mensagem de erro precisa distinguir "falta senha" de "senha errada".
 
+## Quando o layout não é uma linha por lançamento
+
+O motor tabular assume a forma comum, mas nem todo extrato a segue. O **Bradesco "Extrato Mensal / Por Período"** (Net Empresa) quebra de dois jeitos: a **data só aparece na primeira linha do dia** (as demais herdam) e **cada lançamento ocupa 2–3 linhas físicas** — o tipo em cima ("PAGTO ELETRON COBRANCA"), o Dcto + valor + saldo no meio, e a contraparte embaixo. Um leitor que ancora na data (linha começa com data) lê **um lançamento por dia** e perde o resto.
+
+A saída é um leitor de layout próprio que **ancora na linha de valor** (a que traz o saldo corrente), não na data:
+
+- O **valor e o sinal continuam saindo da diferença de saldo** — o mesmo truque, com uma conferência a mais: `|Δsaldo|` tem que bater com a coluna Crédito/Débito da própria linha, o que valida lançamento a lançamento, não só a cadeia inteira.
+- A **descrição se monta juntando as vizinhas**: o tipo (linha de cima) + a contraparte (linhas de baixo) + o texto colado na própria linha de valor.
+- **Separar tipo de detalhe sem lista de palavras**: um lançamento começa numa linha de tipo, e uma linha de tipo só abre lançamento novo quando **a linha de valor seguinte não traz o tipo colada nela**. Assim rótulos como "TRANSF PGTO PIX" (segunda linha de uma tarifa) ficam como detalhe do lançamento acima em vez de virar um lançamento fantasma. Errar isso não perde lançamento nem valor (esses vêm do saldo), só embaralha um pouco a descrição — degradação suave.
+
+Regiões que não são movimento e enganam o leitor: o bloco "Saldos Invest Fácil" (saldo diário da aplicação, não caixa) e as linhas "Total"/cabeçalho que se repetem a cada folha. Recortar o corpo entre o primeiro "SALDO ANTERIOR" e essa seção resolve.
+
 ## Nunca reconheça o banco pelo nome do banco
 
 Armadilha custosa: **a marca aparece como contraparte nas transações**. Um extrato Sicredi cita "SIFRA" (pagamento feito à Sifra) e um extrato Belluno cita "SICREDI" — inclusive no cabeçalho. Casar por `/sicredi/i` mandou o extrato do Belluno para o leitor errado, que aplicou modo saldo num extrato sem saldo corrente e produziu valores absurdos.
 
-**Reconhecer por marcador de LAYOUT**: `"Associado" + "Cooperativa"` (Sicredi), `"Saldo no início do dia"` (Belluno), `"REL. DE EXTRATO PERIÓDICO"` (C6). Estrutura não vira contraparte.
+**Reconhecer por marcador de LAYOUT**: `"Associado" + "Cooperativa"` (Sicredi), `"Saldo no início do dia"` (Belluno), `"REL. DE EXTRATO PERIÓDICO"` (C6). Estrutura não vira contraparte. Mesma armadilha no Bradesco: o config tabular genérico (`/bradesco/i`) casava o "Extrato Mensal" porque "BRADESCO SEGUROS" aparece como contraparte de um pagamento, e o leitor errado lia um lançamento por dia. O marcador certo é o título da folha, `"Extrato Mensal / Por Período"` — e como é leitor de layout próprio, ele tem precedência sobre o config genérico.
 
 ## Extração do texto
 
