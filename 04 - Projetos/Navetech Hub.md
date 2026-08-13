@@ -493,9 +493,14 @@ gradiente, `bg-accent`, `bg-ink`) nem `Card`/`Badge`/`Table`/`StatTile`. Criada 
 `src/components/ui/` — `Button`/`IconButton`, `Card`, `EmptyState`, `StatTile`, `Badge`,
 `Segmented`, `Table` (Thead/Th/Tr/Td) — cada um com `className` overridável pelo helper
 `cn` (clsx + tailwind-merge). A casca (sidebar, launcher, admin, modais) e o módulo
-**Fiscal** inteiro passaram a consumir os primitivos como vitrine; os demais módulos
-migram incremental sobre esta base. Branch `feat/base-primitivos-glass`; build de
-produção limpo.
+**Fiscal** entraram primeiro como vitrine (branch `feat/base-primitivos-glass`); em
+seguida **todos os outros módulos** — Contábil, Folha, RH, Admin, Denúncia/Clima, Perfil,
+Login — foram migrados sobre a base (branch `feat/primitivos-modulos-restantes`, saldo
+−313 linhas: a repetição de classe deu lugar aos primitivos). A varredura em massa dos
+módulos restantes foi paralelizada em subagentes por diretório disjunto, com a spec das
+APIs dos primitivos e a regra de preservar tabelas de chrome própria e toggles de valor
+numérico. De quebra, corrigiu o token quebrado `text-warn` (sem `--color-warn` no tema)
+para `warning` em vários lugares. Build de produção limpo em cada corte.
 
 O glass também virou **dois níveis explícitos**: `.glass-chrome` (arejada) e
 `.glass-panel` (overlay opaco e legível), com blur/saturação mais macOS e uma curva
