@@ -72,9 +72,17 @@ Vira declaração de intenção, sem número de tamanho nenhum:
 <Chip tone="wa">Conectada</Chip>
 ```
 
+No [[Navetech Hub]] (Nexo, ago/2026) a mesma primitiva nasceu de outro sintoma: três
+"primário" concorrentes (gradiente, `bg-accent`, `bg-ink`) e dezenas de botões montados
+à mão. Ali o `Button` também abre `size` (sm/md/lg fechados), porque a base tem controles
+densos que precisam de altura menor — mas a instância nunca redefine `h-*` solto: escolhe
+um dos tamanhos fechados. Como o default de tamanho é utilitário, o `className` de fora
+precisa de [[A classe do chamador só vence a do primitivo com tailwind-merge]].
+
 ## Conexões
 - Aplica: [[A variante de um controle muda a intenção, não o tamanho]] ·
   [[Escala fechada em vez de valor solto]]
-- Usa: [[Classes de componente vão em @layer components no Tailwind]]
-- Visto em: [[navetalks]]
+- Usa: [[Classes de componente vão em @layer components no Tailwind]] ·
+  [[A classe do chamador só vence a do primitivo com tailwind-merge]]
+- Visto em: [[navetalks]] · [[Navetech Hub]]
 - Mapa: [[Design]]

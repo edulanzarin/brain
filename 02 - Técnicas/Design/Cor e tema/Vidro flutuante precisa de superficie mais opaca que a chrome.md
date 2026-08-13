@@ -39,7 +39,14 @@ classe, procure o background inline. Visto em [[navetalks]] (ago/2026): o modal 
 `.glass` trocado pra `.glass-over` mas seguia translúcido por causa de um
 `style` inline antigo apontando pra `--surface`.
 
+No [[Navetech Hub]] (Nexo, ago/2026) os dois níveis viraram duas classes explícitas:
+`.glass-chrome` (sidebar/topo, `blur(20px)` arejado) e `.glass-panel` (dropdown, menu,
+tooltip: alpha ~0.86–0.9, elevado, legível). A classe carrega borda + sombra + realce de
+luz junto, então cada popup troca `.glass` por `.glass-panel` e herda o vidro certo em
+vez de reinventar o seu.
+
 ## Conexões
 - Princípios: [[Hierarquia por superfície, não por borda]] · [[Token semântico em vez de valor literal]]
 - Irmãs: [[Sistema de cores e tema do dashboard]] · [[Controles de filtro do dashboard]]
+- Visto em: [[navetalks]] · [[Navetech Hub]]
 - Mapa: [[Design]]

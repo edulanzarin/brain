@@ -484,6 +484,27 @@ Redesign transversal da cara do sistema, a pedido do Eduardo ("muito mais modern
 
 Feito na branch `feat/redesign-visual`; build de produção limpo (161 rotas). A estética índigo/vidro é **deste projeto** — o dialeto de [[Design]] segue sendo o "Aurora Glass"; o que se reusa é o princípio, não a cara ([[Estética é por projeto, princípio de design é que se reusa]]).
 
+### Base de primitivos + glass em camadas (ago/2026)
+
+Depois da repaginação, o gargalo não era mais a estética e sim a **falta de base
+reaproveitável**: de 212 arquivos `.tsx`, 79 aplicavam `.card` na mão e 61 tinham botão
+solto, mas não existia componente `Button` (havia três "primário" concorrentes —
+gradiente, `bg-accent`, `bg-ink`) nem `Card`/`Badge`/`Table`/`StatTile`. Criada a camada
+`src/components/ui/` — `Button`/`IconButton`, `Card`, `EmptyState`, `StatTile`, `Badge`,
+`Segmented`, `Table` (Thead/Th/Tr/Td) — cada um com `className` overridável pelo helper
+`cn` (clsx + tailwind-merge). A casca (sidebar, launcher, admin, modais) e o módulo
+**Fiscal** inteiro passaram a consumir os primitivos como vitrine; os demais módulos
+migram incremental sobre esta base. Branch `feat/base-primitivos-glass`; build de
+produção limpo.
+
+O glass também virou **dois níveis explícitos**: `.glass-chrome` (arejada) e
+`.glass-panel` (overlay opaco e legível), com blur/saturação mais macOS e uma curva
+`--ease-spring` no hover. Aprendizados que subiram pra base (o projeto só linka):
+
+- [[Primitiva de botão fecha o tamanho e abre só a variante]] — agora com 2º caso.
+- [[A classe do chamador só vence a do primitivo com tailwind-merge]] — o helper `cn`.
+- [[Vidro flutuante precisa de superfície mais opaca que a chrome]] — chrome vs panel.
+
 ## Próximos passos
 
 - [x] Login e usuários (jul/2026) — feito. Autenticação por email/senha, sessão opaca no banco, 3 eixos (módulo/seção/empresa com grupos), área `/admin`. Ver "Arquitetura de módulos e permissão" acima.

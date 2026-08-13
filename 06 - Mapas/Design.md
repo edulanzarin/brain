@@ -40,6 +40,8 @@ Princípios: [[Token semântico em vez de valor literal]] ·
 
 - [[Classes de componente vão em @layer components no Tailwind]] — pra a classe de
   componente vencer a utilitária sem `!important`.
+- [[A classe do chamador só vence a do primitivo com tailwind-merge]] — quando o
+  default do primitivo é utilitário, concatenar não basta: precisa de merge.
 
 Princípios: [[Escala fechada em vez de valor solto]] ·
 [[Container tem largura máxima e respiro constante]]
