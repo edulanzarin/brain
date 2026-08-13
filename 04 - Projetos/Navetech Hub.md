@@ -473,6 +473,16 @@ Gerais de dev:
 Design (reutilizável em outros projetos — ver [[Design]]):
 - [[Sistema de cores e tema do dashboard]]
 - [[Padrões de componentes de dashboard]]
+- [[Acento da interface é um token separado da cor de dado]]
+
+### Repaginação visual — Índigo/Vidro (ago/2026)
+
+Redesign transversal da cara do sistema, a pedido do Eduardo ("muito mais moderno e bonito, em tudo") mais a limpeza dos textos de tela. Duas frentes:
+
+- **Nova identidade de interface** com acento de marca **índigo→violeta**, separado das cores de dado (azul=entrada, verde=saída, intactas) — a separação virou técnica: [[Acento da interface é um token separado da cor de dado]]. Fundação nos tokens do `globals.css`: chrome de vidro (`backdrop-filter`) nas sidebars, fundo com halo de acento, sombras em camadas, cantos mais suaves, **anel de foco** global e KPIs/modais redesenhados. Quase tudo saiu de token + poucas classes centrais, não arquivo a arquivo — reforça [[Token semântico em vez de valor literal]] e [[Classes de componente vão em @layer components no Tailwind]].
+- **Limpeza da prosa da UI**: removidos ~90 textos explicativos (banners "como funciona", fórmulas, legendas "clique para ver…", subtítulos redundantes), preservando rótulos curtos e os avisos legais das telas públicas. Decisão do Eduardo: interface de produção não ensina com parágrafo.
+
+Feito na branch `feat/redesign-visual`; build de produção limpo (161 rotas). A estética índigo/vidro é **deste projeto** — o dialeto de [[Design]] segue sendo o "Aurora Glass"; o que se reusa é o princípio, não a cara ([[Estética é por projeto, princípio de design é que se reusa]]).
 
 ## Próximos passos
 

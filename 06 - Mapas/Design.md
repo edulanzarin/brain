@@ -27,6 +27,9 @@ Projeto novo herda os princípios sempre; puxa este dialeto só se for da mesma 
   último; checagens objetivas antes de fechar a paleta.
 - [[Cor de marca precisa de variante acessível por tema]] — a cor crua do cliente
   reprova contraste como texto; derive uma variante por tema e compute.
+- [[Acento da interface é um token separado da cor de dado]] — quando a cor tem
+  significado de dado (azul=entrada), o acento de UI vira outro token; senão
+  retematizar a interface contamina os gráficos.
 
 Princípios: [[Token semântico em vez de valor literal]] ·
 [[Hierarquia por superfície, não por borda]]
