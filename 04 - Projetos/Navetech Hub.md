@@ -84,17 +84,18 @@ Decisões: usei `lctoctb` (colunas documentadas em [[Módulo contábil do Questo
 
 ### Conciliação
 
-Segunda automação do Contábil: ler extrato bancário (OFX/PDF) e gerar os lançamentos já na conta certa. Leitura e prévia **funcionando**; falta só a exportação do arquivo final.
+Segunda automação do Contábil: ler extrato bancário (OFX/PDF) e gerar os lançamentos já na conta certa. Leitura, prévia **e exportação funcionando** (ago/2026).
 
 Duas abas, `Importar` (a raiz, é o dia a dia) e `Regras` (cadastro).
 
-- **Importar** (`/contabil/conciliacao`): envia OFX ou PDF, aplica as regras e mostra a prévia dos lançamentos, com KPIs e filtro prontos/pendentes. Nada é gravado. Lê **OFX de qualquer banco** e **PDF de 9 bancos** — ver [[Ler extrato bancário em PDF]]. Numa pendência dá para escolher a conta ali mesmo (vale só para aquela importação, não vira regra). O extrato carregado sobrevive à navegação dentro do módulo (troca de aba **e de seção**) e só é liberado ao sair do módulo (jul/2026 — antes caía ao trocar de seção; ver [[Estado de tela pertence à seção, não à página]]).
+- **Importar** (`/contabil/conciliacao`): envia OFX ou PDF, aplica as regras e mostra a prévia dos lançamentos, com KPIs e filtro prontos/pendentes. Lê **OFX de qualquer banco** e **PDF de 9 bancos** — ver [[Ler extrato bancário em PDF]]. Numa pendência dá para escolher a conta ali mesmo (vale só para aquela importação). **Salvar como regra (ago/2026)**: ao escolher a conta à mão, um botão cadastra aquela descrição (sem o sufixo de data volátil) como regra parcial da conta, no sentido certo — a próxima importação casa sozinha (com Reaplicar regras vale já na prévia atual). É o mesmo espírito de [[De-para determinístico com override que vira aprendizado]]: a correção manual vira aprendizado persistente. O extrato carregado sobrevive à navegação dentro do módulo (troca de aba **e de seção**) e só é liberado ao sair do módulo (jul/2026 — antes caía ao trocar de seção; ver [[Estado de tela pertence à seção, não à página]]).
+- **Exportar (ago/2026)**: gera o arquivo `.nli` de importação do Questor a partir dos lançamentos prontos (só os resolvidos; a pendência fica de fora). Diferente da Implantação, cada lançamento já é dupla partida completa (banco de um lado, contrapartida do outro), então vira uma linha direta com a SUA data — sem transitória. Filial e histórico na própria tela, download no navegador, geração auditada, contas validadas contra o plano antes de gerar. Formato em [[Para alimentar o ERP, gere o arquivo de importação dele]] — o `.nli` saiu do gerador da Implantação para `src/lib/nli.ts` e as duas telas reusam.
 - **Cadastro** (`/contabil/conciliacao/regras`): por conta de banco (escolhida no plano do Questor, restrito a 1.1.01 — ver [[Contas bancárias e layout de contabilização no Questor]]), uma lista de regras `termo → contrapartida`, separando **pagamento** de **recebimento** (pode ter só um dos dois). Casamento **exato** ou **contém**.
 - **Casamento** (`src/lib/regras-extrato.ts`): normaliza acento/caixa/espaço, então "MAGALHÃES" casa com o termo "MAGALHAES". Quando várias regras casam, vence a **mais específica** — exato ganha de parcial, e entre parciais o termo mais longo ganha. Isso evita ter que gerenciar ordem de prioridade na mão.
 - **Replicação**: copia as regras de uma conta de banco para outras contas da mesma empresa ou para outras empresas, avisando quais contrapartidas não existem no plano do destino (o plano é por empresa).
 - As contas são **validadas contra `planoespec`** ao gravar — dígito errado é recusado na hora, em vez de estourar só na importação.
 
-Falta só o **arquivo de saída** (formato a confirmar com o setor; há uma pista forte em `layoutarqcontabilizacao`).
+O **arquivo de saída** usa o mesmo `.nli` ("Layout Importação Lançamento Contábeis") já provado na Implantação — não era preciso um formato novo.
 
 Ressalva registrada: o extrato do **Bradesco** (conta escrow) lê todas as linhas com os sinais certos, mas o "SALDO" do rodapé não reconcilia com saldo inicial + lançamentos — parece ser posição de títulos, não caixa. Confirmar com o setor antes de usar em produção.
 
