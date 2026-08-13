@@ -11,7 +11,7 @@ mora em [[Base]].
 
 Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 
-## Armadilhas do Next
+## Armadilhas do React e do Next
 
 - [[router.replace do Next falha no build de produção]] — funciona em `dev`, falha
   calado em `build`. Princípio: [[Verificar no build de produção, não só em dev]].
@@ -19,6 +19,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Componente de terceiro que usa Context não roda em Server Component]] — ícone/lib
   com `useContext` quebra no server; usar a entrada `/ssr` context-free.
 - [[React reseta o formulário ao fim de uma Server Action]]
+- [[Janela arrastável no React 19 se faz à mão, não com react-rnd]] — react-rnd/
+  react-draggable usam `findDOMNode`, removido no React 19; arraste/resize à mão,
+  comitando no soltar.
 
 ## Estado e renderização
 
