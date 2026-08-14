@@ -43,6 +43,12 @@ a IA, e cada asset novo é trabalho manual.
   em **camadas** que se compõem. Baixa as camadas, compõe (`alpha_composite`) e fatia
   as linhas de walk (up=8, left=9, down=10, right=11; 64x64/frame). Licença LPC:
   CC-BY-SA 3.0 / GPL 3.0 (exige atribuição — guarde um CREDITS).
+  - **Armadilha LPC:** no gerador Universal (sanderfrenken) o **corpo NÃO tem cabeça**
+    — `body/bodies/.../light.png` é só torso+membros; a cabeça é camada separada
+    (`head/heads/human/.../light.png`). Esquecer a cabeça = personagem "sem rosto"
+    (o cabelo flutua sobre o topo do torso). Ordem: corpo → cabeça → pernas → pés →
+    torso → cabelo. Chibi via warp (ampliar a cabeça) cobre o rosto e fica pior —
+    a proporção do LPC com a cabeça já lê fofa, não force.
 - **Personagem em camadas é o encaixe de um jogo onde o gear muda o visual** (Albion):
   a decisão de design escolhe a tecnologia de arte. Se o item define a aparência, o
   personagem tem que ser montado por camadas, não um sprite fechado.
