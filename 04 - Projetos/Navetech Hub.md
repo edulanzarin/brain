@@ -225,6 +225,16 @@ O analista logado preenche de forma web; o nº do relatório é **sequencial**, 
 
 Verificado: tsc/eslint/build e round-trip do SQL contra o banco (rascunho → salvar jsonb → enviar/sequence → ler com joins). **Pendente (v2)**: extração + IA (reuso [[Coleta determinística, LLM só interpreta]] + [[Censurar a identificação antes de mandar pro LLM externo]]) + indicadores na tela de Gestão.
 
+### Rescisões a pagar (ago/2026)
+
+Sétima seção da Folha (`/folha/rescisoes`), a segunda **operacional** do DP: a **fila das rescisões a pagar** com o prazo legal (CLT art. 477 §6: verbas em até 10 dias do fim do contrato, configurável). Pega os desligamentos do período (`funccontrato.datadem`, só CLT `categoria='01'`, ignorando transferências), cruza com a rescisão calculada (`rescisao`, causa via `causademissao`) e a folha de rescisão do Questor, e classifica cada uma por urgência contra o prazo: **vencida**, **vence em breve** (dentro da antecedência), **no prazo**, **paga**. KPIs (pendentes, vencidas, a vencer, pagas), toggle "só pendentes", ação "marcar paga". Empresa **opcional** (retrato do escritório, como a Produtividade do DP — reusa `empresaOpcional` na `ConfFilterBar`), escopo pela sessão.
+
+- **A rescisão só fecha por ato explícito** — a marcação manual "paga" (com data + observação), gravada no banco do app. O sinal do Questor (folha calculada, `periodocalculo.datapgto`) aparece como coluna de apoio mas **não** resolve sozinho, porque `datapgto` é a data prevista (some antes do pagamento): [[Uma pendência de prazo fecha por ato explícito, não por sinal inferido]]. O override mora no app chaveado por (empresa, contrato) do Questor — [[Sobre fonte read-only, o editável mora no seu banco chaveado pela identidade dela]].
+- **Aviso por e-mail** = um cron diário (`/api/folha/cron/rescisoes`, público com `RH_CRON_SECRET`, igual aos do RH) que varre as pendentes dos últimos 180 dias e manda UM e-mail-resumo com os avisos novos: antecedência = aviso único (slot fixo), atrasada = lembrete diário (slot = dias negativos). Idempotente por `(empresa, contrato, slot)` no log `rescisao_aviso`, mesmo mecanismo dos lembretes de experiência — [[Recorrência guarda a receita e o próximo disparo, não N ocorrências futuras]]. Destinatários são o time do DP, cadastrados no app (o Questor não tem e-mail de ninguém).
+- **Migration 026**: `rescisao_config` (prazo + antecedência, singleton), `rescisao_destinatario`, `rescisao_resolvida` (override), `rescisao_aviso` (log). Libs `rescisoes.ts`/`rescisoes-tipos.ts`. Schema da rescisão→folha 60→`datapgto` em [[Módulo de folha e eSocial do Questor]].
+
+Verificado: tsc/eslint/`next build` e migration aplicada no banco do app. **A validar no host** (o Questor de produção não é acessível do dev — timeout): abrir a tela e rodar o cron uma vez para o smoke test da query. Branch `feat/rescisoes`, merge ff na `main`.
+
 ## Módulo RH (interno da Navecon — jul/2026)
 
 Quarto módulo, o primeiro **interno** (não é sobre os clientes do escritório, e
