@@ -81,8 +81,13 @@ o jogador parado. Abrir painel pausa o andar. Decisão do Eduardo: engine "poder
 modular"; mundo single-player (cada um no seu), mas com chat (e guerra no futuro).
 
 **Estilo visual travado: pixel art, escala inteira (pixel-perfect), fonte pixel na
-UI toda** (Pixelify Sans + Press Start 2P via next/font). Decisão do Eduardo: "vamos
-trabalhar em pixel".
+UI toda.** Decisão do Eduardo: "vamos trabalhar em pixel". **Sem emoji no chrome** —
+os ícones da UI (elmo, mochila, espadas, moeda, caneca, barraca) são pixel art
+desenhados à mão por mapa de pixels (`scripts/art/icons.py` → `public/icons`,
+componente `<PixelIcon>`); a barra do topo é SÓ ícone (nome no tooltip). Fonte da UI:
+**DotGothic16** (quadrada e legível — o Eduardo achou a Pixelify Sans ruim de ler);
+Press Start 2P só no título. Auditoria de sprites em folha de contato é o portão de
+QA (ver [[Personagem pixel direcional se desenha em código, não se gera por IA]]).
 
 **Pipeline de arte, decisão final: assets abertos LPC (não PixelLab, não código à
 mão).** A jornada: PixelLab dá arte boa mas depende de API/cota (Eduardo não paga) e
