@@ -55,6 +55,13 @@
         "a": 1,
         "rgb": 1357990
       }
+    },
+    {
+      "query": "tag:#projeto/idle-game",
+      "color": {
+        "a": 1,
+        "rgb": 15246103
+      }
     }
   ],
   "collapse-display": true,
