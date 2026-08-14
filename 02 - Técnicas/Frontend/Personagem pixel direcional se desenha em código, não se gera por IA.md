@@ -49,6 +49,17 @@ a IA, e cada asset novo é trabalho manual.
     (o cabelo flutua sobre o topo do torso). Ordem: corpo → cabeça → pernas → pés →
     torso → cabelo. Chibi via warp (ampliar a cabeça) cobre o rosto e fica pior —
     a proporção do LPC com a cabeça já lê fofa, não force.
+  - **LPC não é só personagem — tem terreno e objetos** (mesma família → cenário
+    coerente com o herói). Folhas base do LPC (grama, terra, pedra, água, árvores,
+    barril, baú, pedra, placa) em `.../lpc_full_assets/base_assets/` (mirror
+    `seveibar/liberated-pixel-cup`). Como usar: **tile de chão é 32px** — o interior
+    sem costura das folhas 3x6 de terreno fica em `(32,96)`; ache-o programaticamente
+    pelo tile de menor "custo de emenda" (borda direita vs esquerda + topo vs base) e
+    exigindo alpha 100% (descarta bordas de transição). Objetos vêm em folhas com
+    vários itens: recorta a sub-região e apara o alpha (`getbbox`). **Árvore = copa
+    (`treetop.png`) sobre tronco (`trunk.png`)**, centralizados, copa sobrepondo o
+    topo do tronco ~30px (a copa sozinha flutua como arbusto). Escale o tile 32px por
+    um fator inteiro pra o texel casar com o do personagem (pixel-perfect).
 - **Personagem em camadas é o encaixe de um jogo onde o gear muda o visual** (Albion):
   a decisão de design escolhe a tecnologia de arte. Se o item define a aparência, o
   personagem tem que ser montado por camadas, não um sprite fechado.

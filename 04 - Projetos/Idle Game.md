@@ -51,9 +51,14 @@ HuntSession ganhou líder; UI com seletor de líder por região e bloco do líde
 relatório. É o pilar "o monstro é a história das batalhas dele" virando mecânica.
 
 Primeira **prova visual** entregue: lobby jogável top-down no PixiJS (`/lobby`) —
-herói andando por WASD/setas, câmera seguindo, chão em tiles (grama/praça/caminho) e
-props (fonte, árvore, caixa, placa). A tela inicial virou menu do jogo (IdleRealm)
-com HUD-maquete de RPG.
+herói andando por WASD/setas, câmera seguindo, e o **cenário inteiro em arte LPC
+coerente com o personagem** (chão em tiles grama/terra/pedra + props carvalho/
+pinheiro/barril/baú/pedra/placa). Os props do protótipo eram do PixelLab e não
+casavam com o herói LPC — refeitos no próprio LPC (mesma família de assets) resolveu
+de vez, e virou o caso novo do princípio [[Coerência em geração vem de âncora, não de liberdade]]
+(coerência = restringir a fonte, mesmo só montando). `scripts/art/scenery.py`
+recorta chão+props das folhas base do LPC (reproduzível, como `skins.py`). A tela
+inicial virou menu do jogo (IdleRealm) com HUD-maquete de RPG.
 
 **Estilo visual travado: pixel art, escala inteira (pixel-perfect), fonte pixel na
 UI toda** (Pixelify Sans + Press Start 2P via next/font). Decisão do Eduardo: "vamos
@@ -105,8 +110,9 @@ boss como portão, e a coerência visual por âncora. O código atual (`hunt`,
 fatia 2 do roadmap novo. A virada também alivia o "não gerar sprite por IA": pro
 herói/gear/pets, geração única e cacheada (presa a âncora) é viável.
 
-Branches `feat/hunt-loop`, `feat/dna-attractors`, `feat/idle-imprint` e `feat/lobby`
-merjadas na `main` (ff, história linear). Sem remote ainda.
+Branches `feat/hunt-loop`, `feat/dna-attractors`, `feat/idle-imprint`, `feat/lobby`,
+`fix/hero-face` e `feat/lobby-scenery-lpc` merjadas na `main` (ff, história linear).
+Sem remote ainda.
 
 ## Infra
 
@@ -173,7 +179,8 @@ Candidatos a virar nota quando reaparecerem em outro contexto:
 - [x] Loop de hunt resolvido no servidor + UI de coleta (fatia 2).
 - [x] DNA + treino + atratores → descoberta e Primordial (fatia 4).
 - [x] Ligar treino ao idle: a hunt imprime a pressão da região no DNA do líder (evolui/descobre offline).
-- [x] Prova visual: lobby top-down no PixiJS com herói parado/andando (sprites PixelLab).
+- [x] Prova visual: lobby top-down no PixiJS com herói parado/andando (sprites LPC).
+- [x] Unificar o cenário do lobby em LPC (chão + props da mesma família do personagem).
 - [x] Reconciliar o GDD para a direção Albion idle (sem classe, gear é tudo, maestria, pets de buff).
 
 Roadmap novo (detalhado no GDD `docs/game-design.md` §7) — a próxima grande fatia é:

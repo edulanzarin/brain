@@ -37,6 +37,12 @@ liberdade que às vezes acerta.
   default (1.4) larga a referência e "aluciná" um guerreiro diferente a cada
   direção; subindo pra ~4.0 ele gruda na referência e mantém a identidade entre
   frames e direções. Ver [[PixelLab só mantém o personagem ao animar com image guidance alto]].
+- **Cena montada de fontes diferentes não casa**: personagem LPC + props gerados no
+  PixelLab no mesmo lobby brigaram (escala de pixel, paleta, contorno, luz
+  diferentes) — a cena parecia colada de dois jogos. A "âncora" aqui é a **família
+  de assets única**: refazer chão e props no próprio LPC (mesma origem do
+  personagem) uniu tudo de uma vez. Coerência vem de restringir a FONTE de
+  variação, mesmo quando não se gera nada — só se monta.
 
 ## Conexões
 - Irmã: [[A definição em dado dirige o comportamento, não um caso no código]]
