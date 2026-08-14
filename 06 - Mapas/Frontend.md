@@ -42,9 +42,12 @@ Princípios: [[Estado compartilhável mora na URL]] ·
 
 ## Assets e geração
 
-- [[PixelLab só mantém o personagem ao animar com image guidance alto]] — animar a
-  partir de referência deriva no default; peso alto prende a identidade. Princípio:
-  [[Coerência em geração vem de âncora, não de liberdade]].
+- [[Personagem pixel direcional se desenha em código, não se gera por IA]] — 4
+  direções + walk coerentes: desenhe em código (corpo por direção + pernas por
+  fase), sem depender de API. Princípio: [[Coerência em geração vem de âncora, não de liberdade]].
+- [[PixelLab só mantém o personagem ao animar com image guidance alto]] — se for de
+  IA mesmo: animar a partir de referência deriva no default; peso alto prende a
+  identidade.
 
 ## Fronteira com o Design
 

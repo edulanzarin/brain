@@ -55,14 +55,26 @@ herói andando por WASD/setas, câmera seguindo, chão em tiles (grama/praça/ca
 props (fonte, árvore, caixa, placa). A tela inicial virou menu do jogo (IdleRealm)
 com HUD-maquete de RPG.
 
-**Estilo visual travado: pixel art 48px, flat shading, escala inteira ×3
-(pixel-perfect), e fonte pixel na UI toda** (Pixelify Sans + Press Start 2P via
-next/font). Decisão do Eduardo: "vamos trabalhar em pixel". As sprites são geradas
-via **PixelLab** (API v1) — herói (4 direções) e props, 48x48 `high top-down`,
-`flat shading`/`low detail` pra ficar chunky. A caminhada é **procedural** (quicada
-no motor), não frames: a API só anima em ≥64px e 48 não reduz por inteiro de 64.
-Tudo isso (image guidance, constraint de resolução, render pixel-perfect) virou a
-nota [[PixelLab só mantém o personagem ao animar com image guidance alto]].
+**Estilo visual travado: pixel art, escala inteira (pixel-perfect), fonte pixel na
+UI toda** (Pixelify Sans + Press Start 2P via next/font). Decisão do Eduardo: "vamos
+trabalhar em pixel".
+
+**Pipeline de arte pivotou pra CÓDIGO, sem API.** O Eduardo não quer depender do
+PixelLab (tem limite no free tier e ele não vai pagar). Testei o PixelLab a fundo
+(inclusive resolvi a inconsistência entre direções com `/rotate`), mas a decisão foi
+gerar em código. Achei, vetei e instalei a skill **`pixel-art-gen`** (thejacedev,
+`~/.claude/skills/`) — "o Claude desenha, sem API". O herói agora é **desenhado em
+código**: `scripts/art/hero.py` gera um cavaleiro 32x32 modular (corpo por direção +
+pernas por fase) com idle + caminhada real nas 4 direções, exportado pra
+`public/sprites/hero`. Consistência **perfeita** (controlo cada pixel) — some o "muda
+de personagem a cada direção/passo" que o PixelLab dava. Trade-off: arte mais
+flat/simples e cada asset é trabalho manual. Ver
+[[Personagem pixel direcional se desenha em código, não se gera por IA]].
+
+Ponto-chave que destravou isso: **a ferramenta de gerar asset ≠ dependência do
+jogo**. O que roda é o PNG no repo; PixelLab/skill são só o "editor" na hora de
+criar. (As manhas do PixelLab, se um dia voltar, ficam em
+[[PixelLab só mantém o personagem ao animar com image guidance alto]].)
 
 **Virada de design fechada nesta sessão: o jogo virou um Albion idle.** O GDD foi
 reescrito (`docs/game-design.md`); o antigo (captura estilo Pokémon) está arquivado
