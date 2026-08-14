@@ -42,7 +42,15 @@ Telas `/creature/[id]` (DNA, caminhos com progresso, treino) e `/pokepedia` (ár
 descobridores). 7 atratores encadeados semeados (Lobo/Leão/Águia), nomes coerentes
 pela gramática (base + domínio + tier).
 
-Branches `feat/hunt-loop` e `feat/dna-attractors` merjadas na `main` (ff). Sem remote.
+O loop idle central agora está **fechado**: a hunt imprime a pressão da região no
+DNA do líder ao longo do tempo (afinidade proporcional às horas), o líder ganha
+nível pela xp e pode **evoluir/descobrir espécie OFFLINE** — verificado: um Leão
+caçando 8h na Savana descobriu Leão Infernal (Primordial) sem treino manual.
+HuntSession ganhou líder; UI com seletor de líder por região e bloco do líder no
+relatório. É o pilar "o monstro é a história das batalhas dele" virando mecânica.
+
+Branches `feat/hunt-loop`, `feat/dna-attractors` e `feat/idle-imprint` merjadas na
+`main` (ff, história linear). Sem remote ainda.
 
 ## Infra
 
@@ -101,7 +109,7 @@ Candidatos a virar nota quando reaparecerem em outro contexto:
 - [x] Fundação de dados: migration + seed de espécies-base e regiões.
 - [x] Loop de hunt resolvido no servidor + UI de coleta (fatia 2).
 - [x] DNA + treino + atratores → descoberta e Primordial (fatia 4).
-- [ ] Ligar treino ao idle: hunt numa região imprime a pressão no DNA ao longo do tempo (hoje só o treino manual move afinidade; a região só semeia na captura).
+- [x] Ligar treino ao idle: a hunt imprime a pressão da região no DNA do líder (evolui/descobre offline).
 - [ ] Compositor de sprites (um arquétipo) no PixiJS (fatia 5) — herda o rig do pai.
 - [ ] Mercado entre jogadores (fatia 6).
 - [ ] Captura por atrito de verdade (enfraquecer + janela garantida; hoje é chance direta).
