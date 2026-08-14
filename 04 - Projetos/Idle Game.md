@@ -31,7 +31,18 @@ relatório e inventário por PE. Verificado: typecheck limpo, GET /hunt 200, col
 persiste indivíduos; dificuldade escala por região (Lv.12 ~28% vitória vs Lv.5 ~61%).
 Já emergiu na prática o pilar "raridade ≠ PE" (Mítico PE 49 ao lado de Comum PE 158).
 
-Branch `feat/hunt-loop` merjada na `main` (ff). Sem remote ainda.
+Fatia 4 também entregue — **DNA + treino + atratores → descoberta + Primordial**, o
+coração do conceito virou mecânica. Treinar move o DNA de afinidade num espaço de
+eixos; cruzar o "gate" de um atrator (limiar por eixo) evolui a criatura; se o
+atrator era virgem, é descoberta: nasce a espécie no mundo (nó novo na árvore
+global) e a criatura vira o Primordial (claim atômico, à prova de corrida). PE fica
+separado — é qualidade, não decide a espécie. Verificado com a lógica real: um Lobo
+treinado descobriu Lobo Espectral e depois Fenrir (Apex), Primordial nos dois.
+Telas `/creature/[id]` (DNA, caminhos com progresso, treino) e `/pokepedia` (árvore +
+descobridores). 7 atratores encadeados semeados (Lobo/Leão/Águia), nomes coerentes
+pela gramática (base + domínio + tier).
+
+Branches `feat/hunt-loop` e `feat/dna-attractors` merjadas na `main` (ff). Sem remote.
 
 ## Infra
 
@@ -89,10 +100,12 @@ Candidatos a virar nota quando reaparecerem em outro contexto:
 
 - [x] Fundação de dados: migration + seed de espécies-base e regiões.
 - [x] Loop de hunt resolvido no servidor + UI de coleta (fatia 2).
+- [x] DNA + treino + atratores → descoberta e Primordial (fatia 4).
+- [ ] Ligar treino ao idle: hunt numa região imprime a pressão no DNA ao longo do tempo (hoje só o treino manual move afinidade; a região só semeia na captura).
+- [ ] Compositor de sprites (um arquétipo) no PixiJS (fatia 5) — herda o rig do pai.
+- [ ] Mercado entre jogadores (fatia 6).
 - [ ] Captura por atrito de verdade (enfraquecer + janela garantida; hoje é chance direta).
 - [ ] Time do jogador real: `partyPower` sai do líder + criaturas (hoje é constante 130).
-- [ ] DNA + treino + atratores → primeira descoberta e Primordial (fatia 4).
-- [ ] Compositor de sprites (um arquétipo) no PixiJS (fatia 5).
 - [ ] Auth (hoje o player é o 'eduardo' fixo do seed).
 
 ## Conexões
