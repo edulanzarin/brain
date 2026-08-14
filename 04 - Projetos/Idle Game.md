@@ -66,13 +66,18 @@ arquitetura em 3 camadas (ver [[Mundo imperativo e React se falam por eventos, n
 StrictMode-safe, TileMap, Actor direcional, Camera, Input, Collision AABB por
 caixa-dos-pés, Interactables e EventBus tipado), `src/game/*` (a cidade como dados
 + CityScene + store em reducer PURO com tick idle) e `src/app/lobby/ui/*` (barra de
-menu no topo, HUD do grupo herói+pet, chat, e painéis Personagem/Inventário/Hunt/
-Mercado/Taverna). A cidade cresceu (40x28), é o **único lugar andável**: praça
-central, ruas em cruz, taverna que cura herói+pet, mercado que compra/vende, e
-**hunts idle** que sobem nível e dropam material mesmo com o jogador parado. Chegar
-perto de um prédio acende "aperte E"; abrir painel pausa o andar. Prédios também são
-LPC (taverna/mercado/casa montados de folhas de componentes por
-`scripts/art/buildings.py`). Decisão do Eduardo: engine "poderosa, reaproveitável,
+menu no topo, HUD do grupo herói+pet, chat, e painéis). A cidade é o **único lugar
+andável** e virou uma cidade de verdade (56x42) em **grade de quarteirões**: uma
+malha de ruas divide o mapa em blocos, o bloco central é a praça de pedra e cada
+prédio ocupa um bloco com rua em volta (nada de cidade-quadrada; árvores só no anel
+externo, com espaço de copa). Prédios LPC grandes e detalhados (parede 9-slice +
+telhado tileado, texel 32px nativo, por `scripts/art/buildings.py`): taverna que
+cura herói+pet, dois mercados e casas. **Mercado e taverna são LUGARES**, não botão
+de menu — anda até o prédio e aperta E; a barra do topo só tem menus pessoais
+(Personagem/Inventário/Caçadas). Dois mercados: **NPC** (compra/venda preço fixo) e
+**de jogadores** (comprar ofertas de terceiros, anunciar itens seus — leilão
+assíncrono, mock no cliente). **Hunts idle** sobem nível e dropam material mesmo com
+o jogador parado. Abrir painel pausa o andar. Decisão do Eduardo: engine "poderosa, reaproveitável,
 modular"; mundo single-player (cada um no seu), mas com chat (e guerra no futuro).
 
 **Estilo visual travado: pixel art, escala inteira (pixel-perfect), fonte pixel na
