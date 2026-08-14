@@ -7,12 +7,13 @@ codigo_em: ~/Dev/idle-game
 
 # Idle Game
 
-> RPG idle de navegador, 2D top-down. Cada jogador captura, treina, evolua e
-> comercializa criaturas. As espécies não vêm prontas: emergem da trajetória que
-> os jogadores dão às suas criaturas, formando uma árvore evolutiva global. A
-> filosofia é "o jogo dá as regras; os jogadores criam as espécies, a economia e
-> a história". Nasceu como resposta ao Poke Idle World (poke.idleworld.online),
-> que tem o loop idle padrão sem nenhuma mecânica surpreendente.
+> RPG idle de navegador, 2D top-down, estilo **Albion idle**: você não é uma classe,
+> você é o que veste. O poder vem do gear (farmado e upado idle, offline incluso), a
+> build vem das armas/peças que você combina, as skills saem do gear (trocáveis), a
+> progressão é maestria por arma e os pets dão buff. A filosofia: "você não é uma
+> classe, você é o que veste". (Começou como um idle de captura estilo Pokémon —
+> resposta ao Poke Idle World — e pivotou pra Albion idle em ago/2026; design antigo
+> arquivado em `docs/game-design-legacy-poke.md`.)
 
 Código em: `~/Dev/idle-game`
 
@@ -57,12 +58,28 @@ via **PixelLab** (API v1): herói (guerreiro) idle + walk nas 4 direções, 64x6
 (classe, nível, pet único). A manha de manter o personagem coerente ao animar virou
 nota: [[PixelLab só mantém o personagem ao animar com image guidance alto]].
 
-Reorientação de rumo dada pelo Eduardo nesta sessão: o foco vai pra **RPG de classes**
-(personagem sobe de nível idle) com **um único animal como pet**, mais enxuto que a
-economia de captura/mercado/DNA do GDD atual. Isso alivia a restrição de "não gerar
-sprite por IA" (que existia pro problema de milhares de criaturas): pro herói e props,
-geração única e cacheada é viável — mesma lógica dos arquétipos desenhados à mão.
-Falta **reconciliar o GDD** (`docs/game-design.md`) com essa direção.
+**Virada de design fechada nesta sessão: o jogo virou um Albion idle.** O GDD foi
+reescrito (`docs/game-design.md`); o antigo (captura estilo Pokémon) está arquivado
+em `docs/game-design-legacy-poke.md`. Pilares novos:
+
+- **Sem classe — a arma é a classe.** A build vem do gear equipado; trocar de arma
+  troca o papel. As "classes" que o jogador sente são as linhas de arma. (Curioso: o
+  Eduardo pediu "quero classes" e, na hora de escolher, foi no modelo *sem classe* —
+  o que faz sentido no Albion, onde a maestria por arma É a classe.)
+- **Gear é o motor de poder, farmado e upado idle.** Farm **misto** (escolha dele):
+  base craftada com material (previsível) + itens únicos/sets caindo raro de farm
+  longo e boss. Tiers T1..T8 + raridade.
+- **Skills vêm do gear e são trocáveis** (arma + peças de armadura dão o loadout).
+- **Maestria por arma no lugar de XP de classe** — sobe por uso (idle), destrava
+  skills e tiers. É o que dá o "upar idle" sem trava de classe.
+- **Pets dão buff** (um ativo): o animal potencializa (dano/drop/farm/maestria), não
+  é coleção.
+
+Sobrevive do design antigo: server-authoritative, idle como função pura semeada,
+boss como portão, e a coerência visual por âncora. O código atual (`hunt`,
+`creature`, DNA/atratores) implementa o design ANTIGO — será migrado/aposentado na
+fatia 2 do roadmap novo. A virada também alivia o "não gerar sprite por IA": pro
+herói/gear/pets, geração única e cacheada (presa a âncora) é viável.
 
 Branches `feat/hunt-loop`, `feat/dna-attractors`, `feat/idle-imprint` e `feat/lobby`
 merjadas na `main` (ff, história linear). Sem remote ainda.
@@ -81,6 +98,10 @@ Next.js 16 (App Router) · React 19 · Prisma 7 (driver adapter `@prisma/adapter
 renderiza e envia intenções.
 
 ## Decisões importantes
+
+> As decisões abaixo são do **design antigo (Pokémon)**, arquivado. Ficam como
+> registro do que já se pensou; a maioria foi **substituída** pela direção Albion
+> idle (ver "Estado atual" e o GDD novo). O que sobrevive está marcado.
 
 - **Espécie global vs. indivíduo é o eixo de tudo.** Espécie é do mundo (nó da
   árvore evolutiva, de ninguém); indivíduo pertence ao jogador e é o que se vende.
@@ -129,12 +150,15 @@ Candidatos a virar nota quando reaparecerem em outro contexto:
 - [x] DNA + treino + atratores → descoberta e Primordial (fatia 4).
 - [x] Ligar treino ao idle: a hunt imprime a pressão da região no DNA do líder (evolui/descobre offline).
 - [x] Prova visual: lobby top-down no PixiJS com herói parado/andando (sprites PixelLab).
-- [ ] Reconciliar o GDD com a reorientação (RPG de classes + pet único).
-- [ ] Compositor de sprites (um arquétipo) no PixiJS (fatia 5) — herda o rig do pai.
-- [ ] Mercado entre jogadores (fatia 6).
-- [ ] Captura por atrito de verdade (enfraquecer + janela garantida; hoje é chance direta).
-- [ ] Time do jogador real: `partyPower` sai do líder + criaturas (hoje é constante 130).
-- [ ] Auth (hoje o player é o 'eduardo' fixo do seed).
+- [x] Reconciliar o GDD para a direção Albion idle (sem classe, gear é tudo, maestria, pets de buff).
+
+Roadmap novo (detalhado no GDD `docs/game-design.md` §7) — a próxima grande fatia é:
+
+- [ ] **Modelo de dados novo**: personagem, gear (slot/tier/raridade/atributos/skill),
+  material, maestria, zona, pet — migrando/aposentando o schema antigo (espécie/
+  indivíduo/DNA/atrator).
+- [ ] Depois: farm idle resolvido no servidor (reusa o padrão do hunt) → gear +
+  equipar → skills por gear → craft/refino → maestria → pets → bosses → mercado → auth.
 
 ## Conexões
 - Usa: [[Infra]] · [[Design]]
