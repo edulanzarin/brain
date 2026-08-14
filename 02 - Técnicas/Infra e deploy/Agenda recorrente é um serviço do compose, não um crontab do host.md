@@ -48,6 +48,13 @@ não manda o header. Intervalos ajustáveis por env (`SCHEDULER_*`).
   deploy carrega o agendador, não o host.
 - Idempotência continua sendo responsabilidade da rota (o slot/ponteiro no servidor),
   não do scheduler — rodar duas vezes não pode duplicar.
+- **O agendador vira o registro ÚNICO de disparo — e por isso uma rota de cron nova
+  é código morto até ser adicionada nele.** Aconteceu: `/api/folha/cron/rescisoes`
+  existia, mandava e-mail e tinha segredo, mas o `scheduler.mjs` só batia as duas
+  rotas do RH; num `docker compose up` padrão o aviso nunca disparava. Trocar o
+  crontab do host por um agendador central resolve o "quem chama", mas cria um
+  ponto que todo job novo precisa visitar. Um job diário virou um helper
+  `agendarDiario(rota, hora)` reusado pelas rotas; a rota nova só se pluga nele.
 - É irmã de [[Migrations em container próprio no Docker Compose]]: o que precisa
   rodar sozinho vira serviço do compose, não passo manual.
 

@@ -433,6 +433,15 @@ Home do módulo (`/rh/painel`), a quarta aplicação de [[A home de um módulo �
 - 100% banco do app (experiência/denúncia/clima/envio são do RH interno, não do Questor) — sem escopo de empresa, rápido e testável. Cada bloco independente (`allSettled`); as 2 queries rodaram contra o app-db local. A casca do RH já era self-contained (sem barra de filtro), então o painel entrou só como 1ª seção — nenhum tratamento no shell. Libs `painel-rh.ts`/`painel-rh-tipos.ts`, branch `feat/painel-rh`.
 - Fecha o rollout: o `CardPendencia` (extraído no DP) é reusado no DP e no RH; o placar por trilha de auditoria é do Contábil; os quatro entram pela mesma mecânica de 1ª-seção-visível via `primeiraSecaoPath` e `home` do módulo apontando pro índice.
 
+### Endurecimento: scheduler completo + base de testes (ago/2026)
+
+Varredura de "o que mais dá pra melhorar" depois do rollout dos painéis. O código estava limpo (zero `any`/`@ts-ignore`/`console.log`/TODO), então o valor estava no estrutural:
+
+- **Bug real do cron de rescisões**: o `scheduler.mjs` (serviço `nexo-scheduler`) só batia as duas rotas do RH; o `/api/folha/cron/rescisoes` existia e mandava e-mail mas **nunca era disparado** num `docker compose up` — o docstring ainda assumia um crontab do host que o projeto já tinha substituído. Extraí o disparo diário num helper `agendarDiario(rota, hora)` e pluguei rescisões (às `SCHEDULER_RESCISOES_HORA`, default 8h). Corolário que virou nota: [[Agenda recorrente é um serviço do compose, não um crontab do host]] — o agendador é o **registro único de disparo**, rota nova é código morto até entrar nele.
+- **Primeiro runner de testes do projeto** (Vitest): cobre a lógica pura que os comentários marcavam como "a validar", travando-a como spec executável. Para isso extraí o cálculo de rescisões (`rescisoes-calculo.ts`) do módulo `server-only` — que não importa num test runner. Vira nota: [[O cálculo puro sai do módulo server-only para poder ser testado]]. 26 testes em três alvos: `rescisoes-calculo` (situação por prazo, ordenação, slot do cron), `painel-links` (atalhos com filtro aplicado), `controle-ferias/periodosEmAberto` (regra CLT aquisitivo/concessivo). Testes fora do build (`**/*.test.ts` no `exclude` do tsconfig). Branches `fix/scheduler-rescisoes` e `test/libs-calculo`, merge ff na `main`.
+
+Fica pendente do Eduardo (precisa do Questor de produção, inalcançável do dev): validar as heurísticas "a validar" (`provisoes`, `custo-folha`, `balancete-contabil`) contra o banco real; e decidir o destino do stack **parado** do Contábil (Contas de Controle, Provisões, Fechamento — código presente mas escondido, e Provisões admite calcular sobre modelo contábil errado).
+
 ## Filial (estabelecimento) no filtro — jul/2026
 
 O sistema filtrava só por **empresa** (`codigoempresa`); no Questor a empresa
@@ -510,6 +519,7 @@ Gerais de dev:
 - [[Versão é corte deliberado em SemVer, não efeito de cada merge]]
 - [[Para alimentar o ERP, gere o arquivo de importação dele]]
 - [[De-para determinístico com override que vira aprendizado]]
+- [[O cálculo puro sai do módulo server-only para poder ser testado]]
 
 Design (reutilizável em outros projetos — ver [[Design]]):
 - [[Sistema de cores e tema do dashboard]]

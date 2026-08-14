@@ -93,6 +93,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   [[Um invariante se garante na estrutura, não no processo]].
 - [[Deixar o método da conferência visível quando o SQL não foi validado]] — heurística
   que não deu pra validar mostra a memória de cálculo, pra o humano com o dado validar.
+- [[O cálculo puro sai do módulo server-only para poder ser testado]] — a regra de
+  negócio vive num módulo puro (sem DB, sem `server-only`) que o servidor orquestra;
+  fica testável num runner e reusável em mais de um caminho. Princípio:
+  [[Um invariante se garante na estrutura, não no processo]].
 - [[O que o Questor não dá mora no app-db chaveado pela identidade dele]] — dois pools
   (fonte read-only + app gravável); correção, entidade ausente e renomeação viram overlay
   no banco do app, chaveado pela identidade da fonte, com merge em TS. Princípio:
