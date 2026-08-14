@@ -52,9 +52,11 @@ self-contained.
   visível". Não é um painel com `if (gestor)`: é [[Posse numa permissão binária é duas seções e recorte por linha]] aplicada à home.
 - Exemplo do avesso: uma tela de **conciliação** precisa rodar (lê extrato, casa,
   gera arquivo) — não abre sozinha nem é home; o painel só mostra *quantas vezes
-  rodou / quantos itens*, e linka para ela.
+  rodou / quantos itens*, e linka para ela. Esse placar sai de graça da trilha de
+  auditoria: [[A trilha de auditoria já é o placar de atividade, não crie tabela de métrica à parte]].
 
 ## Conexões
 - Fecha pendência sem inferir: [[Uma pendência de prazo fecha por ato explícito, não por sinal inferido]]
-- Visto em: [[Navetech Hub]] (Folha → Painel do DP; Fiscal já tinha Painel)
+- O placar do avesso: [[A trilha de auditoria já é o placar de atividade, não crie tabela de métrica à parte]]
+- Visto em: [[Navetech Hub]] (Folha → Painel do DP; Contábil → Painel; Fiscal já tinha Painel)
 - Mapa: [[Base]]
