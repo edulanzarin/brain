@@ -55,7 +55,15 @@ a IA, e cada asset novo é trabalho manual.
     da direita é completa; a copa de carvalho tem base CHAPADA (feita pra ter um
     tronco por baixo) — use a copa mais redonda + sobreponha bem o tronco pra a
     base fechar; e sacos/caixotes ficam colados, então recorte 1 só e apare o
-    alpha (`getbbox`). Sempre confira o sprite final ZOOMADO num fundo xadrez.
+    alpha (`getbbox`). Outra causa de "torto": recortar uma PEÇA achando que é a
+    coisa inteira — folhas de placa/árvore trazem componentes (poste + tábua, copa
+    + tronco) que precisam ser COMPOSTOS, não recortados sozinhos.
+  - **QA em lote (o jeito de achar tudo de uma vez):** em vez de caçar defeito
+    reativamente (o usuário aponta um, você conserta, ele aponta outro), gere uma
+    **folha de contato** com TODO sprite do jogo ampliado (nearest) sobre fundo
+    xadrez e inspecione numa olhada só — fragmento solto, borda cortada, conteúdo
+    errado saltam. Roda como portão de QA após cada geração; sprite sempre
+    conferido zoomado, nunca só no jogo.
   - **LPC não é só personagem — tem terreno e objetos** (mesma família → cenário
     coerente com o herói). Folhas base do LPC (grama, terra, pedra, água, árvores,
     barril, baú, pedra, placa) em `.../lpc_full_assets/base_assets/` (mirror
