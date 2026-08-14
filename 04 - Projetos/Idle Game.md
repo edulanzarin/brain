@@ -86,7 +86,8 @@ os ícones da UI (elmo, mochila, espadas, moeda, caneca, barraca) são pixel art
 desenhados à mão por mapa de pixels (`scripts/art/icons.py` → `public/icons`,
 componente `<PixelIcon>`); a barra do topo é SÓ ícone (nome no tooltip). Fonte da UI:
 **DotGothic16** (quadrada e legível — o Eduardo achou a Pixelify Sans ruim de ler);
-Press Start 2P só no título. Auditoria de sprites em folha de contato é o portão de
+Press Start 2P só no título. (Fonte: rejeitou Pixelify Sans e DotGothic16 por finas/
+apertadas; ficou **Silkscreen** encorpada + letter-spacing.) Auditoria de sprites em folha de contato é o portão de
 QA (ver [[Personagem pixel direcional se desenha em código, não se gera por IA]]).
 
 **Pipeline de arte, decisão final: assets abertos LPC (não PixelLab, não código à
