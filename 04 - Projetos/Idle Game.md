@@ -60,6 +60,21 @@ de vez, e virou o caso novo do princípio [[Coerência em geração vem de ânco
 recorta chão+props das folhas base do LPC (reproduzível, como `skins.py`). A tela
 inicial virou menu do jogo (IdleRealm) com HUD-maquete de RPG.
 
+**Engine própria + cidade jogável com UI de RPG idle.** O lobby monolítico virou
+arquitetura em 3 camadas (ver [[Mundo imperativo e React se falam por eventos, não por referência]]):
+`src/engine/*` (engine agnóstica ao jogo, dirigida por `MapDef`: núcleo Pixi
+StrictMode-safe, TileMap, Actor direcional, Camera, Input, Collision AABB por
+caixa-dos-pés, Interactables e EventBus tipado), `src/game/*` (a cidade como dados
++ CityScene + store em reducer PURO com tick idle) e `src/app/lobby/ui/*` (barra de
+menu no topo, HUD do grupo herói+pet, chat, e painéis Personagem/Inventário/Hunt/
+Mercado/Taverna). A cidade cresceu (40x28), é o **único lugar andável**: praça
+central, ruas em cruz, taverna que cura herói+pet, mercado que compra/vende, e
+**hunts idle** que sobem nível e dropam material mesmo com o jogador parado. Chegar
+perto de um prédio acende "aperte E"; abrir painel pausa o andar. Prédios também são
+LPC (taverna/mercado/casa montados de folhas de componentes por
+`scripts/art/buildings.py`). Decisão do Eduardo: engine "poderosa, reaproveitável,
+modular"; mundo single-player (cada um no seu), mas com chat (e guerra no futuro).
+
 **Estilo visual travado: pixel art, escala inteira (pixel-perfect), fonte pixel na
 UI toda** (Pixelify Sans + Press Start 2P via next/font). Decisão do Eduardo: "vamos
 trabalhar em pixel".
@@ -182,6 +197,7 @@ Candidatos a virar nota quando reaparecerem em outro contexto:
 - [x] Prova visual: lobby top-down no PixiJS com herói parado/andando (sprites LPC).
 - [x] Unificar o cenário do lobby em LPC (chão + props da mesma família do personagem).
 - [x] Reconciliar o GDD para a direção Albion idle (sem classe, gear é tudo, maestria, pets de buff).
+- [x] Engine modular (engine/game/ui) + cidade maior andável com barra de menu, HUD, chat e painéis (personagem/inventário/hunt idle/mercado/taverna); taverna cura, hunts idle rodam parado.
 
 Roadmap novo (detalhado no GDD `docs/game-design.md` §7) — a próxima grande fatia é:
 

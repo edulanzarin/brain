@@ -36,6 +36,12 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 Princípios: [[Estado compartilhável mora na URL]] ·
 [[Estado de tela pertence à seção, não à página]]
 
+## Arquitetura de canvas / motor
+
+- [[Mundo imperativo e React se falam por eventos, não por referência]] — engine
+  (dados) / game / UI em camadas; o canvas emite eventos, o React escuta e manda
+  intenção por controles estáveis. Candidato a princípio na 2ª aparição.
+
 ## TypeScript
 
 - [[NoInfer faz o genérico sair da lista, não do valor padrão]]
