@@ -49,6 +49,13 @@ a IA, e cada asset novo é trabalho manual.
     (o cabelo flutua sobre o topo do torso). Ordem: corpo → cabeça → pernas → pés →
     torso → cabelo. Chibi via warp (ampliar a cabeça) cobre o rosto e fica pior —
     a proporção do LPC com a cabeça já lê fofa, não force.
+  - **Recorte errado numa folha LPC gera sprite "torto":** as folhas empacotam
+    várias variantes coladas; pegar a caixa errada corta o vizinho. Casos reais:
+    o pinheiro da célula ESQUERDA do `treetop` vaza do recorte (sai cortado) — a
+    da direita é completa; a copa de carvalho tem base CHAPADA (feita pra ter um
+    tronco por baixo) — use a copa mais redonda + sobreponha bem o tronco pra a
+    base fechar; e sacos/caixotes ficam colados, então recorte 1 só e apare o
+    alpha (`getbbox`). Sempre confira o sprite final ZOOMADO num fundo xadrez.
   - **LPC não é só personagem — tem terreno e objetos** (mesma família → cenário
     coerente com o herói). Folhas base do LPC (grama, terra, pedra, água, árvores,
     barril, baú, pedra, placa) em `.../lpc_full_assets/base_assets/` (mirror
