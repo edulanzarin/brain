@@ -40,6 +40,12 @@ Princípios: [[Estado compartilhável mora na URL]] ·
 
 - [[NoInfer faz o genérico sair da lista, não do valor padrão]]
 
+## Assets e geração
+
+- [[PixelLab só mantém o personagem ao animar com image guidance alto]] — animar a
+  partir de referência deriva no default; peso alto prende a identidade. Princípio:
+  [[Coerência em geração vem de âncora, não de liberdade]].
+
 ## Fronteira com o Design
 
 O que é **aparência** (token, componente, estado visual) mora em [[Design]]. O que é

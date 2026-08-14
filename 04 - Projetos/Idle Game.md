@@ -49,8 +49,23 @@ caçando 8h na Savana descobriu Leão Infernal (Primordial) sem treino manual.
 HuntSession ganhou líder; UI com seletor de líder por região e bloco do líder no
 relatório. É o pilar "o monstro é a história das batalhas dele" virando mecânica.
 
-Branches `feat/hunt-loop`, `feat/dna-attractors` e `feat/idle-imprint` merjadas na
-`main` (ff, história linear). Sem remote ainda.
+Primeira **prova visual** entregue (`feat/lobby`): lobby jogável top-down no PixiJS
+(`/lobby`) — herói parado e andando por WASD/setas, câmera seguindo, chão em tiles
+(grama/praça/caminho) e props (fonte, árvore, caixa, placa). Os sprites são gerados
+via **PixelLab** (API v1): herói (guerreiro) idle + walk nas 4 direções, 64x64,
+`high top-down`. A tela inicial virou menu do jogo (IdleRealm) com HUD-maquete de RPG
+(classe, nível, pet único). A manha de manter o personagem coerente ao animar virou
+nota: [[PixelLab só mantém o personagem ao animar com image guidance alto]].
+
+Reorientação de rumo dada pelo Eduardo nesta sessão: o foco vai pra **RPG de classes**
+(personagem sobe de nível idle) com **um único animal como pet**, mais enxuto que a
+economia de captura/mercado/DNA do GDD atual. Isso alivia a restrição de "não gerar
+sprite por IA" (que existia pro problema de milhares de criaturas): pro herói e props,
+geração única e cacheada é viável — mesma lógica dos arquétipos desenhados à mão.
+Falta **reconciliar o GDD** (`docs/game-design.md`) com essa direção.
+
+Branches `feat/hunt-loop`, `feat/dna-attractors`, `feat/idle-imprint` e `feat/lobby`
+merjadas na `main` (ff, história linear). Sem remote ainda.
 
 ## Infra
 
@@ -81,7 +96,7 @@ renderiza e envia intenções.
   seleciona; spritesheet cacheado por espécie. A IA só gera nome/lore/retrato
   dentro de uma gramática fixa (base + domínio + tier). A evolução herda o rig do
   pai, então descende visivelmente dele. É a decisão técnica que faz o projeto ser
-  viável — e candidata a virar princípio na base quando reaparecer.
+  viável — virou o princípio [[Coerência em geração vem de âncora, não de liberdade]].
 - **Descoberta é cara de propósito** (exposição de ambiente + catalisador de boss +
   PE mínimo), senão a árvore vira ruído de milhares de variantes sem valor.
 - **Região = pressão evolutiva = objeto da guerra.** Cada região imprime DNA;
@@ -95,10 +110,13 @@ renderiza e envia intenções.
 Só links. O texto do aprendizado mora na nota, não aqui.
 
 - [[Prisma 7 tira a URL do schema - vai pro config e pro adapter]]
+- [[PixelLab só mantém o personagem ao animar com image guidance alto]]
+- [[Coerência em geração vem de âncora, não de liberdade]] — o "compor peças
+  curadas em vez de gerar do zero" reapareceu (image guidance do PixelLab) e virou
+  princípio na base.
 
 Candidatos a virar nota quando reaparecerem em outro contexto:
 
-- Conteúdo procedural coerente vem de compor peças curadas, não de gerar do zero.
 - Determinismo no núcleo, IA só na borda criativa (relaciona-se com
   [[A definição em dado dirige o comportamento, não um caso no código]]).
 - Resolver de progressão idle como função pura semeada = server-authoritative sem
@@ -110,6 +128,8 @@ Candidatos a virar nota quando reaparecerem em outro contexto:
 - [x] Loop de hunt resolvido no servidor + UI de coleta (fatia 2).
 - [x] DNA + treino + atratores → descoberta e Primordial (fatia 4).
 - [x] Ligar treino ao idle: a hunt imprime a pressão da região no DNA do líder (evolui/descobre offline).
+- [x] Prova visual: lobby top-down no PixiJS com herói parado/andando (sprites PixelLab).
+- [ ] Reconciliar o GDD com a reorientação (RPG de classes + pet único).
 - [ ] Compositor de sprites (um arquétipo) no PixiJS (fatia 5) — herda o rig do pai.
 - [ ] Mercado entre jogadores (fatia 6).
 - [ ] Captura por atrito de verdade (enfraquecer + janela garantida; hoje é chance direta).

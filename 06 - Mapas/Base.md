@@ -59,6 +59,7 @@ Independe de banco e de domínio (vale contábil, estoque, qualquer conferência
 - [[Recorrência guarda a receita e o próximo disparo, não N ocorrências futuras]] — periódico é receita + ponteiro; o job materializa uma por vez.
 - [[Plataforma de IA hospedada prende o app pelo banco]]
 - [[Versão é corte deliberado em SemVer, não efeito de cada merge]]
+- [[Coerência em geração vem de âncora, não de liberdade]] — gerar coerente (procedural ou IA) vem de prender a uma referência/peça curada, não de gerar livre.
 
 ## Cérebro — como este vault funciona
 
