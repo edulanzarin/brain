@@ -59,22 +59,28 @@ com HUD-maquete de RPG.
 UI toda** (Pixelify Sans + Press Start 2P via next/font). Decisão do Eduardo: "vamos
 trabalhar em pixel".
 
-**Pipeline de arte pivotou pra CÓDIGO, sem API.** O Eduardo não quer depender do
-PixelLab (tem limite no free tier e ele não vai pagar). Testei o PixelLab a fundo
-(inclusive resolvi a inconsistência entre direções com `/rotate`), mas a decisão foi
-gerar em código. Achei, vetei e instalei a skill **`pixel-art-gen`** (thejacedev,
-`~/.claude/skills/`) — "o Claude desenha, sem API". O herói agora é **desenhado em
-código**: `scripts/art/hero.py` gera um cavaleiro 32x32 modular (corpo por direção +
-pernas por fase) com idle + caminhada real nas 4 direções, exportado pra
-`public/sprites/hero`. Consistência **perfeita** (controlo cada pixel) — some o "muda
-de personagem a cada direção/passo" que o PixelLab dava. Trade-off: arte mais
-flat/simples e cada asset é trabalho manual. Ver
-[[Personagem pixel direcional se desenha em código, não se gera por IA]].
+**Pipeline de arte, decisão final: assets abertos LPC (não PixelLab, não código à
+mão).** A jornada: PixelLab dá arte boa mas depende de API/cota (Eduardo não paga) e
+as direções saíam inconsistentes (resolvi com `/rotate`, mas...); então testei
+**gerar em código** (achei/vetei/instalei a skill `pixel-art-gen` em `~/.claude/`,
+desenhei um cavaleiro 32x32) — mas ficou **quadrado/feio** e não casou com o cenário.
+O Eduardo cravou o insight certo: **não é "um guerreiro", é Albion — o ITEM decide o
+visual**, com skins-base padrão. Isso apontou pro encaixe perfeito: o **LPC**
+(Universal LPC Spritesheet), onde o personagem é feito de **camadas** (corpo, roupa,
+armadura, arma) — é literalmente o "gear = aparência" do Albion, de graça, qualidade
+profissional, virando PNG no repo. `scripts/art/skins.py` compõe as camadas e
+exporta as skins **masculina e feminina** (idle + walk 8 frames nas 4 direções);
+GameCanvas troca skin no C. Licença LPC (CC-BY-SA 3.0 / GPL 3.0) exige atribuição →
+`docs/CREDITS.md`. Ver [[Personagem pixel direcional se desenha em código, não se gera por IA]]
+(que agora aponta o LPC como a via de qualidade+volume).
 
-Ponto-chave que destravou isso: **a ferramenta de gerar asset ≠ dependência do
-jogo**. O que roda é o PNG no repo; PixelLab/skill são só o "editor" na hora de
-criar. (As manhas do PixelLab, se um dia voltar, ficam em
-[[PixelLab só mantém o personagem ao animar com image guidance alto]].)
+Aprendizados transversais desta jornada de arte:
+- **A ferramenta de gerar asset ≠ dependência do jogo.** O que roda é o PNG no repo;
+  PixelLab/skill/LPC são só o "editor" na hora de criar.
+- **Personagem em CAMADAS (LPC) é o encaixe de um jogo onde o gear muda o visual** —
+  a mesma decisão de design (Albion) escolhe a tecnologia de arte.
+- Código à mão só compensa pra asset simples/único; pra volume+qualidade, pack aberto.
+- (Manhas do PixelLab, se um dia voltar: [[PixelLab só mantém o personagem ao animar com image guidance alto]].)
 
 **Virada de design fechada nesta sessão: o jogo virou um Albion idle.** O GDD foi
 reescrito (`docs/game-design.md`); o antigo (captura estilo Pokémon) está arquivado

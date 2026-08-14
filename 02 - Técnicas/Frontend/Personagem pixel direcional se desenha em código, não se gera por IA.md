@@ -36,8 +36,16 @@ a IA, e cada asset novo é trabalho manual.
 
 - **Ferramenta de gerar asset ≠ dependência do jogo.** IA ou código, o que roda é o
   PNG no repo — o "editor" (PixelLab, skill, Aseprite) só aparece na hora de criar.
-- Alternativa de graça e sem limite pra volume: **packs CC0** (Kenney, OpenGameArt),
-  que também viram PNG teu no repo.
+- **Código à mão só compensa pra asset simples/único.** Pra volume + qualidade
+  (personagem com 4 direções, walk, muito gear), meu pixel à mão sai quadrado/feio.
+  A via boa é **pack aberto**: CC0 (Kenney, OpenGameArt) ou, melhor ainda pra
+  personagem, o **LPC (Universal LPC Spritesheet)** — corpo + roupa + armadura + arma
+  em **camadas** que se compõem. Baixa as camadas, compõe (`alpha_composite`) e fatia
+  as linhas de walk (up=8, left=9, down=10, right=11; 64x64/frame). Licença LPC:
+  CC-BY-SA 3.0 / GPL 3.0 (exige atribuição — guarde um CREDITS).
+- **Personagem em camadas é o encaixe de um jogo onde o gear muda o visual** (Albion):
+  a decisão de design escolhe a tecnologia de arte. Se o item define a aparência, o
+  personagem tem que ser montado por camadas, não um sprite fechado.
 
 ## Conexões
 - Princípio: [[Coerência em geração vem de âncora, não de liberdade]]
