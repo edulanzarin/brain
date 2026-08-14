@@ -18,11 +18,20 @@ Código em: `~/Dev/idle-game`
 
 ## Estado atual
 
-Conceito + chassi. Nada jogável ainda. O design completo mora no GDD do próprio
-repositório (`docs/game-design.md`) — é a fonte da verdade, não esta nota. Chassi
-de infra montado (Next 16 + Prisma 7 + Postgres 16 + PixiJS, Docker standalone) e
-schema Prisma inicial modelando os eixos centrais. Commit inicial na `main`, sem
-remote ainda.
+Chassi + **primeira fatia jogável (loop de hunt) rodando ponta a ponta**. O design
+completo mora no GDD do próprio repositório (`docs/game-design.md`) — é a fonte da
+verdade, não esta nota.
+
+Fatia 2 do roadmap entregue: manda o personagem a uma região, acumula offline e
+coleta encontros/vitórias/capturas/drops. O resolver (`src/lib/hunt.ts`) é função
+pura com RNG semeado pelo id da sessão — server-authoritative, determinístico e à
+prova de cliente (teste rodou idêntico duas vezes). Seed de 8 espécies-base
+(animais) + 3 regiões com pressão/spawn; UI `/hunt` em Server Components/Actions com
+relatório e inventário por PE. Verificado: typecheck limpo, GET /hunt 200, coleta
+persiste indivíduos; dificuldade escala por região (Lv.12 ~28% vitória vs Lv.5 ~61%).
+Já emergiu na prática o pilar "raridade ≠ PE" (Mítico PE 49 ao lado de Comum PE 158).
+
+Branch `feat/hunt-loop` merjada na `main` (ff). Sem remote ainda.
 
 ## Infra
 
@@ -64,20 +73,27 @@ renderiza e envia intenções.
 
 ## Aprendizados (viraram notas)
 
-Só links. Nada promovido à base ainda — o projeto é conceito. Candidatos a extrair
-quando reaparecerem (o `[[Idle Game]]` linkaria como "Visto em"):
+Só links. O texto do aprendizado mora na nota, não aqui.
+
+- [[Prisma 7 tira a URL do schema - vai pro config e pro adapter]]
+
+Candidatos a virar nota quando reaparecerem em outro contexto:
 
 - Conteúdo procedural coerente vem de compor peças curadas, não de gerar do zero.
 - Determinismo no núcleo, IA só na borda criativa (relaciona-se com
   [[A definição em dado dirige o comportamento, não um caso no código]]).
+- Resolver de progressão idle como função pura semeada = server-authoritative sem
+  simular tick a tick (relaciona-se com [[A definição em dado dirige o comportamento, não um caso no código]]).
 
 ## Próximos passos
 
-- [ ] `npm install` + primeira migration (fundação de dados: seed de espécies-base e regiões).
-- [ ] Loop de hunt resolvido no servidor (sem render) — prova o núcleo idle.
-- [ ] Indivíduo + PE + captura por atrito.
-- [ ] DNA + treino + atratores → primeira descoberta e Primordial.
-- [ ] Compositor de sprites (um arquétipo) no PixiJS.
+- [x] Fundação de dados: migration + seed de espécies-base e regiões.
+- [x] Loop de hunt resolvido no servidor + UI de coleta (fatia 2).
+- [ ] Captura por atrito de verdade (enfraquecer + janela garantida; hoje é chance direta).
+- [ ] Time do jogador real: `partyPower` sai do líder + criaturas (hoje é constante 130).
+- [ ] DNA + treino + atratores → primeira descoberta e Primordial (fatia 4).
+- [ ] Compositor de sprites (um arquétipo) no PixiJS (fatia 5).
+- [ ] Auth (hoje o player é o 'eduardo' fixo do seed).
 
 ## Conexões
 - Usa: [[Infra]] · [[Design]]
