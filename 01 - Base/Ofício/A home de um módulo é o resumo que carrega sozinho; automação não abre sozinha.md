@@ -41,6 +41,15 @@ self-contained.
   cai na 1ª seção visível) e como **sem filtro** (não espera "Executar").
 - No painel, cada bloco é uma **consulta independente**: se um falha, os outros
   ainda aparecem — um painel não cai por um card.
+- **Um atalho do painel leva à tela já com o filtro APLICADO**, não à tela
+  pedindo "Executar". Carregue o link com o estado aplicado (ex.: `?ap=1` + o
+  período/entidade que o card contou) — clicar cai direto nos dados. Um resumo
+  que exige refiltrar ao clicar quebra a promessa de ser resumo.
+- **A home pode ser PLURAL, recortada por papel**: um painel do colaborador (a
+  fila de trabalho) e um do gestor (fila + indicadores/produtividade). São seções
+  distintas, isoladas por permissão (o colaborador nem alcança o endpoint de
+  gestão), e cada pessoa cai na que seu cargo libera — a mesma regra de "1ª seção
+  visível". Não é um painel com `if (gestor)`: é [[Posse numa permissão binária é duas seções e recorte por linha]] aplicada à home.
 - Exemplo do avesso: uma tela de **conciliação** precisa rodar (lê extrato, casa,
   gera arquivo) — não abre sozinha nem é home; o painel só mostra *quantas vezes
   rodou / quantos itens*, e linka para ela.

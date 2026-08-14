@@ -233,16 +233,23 @@ Sétima seção da Folha (`/folha/rescisoes`), a segunda **operacional** do DP: 
 - **Aviso por e-mail** = um cron diário (`/api/folha/cron/rescisoes`, público com `RH_CRON_SECRET`, igual aos do RH) que varre as pendentes dos últimos 180 dias e manda UM e-mail-resumo com os avisos novos: antecedência = aviso único (slot fixo), atrasada = lembrete diário (slot = dias negativos). Idempotente por `(empresa, contrato, slot)` no log `rescisao_aviso`, mesmo mecanismo dos lembretes de experiência — [[Recorrência guarda a receita e o próximo disparo, não N ocorrências futuras]]. Destinatários são o time do DP, cadastrados no app (o Questor não tem e-mail de ninguém).
 - **Migration 026**: `rescisao_config` (prazo + antecedência, singleton), `rescisao_destinatario`, `rescisao_resolvida` (override), `rescisao_aviso` (log). Libs `rescisoes.ts`/`rescisoes-tipos.ts`. Schema da rescisão→folha 60→`datapgto` em [[Módulo de folha e eSocial do Questor]].
 
-### Painel do DP (ago/2026)
+Verificado (rescisões): tsc/eslint/`next build` + migration 026 aplicada no banco do app. Rodou contra o Questor real no ambiente do Eduardo (o dev daqui não alcança o banco de produção). Branch `feat/rescisoes`, merge ff na `main`.
 
-**Oitava seção e a HOME do módulo** (`/folha/painel`): a primeira da sidebar e a tela que abre ao entrar no DP — um dashboard-resumo que carrega **sozinho**, sem filtro nem Executar, com o retrato do escritório inteiro (escopo pela sessão). Materializa o princípio [[A home de um módulo é o resumo que carrega sozinho; automação não abre sozinha]] no DP; a ideia do Eduardo é dar a mesma home a todos os módulos onde a tela não é automação (o Fiscal já tem "Painel"; Contábil/RH ganham o deles — mas conciliação, que precisa rodar, NÃO abre sozinha: o painel só mostraria quantas vezes rodou/quantos itens).
+### Painéis do DP (ago/2026)
 
-- **Dois recortes**: PENDÊNCIAS que cobram ação (cards clicáveis → a seção que resolve): rescisões a pagar (pendentes/vencidas), férias vencidas/a vencer, eSocial a resolver (pendentes/rejeitadas 90d); e ATIVIDADE do mês: os quatro trabalhos do DP com delta vs. mês anterior, top operadores e série mensal (6 meses).
-- **Cada bloco é uma consulta independente** colhida por `Promise.allSettled` — se uma falha (ex.: um agregado office-wide esbarrar num detalhe de schema não testado no dev), o bloco vira `null` e o painel ainda renderiza os outros. Um painel não cai por um card.
-- **Reuso**: produtividade (`montarResumoDp`) e rescisões (`montarRescisoes`) já são office-wide/validados; férias, eSocial e série são agregados leves próprios (`painel-dp.ts`), reusando colunas já provadas (view `funcionario`/`reciboferias`, `esocialtransacao`, tabelas de auditoria). Férias office-wide reusa o derivador `periodosEmAberto` exportado da tela de Férias.
-- O shell trata o painel como self-contained (como o Post Mortem); vira home via `primeiraSecaoPath` por ser a 1ª seção. **A validar no host**: os três agregados office-wide (Questor de produção inacessível do dev).
+**A HOME do módulo** carrega **sozinha** ao entrar no DP (sem filtro/Executar, retrato do escritório pela sessão) — materializa [[A home de um módulo é o resumo que carrega sozinho; automação não abre sozinha]]. Nasceu como um painel só; o Eduardo pediu para **separar por cargo**, porque a tela é vista pelos funcionários e produtividade/ranking de colegas é coisa de gestão. Viraram **dois painéis**, cada um a 1ª seção que o cargo libera (cai direto nele via `primeiraSecaoPath`):
 
-Verificado: tsc/eslint/`next build` e migration aplicada no banco do app. **A validar no host** (o Questor de produção não é acessível do dev — timeout): abrir a tela e rodar o cron uma vez para o smoke test da query. Branch `feat/rescisoes`, merge ff na `main`.
+- **Painel** (colaborador, `/folha/painel`): só a FILA DE TRABALHO — pendências (rescisões a pagar, férias vencidas, eSocial **rejeitado**) + listas das mais urgentes (rescisões vencidas, férias mais críticas). Sem produtividade nem ranking.
+- **Painel · Gestão** (gestor, `/folha/painel-gestao`): pendências + a ATIVIDADE do mês (quatro trabalhos com delta, quem mais trabalhou, série de 6 meses). **Endpoint próprio, isolado por permissão** — o colaborador nem alcança os dados de gestão. É a doutrina [[Posse numa permissão binária é duas seções e recorte por linha]] aplicada à home.
+
+Decisões que valem além daqui:
+
+- **Cada bloco é uma consulta independente** (`Promise.allSettled`): se uma falha, o bloco vira `null` e o painel ainda mostra os outros — um painel não cai por um card.
+- **Atalhos caem na tela JÁ COM O FILTRO APLICADO** (`ap=1` + janela coerente + a empresa quando o item tem uma; `painel-links.ts`) — clicar não cai no "Executar pendente". Faz parte do princípio da home.
+- **Reuso**: produtividade (`montarResumoDp`) e rescisões (`montarRescisoes`) já são office-wide/validados; férias, eSocial e série são agregados leves próprios (`painel-dp.ts`), reusando colunas provadas (view `funcionario`/`reciboferias`, `esocialtransacao`, tabelas de auditoria); férias reusa o `periodosEmAberto` exportado da tela de Férias.
+- **Semântica do card de eSocial**: lidera pelo **rejeitado** (status 13, erro a corrigir), não pelo "pendente de recibo" — pendente inflava (dezenas de milhares) sem ser acionável. Lição geral: numa pendência, o número grande é o **acionável**, não o volume bruto.
+
+Verificado: tsc/eslint/`next build`; os agregados office-wide rodaram no ambiente do Eduardo (Questor real). Branches `feat/painel-dp` e `feat/painel-dp-duplo`, merge ff na `main`.
 
 ## Módulo RH (interno da Navecon — jul/2026)
 
