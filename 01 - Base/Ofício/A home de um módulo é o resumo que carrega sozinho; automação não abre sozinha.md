@@ -58,5 +58,5 @@ self-contained.
 ## Conexões
 - Fecha pendência sem inferir: [[Uma pendência de prazo fecha por ato explícito, não por sinal inferido]]
 - O placar do avesso: [[A trilha de auditoria já é o placar de atividade, não crie tabela de métrica à parte]]
-- Visto em: [[Navetech Hub]] (Folha → Painel do DP; Contábil → Painel; Fiscal já tinha Painel)
+- Visto em: [[Navetech Hub]] — os quatro módulos ganharam a home-painel: Fiscal, DP (fila), Contábil (placar), RH (pendências + panorama)
 - Mapa: [[Base]]

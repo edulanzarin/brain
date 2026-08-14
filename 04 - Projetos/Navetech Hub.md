@@ -426,6 +426,13 @@ irregularidades, atende a Lei 14.457/2022) e uma **avaliação anônima da empre
   passeio autenticado pelos dois painéis. QR do link ficou de fora (sem lib de QR;
   hoje é copiar/abrir o link) — follow-up fácil.
 
+### Painel do RH (ago/2026)
+
+Home do módulo (`/rh/painel`), a quarta aplicação de [[A home de um módulo é o resumo que carrega sozinho; automação não abre sozinha]] — com isso **os quatro módulos têm painel-home** (Fiscal, DP, Contábil, RH). O RH é o retrato do pessoal da casa: PENDÊNCIAS (experiências a decidir com atrasadas em destaque, denúncias abertas com as novas em destaque, avaliação de clima com a rodada aberta) + PANORAMA do mês (experiências respondidas, denúncias recebidas, campanhas enviadas, respostas de clima). Cards de pendência linkam pra seção que resolve.
+
+- 100% banco do app (experiência/denúncia/clima/envio são do RH interno, não do Questor) — sem escopo de empresa, rápido e testável. Cada bloco independente (`allSettled`); as 2 queries rodaram contra o app-db local. A casca do RH já era self-contained (sem barra de filtro), então o painel entrou só como 1ª seção — nenhum tratamento no shell. Libs `painel-rh.ts`/`painel-rh-tipos.ts`, branch `feat/painel-rh`.
+- Fecha o rollout: o `CardPendencia` (extraído no DP) é reusado no DP e no RH; o placar por trilha de auditoria é do Contábil; os quatro entram pela mesma mecânica de 1ª-seção-visível via `primeiraSecaoPath` e `home` do módulo apontando pro índice.
+
 ## Filial (estabelecimento) no filtro — jul/2026
 
 O sistema filtrava só por **empresa** (`codigoempresa`); no Questor a empresa
