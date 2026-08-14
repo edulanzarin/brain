@@ -116,7 +116,9 @@ O problema real (dito pelo Eduardo): entram muitas empresas por mês, de softwar
 - **Por que lançamentos e não "saldo direto"**: o Questor tem Implantação de Saldos nativa (tela "Cadastro: Saldos Contábeis" → `implsaldoctb`, saldo por conta sem contrapartida/histórico) — ver [[Módulo contábil do Questor]]. **Mas essa tela não tem importador** (verificado jul/2026, digitação manual conta a conta). Por isso o Nexo importa **lançamentos** (a única tela com layout de importação), aceitando a transitória + histórico como custo do caminho automatizável. Descartada a ideia de gerar o formato nativo — não há como importá-lo.
 - **Pendente**: leitores de PDF **dedicados por software** para os layouts que o parser genérico não pega (consolidado etc.) — o padrão do extrato (um leitor por banco) aplicado ao balancete; validar o arquivo gerado importando de fato num Questor de teste (o formato do valor — com/sem separador de milhar — a confirmar contra uma importação real).
 
-### Fechamento, Contas de Controle e Provisões (jul/2026)
+### Fechamento, Contas de Controle e Provisões (jul/2026 — REMOVIDAS ago/2026)
+
+> **Removidas do repo em ago/2026** (`chore(contabil): remove o stack parado`). Ficaram fora da sidebar (dormentes) e Provisões calculava sobre modelo errado (a provisão não é folha 70/71: mora em `provisaoferias`/`provisao13`, e a query misturava accrual com baixa). Código dormente que produz número errado é passivo — o git guarda o histórico se um dia religar com o modelo certo, validado no Questor. O texto abaixo fica como memória do que eram e por quê.
 
 Três automações pedidas pelo Eduardo depois de o Contábil já ter as conferências e os balancetes — a ideia dele era "que mais dá pra automatizar". Todas na branch `feat/contabil-fechamento`.
 
@@ -440,7 +442,9 @@ Varredura de "o que mais dá pra melhorar" depois do rollout dos painéis. O có
 - **Bug real do cron de rescisões**: o `scheduler.mjs` (serviço `nexo-scheduler`) só batia as duas rotas do RH; o `/api/folha/cron/rescisoes` existia e mandava e-mail mas **nunca era disparado** num `docker compose up` — o docstring ainda assumia um crontab do host que o projeto já tinha substituído. Extraí o disparo diário num helper `agendarDiario(rota, hora)` e pluguei rescisões (às `SCHEDULER_RESCISOES_HORA`, default 8h). Corolário que virou nota: [[Agenda recorrente é um serviço do compose, não um crontab do host]] — o agendador é o **registro único de disparo**, rota nova é código morto até entrar nele.
 - **Primeiro runner de testes do projeto** (Vitest): cobre a lógica pura que os comentários marcavam como "a validar", travando-a como spec executável. Para isso extraí o cálculo de rescisões (`rescisoes-calculo.ts`) do módulo `server-only` — que não importa num test runner. Vira nota: [[O cálculo puro sai do módulo server-only para poder ser testado]]. 26 testes em três alvos: `rescisoes-calculo` (situação por prazo, ordenação, slot do cron), `painel-links` (atalhos com filtro aplicado), `controle-ferias/periodosEmAberto` (regra CLT aquisitivo/concessivo). Testes fora do build (`**/*.test.ts` no `exclude` do tsconfig). Branches `fix/scheduler-rescisoes` e `test/libs-calculo`, merge ff na `main`.
 
-Fica pendente do Eduardo (precisa do Questor de produção, inalcançável do dev): validar as heurísticas "a validar" (`provisoes`, `custo-folha`, `balancete-contabil`) contra o banco real; e decidir o destino do stack **parado** do Contábil (Contas de Controle, Provisões, Fechamento — código presente mas escondido, e Provisões admite calcular sobre modelo contábil errado).
+Fica pendente do Eduardo (precisa do Questor de produção, inalcançável do dev): validar as heurísticas "a validar" (`custo-folha`, `balancete-contabil`) contra o banco real.
+
+Na sequência, o Eduardo mandou **remover o stack parado do Contábil** (Contas de Controle, Provisões, Fechamento) em vez de reativar — código escondido que calculava número errado vira passivo; o git guarda. Removidas páginas/rotas/libs/hooks/tipos (`chore(contabil): remove o stack parado`, −1134 linhas). Ver a seção histórica acima.
 
 ## Filial (estabelecimento) no filtro — jul/2026
 

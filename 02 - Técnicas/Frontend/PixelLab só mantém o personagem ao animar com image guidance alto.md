@@ -47,8 +47,22 @@ pernas alternando, coerente entre os 4 frames e as 4 direções.
   `usd 0.0` mesmo funcionando; o custo aparece em `usage.generations` na resposta.
 - Base do herói: `generate-image-pixflux`, uma chamada por direção, mesmo `seed`,
   `no_background: true`, `view: "high top-down"`. Consistente sem esforço.
-- `animate-with-text` é travado em 64x64; `generate-image-pixflux` vai até 400x400.
-- Resposta: `image.base64` (geração) e `images[].base64` (animação).
+- `animate-with-text` **exige ≥64x64** (rejeita 48 com 422); `generate-image-pixflux`
+  aceita de 32 a 400. Resposta: `image.base64` (geração) e `images[].base64` (animação).
+- **Chunkiness = tamanho do canvas.** Pixel "grandão"/retrô vem de gerar num canvas
+  menor (48, 32), com `shading: flat` + `detail: low` + `outline: single color black`.
+  64px com low detail ainda sai "renderizado".
+- **A armadilha da resolução com animação:** se a arte é 48px (chunky) mas a animação
+  de frames só existe ≥64, e 48 não é redutível por inteiro a partir de 64 (só 32 é
+  — downscale nearest 2:1 limpo), então **48 crocante e frames de perna reais não
+  cabem juntos**. Saídas: (a) animar a 64 e reduzir 2:1 pra 32; (b) ficar em 48 e
+  fazer a caminhada **procedural** no motor (quicada/bob), mantendo a arte crocante;
+  (c) `animate-with-skeleton` (aceita 16–256) com poses, mais trabalhoso. Gerar
+  poses soltas de walk via `pixflux` + `init_image` NÃO mantém a identidade (testado:
+  perde escudo/pose mesmo com strength 200).
+- **Render pixel-perfect:** `scaleMode: "nearest"`, escala **inteira** (×2, ×3) e
+  posições arredondadas; no CSS, `image-rendering: pixelated`. Escala fracionária
+  (×2.5) borra o grid.
 
 ## Conexões
 - Princípio: [[Coerência em geração vem de âncora, não de liberdade]]

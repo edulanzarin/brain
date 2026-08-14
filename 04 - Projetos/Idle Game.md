@@ -50,13 +50,19 @@ caçando 8h na Savana descobriu Leão Infernal (Primordial) sem treino manual.
 HuntSession ganhou líder; UI com seletor de líder por região e bloco do líder no
 relatório. É o pilar "o monstro é a história das batalhas dele" virando mecânica.
 
-Primeira **prova visual** entregue (`feat/lobby`): lobby jogável top-down no PixiJS
-(`/lobby`) — herói parado e andando por WASD/setas, câmera seguindo, chão em tiles
-(grama/praça/caminho) e props (fonte, árvore, caixa, placa). Os sprites são gerados
-via **PixelLab** (API v1): herói (guerreiro) idle + walk nas 4 direções, 64x64,
-`high top-down`. A tela inicial virou menu do jogo (IdleRealm) com HUD-maquete de RPG
-(classe, nível, pet único). A manha de manter o personagem coerente ao animar virou
-nota: [[PixelLab só mantém o personagem ao animar com image guidance alto]].
+Primeira **prova visual** entregue: lobby jogável top-down no PixiJS (`/lobby`) —
+herói andando por WASD/setas, câmera seguindo, chão em tiles (grama/praça/caminho) e
+props (fonte, árvore, caixa, placa). A tela inicial virou menu do jogo (IdleRealm)
+com HUD-maquete de RPG.
+
+**Estilo visual travado: pixel art 48px, flat shading, escala inteira ×3
+(pixel-perfect), e fonte pixel na UI toda** (Pixelify Sans + Press Start 2P via
+next/font). Decisão do Eduardo: "vamos trabalhar em pixel". As sprites são geradas
+via **PixelLab** (API v1) — herói (4 direções) e props, 48x48 `high top-down`,
+`flat shading`/`low detail` pra ficar chunky. A caminhada é **procedural** (quicada
+no motor), não frames: a API só anima em ≥64px e 48 não reduz por inteiro de 64.
+Tudo isso (image guidance, constraint de resolução, render pixel-perfect) virou a
+nota [[PixelLab só mantém o personagem ao animar com image guidance alto]].
 
 **Virada de design fechada nesta sessão: o jogo virou um Albion idle.** O GDD foi
 reescrito (`docs/game-design.md`); o antigo (captura estilo Pokémon) está arquivado
