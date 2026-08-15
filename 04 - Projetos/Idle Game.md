@@ -221,15 +221,24 @@ Candidatos a virar nota quando reaparecerem em outro contexto:
 - [x] Prova visual: lobby top-down no PixiJS com herói parado/andando (sprites LPC).
 - [x] Unificar o cenário do lobby em LPC (chão + props da mesma família do personagem).
 - [x] Reconciliar o GDD para a direção Albion idle (sem classe, gear é tudo, maestria, pets de buff).
-- [x] Engine modular (engine/game/ui) + cidade maior andável com barra de menu, HUD, chat e painéis (personagem/inventário/hunt idle/mercado/taverna); taverna cura, hunts idle rodam parado.
+- [x] Engine modular (engine/game/ui) + cidade maior andável com barra de menu, HUD, chat e painéis; taverna cura, hunts idle.
+- [x] Hunt como cena (auto-combate) + combate por stats + analisador + loot de lixo; colisão de props; UI pixel (ícones, moldura, fonte Silkscreen, grama texturizada). Tudo **mock no cliente**.
 
-Roadmap novo (detalhado no GDD `docs/game-design.md` §7) — a próxima grande fatia é:
+**PRÓXIMA FATIA = BACKEND** (decisão do Eduardo, ago/2026; detalhe no GDD §9-11).
+A complexidade da Hunt v2 (drop tables por valor, shiny "orc negro" com item
+exclusivo escalado por nível, mobs que andam e batem, combate mútuo) pede
+server-authoritative agora — mais mock seria retrabalho.
 
-- [ ] **Modelo de dados novo**: personagem, gear (slot/tier/raridade/atributos/skill),
-  material, maestria, zona, pet — migrando/aposentando o schema antigo (espécie/
-  indivíduo/DNA/atrator).
-- [ ] Depois: farm idle resolvido no servidor (reusa o padrão do hunt) → gear +
-  equipar → skills por gear → craft/refino → maestria → pets → bosses → mercado → auth.
+- [ ] **Contas + auth** (criação de conta, login, sessão).
+- [ ] **Banco novo** (Postgres 16 + Prisma 7, já no projeto): schema de Conta,
+  Personagem (stats/level/xp/hp/skin), Item/Gear (slot/tier/raridade/atributos),
+  Inventário, Mob + DropTable (raridade + shiny), Zona, HuntSession autoritativa,
+  Mercado (NPC + jogador), Pet. Reconciliar/aposentar o schema antigo (Pokémon:
+  `prisma/`, `src/lib/`, `src/generated/prisma`, telas hunt/creature/pokepedia).
+- [ ] **Resolvers autoritativos** (funções puras semeadas no servidor): combate,
+  loot, shiny odds, nível de drop. Portar o padrão do reducer-de-hunt do cliente.
+- [ ] Migrar o store mock pra ler do servidor (cliente só renderiza + envia intenção).
+- [ ] Depois: gear/equipar → skills por gear → craft/maestria → pets → bosses.
 
 ## Conexões
 - Usa: [[Infra]] · [[Design]]
