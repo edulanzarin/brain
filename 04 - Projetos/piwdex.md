@@ -78,22 +78,28 @@ coluna CD removida (cooldownMs base engana — ver nota de referencia); a ficha 
 tambem abre dentro do aparelho Pokedex; loading = pokebola girando; itens clicaveis com
 hover; scrollbars no tema.
 
-**Breeding Simulator (5a passada, ago/2026):** o Eduardo pediu a parte de breeding "tipo
-no piwtools tem". Ferramenta `/breed` que faz o que o piwtools tem e integra ao app:
-- **Tutorial** com as regras separadas em confirmadas / provisorias / nao suportado —
-  nada de teto ou tier Shiny inventado (ver [[Poke Idle World - regras de breeding]]).
-- **Colecao local** de Pokemon em `localStorage` (criar/editar/filtrar/ordenar), com
-  seletor de especie por sprite. A simulacao NUNCA consome a colecao.
-- **Simulador de par**: valida mesma especie + diff de Quality <= 0.150, projeta a
-  heranca de IV (pai de maior Quality; empate -> Slot 1), a faixa/media de Quality por
-  modo (Free EV 0.0096 / Pheromone EV 0.1875, batem exato), teto 2.600 no normal (Shiny
-  bruto), Double Stones e o custo (R$ + Stones divididas por tipo + Pheromones).
-Motor puro em `src/lib/breeding.ts`; UI no visual pixel/neon do app (icone de ovo na nav
-e na home, i18n pt/en/es). Regras da especie sao **camada curada** — nao vem no JSON.
+**Planejador de Breeding (5a passada, ago/2026):** o Eduardo pediu a parte de breeding.
+A 1a tentativa **clonou a pagina do piwtools** (cards Confirmadas/Provisorias/Futuras,
+ordem das secoes, textos de estrategia) e ele rejeitou na hora — a regra e inspirar na
+**mecanica/dado** do jogo, nunca na interface do concorrente (ver
+[[Inspiração é na mecânica e no dado, não na interface do concorrente]]). Refeito do zero
+como ferramenta propria (`/breed`):
+- **Dois paineis de pais** editaveis inline, com salvar/carregar de uma colecao local
+  (`localStorage`) — a simulacao nunca consome nada.
+- **O ovo** (resultado reativo): IVs herdados, distribuicao de Quality e, o diferencial,
+  os **stats reais do ovo** no nivel escolhido, ligando na engine `stats.ts`
+  (`projectAll`) — o piwtools nao projeta stats de batalha no breeding.
+- **Planejador de Quality** (feature nossa): do Q atual ate o alvo, quantos breeds pela
+  media, custo estimado (R$/Stones/Pheromone) e os dois riscos do jogo — passar de 0.150
+  num passo (orfa o filho) e estourar o teto 2.600. Free vs Pheromone lado a lado.
+- Regras do jogo num strip compacto colapsavel, na nossa voz, com o provisorio marcado.
+Motor puro em `src/lib/breeding.ts` (`projectEgg` + `planQuality`); regras da especie sao
+**camada curada** — nao vem no JSON (ver [[Poke Idle World - regras de breeding]]). Media
+de ganho bate exato (Free 0.0096 / Pheromone 0.1875).
 
 Verificado: `tsc` limpo, `next build` gera 822 paginas estaticas (incl. `/breed`
 prerenderizada), e a calculadora e as medias de breeding batem exato com o jogo. Sem
-remote ainda (so commit local; branch `feat/breeding` -> `master` fast-forward).
+remote ainda (so commit local; branch por tipo -> `master` fast-forward).
 
 ## Infra
 

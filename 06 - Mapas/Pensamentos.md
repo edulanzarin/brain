@@ -20,6 +20,8 @@ verdade, é sobre o que eu escolho.
   de funcionalidade nem jargão técnico na tela.
 - [[Estética é por projeto, princípio de design é que se reusa]] — o que viaja entre
   sistemas é o princípio; a cara cada projeto escolhe a sua.
+- [[Inspiração é na mecânica e no dado, não na interface do concorrente]] — do
+  concorrente se pega a mecânica do jogo e o dado, nunca a interface; o nosso é nosso.
 
 ## O que entra aqui
 
