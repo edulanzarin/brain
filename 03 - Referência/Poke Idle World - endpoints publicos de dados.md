@@ -43,6 +43,12 @@ Os 194 nomes de loot batem 100% com `items.json`.
   ex. Aerodactyl). Nao rotular como "compra" — confunde (o Eduardo corrigiu).
 - O `type` de um `attack` pode ser **`NEUTRAL`** (golpe sem tipo), fora dos 18 tipos
   canonicos de pokemon. Qualquer map por tipo (cor, icone) precisa de fallback.
+- **`attacks[].cooldownMs` e o cooldown BASE, nao o tempo real de ataque.** Vem em ms
+  (1200..30000) mas no jogo o intervalo real e bem menor — a velocidade/haste do
+  pokemon reduz isso. Mostrar `cooldownMs/1000` como "10s" engana (o Eduardo pegou).
+  Sem a formula de haste, e melhor NAO exibir CD. Os golpes em si (name/type/power/
+  learnLevel) sao do jogo e corretos. STAB no jogo e o classico **1.5x** em golpe do
+  mesmo tipo do pokemon (separado da efetividade x2/x0.5).
 
 ## API autenticada e realtime (JWT, dado da conta)
 

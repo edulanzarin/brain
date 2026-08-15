@@ -67,6 +67,17 @@ sprites no lugar do select nativo, pokebola melhor + loaders animados (pikachu).
 Principio herdado: aparencia pixel imersiva e por-projeto, nao dialeto de dashboard
 (ver [[Estetica e por projeto, principio de design e que se reusa]]).
 
+**Idioma BR/EN/ES + refinamentos (4a passada, ago/2026):** i18n **client-side com
+toggle na mesma URL** (preferencia no localStorage) — escolha do Eduardo pra manter o
+site 100% estatico (SSG), sem rota por idioma. Provider React + `<T>`/`<TB>` pra texto
+em server component e `useT`/`useTypeLabel` nos clients; dicionario pt/en/es completo,
+nomes de tipo traduzidos, mas **nome de pokemon/item fica em ingles** (o jogo e em
+ingles). Bandeiras em pixel (SVG). Outros ajustes: barras de stat viraram gauge pixel;
+ataque separa **STAB 1.5x** (tipos do proprio bicho) de "Forte contra" (cobertura x2);
+coluna CD removida (cooldownMs base engana — ver nota de referencia); a ficha do pokemon
+tambem abre dentro do aparelho Pokedex; loading = pokebola girando; itens clicaveis com
+hover; scrollbars no tema.
+
 Verificado: `tsc` limpo, `next build` gera 817+ paginas estaticas, screenshots das telas
 conferidas, e a calculadora bate exato com os valores do jogo. Sem remote ainda (so
 commit local).
