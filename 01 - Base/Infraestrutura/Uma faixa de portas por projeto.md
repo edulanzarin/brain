@@ -28,6 +28,7 @@ Mapa atual:
 | [[Navehub]] | 4030 | 5030 |
 | [[Navecon CRM]] | 4046 | 5046 |
 | [[Idle Game]] | 4060 | 5060 |
+| [[piwdex]] | 4070 | 5070 |
 
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte
 da verdade, não o `docker ps` da máquina que por acaso está ligada.

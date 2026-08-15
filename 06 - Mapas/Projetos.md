@@ -18,6 +18,7 @@ mora aqui: mora em [[Base]] (princípios) e em [[Design]], [[Frontend]], [[Backe
 - [[Evento Navecon]] — landing da imersão com inscrição e pagamento (Mercado Pago).
 - [[Navehub]] — CRM + atendimento por WhatsApp para contabilidade (SaaS multi-tenant).
 - [[Idle Game]] — RPG idle de navegador com espécies emergentes (árvore evolutiva global).
+- [[piwdex]] — dex e ferramentas completas para o jogo Poke Idle World (piwdex.com.br).
 
 ## Substituídos
 
