@@ -51,6 +51,22 @@ do login (camada 3). Decisao do Eduardo (ago/2026): catalogo auto-atualizavel pr
 mercado logado depois. UI polida: moeda de ouro nos precos, combobox de pokemon com
 sprites no lugar do select nativo, pokebola melhor + loaders animados (pikachu).
 
+**Imersao pixel (3a passada, ago/2026):** o Eduardo pediu "nivel de jogo". Entregue:
+- **Pokedex que abre na tela** — o /dex e envolto num aparelho Pokedex (device com
+  lente/leds/telinha) e toca uma animacao de abertura em tela cheia (portas vermelhas
+  se separam + boot + power-on) antes de revelar o grid dentro do frame. Peca central.
+- **Icones de tipo em pixel** (8x8 SVG inline, currentColor) nos badges, no filtro e na
+  tabela de fraquezas — que virou pills com **multiplicador** (x2, 1/2, 1/4), corrigindo
+  o badge que quebrava desalinhado.
+- **Ficha mais viva**: sprite anima no hover (gif gen5) + toggle shiny, papeis do bicho
+  (atacante/tanque/veloz), mini-stats, golpe mais forte, e **Vende por vs Loja NPC**
+  desambiguados (ver a nota de referencia — sao campos diferentes no schema).
+- **Fundo pixel 4k**: cena de rota noturna gerada por script Pillow (`scripts/gen-bg.py`),
+  fixa sob scrim. **Scroll reveal** (IntersectionObserver) nas secoes.
+- Home enxuta: sprite do aparelho foi pro card, hero sem botao duplicado.
+Principio herdado: aparencia pixel imersiva e por-projeto, nao dialeto de dashboard
+(ver [[Estetica e por projeto, principio de design e que se reusa]]).
+
 Verificado: `tsc` limpo, `next build` gera 817+ paginas estaticas, screenshots das telas
 conferidas, e a calculadora bate exato com os valores do jogo. Sem remote ainda (so
 commit local).

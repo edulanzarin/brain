@@ -36,6 +36,15 @@ Cloudflare bloqueia bot generico: mandar `User-Agent` de navegador.
 Do `loot` sai o **indice reverso** "onde dropa o item X" (agrupar por nome do item).
 Os 194 nomes de loot batem 100% com `items.json`.
 
+- **`sellValue` != `priceNpc`** na criatura, apesar de baterem em 464/482 casos.
+  `sellValue` = ouro que voce **recebe** vendendo o bicho pro NPC; `priceNpc` = ouro que
+  voce **paga** pra comprar na loja NPC. Divergem nos 18 exclusivos de loja (ex.:
+  Aerodactyl custa 6,5 bi pra comprar e tem `sellValue: 0` = nao vende). Na UI, rotular
+  como "Vende por" vs "Loja NPC" e tratar `sellValue: 0` como "nao vende" — mostrar so um
+  numero confunde (foi o que o Eduardo estranhou).
+- O `type` de um `attack` pode ser **`NEUTRAL`** (golpe sem tipo), fora dos 18 tipos
+  canonicos de pokemon. Qualquer map por tipo (cor, icone) precisa de fallback.
+
 ## API autenticada e realtime (JWT, dado da conta)
 
 So pra companion logado. Base `poke.idleworld.online`, token em `pokeweb:tokens`
