@@ -46,6 +46,25 @@ So pra companion logado. Base `poke.idleworld.online`, token em `pokeweb:tokens`
 catch-result, poke-xp, shiny-global, inventory, boosts...). Protocolo documentado no
 repo de terceiros `AntonioFleck/poke-idle-launcher` (`docs/WS_SCHEMA.md`).
 
+## Formula de stat / IV / poder / qualidade (verificada)
+
+O stat final de cada atributo, dado base, IV, nivel e qualidade:
+
+    stat  = round( (base + 2*IV) * (nivel/100) * qualidade^exp )
+    poder = round( soma(6 stats) * qualidade )
+    IV    = (stat / ((nivel/100) * qualidade^exp) - base) / 2   (inverte)
+
+`exp` por stat: **HP e Speed = 0.95**; ATK, DEF, SpAtk, SpDef = **0.8**. O
+multiplicador de IV e **2**. A "qualidade" que o jogo mostra (ex.: 1,8) e esse
+multiplicador direto, nao um score 0-100. A raridade/qualidade e por INDIVIDUO
+capturado (rolada na captura), nao um traco da especie — a especie so tem base
+stats.
+
+Conferido exato contra o jogo (Electrode nv54, qualidade 1.8, base HP60/Atk50):
+HP 113 -> IV 29.9; Atk 78 -> IV 20.1; ...; IV Total 132.8; soma 679*1.8 = 1222 de
+poder. Fonte: engenharia reversa do calculo do piwtools (funcao `Rg`/`oi`/`ww` no
+bundle) + conferencia com valores reais. Implementado em piwdex (`src/lib/stats.ts`).
+
 ## O que NAO vem no JSON (curadoria/scraping)
 
 - **Breeding** — nenhum endpoint.

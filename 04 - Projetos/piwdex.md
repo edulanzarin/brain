@@ -26,14 +26,25 @@ integridade (todo loot bate com um item) e grava o snapshot versionado em
 ("onde dropa X", ordenado por maior taxa), localizacao por `looktype`, cadeia
 evolutiva. Efetividade de tipo (fraquezas) computada de tabela propria.
 
-UI em Next 16 (App Router): home, Pokedex com busca/filtro por tipo e raridade, ficha
-completa (stats, fraquezas, evolucao, drops com % real, onde cacar, moves) e paginas de
-item com o indice reverso. Verificado: `tsc` limpo, `next build` gera 817 paginas
-estaticas, server de producao responde 200 e as secoes-chave renderizam (drop com %,
-"onde dropa" com fontes). Sprites vem da PokeAPI pelo `pokeId`; icones de item do host
-do jogo — nao hospeda asset.
+UI em Next 16 (App Router): home, Pokedex com busca/filtro por tipo, ficha completa
+(stats, fraquezas, evolucao, drops com % real, onde cacar, moves), paginas de item com
+indice reverso + preco NPC, e **Calculadora de IV/qualidade/poder** (formula do jogo
+verificada — ver [[Poke Idle World - endpoints publicos de dados]]). Estima IVs dos
+stats atuais e projeta stats/poder em qualquer nivel.
 
-Sem remote ainda (so commit local).
+**Visual refeito (2a passada):** a 1a versao ficou "dashboard" e o Eduardo rejeitou.
+Agora e pixel/neon dark estilo o jogo/piwtools: fontes Press Start 2P + JetBrains Mono,
+ceu estrelado em CSS, cards com borda neon, pokebola SVG em pixel (logo + spinner de
+loading), skeletons e sprite com loading. Sem emoji, selects estilizados. Bug corrigido:
+sprite do SSR que terminava de carregar antes do onLoad travava no placeholder (checa
+img.complete no mount).
+
+**Raridade:** removida da especie — no jogo e por individuo (ver a formula na nota de
+referencia). O lugar dela e a calculadora, nao um selo fixo.
+
+Verificado: `tsc` limpo, `next build` gera 817+ paginas estaticas, screenshots das telas
+conferidas, e a calculadora bate exato com os valores do jogo. Sem remote ainda (so
+commit local).
 
 ## Infra
 
@@ -69,8 +80,9 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
 ## Proximos passos
 
 - [x] Camada 1: ingestao + pokedex + ficha + itens + indice reverso de drop.
-- [ ] Camada 2: calculadoras (lucro/hora de farm, melhor spot por item, comparador de
-  stats); formulas raspadas de `/pokepedia/systems/*`.
+- [x] Redesign visual pixel/neon + calculadora de IV/qualidade/poder (formula do jogo).
+- [ ] Camada 2 (resto): Hunt Planner (lucro/hora, XP/h, melhor spot por item) e
+  comparador de dois pokemons; formulas de XP/poder raspadas de `/pokepedia/systems/*`.
 - [ ] Bosses e breeding como camada curada (nao vem no JSON do jogo).
 - [ ] Camada 3: companion logado (proxy da API JWT + WebSocket). Aqui entra o chassi
   Postgres + Docker compose + auth.
