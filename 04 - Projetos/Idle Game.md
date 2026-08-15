@@ -19,6 +19,40 @@ Código em: `~/Dev/idle-game`
 
 ## Estado atual
 
+**BACKEND server-authoritative entregue (ago/2026) — a fatia decidida no GDD §11.**
+O jogo deixou de ser mock no cliente: conta/personagem/mundo vivem no Postgres e o
+cliente só renderiza e envia intenção. O que entrou, em quatro cortes na `main`:
+
+- **Schema novo (Albion idle)** aposentando o Pokémon (espécie/indivíduo/DNA/
+  atrator). Modelos: Account+Session, Character 1:1, ItemDef (catálogo data-driven)
+  + InventoryItem unificado (stack de material e instância de gear com raridade/
+  tier/atributos/enchant/slot), Mob + DropEntry (chance por valor) com variante
+  **shiny** (Orc Negro -> item exclusivo), Zone pura (ZoneMob), HuntSession
+  autoritativa, Pet (buff estruturado), MarketListing (NPC via flags do ItemDef).
+  Migração dev-only (sem remote, dados só de seed): init nova, DB resetado, seed
+  reescrito e idempotente (15 itens, 4 mobs, 4 zonas, conta+personagem demo).
+- **Auth**: hash scrypt + sessão opaca em banco com cookie httpOnly; `/login` com
+  abas Entrar/Criar conta; `/` e `/lobby` roteiam pela sessão.
+- **Resolver autoritativo** como **função pura semeada** — virou o princípio
+  [[Progresso idle é função pura do tempo semeada, não simulação tick a tick]].
+  Resolve o Δt inteiro (offline = mesmo cálculo, teto 12h), porta o combate por
+  stats do mock e aplica as regras da Hunt v2 (drop table por mob, shiny ~0,8% ->
+  gear exclusivo escalado pelo nível da zona).
+- **Store migrado pro servidor**: o reducer virou provider fino que hidrata o
+  GameState do servidor; `dispatch` chama Server Actions que mutam o banco e
+  devolvem o estado fresco; o idle sincroniza a hunt ativa a cada 4s.
+
+Verificado (não suposto): build limpo; `/lobby` sem sessão -> 307 `/login`, com
+sessão -> 200 renderizando herói+zonas do banco; integração resolve zona semeada
+e persiste recompensa (ouro 250->831, xp, drops). Observação de balanceamento: com
+o modelo fiel do mock, o herói inicial cai rápido (def baixa), então o offline
+rende pouco até subir defesa/vida — ajuste fica pra uma fatia de balanceamento.
+A UI/engine/cidade/hunt do cliente foram **mantidas** (só trocou a fonte de dados),
+não redesenhadas — a UX plena da Hunt v2 (botão Casa, coletar-ao-voltar, seleção
+de zonas vs. analisador) é a próxima fatia.
+
+O histórico abaixo é do design ANTIGO (Pokémon), mantido como registro do caminho.
+
 Chassi + **primeira fatia jogável (loop de hunt) rodando ponta a ponta**. O design
 completo mora no GDD do próprio repositório (`docs/game-design.md`) — é a fonte da
 verdade, não esta nota.
@@ -204,13 +238,13 @@ Só links. O texto do aprendizado mora na nota, não aqui.
 - [[Coerência em geração vem de âncora, não de liberdade]] — o "compor peças
   curadas em vez de gerar do zero" reapareceu (image guidance do PixelLab) e virou
   princípio na base.
+- [[Progresso idle é função pura do tempo semeada, não simulação tick a tick]] —
+  reapareceu no resolver Albion (2º contexto) e foi promovido à base.
 
 Candidatos a virar nota quando reaparecerem em outro contexto:
 
 - Determinismo no núcleo, IA só na borda criativa (relaciona-se com
   [[A definição em dado dirige o comportamento, não um caso no código]]).
-- Resolver de progressão idle como função pura semeada = server-authoritative sem
-  simular tick a tick (relaciona-se com [[A definição em dado dirige o comportamento, não um caso no código]]).
 
 ## Próximos passos
 
@@ -224,20 +258,24 @@ Candidatos a virar nota quando reaparecerem em outro contexto:
 - [x] Engine modular (engine/game/ui) + cidade maior andável com barra de menu, HUD, chat e painéis; taverna cura, hunts idle.
 - [x] Hunt como cena (auto-combate) + combate por stats + analisador + loot de lixo; colisão de props; UI pixel (ícones, moldura, fonte Silkscreen, grama texturizada). Tudo **mock no cliente**.
 
-**PRÓXIMA FATIA = BACKEND** (decisão do Eduardo, ago/2026; detalhe no GDD §9-11).
-A complexidade da Hunt v2 (drop tables por valor, shiny "orc negro" com item
-exclusivo escalado por nível, mobs que andam e batem, combate mútuo) pede
-server-authoritative agora — mais mock seria retrabalho.
+**FATIA BACKEND = CONCLUÍDA** (ago/2026; detalhe no topo de "Estado atual" e no
+GDD §9-11). Todos os quatro itens do escopo entraram na `main`:
 
-- [ ] **Contas + auth** (criação de conta, login, sessão).
-- [ ] **Banco novo** (Postgres 16 + Prisma 7, já no projeto): schema de Conta,
-  Personagem (stats/level/xp/hp/skin), Item/Gear (slot/tier/raridade/atributos),
-  Inventário, Mob + DropTable (raridade + shiny), Zona, HuntSession autoritativa,
-  Mercado (NPC + jogador), Pet. Reconciliar/aposentar o schema antigo (Pokémon:
-  `prisma/`, `src/lib/`, `src/generated/prisma`, telas hunt/creature/pokepedia).
-- [ ] **Resolvers autoritativos** (funções puras semeadas no servidor): combate,
-  loot, shiny odds, nível de drop. Portar o padrão do reducer-de-hunt do cliente.
-- [ ] Migrar o store mock pra ler do servidor (cliente só renderiza + envia intenção).
+- [x] **Contas + auth** (criação de conta, login, sessão em banco + cookie).
+- [x] **Banco novo** (Postgres 16 + Prisma 7): Conta/Personagem/Item+Gear/
+  Inventário/Mob+DropTable (raridade + shiny)/Zona/HuntSession/Mercado/Pet. Schema
+  antigo (Pokémon) aposentado (`prisma/`, `src/lib/`, telas hunt/creature/pokepedia).
+- [x] **Resolver autoritativo** (função pura semeada): combate, loot, shiny, nível
+  de drop escalado pela zona, teto offline. Ver [[Progresso idle é função pura do tempo semeada, não simulação tick a tick]].
+- [x] Store mock migrado pro servidor (cliente só renderiza + envia intenção).
+
+Próximas fatias:
+
+- [ ] **UX plena da Hunt v2** (GDD §10): botão Casa, coletar-ao-voltar/trocar,
+  "Hunt" abre seleção de zonas e "Análise da Hunt" abre o analisador no mapa;
+  mobs que andam e batem (combate mútuo visível).
+- [ ] **Balanceamento de sobrevivência idle** (hoje o herói cai rápido; def/vida
+  precisam pesar mais pro offline render).
 - [ ] Depois: gear/equipar → skills por gear → craft/maestria → pets → bosses.
 
 ## Conexões
