@@ -80,10 +80,17 @@ assíncrono, mock no cliente). **Hunts idle** sobem nível e dropam material mes
 o jogador parado. **A engine troca de cena** (`useGameEngine(location)`): cidade <->
 mapa de caçada. **Hunt virou CENA, não menu**: cada zona tem uma arena onde o herói
 (IA) vai sozinho até o monstro mais próximo, bate, o bicho morre (flash+fade) e
-renasce, moeda flutua — idle (a recompensa segue vindo do tick do store mesmo fora do
-mapa). Monstros LPC (orc/esqueleto/slime/morcego, `scripts/art/mobs.py`), tema por
-zona. UI ganhou moldura pixel (`.pixel-panel`), ícones pixel à mão (sem emoji no
-chrome) e grama com textura. Decisão do Eduardo: engine "poderosa, reaproveitável,
+renasce, moeda flutua. Mapa da hunt é grande (32x22, câmera segue) e os mobs nascem
+espalhados e renascem devagar. **Combate por STATS, sem ganho fixo por segundo**: os
+mobs têm status (hp/atk/def/xp/loot em `game/mobs.ts`) e o dano do herói derruba o hp
+— o ritmo EMERGE dos stats. O `store` simula isso num reducer PURO com PRNG semeado
+no TICK (idle roda mesmo fora do mapa; o servidor herda o mesmo shape). Cada morte dá
+xp, ouro e rola loot (vários "lixos" por mob pra vender no NPC); o herói toma dano por
+status da zona (def importa; vida 0 = "caiu", cura na taverna). O painel virou
+**Analisador de hunt** (derrotados/tempo/xp/ouro/loot/drops + coletar). Monstros LPC
+(orc/esqueleto/slime/morcego, `scripts/art/mobs.py`). Props da cidade têm colisão. UI
+ganhou moldura pixel (`.pixel-panel`), ícones pixel à mão (sem emoji no chrome) e
+grama com textura. Decisão do Eduardo: engine "poderosa, reaproveitável,
 modular"; mundo single-player (cada um no seu), mas com chat (e guerra no futuro).
 
 **Estilo visual travado: pixel art, escala inteira (pixel-perfect), fonte pixel na
