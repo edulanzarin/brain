@@ -78,9 +78,22 @@ coluna CD removida (cooldownMs base engana — ver nota de referencia); a ficha 
 tambem abre dentro do aparelho Pokedex; loading = pokebola girando; itens clicaveis com
 hover; scrollbars no tema.
 
-Verificado: `tsc` limpo, `next build` gera 817+ paginas estaticas, screenshots das telas
-conferidas, e a calculadora bate exato com os valores do jogo. Sem remote ainda (so
-commit local).
+**Breeding Simulator (5a passada, ago/2026):** o Eduardo pediu a parte de breeding "tipo
+no piwtools tem". Ferramenta `/breed` que faz o que o piwtools tem e integra ao app:
+- **Tutorial** com as regras separadas em confirmadas / provisorias / nao suportado —
+  nada de teto ou tier Shiny inventado (ver [[Poke Idle World - regras de breeding]]).
+- **Colecao local** de Pokemon em `localStorage` (criar/editar/filtrar/ordenar), com
+  seletor de especie por sprite. A simulacao NUNCA consome a colecao.
+- **Simulador de par**: valida mesma especie + diff de Quality <= 0.150, projeta a
+  heranca de IV (pai de maior Quality; empate -> Slot 1), a faixa/media de Quality por
+  modo (Free EV 0.0096 / Pheromone EV 0.1875, batem exato), teto 2.600 no normal (Shiny
+  bruto), Double Stones e o custo (R$ + Stones divididas por tipo + Pheromones).
+Motor puro em `src/lib/breeding.ts`; UI no visual pixel/neon do app (icone de ovo na nav
+e na home, i18n pt/en/es). Regras da especie sao **camada curada** — nao vem no JSON.
+
+Verificado: `tsc` limpo, `next build` gera 822 paginas estaticas (incl. `/breed`
+prerenderizada), e a calculadora e as medias de breeding batem exato com o jogo. Sem
+remote ainda (so commit local; branch `feat/breeding` -> `master` fast-forward).
 
 ## Infra
 
@@ -112,6 +125,8 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
 
 - [[Poke Idle World - endpoints publicos de dados]] — o schema e os dois joins que
   destravam o dado (chance/1000, looktype -> mapa).
+- [[Poke Idle World - regras de breeding]] — regras curadas do breeding (nao vem no
+  JSON): mesma especie, diff Quality 0.150, heranca de IV, tabelas de ganho e custos.
 
 ## Proximos passos
 
@@ -119,7 +134,8 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
 - [x] Redesign visual pixel/neon + calculadora de IV/qualidade/poder (formula do jogo).
 - [ ] Camada 2 (resto): Hunt Planner (lucro/hora, XP/h, melhor spot por item) e
   comparador de dois pokemons; formulas de XP/poder raspadas de `/pokepedia/systems/*`.
-- [ ] Bosses e breeding como camada curada (nao vem no JSON do jogo).
+- [x] Breeding como camada curada: simulador `/breed` com colecao local e projecao.
+- [ ] Bosses como camada curada (nao vem no JSON do jogo).
 - [ ] Camada 3: companion logado (proxy da API JWT + WebSocket). Aqui entra o chassi
   Postgres + Docker compose + auth.
 - [ ] Deploy e dominio piwdex.com.br; job de ingestao recorrente (servico do compose).
