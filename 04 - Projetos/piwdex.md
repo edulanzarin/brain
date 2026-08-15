@@ -42,6 +42,15 @@ img.complete no mount).
 **Raridade:** removida da especie — no jogo e por individuo (ver a formula na nota de
 referencia). O lugar dela e a calculadora, nao um selo fixo.
 
+**Catalogo ao vivo (ISR):** trocou o import estatico do snapshot por fetch do jogo com
+`next: { revalidate: 3600 }` — o catalogo se atualiza sozinho de hora em hora, sem
+redeploy. Se a fonte falhar, cai no snapshot versionado (fallback, site nao quebra).
+`data.ts` virou `getData()` async memoizado por request (React `cache`). O **preco de
+mercado de jogadores continua fora** — nao e questao de snapshot x live, so existe atras
+do login (camada 3). Decisao do Eduardo (ago/2026): catalogo auto-atualizavel primeiro,
+mercado logado depois. UI polida: moeda de ouro nos precos, combobox de pokemon com
+sprites no lugar do select nativo, pokebola melhor + loaders animados (pikachu).
+
 Verificado: `tsc` limpo, `next build` gera 817+ paginas estaticas, screenshots das telas
 conferidas, e a calculadora bate exato com os valores do jogo. Sem remote ainda (so
 commit local).
