@@ -77,7 +77,13 @@ de menu — anda até o prédio e aperta E; a barra do topo só tem menus pessoa
 (Personagem/Inventário/Caçadas). Dois mercados: **NPC** (compra/venda preço fixo) e
 **de jogadores** (comprar ofertas de terceiros, anunciar itens seus — leilão
 assíncrono, mock no cliente). **Hunts idle** sobem nível e dropam material mesmo com
-o jogador parado. Abrir painel pausa o andar. Decisão do Eduardo: engine "poderosa, reaproveitável,
+o jogador parado. **A engine troca de cena** (`useGameEngine(location)`): cidade <->
+mapa de caçada. **Hunt virou CENA, não menu**: cada zona tem uma arena onde o herói
+(IA) vai sozinho até o monstro mais próximo, bate, o bicho morre (flash+fade) e
+renasce, moeda flutua — idle (a recompensa segue vindo do tick do store mesmo fora do
+mapa). Monstros LPC (orc/esqueleto/slime/morcego, `scripts/art/mobs.py`), tema por
+zona. UI ganhou moldura pixel (`.pixel-panel`), ícones pixel à mão (sem emoji no
+chrome) e grama com textura. Decisão do Eduardo: engine "poderosa, reaproveitável,
 modular"; mundo single-player (cada um no seu), mas com chat (e guerra no futuro).
 
 **Estilo visual travado: pixel art, escala inteira (pixel-perfect), fonte pixel na
