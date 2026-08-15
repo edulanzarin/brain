@@ -271,11 +271,15 @@ GDD §9-11). Todos os quatro itens do escopo entraram na `main`:
 
 Próximas fatias:
 
-- [ ] **UX plena da Hunt v2** (GDD §10): botão Casa, coletar-ao-voltar/trocar,
-  "Hunt" abre seleção de zonas e "Análise da Hunt" abre o analisador no mapa;
-  mobs que andam e batem (combate mútuo visível).
-- [ ] **Balanceamento de sobrevivência idle** (hoje o herói cai rápido; def/vida
-  precisam pesar mais pro offline render).
+- [x] **Balanceamento de sobrevivência idle** — curva relativa ao nível (pressão
+  por nível + mitigação % por defesa + regen idle): no seu nível o herói se
+  sustenta (offline rende), acima do nível cai. Corrige o "cai em ~80s".
+- [x] **Fluxo da Hunt v2 na UI** (GDD §10): botão Casa (coleta e volta), "Hunt"
+  abre seleção de zonas, "Análise da Hunt" no mapa, trocar de zona coleta+migra,
+  hunt não fica ativa na cidade.
+- [ ] **Camada visual da Hunt v2**: no HuntScene, poucos mobs andando e batendo
+  no herói (combate mútuo visível), respawn devagar. A lógica de combate mútuo já
+  está no resolver autoritativo; falta a renderização.
 - [ ] Depois: gear/equipar → skills por gear → craft/maestria → pets → bosses.
 
 ## Conexões
