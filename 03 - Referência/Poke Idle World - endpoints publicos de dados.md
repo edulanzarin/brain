@@ -91,6 +91,51 @@ Nao ha endpoint simples pros pokemons INDIVIDUAIS (com IV/level) da sua conta â€
 agregado (all-pokes) e os que estao a venda no mercado. Individuais provavelmente so via WS
 ou paginacao logada.
 
+## Sprites / arte do jogo (sistema de outfit, estilo Tibia)
+
+O jogo NAO serve `<id>.png` simples. Cada criatura tem um `looktype` (termo de
+Tibia/OTServer) e a arte e um **spritesheet animado** montado num canvas (componente
+`OutfitSprite`: `looktype, direction, colors, size, fps`). Puxar a arte real do jogo
+(em vez de sprite da PokeAPI) deixa a ferramenta identica ao que se ve jogando.
+
+Pipeline de assets (`/game/asset-packs`, base `f="/game/asset-packs"` no bundle):
+
+1. **Indice**: `GET /game/asset-packs/outfits-index.json?v=2` (~166KB). Mapa
+   `outfits[id] -> {id, gender, category, manifest, colorizable, directions, frames,
+   width, height, name, kind}`. **`id` === `looktype`** (id 25 = Bulbasaur). Tem 629
+   outfits, **372 com `kind:"pokemon"`** (o resto e treinador/cosmetico). Ja traz o
+   `name` por looktype de graca.
+2. **Manifesto da categoria**: campo `manifest` vem como `/assets-packs/categories/
+   outfits-<gender>-<id>-<hash>.json`. Resolver com
+   `manifest.replace(/^\/assets-packs/, "/game/asset-packs")`. O JSON tem
+   `categories` -> pega `Object.values(categories)[0]` -> `.pages[0].image` (mesma
+   regra de replace do prefixo) + `geometry{directions, frames, layers, width, height}`
+   e um array `assets` com os retangulos de cada frame no atlas.
+3. **Spritesheet**: `pages[0].image` e um **.webp lossless** (ex. Bulbasaur 4094x34,
+   tiles de 32px, `directions:4 x frames:3`). Pra sprite estatico: recortar o frame
+   frontal (direction default 3, frame 0) usando os rects do `assets`. Pokemon tem
+   `colorizable:false` (1 layer, sem tinta) -> recorte direto; treinadores sao
+   colorizaveis (precisam das cores + upscaler `xbr4x` do bundle).
+
+Pra piwdex: um script de build pode baixar os 372 spritesheets, recortar o frame
+frontal e salvar PNG/webp no repo (`public/sprites/<looktype>.png`) -> arte do jogo
+self-hosted, sem canvas em runtime, usavel sem conta. E arte proprietaria do jogo
+(mesma zona cinza de rehospedar que todo o resto do ecossistema fan-tool).
+
+Join ja conhecido: `looktype` liga criatura -> mapa (map-markers) E agora -> arte.
+
+## Pokebolas (dado FIXO so na API logada)
+
+As pokebolas reais (Poke/Great/Super/Ultra/Idle/Master) **NAO estao no `items.json`
+publico** (os "*ball" de la sao loot-lixo). O catalogo com **catchRate** so vem de
+`GET /api/game/balls` (logado): **Poke 1, Great 2, Super 3, Ultra 4, Idle 5,
+Master 255** (+ `priceGold`, `id`, `infinite`). O catchRate e FIXO/igual pra todos ->
+da pra salvar 1x e usar sem conta (piwdex: `src/data/balls.json` + sync opcional no
+ingest com `PIW_TOKEN`). Mas a **formula de captura absoluta NAO e publicada**: o
+catchRate e um multiplicador -> so da pra falar em **eficiencia relativa** entre bolas
+(Ultra ~4x menos bolas que Poke), nunca "% de captura". % real so calibrando com
+`used-balls` da conta.
+
 ## Formula de stat / IV / poder / qualidade (verificada)
 
 O stat final de cada atributo, dado base, IV, nivel e qualidade:
