@@ -117,10 +117,14 @@ Pipeline de assets (`/game/asset-packs`, base `f="/game/asset-packs"` no bundle)
    `colorizable:false` (1 layer, sem tinta) -> recorte direto; treinadores sao
    colorizaveis (precisam das cores + upscaler `xbr4x` do bundle).
 
-Pra piwdex: um script de build pode baixar os 372 spritesheets, recortar o frame
-frontal e salvar PNG/webp no repo (`public/sprites/<looktype>.png`) -> arte do jogo
-self-hosted, sem canvas em runtime, usavel sem conta. E arte proprietaria do jogo
-(mesma zona cinza de rehospedar que todo o resto do ecossistema fan-tool).
+Implementado em piwdex (`scripts/bake-sprites.mjs`, `npm run bake:sprites`): baixa os
+372 spritesheets, recorta o frame frontal com `sharp` e salva
+`public/game-sprites/<looktype>.webp` (~1.5MB) + mapa `pokeId->looktype` em
+`src/data/game-sprites.json`. `spriteUrl()` prefere a arte do jogo (nao-shiny); shiny e
+faltas caem na PokeAPI; os 482 pokeIds mapeiam (variantes reusam o looktype base). Arte
+proprietaria do jogo (mesma zona cinza de rehospedar que todo o ecossistema fan-tool).
+Detalhe do recorte: cada asset ja e o sprite CHEIO por direcao/frame (1x1=32px,
+2x2=64px) — nao precisa montar tiles; `assets[].frames[0]` da o rect `{page,x,y,w,h}`.
 
 Join ja conhecido: `looktype` liga criatura -> mapa (map-markers) E agora -> arte.
 
@@ -129,7 +133,11 @@ Join ja conhecido: `looktype` liga criatura -> mapa (map-markers) E agora -> art
 As pokebolas reais (Poke/Great/Super/Ultra/Idle/Master) **NAO estao no `items.json`
 publico** (os "*ball" de la sao loot-lixo). O catalogo com **catchRate** so vem de
 `GET /api/game/balls` (logado): **Poke 1, Great 2, Super 3, Ultra 4, Idle 5,
-Master 255** (+ `priceGold`, `id`, `infinite`). O catchRate e FIXO/igual pra todos ->
+Master 255** (+ `priceGold`, `id`, `iconUrl`, `buyable`, `infinite`). Precos reais
+(ago/2026): Poke 5, Great 20, Super 50, Ultra 130, Idle 400 (nao-compravel), Master 0
+(nao-compravel). Icones em `/assets/markitems/<ball>.png`. Poke Ball e a mais
+CUSTO-EFICIENTE por ponto de captura (catchRate/preco); premium compra velocidade, nao
+eficiencia. O catchRate e FIXO/igual pra todos ->
 da pra salvar 1x e usar sem conta (piwdex: `src/data/balls.json` + sync opcional no
 ingest com `PIW_TOKEN`). Mas a **formula de captura absoluta NAO e publicada**: o
 catchRate e um multiplicador -> so da pra falar em **eficiencia relativa** entre bolas
