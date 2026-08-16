@@ -110,12 +110,17 @@ Pipeline de assets (`/game/asset-packs`, base `f="/game/asset-packs"` no bundle)
    `manifest.replace(/^\/assets-packs/, "/game/asset-packs")`. O JSON tem
    `categories` -> pega `Object.values(categories)[0]` -> `.pages[0].image` (mesma
    regra de replace do prefixo) + `geometry{directions, frames, layers, width, height}`
-   e um array `assets` com os retangulos de cada frame no atlas.
+   e um array `assets` (`assets` fica no TOPO do manifesto, nao dentro da categoria)
+   com os retangulos de cada frame no atlas.
 3. **Spritesheet**: `pages[0].image` e um **.webp lossless** (ex. Bulbasaur 4094x34,
-   tiles de 32px, `directions:4 x frames:3`). Pra sprite estatico: recortar o frame
-   frontal (direction default 3, frame 0) usando os rects do `assets`. Pokemon tem
-   `colorizable:false` (1 layer, sem tinta) -> recorte direto; treinadores sao
-   colorizaveis (precisam das cores + upscaler `xbr4x` do bundle).
+   `directions:4 x frames:3`). Cada asset tem `source` no formato
+   **`<frame>_<layerX>_<layerY>_<direcao>.png`** — ATENCAO: **direcao e o ULTIMO campo
+   (1..4), frame e o PRIMEIRO (1..3)** (facil inverter e recortar de costas). Direcoes:
+   **1=costas, 2=direita, 3=FRENTE/sul, 4=esquerda**. Sprite estatico de frente = frame
+   1, direcao 3 -> `source` termina em `..._3.png` comecando em `1_`. O rect
+   `assets[].frames[0]{page,x,y,w,h}` ja e o sprite CHEIO (1x1=32px, 2x2=64px) — nao
+   monta tile. Pokemon tem `colorizable:false` (1 layer) -> recorte direto; treinadores
+   sao colorizaveis (precisam das cores + upscaler `xbr4x` do bundle).
 
 Implementado em piwdex (`scripts/bake-sprites.mjs`, `npm run bake:sprites`): baixa os
 372 spritesheets, recorta o frame frontal com `sharp` e salva
