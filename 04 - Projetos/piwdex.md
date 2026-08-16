@@ -186,8 +186,38 @@ do jogo aberta ("conta em uso"). Como conectar ja toma a sessao de qualquer jeit
 piwdex puxa o time **no proprio connect** (do bookmark) e guarda um **snapshot** no banco
 (`game_links.team_snapshot/total/at`). A Conta mostra o snapshot pelo `/api/collection`
 SEM tocar o jogo; "atualizar" repuxa ao vivo (ai sim toma a sessao) e regrava. Mercado e
-outros dados sao REST (Bearer) e NAO tocam a sessao — so o WS. Reforca que o robo/realtime
-continuo e territorio da extensao na aba do jogo.
+outros dados sao REST (Bearer) e NAO tocam a sessao — so o WS. (NOTA: a conclusao de que
+"robo/realtime e territorio da extensao" foi REVISTA nas passadas seguintes — o robo virou
+server-side e segura a sessao WS de proposito. Ver abaixo.)
+
+**Robo server-side (10a passada, ago/2026):** a aposta anterior ("robo = extensao na aba
+do jogo") foi abandonada — o robo virou **server-side de verdade**, segurando a sessao WS
+de proposito. Isso so foi possivel cravando o protocolo do WS por engenharia reversa
+(ferramentas em `scripts/`, protocolo inteiro em `scripts/ws-protocol.md`). Entregue na
+area VIP (aba Robo, com sub-navegacao): **Hunt Analyzer ao vivo** (entra no campo via
+`enter-hunt`, faz poll de `analyzer-get` a cada 2s e mostra kills/XP/loot/saldo por hora —
+segurando a conexao, o que poe a aba do jogo em "conta em uso"); **venda de pokemon ao
+vivo** (simular -> conferir -> vender) e **venda de drops**, com travas granulares (box por
+raridade, IV 0-192, qualidade decimal); **poke-summon** (troca o pokemon ativo/lider —
+comando que MUTA a conta, verificado); automacao nativa do jogo configurada server-side; e
+auto-compra como placeholder. O aprendizado que destravou tudo virou nota:
+[[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]] — o time
+individual, o analyzer e o summon so existem no WS, nunca na REST.
+
+**Redesign item 1 — sessao unificada + Conta read-only + Conectar VIP (11a passada,
+ago/2026):** com o robo segurando a sessao, ficou incoerente ter DOIS lugares disputando a
+sessao de jogo (a Conta com um "atualizar time" que roubava a sessao, e o robo). O Eduardo
+decidiu unificar: **tudo que depende da sessao de jogo mora no `/vip`**.
+- **Conectar virou 100% VIP**: vincular a conta do jogo = tomar a sessao, que so serve as
+  features pagas. Gate `session.user.vip` no servidor em `connect`/`collection`/
+  `active-pokes` — mais um caso de [[Permissão se valida no servidor, não na interface]]
+  (gate de capacidade, nao so de linha).
+- **Conta virou aba read-only do VIP**: `/conta` redireciona pro `/vip#conta`; a visao da
+  conta e uma aba (o landing do VIP) que mostra so o **snapshot** capturado no connect,
+  sem nunca tocar o jogo. O "atualizar time" que roubava a sessao saiu — atualizar ao vivo
+  agora e territorio do Robo (que ja segura a sessao). A Conta jamais disputa a sessao.
+- Icone Conta saiu do nav do topo (entra pelo botao VIP). i18n pt/en/es.
+Verificado: `tsc` limpo, `next build` ok. Branch `refactor/sessao-unificada`.
 
 ## Infra
 
@@ -225,6 +255,10 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
   (email/senha) convivendo com `pg` cru, sem adapter de ORM.
 - [[Descobrir o shard por sondagem paralela com early-exit e cachear]] — achar o shard
   do WS quando o servidor nao diz qual e o seu.
+- [[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]] — o dado que
+  falta na REST (time individual, analyzer, summon) mora no WS, ao custo da sessao viva.
+- [[Permissão se valida no servidor, não na interface]] — o gate de VIP (conectar/conta)
+  e negado no servidor, em cada rota que toca a sessao de jogo.
 
 ## Proximos passos
 
@@ -239,7 +273,11 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
 - [x] Camada 3 (resto): pokemons ativos individuais via WebSocket (time + colecao com IV).
 - [x] Camada 4: login do site (Auth.js Google+email, Postgres) + vinculo do jogo por usuario.
 - [ ] Camada VIP: gateway Mercado Pago (~R$15,90/mes) + area `/vip` (hospeda o mercado, gated).
-- [ ] Extensao de navegador (auto-conexao + robo), rodando no dominio do jogo.
+- [x] Robo server-side (Hunt Analyzer ao vivo, venda de pokemon/drops, poke-summon,
+  automacao nativa) na area VIP — segurando a sessao WS. Protocolo em `scripts/ws-protocol.md`.
+  (Substituiu o plano de "robo via extensao de navegador".)
+- [x] Redesign item 1: sessao unificada — Conectar 100% VIP, Conta read-only como aba do VIP.
+- [ ] Redesign itens 2-4 (proximos: a definir na sessao).
 - [x] Camada VIP: area `/vip` + assinatura Mercado Pago (avulso mensal) + mercado gated.
 - [ ] Ligar o MP de verdade (token + APP_URL publica) e deploy pro webhook funcionar.
 - [ ] Deploy e dominio piwdex.com.br; job de ingestao recorrente (servico do compose).

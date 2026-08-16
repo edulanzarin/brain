@@ -15,7 +15,10 @@ Duas checagens, com papéis diferentes e não intercambiáveis:
 - **No cliente**, esconder o que não se aplica — pra não oferecer ação que vai falhar.
   Isso é usabilidade.
 - **No servidor**, negar — em toda rota, sempre, mesmo nas que a interface "garante"
-  que só o admin alcança. Isso é a segurança.
+  que só o admin alcança. Isso é a segurança. Vale também pra **gate de capacidade**:
+  no [[piwdex]] conectar a conta do jogo é benefício pago, então cada rota que toca a
+  sessão de jogo (`connect`, `collection`, `active-pokes`) checa `vip` no servidor —
+  esconder a aba no front seria só sugestão.
 
 E o principal: **dado sensível não vai junto na resposta pra ser escondido no front**.
 No [[Cofre Digital]] a senha de um acesso nem chega ao navegador dos setores de leitura;

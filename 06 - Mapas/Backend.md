@@ -118,6 +118,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Integrações
 
+- [[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]] — a
+  superfície real é maior que a REST documentada; o dado que falta num canal está
+  noutro (WS/SSE/gRPC), ao custo da sessão viva. Irmã do shard por sondagem.
 - [[Polling substitui webhook quando não há IP público]] — quando não dá pra receber
   chamada de fora. Princípio: [[Configuração vem do ambiente, não do código]].
 - [[Adapter de canal isola o app do provider de mensageria]] — provider externo trocável
