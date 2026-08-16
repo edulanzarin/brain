@@ -101,6 +101,19 @@ Verificado: `tsc` limpo, `next build` gera 822 paginas estaticas (incl. `/breed`
 prerenderizada), e a calculadora e as medias de breeding batem exato com o jogo. Sem
 remote ainda (so commit local; branch por tipo -> `master` fast-forward).
 
+**Ajustes (ago/2026):**
+- **Aviso de nivel baixo na calculadora/Eevee**: estimar IV so e confiavel em nivel
+  ~20+ (ver [[Poke Idle World - endpoints publicos de dados]]). Abaixo disso os stats
+  arredondados invertem pra IV errado (Charizard lvl1: jogo 138, inversao ~122).
+- **Card seu-vs-perfeito no Projetar** da calculadora (o Lab da Eevee ja tinha na aba
+  Comparar), com os stats e o Poder projetados no nivel alvo.
+- **Engine da rota de hunt refeita**: estava sugerindo alvos 1x. Corrigido em
+  `src/lib/combat.ts` — (a) usa o melhor golpe CONTRA o alvo (dano efetivo = poder *
+  STAB * efetividade), nao o de maior nivel de aprendizado (que caia num golpe Normal
+  1x); (b) sem janela de nivel: rankeia todos os alvos que voce encara (limitados pelo
+  Power) por XP x efetividade, seguro antes de arriscado. Agora prioriza super-efetivos
+  (Tyranitar/Aggron 5.5x) como o jogo espera.
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (reservado,
