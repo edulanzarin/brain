@@ -60,12 +60,18 @@ So pra companion logado. Base `poke.idleworld.online`, token em `pokeweb:tokens`
 catch-result, poke-xp, shiny-global, inventory, boosts...). Protocolo documentado no
 repo de terceiros `AntonioFleck/poke-idle-launcher` (`docs/WS_SCHEMA.md`).
 
-Mais achados (ago/2026, dos chunks): login e `/api/auth/*` (tem `me`, `refresh` — padrao
-access+refresh, `Authorization: Bearer`). O **mercado de jogadores** existe com preco em
-**dollar E diamond** (moedas confirmadas), com listing/premium. `balls`/`used-balls` podem
-destravar dado real de captura (que o jogo nao publica). Decisao do Eduardo (ago/2026): o
-companion loga **com a conta do jogo** (piwdex proxia o login/JWT), nao token colado. Isso
-tudo e camada 3 (backend com auth); ainda nao construido.
+Contrato verificado (ago/2026, sondando a API): `GET /api/characters/me` com
+`Authorization: Bearer <access>`; `POST /api/auth/refresh` body `{"refreshToken":"<str>"}`
+-> novos tokens; `GET /api/auth/me`. O **mercado de jogadores** existe com preco em
+**dollar E diamond** (confirmado), listing/premium. `balls`/`used-balls` podem destravar
+dado real de captura (que o jogo nao publica).
+
+**O login NAO da pra proxiar no servidor**: `POST /api/auth/login` exige uma confirmacao
+anti-robo (captcha) amarrada ao navegador no dominio do jogo — o servidor do piwdex nao
+gera esse token. Entao o companion loga **por TOKEN** (o jogador cola o `pokeweb:tokens`),
+que por sorte e o modelo mais seguro (senha nunca sai do jogo). O `refresh` e o
+`characters/me` funcionam so com o JWT, sem captcha. Implementado na camada 3 do piwdex
+(fase 1+2: conectar + colecao com Power/IV).
 
 ## Formula de stat / IV / poder / qualidade (verificada)
 

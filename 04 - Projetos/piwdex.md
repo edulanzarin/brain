@@ -119,6 +119,23 @@ remote ainda (so commit local; branch por tipo -> `master` fast-forward).
   numa casca neon com lente/label/icone pixel da cor da ferramenta e titulo no acento.
   O /dex mantem o aparelho Pokedex vermelho. Primeira passada do "mais cor/icone".
 
+**Camada 3 iniciada — companion logado (6a passada, ago/2026):** conectar a conta do jogo
+e ver a colecao. Descoberta que definiu tudo: o login do jogo exige **captcha anti-robo**,
+entao proxiar email/senha no servidor NAO funciona — o companion loga **por token** (o
+jogador cola o `pokeweb:tokens`), que e o modelo mais seguro (senha nunca sai do jogo). Ver
+o contrato em [[Poke Idle World - endpoints publicos de dados]].
+- `game-auth.ts`: sessao criptografada (AES-256-GCM) em cookie httpOnly, parse do token,
+  `gameFetch` com refresh automatico em 401.
+- Rotas `/api/{connect,disconnect,collection}` (Next route handlers, runtime node). A
+  `collection` normaliza `characters/me` em pokemons com Power/IV pela `stats.ts`, e
+  devolve o RAW pra finalizar o mapeamento de campos com um token real.
+- `/conta`: conectar (instrucoes, sem senha) + colecao + visor de dado bruto.
+- **Ainda sem Postgres**: fase 1+2 roda so com route handlers + cookie (backend so onde
+  precisa). O Postgres entra quando cachear mercado/alertas. Proximos: consultor de
+  mercado ("melhor Primeape ate X$/Y💎") e realtime (WS `ws12`).
+
+Nao testado ponta-a-ponta aqui (sem conta do jogo); caminhos sem sessao degradam certo.
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (reservado,
