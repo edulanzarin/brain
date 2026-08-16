@@ -168,7 +168,15 @@ proprietaria do jogo (mesma zona cinza de rehospedar que todo o ecossistema fan-
 Detalhe do recorte: cada asset ja e o sprite CHEIO por direcao/frame (1x1=32px,
 2x2=64px) — nao precisa montar tiles; `assets[].frames[0]` da o rect `{page,x,y,w,h}`.
 
-Join ja conhecido: `looktype` liga criatura -> mapa (map-markers) E agora -> arte.
+**Skins de player tambem recortam** (ago/2026): alem dos 372 `kind:"pokemon"`, o
+indice tem `kind` `trainer` (9), `premium` (14), `clan` (60) e `hunt` (1) — as skins do
+personagem. A skin atual do jogador e `characters/me.lookType` (ex.: 20029 = "Gamer VIP
+Outfit", `kind:premium`, nao-colorizavel -> arte exata). O baker recorta essas junto
+(mesmo frame frontal) e guarda `skins:{looktype:nome}` no `game-sprites.json`;
+`skinSpriteUrl(lookType)`/`skinName(lookType)` resolvem o avatar no perfil da Conta.
+
+Join ja conhecido: `looktype` liga criatura -> mapa (map-markers) E arte, e liga o
+jogador -> skin.
 
 ## Pokebolas (dado FIXO so na API logada)
 
