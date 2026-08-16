@@ -78,18 +78,42 @@ Formatos verificados com token real (todos `Bearer`):
   pokemons individuais. `name`/`level` sao do treinador (confundiu a 1a versao da colecao).
 - `GET /api/game/profile` -> resumo enxuto: `name,level,xp,gold,diamonds,rank,totalCatches,
   pokedexCount,pokedexTotal,vip,clan,...`.
+- `GET /api/characters/me` -> `{character:{...}}` — o objeto MAIS RICO da conta. Alem do
+  basico: `lookType` (skin do treinador, ~20029), `outfitHead/Body/Legs/Feet`, `gender`,
+  `isVip`/`vipUntil`, `clan`/`clanRank`, `profession`/`professionRank`, `diamondsPurchased`,
+  `referralCode`, `starterId`, `breedingSlots`, `streakExp/Loot/Shiny`, e a config de
+  automacao NATIVA do jogo: `autoCatch`/`autoCatchBallId`/`autoCatchShiny`/
+  `autoCatchShinyBallId`, `autoPotion`/`autoPotionThreshold`/`autoPotionItemId`,
+  `autoRevive`, `selectedBallId`. Tambem `battlePass*` e `tasksClaimed`.
 - `GET /api/game/all-pokes` -> `{total, entries:[{dexId,name,looktype,tier,count}]}` — pokedex
-  AGREGADO por especie+tier (A..E), com quantos voce tem. Nao tem stats por individuo.
-- `GET /api/game/balls` -> `{catalog:[{id,name,catchRate,priceGold,infinite}],counts,selected,
-  gold}`. **catchRate real**: Poke 1, Great 2, Super 3, Ultra 4, Idle 5, Master 255.
+  AGREGADO por especie+tier (A..E), com quantos voce tem (167 especies distintas). Nao tem
+  stats por individuo. **CUIDADO: o `looktype` daqui e outro numero (do individuo), NAO o da
+  especie de creatures.json — usar `dexId` (== pokeId) pra sprite.**
+- `GET /api/game/pokedex` -> `{unlockKills, species:[{id,kills,unlocked,claimed,caught,
+  canClaim,captureBonus}]}`. Os `caught:true` sao o **40** do "40/332" do perfil (especies
+  registradas pro bonus). NAO confundir com o 167 do all-pokes (especies possuidas).
+- `GET /api/game/depot` -> `{inventory:[...], depot:[...], maxSlots}`. `inventory` = itens
+  carregados, `depot` = guardados; cada item `{id,name,icon,category,npcPrice,quantity}`.
+  Icone via `assetIconUrl` (mesma regra do itemIconUrl).
+- `GET /api/game/streak` -> `{available, totalKills, bonusPct:{exp,loot,shiny}, tracks,...}`.
+  **`bonusPct` e OBJETO** (exp/loot/shiny), nao numero.
+- `GET /api/game/breeding` -> `{unlocked, slots(desbloqueados), maxSlots(cap 6), usedSlots,
+  pheromones, eggs:[...], shinyPartner}`.
+- `GET /api/game/professions` -> `{profession, rankName, catchBonusPct, speciesCount,...}`.
+- `GET /api/game/balls` -> `{catalog:[{id,name,catchRate,priceGold,iconUrl,buyable,infinite}],
+  counts:{"<id>":qtd}, selected, gold}`. **catchRate real**: Poke 1, Great 2, Super 3, Ultra 4,
+  Idle 5, Master 255. `counts` e um MAPA id->quantidade.
+- Outros 200: `/api/game/tasks` (tasks,cities), `/api/game/offline`, `/api/game/professions`.
 - `GET /api/game/market` (~6MB) -> `{charId,listings,mine,requests,history,catalog,...}`.
   `listings` tem `kind` in item|pokemon|diamonds|ball, `currency` GOLD|DIAMONDS. **Os de
   pokemon ja vem prontos**: `{speciesId,level,shiny,stats,ivTotal,quality,power,type1,price,
   currency,belowNpc}` — o consultor de mercado do piwdex filtra e ordena isso direto.
 
-Nao ha endpoint simples pros pokemons INDIVIDUAIS (com IV/level) da sua conta — so o
-agregado (all-pokes) e os que estao a venda no mercado. Individuais provavelmente so via WS
-ou paginacao logada.
+Nao ha endpoint pros pokemons INDIVIDUAIS ATIVOS (o time em campo, com IV/level) — a REST so
+da o agregado (all-pokes), o pokedex (flags) e os que estao no mercado. O time ativo/individual
+so vive no **WebSocket** do cliente (`ws12`/`ws47`, eventos field/poke-xp). Fica pra fase com WS.
+Implementado no piwdex: `/api/collection` junta profile+characters/me+depot+streak+breeding+
+balls+professions -> painel completo da Conta (`normalizeAccount`).
 
 ## Sprites / arte do jogo (sistema de outfit, estilo Tibia)
 
