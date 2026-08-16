@@ -89,6 +89,35 @@ so a decomposicao em IV que nao da. Regra pratica: **so estimar IV com nivel ~20
 disso, avisar. O IV verdadeiro so existe cheio na conta logada (nao nos stats arredondados).
 Implementado como aviso na calculadora e no Lab da Eevee do piwdex.
 
+## Sistemas do jogo (pokepedia/systems)
+
+O jogo documenta as mecanicas em HTML em `poke.idleworld.online/pokepedia/systems/*`
+(SSR Next; `curl` com UA de navegador funciona, WebFetch leva 403). O util pra ferramentas:
+
+- **Combate na hunt** (`/combat`): wild REFORCADO — HP **×5**, dano **×1.8**/hit, vantagem
+  elemental +50% pros DOIS lados (a amplificacao ja conhecida: x2->x2.5, x4->x5.5,
+  x0.5->x0.33). Comeca com 100 Small Potions + 100 Poke Balls; Auto-Potion cura abaixo de
+  um limiar, Auto-Revive levanta.
+- **Evolucao** (`/evolution`): NAO gasta ouro. Com Evolution Stones **mantem o nivel**; de
+  graca **reseta pro Lv.1**. Desbloqueia quando o pokemon atinge o hunt level da especie
+  alvo (so em Cerulean). Ate Lv.39 de hunt: 1 de cada pedra; Lv.40+: 4 pedras no total
+  (divididas). IV/Quality/apelido mantidos, stats recalculam. **Implicacao pra rota: a
+  especie escolhida E o pokemon — nao existe "voltar" a forma anterior por nivel.**
+- **XP** (`/xp`): XP total do nivel L = `round(50/3 × (L³ − 6L² + 17L − 12))`, sem cap.
+  XP/kill fixo por especie (esta no dado). Pokedex +25% (apos 100 kills), VIP, XP Boost e
+  Streak (+0.1%/ponto) multiplicam por cima.
+- **Quality** (`/quality`): captura de wild vai de 0.8 a **1.8** (teto); 2.0+ (Mythic/
+  Ancient/Divine) so shiny/breeding. Quality pesa ~2× o IV no Power.
+- **Nap Mode** (`/offline`): 5 min de sample no servidor; coleta 50% (ou 100% com Turbo
+  2💎), cap 24h. So Poke Balls nao sao jogadas offline.
+
+**Dano por hit e taxa de captura NAO sao publicados.** O piwtools mostra numeros de
+captura, mas sao engenharia reversa autoral deles — nao copiar nem inventar (ver
+[[Inspiração é na mecânica e no dado, não na interface do concorrente]]). No piwdex,
+KOs/h, XP/h e ouro/h da rota sao ESTIMATIVA (kill-speed por DPS estimado vs HP reforcado,
+constantes calibradas pra bater a ordem de grandeza). Taxa de captura real so da conta
+logada (camada 3).
+
 ## O que NAO vem no JSON (curadoria/scraping)
 
 - **Breeding** — nenhum endpoint.
