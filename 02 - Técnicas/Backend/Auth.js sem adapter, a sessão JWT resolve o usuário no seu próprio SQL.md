@@ -44,6 +44,13 @@ são edge-safe — importar o auth completo lá quebra. Gate no **server compone
 `const s = await auth(); if (!s) redirect(...)`. Fica no runtime Node, onde o banco
 vive, e evita o split `auth.config.ts` edge-safe que o adapter obrigaria.
 
+**Cookie de `localhost` ignora a porta.** Dois apps next-auth em `localhost:4070` e
+`localhost:5000` compartilham o mesmo `authjs.session-token` — o segundo tenta decifrar
+o cookie do primeiro e estoura `no matching decryption secret` (ruído em toda request,
+mesmo sem ninguém logar ali). Namespace os cookies por app
+(`cookies.sessionToken.name = "<slug>.session-token"`, idem `csrfToken`/`callbackUrl`)
+pra cada um só enxergar o seu.
+
 ## Conexões
 - Irmã do mesmo ethos sem-ORM: [[Runner de migration em SQL puro dispensa o CLI do ORM]]
 - Parente stateless: [[Sessão de painel interno é um cookie assinado, não uma tabela de sessões]]

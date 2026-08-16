@@ -154,10 +154,13 @@ o companion tem dono. Entregue:
   (ver [[Runner de migration em SQL puro dispensa o CLI do ORM]] e
   [[Migrations em container próprio no Docker Compose]]). Migration 001: `users`,
   `oauth_accounts`, `game_links`.
-- **Login Auth.js v5** com sessao JWT por cima do `pg` cru (sem adapter) — Google
-  (condicional ao ambiente) + email/senha (bcryptjs). Padrao capturado em
+- **Login Auth.js v5** com sessao JWT por cima do `pg` cru (sem adapter) — **so
+  email/senha** (bcryptjs); o Eduardo decidiu cortar o Google ("melhor sem"), migration
+  002 dropou a tabela `oauth_accounts`. Padrao capturado em
   [[Auth.js sem adapter, a sessão JWT resolve o usuário no seu próprio SQL]]. Telas
-  `/entrar` e `/criar-conta`, login/logout no header, gate em `/conta`.
+  `/entrar` e `/criar-conta`, login/logout no header, gate em `/conta`. Cookies
+  namespaced `piwdex.*` pra nao colidir com outros apps next-auth no `localhost`
+  (o cookie ignora a porta — senao dava `no matching decryption secret`).
 - **Vinculo da conta do jogo saiu do cookie AES e foi pro banco** (`game_links`), preso
   ao usuario logado: tokens cifrados, refresh persistido, `status='expired'` quando o
   refresh falha -> a UI pede reconexao ("tenta manter, senao reconecta", pedido do
