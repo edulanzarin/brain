@@ -79,6 +79,16 @@ HP 113 -> IV 29.9; Atk 78 -> IV 20.1; ...; IV Total 132.8; soma 679*1.8 = 1222 d
 poder. Fonte: engenharia reversa do calculo do piwtools (funcao `Rg`/`oi`/`ww` no
 bundle) + conferencia com valores reais. Implementado em piwdex (`src/lib/stats.ts`).
 
+**Inverter pra achar o IV so e confiavel em nivel alto.** A formula do stat tem um
+`round()`; inverter (achar o IV a partir do stat mostrado) e mal-condicionado quando o
+stat e um numero pequeno — em nivel baixo o fator `nivel/100 * qualidade^exp` e minusculo,
+entao um mesmo stat inteiro cabe uma FAIXA larga de IVs e a estimativa vira chute. Ex.:
+Charizard lvl 1, Q1.82, o jogo mostra IV total 138/192 mas os stats (2,2,2,2,2,3) invertem
+pra ~122 com IVs fracionarios sem sentido (34.9). O poder ainda bate (round(soma*Q)=24),
+so a decomposicao em IV que nao da. Regra pratica: **so estimar IV com nivel ~20+**; abaixo
+disso, avisar. O IV verdadeiro so existe cheio na conta logada (nao nos stats arredondados).
+Implementado como aviso na calculadora e no Lab da Eevee do piwdex.
+
 ## O que NAO vem no JSON (curadoria/scraping)
 
 - **Breeding** — nenhum endpoint.
