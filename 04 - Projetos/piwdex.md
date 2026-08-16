@@ -181,6 +181,14 @@ cacheado em `game_links.shard` — padrao em [[Descobrir o shard por sondagem pa
 Detalhe do protocolo em [[Poke Idle World - endpoints publicos de dados]]. Testado: 225 na
 colecao, time de 3, ~0.3s.
 
+**Pegadinha e a saida (ajuste ago/2026):** o WS E a sessao de jogo — conectar chuta a aba
+do jogo aberta ("conta em uso"). Como conectar ja toma a sessao de qualquer jeito, o
+piwdex puxa o time **no proprio connect** (do bookmark) e guarda um **snapshot** no banco
+(`game_links.team_snapshot/total/at`). A Conta mostra o snapshot pelo `/api/collection`
+SEM tocar o jogo; "atualizar" repuxa ao vivo (ai sim toma a sessao) e regrava. Mercado e
+outros dados sao REST (Bearer) e NAO tocam a sessao — so o WS. Reforca que o robo/realtime
+continuo e territorio da extensao na aba do jogo.
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
