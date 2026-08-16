@@ -60,6 +60,13 @@ So pra companion logado. Base `poke.idleworld.online`, token em `pokeweb:tokens`
 catch-result, poke-xp, shiny-global, inventory, boosts...). Protocolo documentado no
 repo de terceiros `AntonioFleck/poke-idle-launcher` (`docs/WS_SCHEMA.md`).
 
+Mais achados (ago/2026, dos chunks): login e `/api/auth/*` (tem `me`, `refresh` — padrao
+access+refresh, `Authorization: Bearer`). O **mercado de jogadores** existe com preco em
+**dollar E diamond** (moedas confirmadas), com listing/premium. `balls`/`used-balls` podem
+destravar dado real de captura (que o jogo nao publica). Decisao do Eduardo (ago/2026): o
+companion loga **com a conta do jogo** (piwdex proxia o login/JWT), nao token colado. Isso
+tudo e camada 3 (backend com auth); ainda nao construido.
+
 ## Formula de stat / IV / poder / qualidade (verificada)
 
 O stat final de cada atributo, dado base, IV, nivel e qualidade:
