@@ -72,6 +72,19 @@ gera esse token. Entao o companion loga **por TOKEN** (o jogador cola o `pokeweb
 que por sorte e o modelo mais seguro (senha nunca sai do jogo). O `refresh` e o
 `characters/me` funcionam so com o JWT, sem captcha. Implementado na camada 3 do piwdex.
 
+**Onde o token realmente vive (verificado no bundle do app):** `sessionStorage["pokeweb:
+tokens"]` = JSON `{accessToken, refreshToken}`. O jogo grava em sessionStorage e ATE
+`localStorage.removeItem("pokeweb:tokens")` — por isso `localStorage.getItem` da null (o que
+confundiu). sessionStorage e legivel por JS (nao e httpOnly), entao da pra automatizar a
+conexao com um **bookmarklet**: le `sessionStorage["pokeweb:tokens"]` na aba do jogo e abre
+`piwdex/conectar#<json>` (hash nao vai pro servidor); a pagina POSTa /api/connect na mesma
+origem. Implementado no piwdex (`/conectar` + botao bookmarklet no /conta). Pega o refresh
+token de brinde -> auto-renovacao.
+
+**Sacada da extensao (futuro robo):** uma extensao rodando NO dominio do jogo usa a sessao
+logada -> chama a API do jogo direto SEM captcha (o captcha so trava o /login, nao as chamadas
+autenticadas). Ou seja a mesma extensao faz auto-conexao E automacao (farm/venda/compra).
+
 Formatos verificados com token real (todos `Bearer`):
 - `GET /api/characters/me` -> **so o TREINADOR** (`{character:{id,name,level,gold,diamonds,
   isVip,autoCatch,autoCatchBallId,autoPotion,selectedBallId,starterId,...}}`). NAO tem os

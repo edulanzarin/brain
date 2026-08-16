@@ -187,10 +187,24 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
   comparador de dois pokemons; formulas de XP/poder raspadas de `/pokepedia/systems/*`.
 - [x] Breeding como camada curada: simulador `/breed` com colecao local e projecao.
 - [ ] Bosses como camada curada (nao vem no JSON do jogo).
-- [ ] Camada 3: companion logado (proxy da API JWT + WebSocket). Aqui entra o chassi
-  Postgres + Docker compose + auth.
+- [x] Camada 3 (leitura): companion logado por token; `/conta` completa (perfil, treinador,
+  automacao, streak, breeding, inventario+deposito, bolas) + bookmarklet de conexao.
+- [ ] Camada 3 (resto): pokemons ativos individuais via WebSocket (`ws12`/`ws47`).
 - [ ] Deploy e dominio piwdex.com.br; job de ingestao recorrente (servico do compose).
 - [ ] colorGroup no `.obsidian/graph.json` (pendente — regras de cor no CLAUDE.md).
+
+## Camada VIP + assinatura (decidido ago/2026, a construir)
+
+- **Arte real do jogo** self-hostada (`npm run bake:sprites` -> `public/game-sprites/<looktype>.webp`,
+  372 pokemons); `spriteUrl` prefere a arte do jogo. Detalhe em [[Poke Idle World - endpoints publicos de dados]].
+- **Mercado de players sai do /conta gratis e vai pra area VIP** (`/vip`), com alertas e, depois,
+  os controles do robo.
+- **Assinatura ~R$15,90/mes** destrava o VIP. Gateway: **Mercado Pago** (Pix nativo, BR).
+- **Login piwdex**: Auth.js com **Google + email/senha**. Conta piwdex SEPARADA da do jogo (linka
+  pelo token). Precisa do chassi **Postgres** (porta 5xxx, ver [[Infra]]).
+- **Automacao/robo via extensao** de navegador: roda no dominio do jogo -> usa a sessao logada ->
+  chama a API sem captcha. Mesma extensao faz auto-conexao E farm/venda/compra. Bookmarklet e o
+  passo 0; extensao e o produto.
 
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
