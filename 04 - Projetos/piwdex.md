@@ -130,11 +130,21 @@ o contrato em [[Poke Idle World - endpoints publicos de dados]].
   `collection` normaliza `characters/me` em pokemons com Power/IV pela `stats.ts`, e
   devolve o RAW pra finalizar o mapeamento de campos com um token real.
 - `/conta`: conectar (instrucoes, sem senha) + colecao + visor de dado bruto.
-- **Ainda sem Postgres**: fase 1+2 roda so com route handlers + cookie (backend so onde
-  precisa). O Postgres entra quando cachear mercado/alertas. Proximos: consultor de
-  mercado ("melhor Primeape ate X$/Y💎") e realtime (WS `ws12`).
+- **Ainda sem Postgres**: roda so com route handlers + cookie (backend so onde precisa).
 
-Nao testado ponta-a-ponta aqui (sem conta do jogo); caminhos sem sessao degradam certo.
+**Consultor de mercado + conta real (7a passada, ago/2026):** com um token real (o Eduardo
+colou o dele), cravei os formatos e consertei tudo. `characters/me` e so o TREINADOR (por
+isso a 1a colecao trazia o "Zashz"). O util esta em `/api/game/{profile,all-pokes,market,
+balls}` — formatos na nota de referencia. Destaque: os anuncios de POKEMON do `/api/game/
+market` ja vem com `ivTotal/quality/power/stats/price/currency` prontos, e `/api/game/balls`
+tem `catchRate` real por bola.
+- Conta agora mostra **perfil real** (level, ouro, diamantes, capturas) + **pokedex** (all-pokes).
+- **Consultor de mercado** (`/api/market` + UI): "melhor <especie> ate X ouro / Y diamantes",
+  ordena por Power / preco / custo-beneficio; cache de 60s do mercado (~6MB). Era o pedido
+  central do Eduardo. Validado sobre o mercado real (10k pokemons a venda).
+- Guardado pra depois: `catchRate` das bolas destrava a captura na rota de hunt.
+
+Testado com token real (leitura). Proximo: captura na rota (usando catchRate) e realtime WS.
 
 ## Infra
 

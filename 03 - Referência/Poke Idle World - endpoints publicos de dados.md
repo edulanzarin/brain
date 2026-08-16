@@ -70,8 +70,26 @@ dado real de captura (que o jogo nao publica).
 anti-robo (captcha) amarrada ao navegador no dominio do jogo — o servidor do piwdex nao
 gera esse token. Entao o companion loga **por TOKEN** (o jogador cola o `pokeweb:tokens`),
 que por sorte e o modelo mais seguro (senha nunca sai do jogo). O `refresh` e o
-`characters/me` funcionam so com o JWT, sem captcha. Implementado na camada 3 do piwdex
-(fase 1+2: conectar + colecao com Power/IV).
+`characters/me` funcionam so com o JWT, sem captcha. Implementado na camada 3 do piwdex.
+
+Formatos verificados com token real (todos `Bearer`):
+- `GET /api/characters/me` -> **so o TREINADOR** (`{character:{id,name,level,gold,diamonds,
+  isVip,autoCatch,autoCatchBallId,autoPotion,selectedBallId,starterId,...}}`). NAO tem os
+  pokemons individuais. `name`/`level` sao do treinador (confundiu a 1a versao da colecao).
+- `GET /api/game/profile` -> resumo enxuto: `name,level,xp,gold,diamonds,rank,totalCatches,
+  pokedexCount,pokedexTotal,vip,clan,...`.
+- `GET /api/game/all-pokes` -> `{total, entries:[{dexId,name,looktype,tier,count}]}` — pokedex
+  AGREGADO por especie+tier (A..E), com quantos voce tem. Nao tem stats por individuo.
+- `GET /api/game/balls` -> `{catalog:[{id,name,catchRate,priceGold,infinite}],counts,selected,
+  gold}`. **catchRate real**: Poke 1, Great 2, Super 3, Ultra 4, Idle 5, Master 255.
+- `GET /api/game/market` (~6MB) -> `{charId,listings,mine,requests,history,catalog,...}`.
+  `listings` tem `kind` in item|pokemon|diamonds|ball, `currency` GOLD|DIAMONDS. **Os de
+  pokemon ja vem prontos**: `{speciesId,level,shiny,stats,ivTotal,quality,power,type1,price,
+  currency,belowNpc}` — o consultor de mercado do piwdex filtra e ordena isso direto.
+
+Nao ha endpoint simples pros pokemons INDIVIDUAIS (com IV/level) da sua conta — so o
+agregado (all-pokes) e os que estao a venda no mercado. Individuais provavelmente so via WS
+ou paginacao logada.
 
 ## Formula de stat / IV / poder / qualidade (verificada)
 
