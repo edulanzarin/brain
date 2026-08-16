@@ -32,6 +32,15 @@ quer ler tira um **snapshot** e solta; quem precisa de tempo real (um robô) é 
 a conexão. Ver [[Descobrir o shard por sondagem paralela com early-exit e cachear]] pra
 achar em qual nó o WS daquela conta vive.
 
+Como a sessão é única (single-session), quem segura a conexão é **dono exclusivo** dela:
+dois consumidores que precisam do canal vivo (no piwdex, o analyzer da hunt e a venda
+automática 24/7) não coexistem — o segundo a conectar derruba o primeiro. A saída é um
+**daemon singleton** por processo que segura a conexão, e ligar um consumidor **desliga o
+outro** de propósito, em vez de deixar os dois flaparem brigando pela sessão. E note que
+uma ação de escrita (vender) pode ir por REST enquanto o WS serve só pra ler/atualizar a
+lista (via um comando de pull tipo `pokes-get`) — não confunda "de onde leio" com "por
+onde escrevo".
+
 ## Conexões
 - Irmã: [[Descobrir o shard por sondagem paralela com early-exit e cachear]]
 - Depende de: [[Poke Idle World - endpoints publicos de dados]]

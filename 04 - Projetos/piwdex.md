@@ -219,6 +219,22 @@ decidiu unificar: **tudo que depende da sessao de jogo mora no `/vip`**.
 - Icone Conta saiu do nav do topo (entra pelo botao VIP). i18n pt/en/es.
 Verificado: `tsc` limpo, `next build` ok. Branch `refactor/sessao-unificada`.
 
+**Seletor de hunt + venda automatica 24/7 (12a passada, ago/2026):**
+- **Seletor de hunt**: o slug do `enter-hunt` E o `Hunt.slug` do catalogo (347 hunts;
+  confirmado no JSON — "ledian"/"bulbasaur" sao entradas de hunt, nao so as areas
+  "cerulean"/"pewter"). Trocou o input de texto por um MODAL com busca, agrupado por area
+  (kanto/outland/orre), com o sprite do pokemon do ponto (resolvido por looktype/nivel mais
+  proximo) e o nivel de cada hunt. Dados do server (`vip/page -> VipTabs -> RoboModule ->
+  HuntAnalyzer`).
+- **Venda automatica 24/7**: o Eduardo escolheu robo com sessao propria. O piwdex SEGURA a
+  sessao WS e, a cada 60s, pede a lista viva (`pokes-get`), aplica as travas e vende o que
+  bate via REST (`sellPokes`). Vender e REST; so a LISTA precisa do WS — por isso `pokes-get`
+  na conexao segurada resolve. Dono unico da sessao: **mutuamente exclusivo com o Hunt
+  Analyzer** (os dois seguram o WS — ligar um para o outro). A regra do que pode vender saiu
+  pra `poke-sell.ts`, modulo unico que a simulacao, a venda manual e o robo reusam (venda e
+  irreversivel — a regra tem que ser uma so). Guarda-costas duro: nunca time/lider/starter/
+  shiny. Reforcou a nota [[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]].
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
