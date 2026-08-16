@@ -240,22 +240,30 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
 - [x] Camada 4: login do site (Auth.js Google+email, Postgres) + vinculo do jogo por usuario.
 - [ ] Camada VIP: gateway Mercado Pago (~R$15,90/mes) + area `/vip` (hospeda o mercado, gated).
 - [ ] Extensao de navegador (auto-conexao + robo), rodando no dominio do jogo.
+- [x] Camada VIP: area `/vip` + assinatura Mercado Pago (avulso mensal) + mercado gated.
+- [ ] Ligar o MP de verdade (token + APP_URL publica) e deploy pro webhook funcionar.
 - [ ] Deploy e dominio piwdex.com.br; job de ingestao recorrente (servico do compose).
 - [ ] colorGroup no `.obsidian/graph.json` (pendente — regras de cor no CLAUDE.md).
 
-## Camada VIP + assinatura (decidido ago/2026, a construir)
+## Camada VIP + assinatura (ago/2026)
 
 - **Arte real do jogo** self-hostada (`npm run bake:sprites` -> `public/game-sprites/<looktype>.webp`,
-  372 pokemons); `spriteUrl` prefere a arte do jogo. Detalhe em [[Poke Idle World - endpoints publicos de dados]].
-- [x] **Login piwdex**: Auth.js com **Google + email/senha**, conta SEPARADA da do jogo
-  (linka pelo token, agora presa ao usuario). Chassi Postgres na 5070. **Feito (camada 4).**
-- [x] **Mercado saiu do /conta gratis** e virou componente reusavel `<MarketAdvisor>`.
-  Falta a **area `/vip`** que o hospeda, gated por assinatura.
-- **Assinatura ~R$15,90/mes** destrava o VIP. Gateway: **Mercado Pago** (Pix nativo, BR).
-  Flag `vip` (+ `vip_ate`) ja existe no `users` e ja chega na sessao — falta o gateway.
+  372 pokemons + 84 skins de player); `spriteUrl`/`skinSpriteUrl` preferem a arte do jogo.
+- [x] **Login piwdex** (camada 4): Auth.js email/senha, conta SEPARADA da do jogo, Postgres 5070.
+- [x] **Area `/vip` entregue**: gated por login. Paywall (beneficios + preco + Assinar) pra
+  nao-VIP; consultor de mercado (`<MarketAdvisor>`, agora **VIP-only**, gate tambem no
+  `/api/market`) + placeholder do robo pra VIP. Link VIP no header.
+- [x] **Pagamento: avulso mensal** (decisao do Eduardo, nao recorrente) via **Mercado Pago**,
+  REST puro sem SDK. `/api/vip/checkout` cria a preference (init_point); `/api/vip/webhook`
+  confirma na FONTE (nao no corpo), idempotente (tabela `vip_payments`), concede +30 dias
+  (`grantVipDays` estende `users.vip_ate`). **Modo teste** (dev sem `MP_ACCESS_TOKEN`): libera
+  direto; em prod fica indisponivel ate plugar. Flag `vip` ja chega fresca na sessao (jwt rele).
+- **Falta pra ligar de verdade:** por o `MP_ACCESS_TOKEN` no `.env` + `APP_URL` publica (o
+  webhook precisa de URL publica -> so apos deploy). Depois: alertas de mercado, e o robo.
 - **Automacao/robo via extensao** de navegador: roda no dominio do jogo -> usa a sessao logada ->
-  chama a API sem captcha. Mesma extensao faz auto-conexao E farm/venda/compra. Bookmarklet e o
-  passo 0; extensao e o produto.
+  chama a API sem captcha, SEM disputar a sessao (o WS server-side chuta o player — ver a
+  pegadinha em [[Poke Idle World - endpoints publicos de dados]]). Bookmarklet e o passo 0;
+  extensao e o produto.
 
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
