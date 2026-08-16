@@ -122,11 +122,29 @@ Formatos verificados com token real (todos `Bearer`):
   pokemon ja vem prontos**: `{speciesId,level,shiny,stats,ivTotal,quality,power,type1,price,
   currency,belowNpc}` — o consultor de mercado do piwdex filtra e ordena isso direto.
 
-Nao ha endpoint pros pokemons INDIVIDUAIS ATIVOS (o time em campo, com IV/level) — a REST so
-da o agregado (all-pokes), o pokedex (flags) e os que estao no mercado. O time ativo/individual
-so vive no **WebSocket** do cliente (`ws12`/`ws47`, eventos field/poke-xp). Fica pra fase com WS.
+Nao ha endpoint REST pros pokemons INDIVIDUAIS ATIVOS (o time + a colecao, com IV por
+individuo) — a REST so da o agregado (all-pokes), o pokedex (flags) e os do mercado. Os
+individuos so vem pelo **WebSocket** (cravado em ago/2026, engenharia reversa conectando
+com token real):
+
+- URL: `wss://poke.idleworld.online/ws<SHARD>?token=<JWT>`. **O shard e por conta** (ex.:
+  Zashz = `ws47`); conectar no errado fecha na hora com **code 4003 `wrong-shard`**. Nao
+  ha campo de shard no token nem na REST — **descobre-se por sondagem**: abre `ws1..ws64`
+  em paralelo, o shard certo responde e os outros fecham com 4003; early-exit no primeiro
+  que mandar dado (~300ms). Cachear o shard (o resto e 1 conexao).
+- No `open`, o server **empurra** varios frames JSON `{type, ...}` sem pedir nada:
+  `events, history, mail-badge, inventory, boosts, balls, autohelper, pokes, chat`.
+- **`{type:"pokes", list:[...]}`** e o filao: TODA a colecao individual. Cada poke tem
+  `id, speciesId, name, level, shiny, finalStage, team, slot, leader, starter, sellValue,
+  looktype, xp, hp, maxHp, type1, stats{hp,atk,def,spAtk,spDef,speed}, quality, ivTotal,
+  power`. **Time ativo = `team:true`** (ordenar por `slot`; `leader:true` marca o lider).
+- Outros eventos ao vivo (nao usados ainda): `field/field-kill/poke-xp/catch-result/
+  shiny-global`. Protocolo tambem em `AntonioFleck/poke-idle-launcher` (`docs/WS_SCHEMA.md`).
+
 Implementado no piwdex: `/api/collection` junta profile+characters/me+depot+streak+breeding+
-balls+professions -> painel completo da Conta (`normalizeAccount`).
+balls+professions -> painel da Conta (`normalizeAccount`). `/api/active-pokes` abre o WS
+(`fetchActivePokes` em `game-ws.ts`, WebSocket nativo do Node), pega o `pokes`, devolve o
+time (`normalizeActivePokes`) — o shard fica cacheado em `game_links.shard`.
 
 ## Sprites / arte do jogo (sistema de outfit, estilo Tibia)
 

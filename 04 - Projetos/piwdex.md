@@ -170,6 +170,17 @@ Testado ponta a ponta (build de producao numa porta separada): cadastro/login po
 credenciais emite sessao com id do banco, `/conta` abre logado e redireciona deslogado,
 e `/api/collection` separa "nao logado" de "logado sem jogo vinculado".
 
+**Time ativo via WebSocket (9a passada, ago/2026):** o unico pedaco da conta que a REST
+nao da — os pokemons individuais ativos (time + colecao, com IV/quality/power por
+individuo). Cravei o protocolo do WS conectando com token real: `wss://.../ws<SHARD>?
+token=`, shard por conta (Zashz = ws47), shard errado fecha com `4003 wrong-shard`. No
+connect o server empurra `{type:"pokes", list:[225 individuos]}`; time = `team:true` por
+`slot`, `leader` marcado. Shard descoberto por sondagem paralela com early-exit (~300ms) e
+cacheado em `game_links.shard` — padrao em [[Descobrir o shard por sondagem paralela com early-exit e cachear]].
+`game-ws.ts` (WebSocket nativo do Node) + `/api/active-pokes` + card "Time ativo" na Conta.
+Detalhe do protocolo em [[Poke Idle World - endpoints publicos de dados]]. Testado: 225 na
+colecao, time de 3, ~0.3s.
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
@@ -203,7 +214,9 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
 - [[Poke Idle World - regras de breeding]] — regras curadas do breeding (nao vem no
   JSON): mesma especie, diff Quality 0.150, heranca de IV, tabelas de ganho e custos.
 - [[Auth.js sem adapter, a sessão JWT resolve o usuário no seu próprio SQL]] — login
-  (Google + email/senha) convivendo com `pg` cru, sem adapter de ORM.
+  (email/senha) convivendo com `pg` cru, sem adapter de ORM.
+- [[Descobrir o shard por sondagem paralela com early-exit e cachear]] — achar o shard
+  do WS quando o servidor nao diz qual e o seu.
 
 ## Proximos passos
 
@@ -215,7 +228,7 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
 - [ ] Bosses como camada curada (nao vem no JSON do jogo).
 - [x] Camada 3 (leitura): companion logado por token; `/conta` completa (perfil, treinador,
   automacao, streak, breeding, inventario+deposito, bolas) + bookmarklet de conexao.
-- [ ] Camada 3 (resto): pokemons ativos individuais via WebSocket (`ws12`/`ws47`).
+- [x] Camada 3 (resto): pokemons ativos individuais via WebSocket (time + colecao com IV).
 - [x] Camada 4: login do site (Auth.js Google+email, Postgres) + vinculo do jogo por usuario.
 - [ ] Camada VIP: gateway Mercado Pago (~R$15,90/mes) + area `/vip` (hospeda o mercado, gated).
 - [ ] Extensao de navegador (auto-conexao + robo), rodando no dominio do jogo.
