@@ -113,6 +113,11 @@ remote ainda (so commit local; branch por tipo -> `master` fast-forward).
   1x); (b) sem janela de nivel: rankeia todos os alvos que voce encara (limitados pelo
   Power) por XP x efetividade, seguro antes de arriscado. Agora prioriza super-efetivos
   (Tyranitar/Aggron 5.5x) como o jogo espera.
+- **Device frame por ferramenta**: o Eduardo quis tudo "dentro de um container" como o
+  aparelho Pokedex, colorido. Generalizei o `.pkdx-*` num `.device-*` tematizavel (cor
+  vem de `--dev` via color-mix) + `ToolFrame`; calc/itens/hunt/breed/eevee agora vivem
+  numa casca neon com lente/label/icone pixel da cor da ferramenta e titulo no acento.
+  O /dex mantem o aparelho Pokedex vermelho. Primeira passada do "mais cor/icone".
 
 ## Infra
 
