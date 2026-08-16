@@ -140,6 +140,15 @@ com token real):
   power`. **Time ativo = `team:true`** (ordenar por `slot`; `leader:true` marca o lider).
 - Outros eventos ao vivo (nao usados ainda): `field/field-kill/poke-xp/catch-result/
   shiny-global`. Protocolo tambem em `AntonioFleck/poke-idle-launcher` (`docs/WS_SCHEMA.md`).
+- **PEGADINHA CRITICA: o WS E a sessao de jogo (single-session).** Conectar com o token
+  = assumir a sessao; se o jogador estiver com o jogo aberto em outra aba, o jogo o
+  **desconecta** ("conta em uso, so um lugar por vez"). Nao ha WS read-only/observer, e
+  **nao ha REST pros individuos** (`/api/game/offline` so da `{report}` de progresso
+  offline). Consequencia no piwdex: ler o time e **opt-in com aviso** (idealmente com o
+  jogo fechado — como e idle, o normal e a aba estar fechada e ninguem ser chutado), e a
+  conexao e a mais breve possivel (open -> `pokes` -> close). Isso reforca que a
+  **automacao de verdade e via extensao** rodando NA aba do jogo (reusa a sessao viva,
+  sem disputa) — ver o plano da camada VIP/robo em [[piwdex]].
 
 Implementado no piwdex: `/api/collection` junta profile+characters/me+depot+streak+breeding+
 balls+professions -> painel da Conta (`normalizeAccount`). `/api/active-pokes` abre o WS
