@@ -146,10 +146,31 @@ tem `catchRate` real por bola.
 
 Testado com token real (leitura). Proximo: captura na rota (usando catchRate) e realtime WS.
 
+**Camada 4 — login do site + banco (8a passada, ago/2026):** o Eduardo apontou a
+incoerencia: conectar a conta do jogo sem estar logado no piwdex nao faz sentido. Agora
+o companion tem dono. Entregue:
+- **Chassi Postgres** (slug `piwdex`, par 5070) em **SQL puro, sem ORM**, no padrao do
+  Navehub: `docker-compose` + `Dockerfile` multi-stage + runner de migration em `db/`
+  (ver [[Runner de migration em SQL puro dispensa o CLI do ORM]] e
+  [[Migrations em container próprio no Docker Compose]]). Migration 001: `users`,
+  `oauth_accounts`, `game_links`.
+- **Login Auth.js v5** com sessao JWT por cima do `pg` cru (sem adapter) — Google
+  (condicional ao ambiente) + email/senha (bcryptjs). Padrao capturado em
+  [[Auth.js sem adapter, a sessão JWT resolve o usuário no seu próprio SQL]]. Telas
+  `/entrar` e `/criar-conta`, login/logout no header, gate em `/conta`.
+- **Vinculo da conta do jogo saiu do cookie AES e foi pro banco** (`game_links`), preso
+  ao usuario logado: tokens cifrados, refresh persistido, `status='expired'` quando o
+  refresh falha -> a UI pede reconexao ("tenta manter, senao reconecta", pedido do
+  Eduardo). `connect`/`collection`/`disconnect`/`market` operam por usuario.
+- **Mercado saiu do /conta gratis** e virou `<MarketAdvisor>` reusavel, pronto pra area VIP.
+Testado ponta a ponta (build de producao numa porta separada): cadastro/login por
+credenciais emite sessao com id do banco, `/conta` abre logado e redireciona deslogado,
+e `/api/collection` separa "nao logado" de "logado sem jogo vinculado".
+
 ## Infra
 
-Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (reservado,
-banco entra na camada 3). Chassi e mapa de portas em [[Infra]].
+Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
+entregue na camada 4: login + vinculo do jogo). Chassi e mapa de portas em [[Infra]].
 
 ## Stack
 
@@ -178,6 +199,8 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
   destravam o dado (chance/1000, looktype -> mapa).
 - [[Poke Idle World - regras de breeding]] — regras curadas do breeding (nao vem no
   JSON): mesma especie, diff Quality 0.150, heranca de IV, tabelas de ganho e custos.
+- [[Auth.js sem adapter, a sessão JWT resolve o usuário no seu próprio SQL]] — login
+  (Google + email/senha) convivendo com `pg` cru, sem adapter de ORM.
 
 ## Proximos passos
 
@@ -190,6 +213,9 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
 - [x] Camada 3 (leitura): companion logado por token; `/conta` completa (perfil, treinador,
   automacao, streak, breeding, inventario+deposito, bolas) + bookmarklet de conexao.
 - [ ] Camada 3 (resto): pokemons ativos individuais via WebSocket (`ws12`/`ws47`).
+- [x] Camada 4: login do site (Auth.js Google+email, Postgres) + vinculo do jogo por usuario.
+- [ ] Camada VIP: gateway Mercado Pago (~R$15,90/mes) + area `/vip` (hospeda o mercado, gated).
+- [ ] Extensao de navegador (auto-conexao + robo), rodando no dominio do jogo.
 - [ ] Deploy e dominio piwdex.com.br; job de ingestao recorrente (servico do compose).
 - [ ] colorGroup no `.obsidian/graph.json` (pendente — regras de cor no CLAUDE.md).
 
@@ -197,11 +223,12 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
 
 - **Arte real do jogo** self-hostada (`npm run bake:sprites` -> `public/game-sprites/<looktype>.webp`,
   372 pokemons); `spriteUrl` prefere a arte do jogo. Detalhe em [[Poke Idle World - endpoints publicos de dados]].
-- **Mercado de players sai do /conta gratis e vai pra area VIP** (`/vip`), com alertas e, depois,
-  os controles do robo.
+- [x] **Login piwdex**: Auth.js com **Google + email/senha**, conta SEPARADA da do jogo
+  (linka pelo token, agora presa ao usuario). Chassi Postgres na 5070. **Feito (camada 4).**
+- [x] **Mercado saiu do /conta gratis** e virou componente reusavel `<MarketAdvisor>`.
+  Falta a **area `/vip`** que o hospeda, gated por assinatura.
 - **Assinatura ~R$15,90/mes** destrava o VIP. Gateway: **Mercado Pago** (Pix nativo, BR).
-- **Login piwdex**: Auth.js com **Google + email/senha**. Conta piwdex SEPARADA da do jogo (linka
-  pelo token). Precisa do chassi **Postgres** (porta 5xxx, ver [[Infra]]).
+  Flag `vip` (+ `vip_ate`) ja existe no `users` e ja chega na sessao — falta o gateway.
 - **Automacao/robo via extensao** de navegador: roda no dominio do jogo -> usa a sessao logada ->
   chama a API sem captcha. Mesma extensao faz auto-conexao E farm/venda/compra. Bookmarklet e o
   passo 0; extensao e o produto.

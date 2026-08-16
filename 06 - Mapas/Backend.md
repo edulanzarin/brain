@@ -33,6 +33,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Sessão de painel interno é um cookie assinado, não uma tabela de sessões]] — o
   outro extremo: painel de 1-2 pessoas, sessão stateless num cookie HMAC, sem store.
   Princípio: [[A assinatura autentica o dado, não quem o trouxe]].
+- [[Auth.js sem adapter, a sessão JWT resolve o usuário no seu próprio SQL]] — login
+  pronto (Google + email/senha) sem adapter de ORM: sessão JWT e os callbacks fazendo
+  o upsert do usuário no `pg` cru. Gate no server component, não no middleware edge.
 - [[Escopo de dado se clampa no servidor, num funil só]] — a lista de "o que o
   usuário pediu" não é confiável; a restrição real mora num funil único.
 - [[Drill-down por id foge do funil de escopo e precisa de gate próprio]] — a rota
