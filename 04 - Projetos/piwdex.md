@@ -276,6 +276,21 @@ apontou os erros que sobraram. Consertados sem forçar reconexão:
   conta, alertas) já faziam poll.
 Verificado: `tsc` limpo e `next build` ok. Branch `refactor/polish-ui-master` (sem remote).
 
+**Dashboard de Estatísticas + tira "Vender agora" (15a passada, ago/2026):** o Eduardo pediu
+que a aba Estatísticas virasse um dashboard de verdade, não só dois totais de venda.
+- **Dashboard cumulativo (pra sempre)**: além das vendas, agora mostra o que a hunt rendeu
+  (hunts concluídas, derrotados, capturados, itens coletados, XP), **dólar por fonte** (loot
+  coletado vs itens vendidos vs pokémon vendidos, em gráfico de barras) e o **acervo mantido
+  por raridade**. Migration 012 estende `robot_sales` com kills/captures/xp/loot/supply/hunts,
+  preenchidos no fim de cada hunt (`logSummary`, mesmo gancho do resumo). `captured_pokes`
+  ganhou `capturedStats` (total/shiny/por raridade). Gráficos em barra CSS pura (sem lib), na
+  estética pixel — segue [[Estetica e por projeto, principio de design e que se reusa]].
+- **Removido "Vender agora"**: o modal de ligar a hunt já pergunta se quer vender, e a venda
+  é assim que coleta — botão manual só poluía. Tirado da UI, da rota e da sessão.
+- Limitação anotada: "itens raros coletados" não dá (o drop do `field-kill` não carrega
+  raridade); o dashboard usa raridade só onde ela existe (acervo de pokémon).
+Verificado: `tsc` limpo, `next build` ok, migration aplicada no `piwdex-db`.
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
