@@ -307,6 +307,21 @@ Verificado: `tsc` limpo, `next build` ok, migration aplicada no `piwdex-db`.
   [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]].
 Verificado: `tsc` limpo, `next build` ok, migrations 013 aplicada.
 
+**Tempo real de verdade + summon reflete na Conta (17a passada, ago/2026):** o Eduardo notou
+que a Caçada ficava zerada durante a hunt e que o summon "funcionava" mas a Conta nao mudava.
+- **Estatisticas em tempo real**: a Caçada (derrotados/capturados/itens/XP) e o dolar de loot
+  passaram a ser o persistido (hunts fechadas + vendas) + o analyzer AO VIVO da hunt em
+  andamento, somado so quando ha hunt rodando. Antes so somava no fim. Virou nota:
+  [[Total ao vivo é o persistido fechado mais o em andamento ainda não gravado]].
+- **Time ativo ao vivo**: enquanto o robo segura a sessao, cada lista de `pokes` regrava o
+  snapshot do time (`game_links`) — a Conta mostra o lider atual sem reconectar. (A Conta
+  jamais abre conexao propria; reusa a que o robo ja segura.)
+- **Summon reflete na Conta**: o motivo do "ficou ativo mas nao mudou aq" era o snapshot
+  velho da Conta, nao o summon (que funcionou). `summonPoke` agora devolve a lista lida e a
+  rota regrava o snapshot; na hunt viva, `summonActive` pede `pokes-get` e a sessao atualiza
+  sozinha. Segue [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]].
+Verificado: `tsc` limpo, `next build` ok.
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
@@ -352,6 +367,8 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
   ia vender saia do acervo mas o throttle de 1h deixava em limbo; venda imediata fechou.
 - [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]] — o
   poke-summon dava 502 esperando o echo; confirmar pela releitura (`leader:true`) resolveu.
+- [[Total ao vivo é o persistido fechado mais o em andamento ainda não gravado]] — o dashboard
+  da Caçada ficava zerado durante a hunt; somar o analyzer vivo ao persistido deixou vivo.
 - [[Permissão se valida no servidor, não na interface]] — o gate de VIP (conectar/conta)
   e negado no servidor, em cada rota que toca a sessao de jogo.
 

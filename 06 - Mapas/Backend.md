@@ -128,6 +128,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]] —
   comando que muta o outro lado (WS/fila/RPC): confirme relendo o estado e vendo o efeito,
   não esperando o ack que pode não vir. Princípio: [[Um invariante se garante na estrutura, não no processo]].
+- [[Total ao vivo é o persistido fechado mais o em andamento ainda não gravado]] — dashboard
+  cumulativo que não zera durante a unidade: soma o persistido (fechado) + o vivo (em memória),
+  contando o vivo só enquanto não foi gravado. Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[Polling substitui webhook quando não há IP público]] — quando não dá pra receber
   chamada de fora. Princípio: [[Configuração vem do ambiente, não do código]].
 - [[Adapter de canal isola o app do provider de mensageria]] — provider externo trocável
