@@ -29,6 +29,21 @@ autohelper no `enter-hunt`**. Trocar a bola só valia depois de desligar/religar
 que **reenvia `enter-hunt` no mesmo socket** — o jogo relê a config sem reconectar nem
 zerar a caça. Mesmo padrão serve pra pokémon ativo/líder (`poke-summon` no socket vivo).
 
+## Quando reenviar o init não basta: bounce
+
+O reenvio só funciona se a sessão relê a config no comando de init. **Se a config vem no
+SNAPSHOT da conexão** (o servidor manda a cópia uma vez, no connect), reemitir o init não
+recarrega nada — só uma **conexão nova** relê. Foi o que regrediu no piwdex (ago/2026): o
+jogo passou a mandar a `autohelper` no snapshot e o reenter deixou de religar a bola. A
+saída virou o **bounce**: no caminho de escrita, persistir o acumulado do trecho (pra o
+total não perder nada), invalidar os handlers do socket velho e reconectar NA HORA —
+snapshot novo, config nova. O custo (zerar o acumulado vivo) se paga persistindo antes:
+[[Total ao vivo é o persistido fechado mais o em andamento ainda não gravado]].
+
+A escada, do mais barato pro mais caro: (1) a sessão relê sozinha → nada a fazer;
+(2) relê no init → reenviar o init na mesma conexão; (3) só lê no connect → bounce
+com persistência antes. Descobrir em que degrau o sistema está é metade do bug.
+
 ## Conexões
 - Princípio: [[Um invariante se garante na estrutura, não no processo]]
 - Irmã: [[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]]
