@@ -235,6 +235,25 @@ Verificado: `tsc` limpo, `next build` ok. Branch `refactor/sessao-unificada`.
   irreversivel — a regra tem que ser uma so). Guarda-costas duro: nunca time/lider/starter/
   shiny. Reforcou a nota [[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]].
 
+**Robo completo + area VIP polida (13a passada, ago/2026):** fechou o kit do robo e o
+visual da area logada.
+- **Hunt**: feed ao vivo de kills E capturas (catch-result), cada card com horario, sprite
+  e icone do loot (o itemId do field-kill nao bate com os dados — resolve o icone por NOME),
+  clicavel pra um modal de detalhe. Seletor de hunt em modal (347 hunts do catalogo). Stats
+  com icone; a moeda do jogo e DOLAR, nao ouro.
+- **Venda automatica de drops na Hunt**: ao ligar, um modal lista os drops vendaveis daquele
+  ponto (loot da especie -> item real, so vendaveis) e o jogador marca o que vender; a sessao
+  rastreia a mochila (frame `inventory` do WS) e vende via REST a cada 30s. "Vender drops"
+  manual virou "Itens vendidos" (read-only).
+- **Alertas do que rolou offline**: os robos server-side gravam eventos no Postgres enquanto
+  rodam (migration 009 `robot_events`, tabela PROPRIA — o inbox de mercado e acoplado a
+  watchlists). Shiny em destaque (individual), resumo de sessao de Hunt ao parar, vendas de
+  pokemon/itens por leva; captura comum so entra no resumo (banco leve, teto 200/user). Isso e
+  o valor do robo server-side: sobrevive a fechar o navegador (ver a pegadinha single-session).
+- **UI**: marca **PIWdex** (logo + titulo fixo da aba), favicon pokebola, banner VIP (barra
+  fixa que fecha + rodape que nao fecha) nas paginas publicas, header so com icone de Conta
+  (sem VIP no topo), footer removido.
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
