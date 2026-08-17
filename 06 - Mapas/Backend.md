@@ -133,6 +133,14 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   contando o vivo só enquanto não foi gravado. Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[Polling substitui webhook quando não há IP público]] — quando não dá pra receber
   chamada de fora. Princípio: [[Configuração vem do ambiente, não do código]].
+- [[Um stream SSE substitui a constelação de pollings]] — N painéis com `setInterval`
+  viram uma conexão SSE de eventos nomeados: push do que é memória (EventEmitter do
+  singleton), poll server-side ÚNICO do que é banco/API externa, snapshot no connect.
+  Princípio: [[Estado vivo se empurra, não se pergunta]].
+- [[Estado desejado persistido religa o robô depois do restart]] — a intenção do
+  usuário (ligado, modo, alvo) numa tabela; reconexão com backoff renovando o token
+  antes de reabrir o WS, e o boot do container relendo a tabela e religando.
+  Princípio: [[Guarde a intenção e o processo se reconstrói dela]].
 - [[Adapter de canal isola o app do provider de mensageria]] — provider externo trocável
   (WhatsApp: Baileys ou Cloud API) fica atrás de uma interface; o app não vê o fornecedor.
 - [[Persistir a mensagem não espera a entrega, a entrega é status]] — gravar (durável,

@@ -322,6 +322,35 @@ que a Caçada ficava zerada durante a hunt e que o summon "funcionava" mas a Con
   sozinha. Segue [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]].
 Verificado: `tsc` limpo, `next build` ok.
 
+**Reforma da area VIP — cockpit em tempo real + robo autonomo (18a passada, ago/2026):**
+o Eduardo rejeitou a area VIP como estava ("desorganizado e espalhado", tudo exigindo F5)
+e pediu: tempo real em tudo, monitor de conexao fixo, robo que mantem a conexao sozinho,
+auto-hunt sem escolher nada e "upar pokemon do lvl X ao Y" seguindo a melhor sequencia de
+hunts. Entregue inteiro (branch `feat/vip-reforma` -> `master`):
+- **Tempo real de verdade**: os 8 `setInterval` dos paineis (2s-10s) e o F5 de Desejos/
+  Alertas viraram UM stream SSE (`/api/vip/stream`) — o motor emite eventos e o stream
+  empurra na hora; banco/API do jogo entram por poll server-side unico. Provider React
+  distribui; painel nenhum faz fetch de leitura. Virou nota:
+  [[Um stream SSE substitui a constelação de pollings]].
+- **Robo persistente**: tabela `robot_sessions` (migration 014) guarda o estado DESEJADO;
+  reconexao automatica com backoff (renovando o access token antes de reabrir — WS nao tem
+  retry-em-401) e `instrumentation.ts` religando no boot do container. Virou nota:
+  [[Estado desejado persistido religa o robô depois do restart]].
+- **Cerebro (`hunt-brain.ts`)**: reusa o motor de rota publico (`combat.ts`/`buildRoute`).
+  Modo AUTO: escolhe a melhor hunt pro lider e re-escolhe a cada level-up (margem de 8%,
+  a mesma da rota, pra nao pular de hunt a toa). Modo LEVELING: plano nivel X -> Y com as
+  faixas de hunt, preview na UI (`/api/vip/plan`), execucao trocando de hunt sozinho pelo
+  nivel AO VIVO (frames `field-kill`/`poke-xp`/`pokes` do WS, que antes nem eram parseados);
+  meta batida vira evento `goal` e cai pro modo auto (segue rendendo). Sem curva XP->level
+  publica: o plano decide por nivel observado, nao por tempo estimado — honesto e suficiente.
+- **Cockpit**: HUD fixo em todas as telas (LED do robo, modo, hunt, XP/h, level+barra de XP,
+  dolares, diamantes, bolas com alerta de estoque), navegacao LATERAL pixel com 9 secoes e
+  acento por cor (matou o tab-dentro-de-tab), container proprio de ~103rem (breakout do
+  container do site via `margin-inline: calc((100% - w)/2)`), painel "Visao geral" novo
+  (monitor + hunt + plano + feed de kills com flash + eventos + acumulado), icones pixel
+  novos (Signal/Target/Flag/Brain/Chart/Sword/Backpack) e animacoes (flash-in, radar).
+Verificado: `tsc` limpo, `next build` ok, migration aplicada, smoke dos endpoints.
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
@@ -371,6 +400,10 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
   da Caçada ficava zerado durante a hunt; somar o analyzer vivo ao persistido deixou vivo.
 - [[Permissão se valida no servidor, não na interface]] — o gate de VIP (conectar/conta)
   e negado no servidor, em cada rota que toca a sessao de jogo.
+- [[Um stream SSE substitui a constelação de pollings]] — os 8 pollings da area VIP
+  viraram um stream com eventos nomeados; push do que e memoria, poll unico do resto.
+- [[Estado desejado persistido religa o robô depois do restart]] — intencao no banco,
+  reconexao com backoff + refresh de token, boot religa via instrumentation.
 
 ## Proximos passos
 

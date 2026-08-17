@@ -44,6 +44,14 @@ Independe de banco e de domínio (vale contábil, estoque, qualquer conferência
 - [[Espelhar por balde esconde item no lugar errado]] — a granularidade do espelho decide o que a reconciliação enxerga.
 - [[Sobre fonte read-only, o editável mora no seu banco chaveado pela identidade dela]] — a fonte que você não pode escrever fica intacta; correção, inclusão e renomeação moram do seu lado, o merge é seu.
 
+## Sistemas vivos — estado, canal e processo
+
+Vale pra qualquer coisa que roda sozinha (robô, worker, sessão longa) e pra qualquer
+UI que mostra dado que muda sem o usuário pedir.
+
+- [[Estado vivo se empurra, não se pergunta]] — quem produz o estado avisa; a interface assina um canal. Polling é exceção com motivo.
+- [[Guarde a intenção e o processo se reconstrói dela]] — o que o usuário quer se persiste separado do que está acontecendo; restart e queda não apagam decisão.
+
 ## Segurança
 
 - [[Permissão se valida no servidor, não na interface]] — esconder botão não é segurança.
