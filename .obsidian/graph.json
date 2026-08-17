@@ -1,5 +1,5 @@
 {
-  "collapse-filter": true,
+  "collapse-filter": false,
   "search": "-path:\"Templates\" -path:\"CLAUDE\"",
   "showTags": false,
   "showAttachments": false,
@@ -75,5 +75,5 @@
   "linkStrength": 1,
   "linkDistance": 250,
   "scale": 0.25098108273369657,
-  "close": true
+  "close": false
 }

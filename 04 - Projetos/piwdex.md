@@ -291,6 +291,22 @@ que a aba Estatísticas virasse um dashboard de verdade, não só dois totais de
   raridade); o dashboard usa raridade só onde ela existe (acervo de pokémon).
 Verificado: `tsc` limpo, `next build` ok, migration aplicada no `piwdex-db`.
 
+**Itens raros + tira venda 24/7 + conserta summon (16a passada, ago/2026):**
+- **Itens raros coletados** no dashboard: o Eduardo apontou que a raridade EXISTE nos itens
+  (a pagina de itens ja mostra "RARO"). O drop do `field-kill` nao carrega raridade, mas o
+  **item dos dados carrega** (`item.rare`) — o join e por nome (`getItemByName`, cai pro
+  itemId). Somado no fim de cada hunt a partir do breakdown do analyzer. Migration 013.
+  (Revê a limitacao que eu tinha anotado na 15a passada — dava sim, era so cruzar o nome.)
+- **Venda de pokemon virou atrelada a Hunt**: removido o card "Venda automatica (24/7)" das
+  Configuracoes (o Eduardo: "deixe so a trave"). A venda so liga pela opcao "Vender pokemon
+  junto" no modal de iniciar a Hunt, e `stopHunt` passa a parar a venda tambem (nao ha mais
+  toggle standalone). So as travas ficam na config.
+- **Conserta o 502 do poke-summon**: confirmar pelo echo `poke-summon` dava falso timeout (o
+  echo nem sempre chega). Agora, apos o summon, pede `pokes-get` e confirma quando o alvo
+  volta `leader:true`. Virou nota:
+  [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]].
+Verificado: `tsc` limpo, `next build` ok, migrations 013 aplicada.
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
@@ -334,6 +350,8 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
   `enter-hunt`) valeu sem derrubar a caca.
 - [[Espelhar por balde esconde item no lugar errado]] — a versao temporal: capturado que
   ia vender saia do acervo mas o throttle de 1h deixava em limbo; venda imediata fechou.
+- [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]] — o
+  poke-summon dava 502 esperando o echo; confirmar pela releitura (`leader:true`) resolveu.
 - [[Permissão se valida no servidor, não na interface]] — o gate de VIP (conectar/conta)
   e negado no servidor, em cada rota que toca a sessao de jogo.
 
