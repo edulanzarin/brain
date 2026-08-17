@@ -377,6 +377,13 @@ pacote que deixa o projeto pronto pro Railway (dominio piwdex.com.br):
   /hunt /calc /breed /eevee, formatacao de numero presa em pt-BR (32 usos), golpe
   STATUS contando no DPS do combat, race do setTimeout na calculadora.
 
+**Acervo sem venda (fix, ago/2026):** capturado com a venda de pokemon DESLIGADA nao
+aparecia em lugar nenhum — o HUD contava (analyzer), nada era vendido, e o `recordKept`
+exigia `pokeCfg` (o gravador do acervo estava acoplado a config de venda). Terceira
+encarnacao do limbo: o registro de retencao nao pode depender da config de descarte.
+Agora `recordKept` roda sempre — sem venda, toda captura nova (fora da linha de base) e
+mantida e entra no acervo. Reforca [[Espelhar por balde esconde item no lugar errado]].
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
