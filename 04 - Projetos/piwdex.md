@@ -351,10 +351,39 @@ hunts. Entregue inteiro (branch `feat/vip-reforma` -> `master`):
   novos (Signal/Target/Flag/Brain/Chart/Sword/Backpack) e animacoes (flash-in, radar).
 Verificado: `tsc` limpo, `next build` ok, migration aplicada, smoke dos endpoints.
 
+**Revisao bruta + pacote de deploy Railway (19a passada, ago/2026):** revisao completa
+pre-deploy (5 frentes em paralelo: Railway, calculos, breeding, UI, seguranca) e o
+pacote que deixa o projeto pronto pro Railway (dominio piwdex.com.br):
+- **Deploy**: o runner do Dockerfile agora carrega `db/` e o `railway.json` roda as
+  migrations no pre-deploy (`node db/setup.mjs`) com **1 replica travada** (robo e
+  keepalive sao singleton por processo). O worker curl do sniper saiu do compose — a
+  varredura virou **loop interno no boot** (`src/lib/sniper.ts` + instrumentation),
+  mesmo mecanismo em dev/compose/Railway; `/api/cron/scan` ficou como gatilho manual
+  (agora timing-safe). Boot **aborta em producao** sem DATABASE_URL/AUTH_SECRET/
+  SESSION_SECRET/APP_URL (antes: AUTH_SECRET explodia no 1o login e APP_URL faltando
+  deixava o webhook do MP em localhost — pagamento sem VIP). Redirect www -> apex por
+  host + headers de seguranca no `next.config.ts`. Viraram notas:
+  [[Railway não roda compose, cada serviço vira uma peça da plataforma]] e
+  [[Cookie de sessão é host-only, www e apex canonizam num domínio só]].
+- **Veredito da revisao**: nucleo matematico solido (tabela de tipos conferida linha a
+  linha, stats/breeding batem com a referencia curada), SQL 100% parametrizado, tokens
+  cifrados, sem IDOR, design system maduro e sem emoji. **Pendencias conhecidas** (por
+  prioridade): (1) `gameSession` singleton — com 2+ VIPs simultaneos um ve/controla a
+  sessao de jogo do outro; virar `Map<userId, GameSession>` antes de vender VIP pra
+  mais gente; (2) especie fora do dex vira default COMMON = vendavel no robo (venda
+  irreversivel — trocar pra default nao-vendavel); (3) sem rate limiting em login/
+  registro; (4) webhook MP sem validar `x-signature` (mitigado: re-busca na fonte,
+  idempotente); (5) UI: falta `not-found.tsx`/`error.tsx` tematicos, `loading.tsx` em
+  /hunt /calc /breed /eevee, formatacao de numero presa em pt-BR (32 usos), golpe
+  STATUS contando no DPS do combat, race do setTimeout na calculadora.
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
 entregue na camada 4: login + vinculo do jogo). Chassi e mapa de portas em [[Infra]].
+**Producao**: Railway (app via Dockerfile + plugin Postgres, mapeamento em
+[[Railway não roda compose, cada serviço vira uma peça da plataforma]]), dominio
+canonico `piwdex.com.br` (www so redireciona).
 
 ## Stack
 
@@ -404,6 +433,10 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
   viraram um stream com eventos nomeados; push do que e memoria, poll unico do resto.
 - [[Estado desejado persistido religa o robô depois do restart]] — intencao no banco,
   reconexao com backoff + refresh de token, boot religa via instrumentation.
+- [[Railway não roda compose, cada serviço vira uma peça da plataforma]] — migration
+  vira pre-deploy na propria imagem, worker vira loop no processo, 1 replica com singleton.
+- [[Cookie de sessão é host-only, www e apex canonizam num domínio só]] — por que o
+  www.piwdex.com.br so redireciona pro apex.
 
 ## Proximos passos
 
@@ -425,7 +458,12 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
 - [ ] Redesign itens 2-4 (proximos: a definir na sessao).
 - [x] Camada VIP: area `/vip` + assinatura Mercado Pago (avulso mensal) + mercado gated.
 - [ ] Ligar o MP de verdade (token + APP_URL publica) e deploy pro webhook funcionar.
-- [ ] Deploy e dominio piwdex.com.br; job de ingestao recorrente (servico do compose).
+- [x] Pacote de deploy Railway: migrations na imagem + pre-deploy, sniper interno,
+  fail-fast de env, canonizacao www -> apex. Falta so criar o projeto no Railway
+  (Postgres + envs + dominio) e apontar o DNS.
+- [ ] Antes de vender VIP pra 2+ pessoas: sessao por usuario (`Map<userId, GameSession>`).
+- [ ] Correcoes da revisao: default nao-vendavel pra especie desconhecida, rate limit
+  no login, x-signature do webhook MP, not-found/error/loadings, fmtNum por locale.
 - [ ] colorGroup no `.obsidian/graph.json` (pendente — regras de cor no CLAUDE.md).
 
 ## Camada VIP + assinatura (ago/2026)

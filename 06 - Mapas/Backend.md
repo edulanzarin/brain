@@ -36,6 +36,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Auth.js sem adapter, a sessão JWT resolve o usuário no seu próprio SQL]] — login
   pronto (Google + email/senha) sem adapter de ORM: sessão JWT e os callbacks fazendo
   o upsert do usuário no `pg` cru. Gate no server component, não no middleware edge.
+- [[Cookie de sessão é host-only, www e apex canonizam num domínio só]] — login no
+  `www` não vale no apex (`__Host-` proíbe `domain=`); um host canônico, o outro só
+  redireciona por host, `APP_URL` aponta pro canônico.
 - [[Descobrir o shard por sondagem paralela com early-exit e cachear]] — quando o
   servico sharded nao diz qual no e seu, abre todos em paralelo, fica com o que
   responde primeiro e cacheia; o normal vira 1 conexao.

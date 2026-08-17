@@ -74,6 +74,10 @@ portas *unsafe* que o navegador recusa, como a 4045) em [[Uma faixa de portas po
   no mesmo slug reencontra o banco antigo; recriar o volume, não forçar reset.
 - [[Agenda recorrente é um serviço do compose, não um crontab do host]] — o
   agendador dos jobs sobe junto no deploy, não é config manual do servidor.
+- [[Railway não roda compose, cada serviço vira uma peça da plataforma]] — o mapa
+  compose → Railway: migration vira pre-deploy na própria imagem (que precisa
+  carregar `db/`), worker vira loop no processo, banco vira plugin; 1 réplica
+  quando há estado singleton.
 
 Relacionado, no [[Backend]]:
 [[Polling substitui webhook quando não há IP público]] — integração sem abrir porta.
