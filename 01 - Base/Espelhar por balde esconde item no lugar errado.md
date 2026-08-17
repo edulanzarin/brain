@@ -15,7 +15,14 @@ Excluir do espelho **tudo** de um item que o motor reproduziu só em parte cria 
 
 Duas perguntas parecem a mesma e não são: "o total bate?" (lente agregada) e "cada item está no lugar certo?" (lente item a item). Espelho por balde responde só a primeira. Com o espelho por item, a lente agregada passa a mostrar também o deslocamento — em pares que se anulam — sem perder a honestidade (o que o motor não reproduz continua espelhado e não gera falso positivo).
 
+A armadilha tem uma versão **temporal**: quando a "substituição" não é imediata (um
+throttle, uma fila que roda de hora em hora), o item sai da visão A no instante em que é
+_classificado_ como "vai ser tratado por B", mas B só o trata depois — na janela entre
+os dois ele não está em lugar nenhum. Ou a exclusão espera a substituição de fato
+acontecer, ou a substituição vira imediata. Não existe "vai ser tratado" invisível.
+
 ## Conexões
 - Visto em: [[Navetech Hub]] — Balancete Fiscal: empresa com dezenas de notas na conta errada dava "tudo ok"; espelho por nota (com exclusão só no bypass) expôs os pares ±, mantendo dupla partida e reconciliação exata; excluir tudo da nota reproduzida criou fantasma de milhões (PIS/COFINS a recuperar sem substituto).
+- Visto em: [[piwdex]] — robô: pokémon capturado que batia a trava de venda saía do acervo ("vai ser vendido") mas a venda era 1x/hora — ficava em limbo (nem vendido nem no acervo) até a varredura. Corrigido tornando a venda imediata (assim que coleta), fechando a janela.
 - Parente: [[Balancete é movimento do período, saldo é consequência]]
 - Mapa: [[Base]] · [[Dados]]

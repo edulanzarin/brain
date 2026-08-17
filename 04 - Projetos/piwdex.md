@@ -254,6 +254,28 @@ visual da area logada.
   fixa que fecha + rodape que nao fecha) nas paginas publicas, header so com icone de Conta
   (sem VIP no topo), footer removido.
 
+**Correções do robô — mesma sessão + venda ao coletar (14a passada, ago/2026):** o Eduardo
+apontou os erros que sobraram. Consertados sem forçar reconexão:
+- **Trocar a bola não pegava na hunt em andamento** (só reconectando): a engine de campo do
+  jogo cacheia a autohelper no `enter-hunt`. Agora `/api/vip/auto`, ao gravar, chama
+  `gameSession.refreshHunt()` que **reenvia `enter-hunt` no mesmo socket** — relê a config
+  sem reconectar nem zerar a caça. Virou nota:
+  [[Config que a sessão cacheia no init não vê a escrita no backend, reaplique na mesma conexão]].
+- **Trocar o pokémon ativo AO VIVO** (`poke-summon`): antes só havia a _sugestão_ do melhor
+  do time ("troque no jogo"). Agora tem botão "Usar este" — troca o líder na mesma sessão
+  (socket vivo se a hunt roda, one-shot se não). Nova rota `/api/vip/summon`.
+- **Venda de pokémon agora vende ASSIM QUE COLETA** (removido o throttle de 1h), igual à de
+  drops. Isso fechou o **limbo** do capturado que batia a trava: saía do acervo ("vai
+  vender") mas ficava até 1h sem ser vendido — nem no acervo nem vendido. Reforçou
+  [[Espelhar por balde esconde item no lugar errado]] (versão temporal do fantasma).
+- **Sem alerta por venda** (item/pokémon): poluía o feed de Atividade. O vendido já aparece
+  nos painéis Itens/Pokémon vendidos e no totalizador de Estatísticas — o feed fica só pra
+  shiny, resumo de hunt e compras.
+- **Tempo real**: contagem de bolas na config atualiza sozinha sem atropelar a edição em
+  andamento; acervo e estatísticas de 8s → 5s. Os painéis de dado vivo (hunt, vendidos,
+  conta, alertas) já faziam poll.
+Verificado: `tsc` limpo e `next build` ok. Branch `refactor/polish-ui-master` (sem remote).
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
@@ -292,6 +314,11 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
   do WS quando o servidor nao diz qual e o seu.
 - [[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]] — o dado que
   falta na REST (time individual, analyzer, summon) mora no WS, ao custo da sessao viva.
+- [[Config que a sessão cacheia no init não vê a escrita no backend, reaplique na mesma conexão]] —
+  a bola gravada via REST so pegava reconectando; reaplicar na mesma sessao (reenviar
+  `enter-hunt`) valeu sem derrubar a caca.
+- [[Espelhar por balde esconde item no lugar errado]] — a versao temporal: capturado que
+  ia vender saia do acervo mas o throttle de 1h deixava em limbo; venda imediata fechou.
 - [[Permissão se valida no servidor, não na interface]] — o gate de VIP (conectar/conta)
   e negado no servidor, em cada rota que toca a sessao de jogo.
 

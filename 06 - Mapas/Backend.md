@@ -121,6 +121,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]] — a
   superfície real é maior que a REST documentada; o dado que falta num canal está
   noutro (WS/SSE/gRPC), ao custo da sessão viva. Irmã do shard por sondagem.
+- [[Config que a sessão cacheia no init não vê a escrita no backend, reaplique na mesma conexão]] —
+  sessão longa lê a config no init e não vê a escrita posterior; reaplique reenviando o
+  init na mesma conexão (não reconecte), e dispare isso do caminho de escrita.
+  Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[Polling substitui webhook quando não há IP público]] — quando não dá pra receber
   chamada de fora. Princípio: [[Configuração vem do ambiente, não do código]].
 - [[Adapter de canal isola o app do provider de mensageria]] — provider externo trocável
