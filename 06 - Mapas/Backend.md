@@ -152,6 +152,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Webhook de provedor chega repetido e fora de ordem, a borda tolera os dois]] —
   entrega at-least-once e sem ordem: idempotência numa chave única, status que só avança,
   200 rápido. Princípio: [[Um invariante se garante na estrutura, não no processo]].
+- [[Avaliação por comparáveis segmenta a régua por faixa, não mediana única]] — mediana
+  única do mercado esmaga a cauda quando o preço não escala linear; segmentar por faixa
+  + cadeia de fallback + teto de sanidade pelos anúncios reais.
 - [[Webhook de terceiro se valida pela assinatura antes de confiar no corpo]] — URL
   pública é hostil; conferir o HMAC sobre o corpo cru com o segredo do app antes do parse.
 - [[Casar telefone brasileiro tolerando o nono dígito]] — o mesmo celular tem duas grafias

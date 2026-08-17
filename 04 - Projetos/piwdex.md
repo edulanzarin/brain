@@ -384,6 +384,16 @@ encarnacao do limbo: o registro de retencao nao pode depender da config de desca
 Agora `recordKept` roda sempre — sem venda, toda captura nova (fora da linha de base) e
 mantida e entra no acervo. Reforca [[Espelhar por balde esconde item no lugar errado]].
 
+**Valor do chip do chat + regua por faixa (ago/2026):** o link `[poke!...]` do chat e
+JSON em base64 sem preco; o modal agora mostra "Valeria ~X" via `/api/vip/value` — o
+motor de preco justo do consultor, corrigido: a regua unica (mediana de preco-por-teto
+do mercado inteiro) esmagava a elite (Haunter Q2.105 avaliado como media do lixao).
+Virou mediana POR FAIXA de Quality (1.4/1.8/2.1) e shiny separado, cadeia
+especie+faixa -> faixa -> geral, e teto de sanidade pelo anuncio real igual-ou-melhor
+mais barato. Cache do mercado extraido pra `market-cache.ts` (compartilhado consultor/
+value/sniper). Tambem: chat vira ring de 20 mensagens. Nota:
+[[Avaliação por comparáveis segmenta a régua por faixa, não mediana única]].
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
