@@ -521,6 +521,24 @@ as contas e "entrar" na de qualquer usuario. Entregue:
   criar o admin e debugar via `pg` — pendente **rotacionar a senha** (a antiga vazou em
   chat) e, se quiser, remover o Public Access depois.
 
+**Robo segura a sessao + auto-compra completa (12a passada, ago/2026):** duas correcoes
+que o Eduardo pediu.
+- **REVERSAO da politica de sessao:** a 10a passada fazia o robo CEDER a sessao quando a
+  conta era tomada (usuario entrava no jogo pelo navegador) — pausava e avisava. Na pratica
+  o robo desligava sozinho sem o usuario saber. Agora o robo SEGURA: reconecta na hora pra
+  reclamar a sessao (o jogo da a conta pra conexao mais nova) e so larga quando o usuario
+  DESLIGA. Um **aviso fixado** (`SessionHoldNotice`) explica: pra jogar no navegador,
+  desligue o robo primeiro. Licao: num recurso single-owner disputado, a politica (segurar
+  vs ceder) tem que ser explicita E visivel — ceder em silencio confunde tanto quanto o
+  cabo-de-guerra silencioso.
+- **Auto-compra repoe pocao e revive, nao so bola:** `restockBalls` virou `restockSupplies`.
+  Pega a pocao (se Auto-Potion ligado) e o revive (se Auto-Revive ligado) com pisos/alvos
+  menores (sao caros; revive ate 2500). Pegadinha do jogo: o Auto-Potion **nao tem campo de
+  qual pocao** — o jogo usa a melhor sozinho. Entao a escolha de o-que-comprar vive do lado
+  do piwdex (`robot_sessions.supply_cfg`, migration 017; null = "a melhor disponivel", a mais
+  cara buyavel). Seletor na UI de Auto-compra. Pocoes = categoria `heal` (ids 200-204),
+  revive = `revive` (205-206) nos dados estaticos.
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
 - Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]]
