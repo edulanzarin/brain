@@ -121,6 +121,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Integrações
 
+- [[O bundle público do cliente entrega o contrato da API sem documentação]] — sem doc
+  e sem HAR da ação, os chunks JS públicos do cliente oficial têm a URL e o payload
+  literais; extrair de lá é contrato real, não palpite.
+  Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]] — a
   superfície real é maior que a REST documentada; o dado que falta num canal está
   noutro (WS/SSE/gRPC), ao custo da sessão viva. Irmã do shard por sondagem.

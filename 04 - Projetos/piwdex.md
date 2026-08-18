@@ -582,6 +582,17 @@ componentes primitivos reutilizaveis".
   key). Hunt: hero da hunt viva com sprite/modo/status.
 - Master Ball (id 5) escondida do Painel e da Conta — ninguem tem, nao e compravel.
 
+**Mercado completo: compra direta, itens e desejos de item (15a passada, ago/2026):**
+- O `/api/game/market` ja trazia TUDO (pokemon + pilhas de item + historico + catalogo);
+  a compra e `POST /api/game/market/action` com `{action:"buy",id}` (pokemon) ou
+  `{action:"buy-stack",kind,refId,price,currency,quantity,ids}` (itens) — contrato
+  extraido do bundle publico do cliente do jogo, ver
+  [[O bundle público do cliente entrega o contrato da API sem documentação]].
+- Rota `/api/vip/market-buy` reconfere anuncio+preco no servidor antes de gastar
+  (preco mudou = 409); ids da pilha vem do servidor; compra vira evento no feed.
+- Mercado com abas Pokemon | Itens na mesma tela; desejos tambem (migration 018:
+  `watchlists.kind`+`item_id`; sniper casa pilhas com dedup por item+preco unitario).
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
 - Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]]
