@@ -234,6 +234,10 @@ Verificado: `tsc` limpo, `next build` ok. Branch `refactor/sessao-unificada`.
   pra `poke-sell.ts`, modulo unico que a simulacao, a venda manual e o robo reusam (venda e
   irreversivel — a regra tem que ser uma so). Guarda-costas duro: nunca time/lider/starter/
   shiny. Reforcou a nota [[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]].
+  Semantica das travas de IV/qualidade (decisao do Eduardo, ago/2026): pra FICAR na conta o
+  pokemon tem que passar das DUAS travas — falhou em qualquer eixo, vende. Trava e filtro de
+  excelencia, nao de "bom em algum eixo" (a versao inicial mantinha com um eixo so e enchia
+  o acervo de bicho mediano).
 
 **Robo completo + area VIP polida (13a passada, ago/2026):** fechou o kit do robo e o
 visual da area logada.
