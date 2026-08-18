@@ -70,11 +70,14 @@ Princípios: [[A variante de um controle muda a intenção, não o tamanho]]
 
 - [[Toast em vez de alert para o feedback do app]] — canal de mensagem próprio.
 - [[Esqueleto de carregamento imita a forma do conteúdo]] — carregar sem saltar.
+- [[Slot com placeholder esmaecido segura o lugar do dado vivo]] — tela de stream
+  que não se mexe: o valor acende num slot que já existia.
 - [[Filtro de lista mora na URL]] — estado que sobrevive ao reload.
 - [[Consulta pesada executa por botão, não por mudança de filtro]] — rascunho e
   aplicado; o verbo do botão segue a ação real da tela.
 
-Princípios: [[Todo estado da tela tem visual]] · [[Estado compartilhável mora na URL]]
+Princípios: [[Todo estado da tela tem visual]] · [[Estado compartilhável mora na URL]] ·
+[[Dado que chega preenche espaço reservado, não empurra a tela]]
 
 ## Checklist de tela nova
 

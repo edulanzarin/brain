@@ -398,6 +398,33 @@ mais barato. Cache do mercado extraido pra `market-cache.ts` (compartilhado cons
 value/sniper). Tambem: chat vira ring de 20 mensagens. Nota:
 [[Avaliação por comparáveis segmenta a régua por faixa, não mediana única]].
 
+**Repaginada total da UI (17a passada, ago/2026):** o Eduardo rejeitou o visual
+("bagunçado, fontes pequenas, principalmente a area VIP") e pediu tudo
+"milimetricamente encaixadinho", perfeito no celular, sem conteudo empurrando a
+tela quando valores aparecem/somem. Entregue em 5 commits (branch
+`refactor/repaginada-ui` -> main -> push):
+- **Escala tipografica fechada e maior**: os ~400 `text-[N rem]` arbitrarios
+  viraram 5 degraus proprios no `@theme` (piso 0.8rem = 14.4px); faux-bold
+  removido do site inteiro (Jersey 10 so tem peso 400); `btn-sm`/`btn-red`
+  sancionados mataram os `!text-`/`!py-` por instancia. Aplicacao direta de
+  [[Escala fechada em vez de valor solto]].
+- **Padrao de slots em toda tela viva**: HUD do VIP virou 2 linhas de altura fixa
+  com slot permanente por dado; painel com faixa unica de alerta (um por vez,
+  altura reservada), regua de rendimento sempre no ar com "—", botoes que viram
+  `disabled` em vez de sumir; cards de mesma grade com mesma altura; feeds com
+  altura fixa + scroll. Virou principio + tecnica:
+  [[Dado que chega preenche espaço reservado, não empurra a tela]] e
+  [[Slot com placeholder esmaecido segura o lugar do dado vivo]].
+- **Mobile de verdade**: menu do site vira overlay absoluto (nao empurra mais a
+  pagina), nav do VIP vira trilho horizontal rolavel de altura fixa, grids com
+  degraus intermediarios (2/3/4/5), tabelas largas rolam no proprio wrapper,
+  alvos de toque >= 40px, nada estoura 360px.
+- Ficha de pokemon com estrutura identica entre paginas irmas (grid nao muda
+  conforme o bicho tem evolucao); ficha de item adotou o ToolFrame verde;
+  skeletons espelham exatamente o card real.
+Verificado: `tsc` limpo, `next build` ok, smoke das paginas publicas em producao
+local (200 em todas; /vip 307 pro login como esperado).
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
