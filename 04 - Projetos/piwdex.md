@@ -503,7 +503,26 @@ So links. O texto do aprendizado mora na nota, nunca aqui.
   pegadinha em [[Poke Idle World - endpoints publicos de dados]]). Bookmarklet e o passo 0;
   extensao e o produto.
 
+**Portal admin (11a passada, ago/2026):** o Eduardo quis um painel interno pra ver TODAS
+as contas e "entrar" na de qualquer usuario. Entregue:
+- **Flag `users.is_admin`** (migration 016). A conta admin cai em `/admin` em vez da area
+  VIP/Conta (redirects em `/entrar` e `/conta`); a sessao carrega `session.user.admin` no
+  jwt callback do Auth.js (mesmo padrao do `vip`). Gate duro server-side na rota.
+- **Painel `/admin`**: tabela de todos os usuarios com VIP (+ validade), vinculo de jogo
+  (player + status) e **moedas AO VIVO** (gold/diamantes/level/capturas) puxadas por REST
+  `/api/game/profile` com o token de cada um — **sem abrir o WS**, entao nao rouba a sessao
+  de jogo de ninguem (o bot segue conectado). REST Bearer nao tem fronteira de origem; o
+  storage do navegador tem.
+- **"Entrar como"**: dois jeitos de injetar o `pokeweb:tokens` na aba do jogo — copiar um
+  snippet pro console + abrir a aba, e um bookmarklet arrastavel. Nao da pra um botao logar
+  direto em outra aba: o navegador isola storage por origem. Aprendizado em
+  [[Sessão de outro domínio só se injeta rodando na origem dele]].
+- **Banco de producao exposto** por Public Access da Railway (`altaria.proxy.rlwy.net`) pra
+  criar o admin e debugar via `pg` — pendente **rotacionar a senha** (a antiga vazou em
+  chat) e, se quiser, remover o Public Access depois.
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
+- Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]]
 - Referencia: [[Poke Idle World - endpoints publicos de dados]]
 - Mapa: [[Projetos]]

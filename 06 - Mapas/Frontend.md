@@ -36,6 +36,12 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 Princípios: [[Estado compartilhável mora na URL]] ·
 [[Estado de tela pertence à seção, não à página]]
 
+## Fronteira do navegador (origem, storage)
+
+- [[Sessão de outro domínio só se injeta rodando na origem dele]] — storage é isolado por
+  origem; pra logar noutro domínio, o código roda lá (console/bookmarklet), não na sua
+  página. REST Bearer server-side não tem essa trava. Candidato a princípio na 2ª aparição.
+
 ## Arquitetura de canvas / motor
 
 - [[Mundo imperativo e React se falam por eventos, não por referência]] — engine
