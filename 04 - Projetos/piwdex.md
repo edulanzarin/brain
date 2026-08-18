@@ -597,6 +597,20 @@ componentes primitivos reutilizaveis".
 - Mercado com abas Pokemon | Itens na mesma tela; desejos tambem (migration 018:
   `watchlists.kind`+`item_id`; sniper casa pilhas com dedup por item+preco unitario).
 
+**Stats reais + raridade + secao Meus Pokemons (16a passada, ago/2026):**
+- O anuncio do mercado JA trazia `stats` do individuo (a nota de referencia sabia); o
+  normalizador descartava. Modal do mercado agora mostra os stats REAIS do bicho a
+  venda, com barra vs o stat perfeito (IV 32 no mesmo nivel/qualidade) e IV estimado
+  por stat — formula invertida de `stats.ts`. Base da especie virou fallback.
+- `PokeStatsModal` + `MonStatsSection` (`mon-stats.tsx`) compartilhados: mesmo modal
+  de stats no mercado, no time do painel, na Conta e no box.
+- RarityBadge (raridade de especie do catalogo) em todo lugar que mostra pokemon:
+  card/modal do mercado, achados dos Desejos, time da Conta, lider do painel e box.
+- Secao nova **Meus Pokemons** no menu VIP (icone pokebola): gestao inteira do time
+  (trocar lider, guardar no box) + box completo inline com busca/ordenacao. O card do
+  painel virou LEITURA pura (clique = stats) com link pra secao — decisao do Eduardo,
+  ver [[Cockpit mostra, aba própria gerencia]].
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
 - Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]]

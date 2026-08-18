@@ -14,6 +14,7 @@ verdade, é sobre o que eu escolho.
 - [[Manter o tooling enxuto e o conhecimento no cérebro]] — ferramenta enxuta e
   conhecimento registrado, em vez de encher o setup de configuração.
 - [[Detalhe em modal, linha enxuta]] — lista densa para varrer, detalhe sob demanda.
+- [[Cockpit mostra, aba própria gerencia]] — painel acompanha; ação de gestão vive em seção própria.
 - [[Interface enxuta e compacta, sem desperdício de espaço]] — bonito E denso; a casca
   pode ser grande, o conteúdo não desperdiça espaço.
 - [[Interface de cliente fala pouco e esconde o backend]] — voz quieta, sem texto
