@@ -565,6 +565,19 @@ fila de captura travada. Tres causas-raiz, todas de fonte-da-verdade:
   avisa em vermelho quando a bola da automacao esta zerada. Checkbox "Vender pokemon
   junto" da aba Hunt le/grava o servidor (mesmo interruptor das Configuracoes).
 
+**Fonte legivel + primitivos de UI + Painel/Hunt reestruturados (14a passada, ago/2026):**
+o Eduardo pediu fonte pixel mais legivel, painel mais bonito/dinamico e "sempre criar
+componentes primitivos reutilizaveis".
+- **Silkscreen** (400/700) no lugar da Press Start 2P — continua quadrada/pixel, mas com
+  x-height generoso; classes pixel do CSS subiram um degrau de tamanho junto.
+- **Primitivos em `src/components/ui/`**: Panel (card+cabecalho com icone/acento/slot),
+  Led/LiveBadge/AlertBanner, ProgressBar, FeedRow/EmptyState — aplicacao direta de
+  [[Primitiva de botão fecha o tamanho e abre só a variante]] em card/feed/status.
+- Painel: barra de comando do robo em largura cheia + regua de rendimento com tick-glow
+  (StatTile ganhou prop `live`: o valor pisca no acento quando muda — remonta o span por
+  key). Hunt: hero da hunt viva com sprite/modo/status.
+- Master Ball (id 5) escondida do Painel e da Conta — ninguem tem, nao e compravel.
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
 - Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]]
