@@ -160,6 +160,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   venda/compra não engole erro: registra evento visível (1 por operação a cada 30min)
   antes de seguir; falha estrutural aparece, transitória não.
   Princípio: [[Chamada externa tem timeout e erro tratado]].
+- [[Lote recusado por um item se bissecciona até isolar o culpado]] — API tudo-ou-nada
+  (um item inválido = 400 no lote) sem como filtrar antes: bissecção isola os recusados,
+  processa o resto e os bloqueia por sessão. Só pra erro determinístico, nunca 5xx.
+  Princípio: [[Chamada externa tem timeout e erro tratado]].
 - [[Adapter de canal isola o app do provider de mensageria]] — provider externo trocável
   (WhatsApp: Baileys ou Cloud API) fica atrás de uma interface; o app não vê o fornecedor.
 - [[Persistir a mensagem não espera a entrega, a entrega é status]] — gravar (durável,
