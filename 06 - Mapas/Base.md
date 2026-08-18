@@ -51,6 +51,7 @@ UI que mostra dado que muda sem o usuário pedir.
 
 - [[Estado vivo se empurra, não se pergunta]] — quem produz o estado avisa; a interface assina um canal. Polling é exceção com motivo.
 - [[Guarde a intenção e o processo se reconstrói dela]] — o que o usuário quer se persiste separado do que está acontecendo; restart e queda não apagam decisão.
+- [[Estado mutável se lê da fonte no uso, não de cópia guardada]] — o que outra frente escreve/rotaciona (credencial, config) se relê da fonte persistida na hora de usar; cópia longeva apodrece em silêncio.
 
 ## Segurança
 

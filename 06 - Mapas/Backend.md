@@ -144,6 +144,18 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   usuário (ligado, modo, alvo) numa tabela; reconexão com backoff renovando o token
   antes de reabrir o WS, e o boot do container relendo a tabela e religando.
   Princípio: [[Guarde a intenção e o processo se reconstrói dela]].
+- [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] — várias
+  frentes renovando o mesmo refresh rotativo: quem guarda cópia em memória apodrece e
+  morre em 401 silencioso; toda frente relê o par do banco antes de cada lote REST.
+  Princípio: [[Estado mutável se lê da fonte no uso, não de cópia guardada]].
+- [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] —
+  config de automação no localStorage só valia num caminho da UI; salva no servidor com
+  `on` embutido, e TODO handler que inicia o fluxo aplica a config salva.
+  Princípio: [[Estado mutável se lê da fonte no uso, não de cópia guardada]].
+- [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] — loop de
+  venda/compra não engole erro: registra evento visível (1 por operação a cada 30min)
+  antes de seguir; falha estrutural aparece, transitória não.
+  Princípio: [[Chamada externa tem timeout e erro tratado]].
 - [[Adapter de canal isola o app do provider de mensageria]] — provider externo trocável
   (WhatsApp: Baileys ou Cloud API) fica atrás de uma interface; o app não vê o fornecedor.
 - [[Persistir a mensagem não espera a entrega, a entrega é status]] — gravar (durável,

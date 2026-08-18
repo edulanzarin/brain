@@ -539,8 +539,34 @@ que o Eduardo pediu.
   cara buyavel). Seletor na UI de Auto-compra. Pocoes = categoria `heal` (ids 200-204),
   revive = `revive` (205-206) nos dados estaticos.
 
+**Venda/auto-compra confiaveis + Configuracoes com um Confirmar so (13a passada,
+ago/2026):** o Eduardo reportou "vive falhando": nao vendia pokemon, nao comprava bola,
+fila de captura travada. Tres causas-raiz, todas de fonte-da-verdade:
+- **Tokens stale**: tres frentes renovavam o token rotativo do jogo (WS, poller SSE,
+  auto-compra), cada uma com copia propria em memoria — a copia de uma apodrecia quando
+  outra renovava e TODA venda/compra dela morria em 401 dentro de `catch {}`. Fix: toda
+  frente rele o par do banco antes de cada lote REST. Ver
+  [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]].
+- **Config de venda no localStorage**: so o start da aba Hunt anexava a config; hunt
+  iniciada pelo Painel rodava sem venda (capturas vendaveis iam pro acervo), e parar a
+  hunt APAGAVA a config do banco. Fix: config mora em `robot_sessions.poke_sell_cfg`
+  com interruptor `on` embutido (desligar preserva as travas) e a rota aplica a config
+  salva em start/auto/leveling/connect. Ver
+  [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]].
+- **Auto-compra 1x/h**: hunt queima ~700 bolas/h, o piso de 100 zerava em minutos e o
+  auto-catch do jogo travava a fila ate a proxima hora. Fix: varredura de 10min + gatilho
+  AO VIVO no frame `balls` do WS (bola da automacao abaixo do piso -> repoe ja, cooldown
+  3min) — aplicacao de [[Estado vivo se empurra, não se pergunta]]. Piso 150, alvo 1000.
+- Falhas de venda/compra agora viram Alerta (kind `error`, 1 por operacao/30min). Ver
+  [[Falha de automação recorrente vira alerta com throttle, não catch vazio]].
+- **UI**: secao Configuracoes unificada (`ConfigPanel`) — automacao nativa + travas de
+  venda + auto-compra num draft so, barra sticky com contador de pendencias e UM botao
+  Confirmar (substituiu tres cards, cada um com o seu). Seletor de bola mostra estoque e
+  avisa em vermelho quando a bola da automacao esta zerada. Checkbox "Vender pokemon
+  junto" da aba Hunt le/grava o servidor (mesmo interruptor das Configuracoes).
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
-- Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]]
+- Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]]
 - Referencia: [[Poke Idle World - endpoints publicos de dados]]
 - Mapa: [[Projetos]]
