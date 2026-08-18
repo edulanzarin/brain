@@ -568,8 +568,12 @@ fila de captura travada. Tres causas-raiz, todas de fonte-da-verdade:
 **Fonte legivel + primitivos de UI + Painel/Hunt reestruturados (14a passada, ago/2026):**
 o Eduardo pediu fonte pixel mais legivel, painel mais bonito/dinamico e "sempre criar
 componentes primitivos reutilizaveis".
-- **Silkscreen** (400/700) no lugar da Press Start 2P — continua quadrada/pixel, mas com
-  x-height generoso; classes pixel do CSS subiram um degrau de tamanho junto.
+- Fonte pixel: Press Start 2P -> Silkscreen -> **Jersey 10** (escolha final do Eduardo,
+  peso unico 400, pixel de placar bem legivel); classes pixel do CSS subiram de tamanho.
+- Painel DENSO (feedback: "sem espaco em branco, tudo encaixadinho"): barra de comando em
+  uma linha, colunas de mesma altura, EmptyState compact (vazio vira linha), Panel ganhou
+  modo collapsible. Checkbox "Vender pokemon junto" saiu da Hunt (duplicava Configuracoes).
+- Copy da UI reescrita curta e neutra, sem apostrofo — ele rejeitou "textao de IA".
 - **Primitivos em `src/components/ui/`**: Panel (card+cabecalho com icone/acento/slot),
   Led/LiveBadge/AlertBanner, ProgressBar, FeedRow/EmptyState — aplicacao direta de
   [[Primitiva de botão fecha o tamanho e abre só a variante]] em card/feed/status.
