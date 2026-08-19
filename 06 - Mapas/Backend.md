@@ -138,6 +138,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Total ao vivo é o persistido fechado mais o em andamento ainda não gravado]] — dashboard
   cumulativo que não zera durante a unidade: soma o persistido (fechado) + o vivo (em memória),
   contando o vivo só enquanto não foi gravado. Princípio: [[Um invariante se garante na estrutura, não no processo]].
+- [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] —
+  contador que vem de fora acumula por conexão/login, não pela sua unidade de trabalho:
+  guarde uma base no marco zero e exponha o delta (taxas recalculadas, listas diffadas);
+  valor menor que a base = a fonte zerou. Princípio: [[Balancete é movimento do período, saldo é consequência]].
 - [[Polling substitui webhook quando não há IP público]] — quando não dá pra receber
   chamada de fora. Princípio: [[Configuração vem do ambiente, não do código]].
 - [[Um stream SSE substitui a constelação de pollings]] — N painéis com `setInterval`

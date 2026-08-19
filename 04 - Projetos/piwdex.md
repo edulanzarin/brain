@@ -669,8 +669,16 @@ componentes primitivos reutilizaveis".
   painel virou LEITURA pura (clique = stats) com link pra secao — decisao do Eduardo,
   ver [[Cockpit mostra, aba própria gerencia]].
 
+**Analyzer virou delta por hunt (17a passada, ago/2026):** ligar o AUTO no meio de uma
+hunt manual mostrava a hunt nova com os numeros da velha (3.703 derrotados, 6h55m). O
+frame `analyzer` do jogo e cumulativo por CONEXAO — `enter-hunt` nao zera nada, so
+reconectar zera — e o codigo assumia "por campo". Alem do visual, o `logSummary`
+relancava o acumulado inteiro em `robot_sales` a cada troca (dupla contagem nas
+Estatisticas). A sessao passou a guardar uma base e expor so o delta; ver
+[[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]].
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
-- Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]]
+- Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]]
 - Referencia: [[Poke Idle World - endpoints publicos de dados]]
 - Mapa: [[Projetos]]
