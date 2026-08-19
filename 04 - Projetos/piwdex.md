@@ -730,8 +730,18 @@ graca, fora do campo) -> HP de volta, re-entra no mesmo slug sozinho. O frame `f
 auto-compra repoe Revive sempre que ligada, e o status para de dizer "ao vivo" com o bicho
 no chao. Ver [[Comando que responde ok e não muda nada tem pré-condição de estado]].
 
+**Desejo mostrando stats base (22a passada, ago/2026):** so UM Alakazam da lista aparecia
+com os stats do individuo; o resto caia nos base da especie. O card do desejo era remontado
+so do alerta guardado — e o campo `stats` passou a ser gravado no mesmo dia, entao todo
+alerta anterior nasceu sem ele. A pagina do desejo passou a reler os anuncios VIVOS por
+listingId (`GET /api/market?ids=`, mesmo cache de 60s do consultor), com o alerta de
+fallback pro que ja foi vendido; preco e preco justo do card tambem passaram a ser os de
+agora. O modal foi pra `max-w-lg` e perdeu o "ver na dex" — ele existe pra decidir a
+COMPRA, e o botao verde leva a linha inteira com o valor. Ver
+[[Alerta guarda o retrato do instante; quem tem o id relê a fonte]].
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
-- Aplica: [[Comando que responde ok e não muda nada tem pré-condição de estado]] · [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
+- Aplica: [[Alerta guarda o retrato do instante; quem tem o id relê a fonte]] · [[Comando que responde ok e não muda nada tem pré-condição de estado]] · [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
 - Referencia: [[Poke Idle World - endpoints publicos de dados]]
 - Mapa: [[Projetos]]

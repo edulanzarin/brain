@@ -168,6 +168,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   usuário (ligado, modo, alvo) numa tabela; reconexão com backoff renovando o token
   antes de reabrir o WS, e o boot do container relendo a tabela e religando.
   Princípio: [[Guarde a intenção e o processo se reconstrói dela]].
+- [[Alerta guarda o retrato do instante; quem tem o id relê a fonte]] — notificação é
+  cache com formato datado: campo gravado hoje não existe no alerta de ontem. Guarde o id
+  da fonte e releia os visíveis em lote; o retrato fica de fallback pro que sumiu.
+  Princípio: [[Estado mutável se lê da fonte no uso, não de cópia guardada]].
 - [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] — várias
   frentes renovando o mesmo refresh rotativo: quem guarda cópia em memória apodrece e
   morre em 401 silencioso; toda frente relê o par do banco antes de cada lote REST.
