@@ -152,6 +152,14 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   cumpre uma meta e para transforma o dono em agendador; a fila valida de novo na hora
   de executar, pula o inviável com alerta e cai no modo contínuo quando esvazia.
   Princípio: [[Guarde a intenção e o processo se reconstrói dela]].
+- [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] — regra
+  simétrica (vantagem de tipo, custo, limite) modelada de um lado só inverte a
+  recomendação; a mesma fórmula com os lados trocados vira "quanto você aguenta".
+  Princípio: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]].
+- [[Estimativa desmentida pela realidade vira veto temporário do motor]] — o fato
+  observado (duas quedas no mesmo alvo) veta a recomendação, refaz o plano inteiro e
+  caduca na unidade do problema; sem alternativa, alerta em vez de loop calado.
+  Princípio: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]].
 - [[Estado desejado persistido religa o robô depois do restart]] — a intenção do
   usuário (ligado, modo, alvo) numa tabela; reconexão com backoff renovando o token
   antes de reabrir o WS, e o boot do container relendo a tabela e religando.

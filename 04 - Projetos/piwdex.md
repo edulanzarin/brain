@@ -699,8 +699,29 @@ faixa. Migration 019 (`robot_sessions.leveling_queue`, so os que ainda nao comec
 plano com bicho fora do time ou ja acima do alvo e pulado com alerta. Ver
 [[Fila de metas pula o item impossível com aviso, e nunca fica parada]].
 
+**Motor de hunt passou a medir o dano que VOCE toma (20a passada, ago/2026):** o Abra
+lvl 14 foi mandado pro Gastly lvl 20 e morria em ~3s, curava na Joy, voltava e morria de
+novo — travado horas no mesmo nivel enquanto a tela dizia "60k XP/h". A engine so
+modelava o lado ofensivo: Psiquico bate x2,5 em Venenoso, e ninguem media o Fantasma
+batendo x2,5 de volta num bicho de 9 de HP.
+- `combat.ts` ganhou `threatOf()` (mesma formula, lados trocados) -> `killsPerLife` e
+  `uptime`; KOs/h, XP/h e ouro/h que saem do motor ja sao EFETIVOS, e alvo letal (menos
+  de 2 kills por vida) fica fora da rota. Ver
+  [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] e
+  [[Rendimento é vazão vezes tempo em pé, não vazão de pico]].
+- Golpes do wild vem por `movesOf(pokeId)` do catalogo que a pagina ja manda — carregar
+  os ataques em cada alvo custaria ~120KB no payload publico.
+- O cerebro usa os stats REAIS do frame `pokes` (`fighterOf` + `estimateIvs` por stat,
+  invertendo o IV no nivel em que o stat foi lido): sem isso o lado defensivo chutava IV
+  medio e nao via os 9 de HP.
+- Robo: dois desmaios no mesmo alvo banem a hunt, refazem o plano e trocam sozinho —
+  [[Estimativa desmentida pela realidade vira veto temporário do motor]].
+- UI: o card da rota mostra os dois lados (seu golpe / o que voce leva) com o risco
+  colorido, o preview do plano ganhou LED de risco e o painel do robo diz quantos kills
+  o indicado aguenta. `/api/vip/best-poke` parou de indicar o glass cannon.
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
-- Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
+- Aplica: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
 - Referencia: [[Poke Idle World - endpoints publicos de dados]]
 - Mapa: [[Projetos]]

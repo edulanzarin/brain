@@ -70,6 +70,7 @@ UI que mostra dado que muda sem o usuário pedir.
 - [[Progresso idle é função pura do tempo semeada, não simulação tick a tick]] — o ganho de um período se resolve com uma função determinística sobre o Δt, não simulando o relógio; offline honesto e à prova de cliente.
 - [[Versão é corte deliberado em SemVer, não efeito de cada merge]]
 - [[Coerência em geração vem de âncora, não de liberdade]] — gerar coerente (procedural ou IA) vem de prender a uma referência/peça curada, não de gerar livre.
+- [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] — ao ranquear opções, o custo de falhar entra como tempo parado dentro do mesmo número; vazão de pico escolhe o que quebra primeiro.
 
 ## Cérebro — como este vault funciona
 
