@@ -692,8 +692,15 @@ Abra lider morreu e nada na tela disse isso — a hunt seguia "ligada" sem matar
 - Estrela virou marca SO de shiny (no lider dava impressao de shiny), e o botao "Meus
   Pokemons" saiu do cockpit pra Conta.
 
+**Fila de planos de leveling (19a passada, ago/2026):** o plano fechava e o robo caia no
+auto — upar o proximo pokemon era refazer tudo. Agora empilha ate 3: ao bater a meta o
+robo faz `poke-summon` do proximo, calcula a rota pelo nivel real dele e entra na primeira
+faixa. Migration 019 (`robot_sessions.leveling_queue`, so os que ainda nao comecaram); o
+plano com bicho fora do time ou ja acima do alvo e pulado com alerta. Ver
+[[Fila de metas pula o item impossível com aviso, e nunca fica parada]].
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
-- Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]]
+- Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
 - Referencia: [[Poke Idle World - endpoints publicos de dados]]
 - Mapa: [[Projetos]]

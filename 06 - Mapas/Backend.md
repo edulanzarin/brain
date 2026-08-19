@@ -148,6 +148,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   viram uma conexão SSE de eventos nomeados: push do que é memória (EventEmitter do
   singleton), poll server-side ÚNICO do que é banco/API externa, snapshot no connect.
   Princípio: [[Estado vivo se empurra, não se pergunta]].
+- [[Fila de metas pula o item impossível com aviso, e nunca fica parada]] — motor que
+  cumpre uma meta e para transforma o dono em agendador; a fila valida de novo na hora
+  de executar, pula o inviável com alerta e cai no modo contínuo quando esvazia.
+  Princípio: [[Guarde a intenção e o processo se reconstrói dela]].
 - [[Estado desejado persistido religa o robô depois do restart]] — a intenção do
   usuário (ligado, modo, alvo) numa tabela; reconexão com backoff renovando o token
   antes de reabrir o WS, e o boot do container relendo a tabela e religando.
