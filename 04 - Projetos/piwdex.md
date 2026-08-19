@@ -740,8 +740,22 @@ agora. O modal foi pra `max-w-lg` e perdeu o "ver na dex" — ele existe pra dec
 COMPRA, e o botao verde leva a linha inteira com o valor. Ver
 [[Alerta guarda o retrato do instante; quem tem o id relê a fonte]].
 
+**Onde o boost paga (23a passada, ago/2026):** varredura do `.har` de sessao logada (131
+requests) achou a pilha completa de bonus que o servidor soma no ganho — `base + streak +
+boost + vip + event + mentor + typeDay - debuff` — e a Pokepedia embutida no bundle i18n
+com as formulas: Streak Points (1 ponto/1000 abates, custo 25k x n, +0,1% por ponto nas
+trilhas EXP/Loot/Shiny), os 5 boosts da Loja de Diamantes (Loot Boost = +40% de chance) e
+o Tipo do Dia. O achado que mudou a ferramenta veio dos DADOS, nao da doc: 157 das 2.657
+entradas de loot estao travadas em 95.000 de 100.000 — teto. Como os bonus multiplicam a
+CHANCE, o spot mais rico (Exploud 550, 3.914 de ouro/abate) aproveita so 17% de um +41%,
+enquanto Aggron 550 rende +587/abate com 45% e Bastiodon 100 converte quase 100%.
+Ordenar por "spot mais rico" mandava queimar boost no lugar errado. Nasceu `/boost`
+(`src/lib/boost.ts` puro + ferramenta cliente): ordena por ganho marginal, mostra o
+aproveitamento em barra colorida e calcula o payback do proximo Streak Point sobre o
+cenario atual. Ver [[Bônus multiplicativo só rende onde há folga até o teto]].
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
-- Aplica: [[Alerta guarda o retrato do instante; quem tem o id relê a fonte]] · [[Comando que responde ok e não muda nada tem pré-condição de estado]] · [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
+- Aplica: [[Bônus multiplicativo só rende onde há folga até o teto]] · [[Alerta guarda o retrato do instante; quem tem o id relê a fonte]] · [[Comando que responde ok e não muda nada tem pré-condição de estado]] · [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
 - Referencia: [[Poke Idle World - endpoints publicos de dados]]
 - Mapa: [[Projetos]]

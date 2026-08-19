@@ -160,6 +160,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   simétrica (vantagem de tipo, custo, limite) modelada de um lado só inverte a
   recomendação; a mesma fórmula com os lados trocados vira "quanto você aguenta".
   Princípio: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]].
+- [[Bônus multiplicativo só rende onde há folga até o teto]] — bônus percentual sobre
+  grandeza que satura rende a distância até o teto, não o tamanho do valor; ordenar
+  pelo bruto manda gastar o bônus onde ele se perde. Ordene pelo ganho marginal e
+  mostre a fração aproveitada.
+  Princípio: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]].
 - [[Estimativa desmentida pela realidade vira veto temporário do motor]] — o fato
   observado (duas quedas no mesmo alvo) veta a recomendação, refaz o plano inteiro e
   caduca na unidade do problema; sem alternativa, alerta em vez de loop calado.
