@@ -677,6 +677,21 @@ relancava o acumulado inteiro em `robot_sales` a cada troca (dupla contagem nas
 Estatisticas). A sessao passou a guardar uma base e expor so o delta; ver
 [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]].
 
+**Vida do time, cura na Joy e o chip de raridade honesto (18a passada, ago/2026):** o
+Abra lider morreu e nada na tela disse isso — a hunt seguia "ligada" sem matar nada.
+- `hp`/`maxHp` ja vinham no frame `pokes` (poll de 20s) e ja eram desenhados: uma barra
+  fina sem numero, que em 0 fica IGUAL a caixa sem dado. Virou primitivo (`ui/hp.tsx`)
+  com numero, trilho vermelho pulsando e chip DESMAIADO —
+  [[Zero num medidor é estado, não barra vazia]].
+- Cura: `joy-heal` -> `joy-healed` + `pokes` (HAR). Botao onde ha alguem caido e
+  auto-cura do robo quando o LIDER cai com hunt ligada (cooldown 1min, 1 alerta por
+  episodio); confirmacao pelo HP que volta, nao pelo ack. A Joy cura so o TIME.
+- A Conta mostrava a raridade da ESPECIE no time (tudo "comum") enquanto o resto do site
+  mostra a faixa do INDIVIDUO (quality) — mesmo bicho, dois rotulos:
+  [[Chip que serve a duas grandezas declara qual delas mostra]].
+- Estrela virou marca SO de shiny (no lider dava impressao de shiny), e o botao "Meus
+  Pokemons" saiu do cockpit pra Conta.
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
 - Aplica: [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]]

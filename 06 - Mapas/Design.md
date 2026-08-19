@@ -57,6 +57,9 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 - [[Seletor cria e gerencia os próprios itens]] — combobox que cria ao digitar e
   renomeia/exclui no painel, dispensando tela de CRUD do auxiliar.
 - [[Blocos de dado - card, KPI e gráfico]] — card, stat tile, gráfico e tabela.
+- [[Chip que serve a duas grandezas declara qual delas mostra]] — dois eixos que
+  compartilham vocabulário (espécie x indivíduo, previsto x realizado) precisam do
+  eixo declarado no componente, senão a mesma entidade se contradiz entre telas.
 - [[Modal com conteúdo que cresce tem teto de altura e área que rola]] — overlay não
   pode crescer sem fim: teto no painel, scroll na parte que cresce.
 - [[Primitiva de botão fecha o tamanho e abre só a variante]] — o botão vira
@@ -79,6 +82,9 @@ Princípios: [[A variante de um controle muda a intenção, não o tamanho]]
 - [[Filtro de lista mora na URL]] — estado que sobrevive ao reload.
 - [[Consulta pesada executa por botão, não por mudança de filtro]] — rascunho e
   aplicado; o verbo do botão segue a ação real da tela.
+- [[Zero num medidor é estado, não barra vazia]] — barra em 0 é igualzinha a "não
+  carregou": número sempre visível, trilho de alerta, chip com a palavra e a ação
+  que resolve no mesmo card.
 
 Princípios: [[Todo estado da tela tem visual]] · [[Estado compartilhável mora na URL]] ·
 [[Dado que chega preenche espaço reservado, não empurra a tela]]

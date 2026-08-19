@@ -138,6 +138,11 @@ com token real):
   `id, speciesId, name, level, shiny, finalStage, team, slot, leader, starter, sellValue,
   looktype, xp, hp, maxHp, type1, stats{hp,atk,def,spAtk,spDef,speed}, quality, ivTotal,
   power`. **Time ativo = `team:true`** (ordenar por `slot`; `leader:true` marca o lider).
+- **`{type:"joy-heal"}`** (sem parametro) -> `joy-healed` + `pokes` com o HP cheio: e a
+  enfermeira Joy. Cura o TIME; quem esta no BOX continua desmaiado (visto em HAR: Ledian
+  0/24 no box seguiu 0/24 depois do healed). Pokemon em 0 de `hp` nao entra em campo, e
+  `hp` so existe no frame `pokes` — `/api/characters/me` nao traz vida e `field` so vale
+  dentro da hunt.
 - Outros eventos ao vivo (nao usados ainda): `field/field-kill/poke-xp/catch-result/
   shiny-global`. Protocolo tambem em `AntonioFleck/poke-idle-launcher` (`docs/WS_SCHEMA.md`).
 - **PEGADINHA CRITICA: o WS E a sessao de jogo (single-session).** Conectar com o token
