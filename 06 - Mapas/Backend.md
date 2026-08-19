@@ -135,6 +135,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]] —
   comando que muta o outro lado (WS/fila/RPC): confirme relendo o estado e vendo o efeito,
   não esperando o ack que pode não vir. Princípio: [[Um invariante se garante na estrutura, não no processo]].
+- [[Comando que responde ok e não muda nada tem pré-condição de estado]] — o ack veio e o
+  estado ficou igual: o comando é de outro estado do sistema. Sai do estado, age, volta
+  pela intenção guardada — e mostra na tela que está se recuperando.
+  Princípio: [[Guarde a intenção e o processo se reconstrói dela]].
 - [[Total ao vivo é o persistido fechado mais o em andamento ainda não gravado]] — dashboard
   cumulativo que não zera durante a unidade: soma o persistido (fechado) + o vivo (em memória),
   contando o vivo só enquanto não foi gravado. Princípio: [[Um invariante se garante na estrutura, não no processo]].

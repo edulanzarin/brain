@@ -50,6 +50,25 @@ Os 194 nomes de loot batem 100% com `items.json`.
   learnLevel) sao do jogo e corretos. STAB no jogo e o classico **1.5x** em golpe do
   mesmo tipo do pokemon (separado da efetividade x2/x0.5).
 
+## Desmaio, revive e a enfermeira (WS, lido do bundle do cliente ago/2026)
+
+O lado que a documentação não tem e que quebra qualquer automação de caçada:
+
+- O frame `field` (~2/s) traz **`heroHp`, `heroMaxHp`, `fainted`, `reviveInMs`** — é a
+  fonte rápida de "o líder caiu"; a lista `pokes` só passa a cada 20s.
+- **`{"type":"field-revive"}`** levanta o líder em pleno campo gastando um **Revive** da
+  bolsa (itens de categoria `revive`). É o botão "Reviver agora" do modal de desmaio.
+- **`{"type":"joy-heal"}`** é a ação da NPC Nurse Joy, que fica **na cidade**: cura o time
+  de graça, mas **não levanta quem está EM CAMPO**. Mandar `leave-hunt` antes.
+- **`{"type":"use-heal","itemId":N}`** usa poção (`heal`) ou revive da mochila.
+- Com o líder desmaiado o jogo **recusa entrar em caçada**: "Cure-o com a Nurse Joy ou use
+  um Revive antes de ir caçar".
+- Viajar entre cidade e caçada é **client-side** (só `GET /api/game/hunt-config?slug=` e o
+  mapa renderiza). Para o servidor, "onde você está" é apenas estar ou não em campo
+  (`enter-hunt`/`leave-hunt`) — e é disso que a Joy depende.
+
+Ver [[Comando que responde ok e não muda nada tem pré-condição de estado]].
+
 ## API autenticada e realtime (JWT, dado da conta)
 
 So pra companion logado. Base `poke.idleworld.online`, token em `pokeweb:tokens`

@@ -720,8 +720,18 @@ batendo x2,5 de volta num bicho de 9 de HP.
   colorido, o preview do plano ganhou LED de risco e o painel do robo diz quantos kills
   o indicado aguenta. `/api/vip/best-poke` parou de indicar o glass cannon.
 
+**A cura que nao curava (21a passada, ago/2026):** o robo mandava `joy-heal` e o pokemon
+seguia morto — hunt ligada, zero kills, nivel travado. O bundle do cliente explicou: a Joy
+e NPC da CIDADE e nao alcanca quem esta EM CAMPO, e o jogo ainda recusa entrar em hunt com
+o lider caido (ate a troca de hunt do cerebro batia nisso). Ordem nova: `field-revive`
+(gasta Revive da bolsa e levanta sem sair da hunt) -> senao `leave-hunt` + `joy-heal` (de
+graca, fora do campo) -> HP de volta, re-entra no mesmo slug sozinho. O frame `field`
+(~2/s) da o desmaio quase na hora (`heroHp`/`fainted`), contra os 20s do `pokes`; a
+auto-compra repoe Revive sempre que ligada, e o status para de dizer "ao vivo" com o bicho
+no chao. Ver [[Comando que responde ok e não muda nada tem pré-condição de estado]].
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
-- Aplica: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
+- Aplica: [[Comando que responde ok e não muda nada tem pré-condição de estado]] · [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
 - Referencia: [[Poke Idle World - endpoints publicos de dados]]
 - Mapa: [[Projetos]]
