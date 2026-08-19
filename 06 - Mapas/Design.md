@@ -42,6 +42,8 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   componente vencer a utilitária sem `!important`.
 - [[A classe do chamador só vence a do primitivo com tailwind-merge]] — quando o
   default do primitivo é utilitário, concatenar não basta: precisa de merge.
+- [[Trocar a fonte muda a largura, não só o desenho da letra]] — a família nova
+  reescreve os slots fixos, a base em rem e os pesos disponíveis.
 
 Princípios: [[Escala fechada em vez de valor solto]] ·
 [[Container tem largura máxima e respiro constante]]
@@ -61,6 +63,8 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
   componente que expõe cor, não tamanho; o `!h-7` por instância deixa de existir.
 - [[Barra de topo contextual - o módulo injeta suas ferramentas via portal]] — o
   topo muda por tela: cada módulo manda busca/ações via slot, sem busca duplicada.
+- [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]]
+  — glifo cheio e traço fino não vivem na mesma escala; piso de 14px.
 
 Princípios: [[A variante de um controle muda a intenção, não o tamanho]]
 

@@ -425,6 +425,37 @@ tela quando valores aparecem/somem. Entregue em 5 commits (branch
 Verificado: `tsc` limpo, `next build` ok, smoke das paginas publicas em producao
 local (200 em todas; /vip 307 pro login como esperado).
 
+**Fim do pixel na tipografia e nos icones (18a passada, ago/2026):** o Eduardo rejeitou
+a fonte pixel e os icones desenhados em pixel ("feio"). O pixel ficou restrito ao que e
+pixel de verdade: os SPRITES do jogo.
+- **Fonte**: Jersey 10 -> Chakra Petch -> **Quantico** (escolha final: quadrada, tech).
+  Quantico so tem 400 e 700, entao o CSS abandonou 500/600 — `font-medium` renderizava
+  400 e `font-semibold` renderizava 700 por fallback do matching de peso; o codigo agora
+  diz o que a tela mostra. Base voltou pra 16px e a escala virou px redondos (piso 14px).
+- **Icones**: os grids ASCII (icons/nav/stat/type/tool/pokebola/bandeiras) viraram
+  **lucide-react** com a MESMA API (`size`/`className`), entao os ~48 consumidores nao
+  mudaram. Pegadinha que virou o grosso do trabalho: os glifos pixel eram desenhados pra
+  8-12px e ~350 chamadas usavam esses tamanhos — **icone de linha nessa escala e borrao**.
+  Piso de 14, 16 em controle, 18 em cabecalho de painel. Ver
+  [[Trocar arte por icone de linha exige recalibrar tamanho, nao so trocar o componente]].
+- **Molduras coloridas mortas**: `ToolFrame`/`tool-shell` deletados; a unica casca colorida
+  do site e o aparelho vermelho da Pokedex. As paginas de ferramenta ganharam cabecalho em
+  card pro texto nao boiar.
+- **Vidro como material padrao**: `.card`/`.well` com superficie translucida + blur +
+  fio de luz (o material do modal, que ele aprovou). Flutuantes sairam do fundo chapado
+  com opacidade calibrada caso a caso. Ver
+  [[Vidro precisa de opacidade por camada, senao o flutuante fica ilegivel]].
+- **Nav do topo espelha a home**: mesma ordem e mesmos icones dos cards (dex, items, hunt,
+  calc, eevee, breed). Nav do VIP perdeu icone e cor por secao: ativo por superficie+peso.
+- **Pokedex em container proprio de 92rem** (`.container-wide`) pra o card caber os dois
+  tipos lado a lado; no celular o chip de tipo mostra so o icone, que e o que cabe na
+  coluna. A ficha usa o mesmo container pra o aparelho nao mudar de largura.
+- **Passada de celular (360px)** em 6 lotes paralelos: tabela que encolhia em vez de rolar,
+  dropdown que saia da viewport, nome truncado em 5 letras, barra de comando somando mais
+  que a largura da tela, grades pulando degrau, alvos de toque de 36px.
+Verificado: `tsc` limpo, `next build` ok (949 paginas), smoke em producao local (200 em
+todas as publicas, /vip 307).
+
 ## Infra
 
 Slug `piwdex` · app `piwdex-app` na `4070` · banco `piwdex-db` na `5070` (Postgres 17,
