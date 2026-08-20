@@ -81,6 +81,11 @@ portas *unsafe* que o navegador recusa, como a 4045) em [[Uma faixa de portas po
 
 Relacionado, no [[Backend]]:
 [[Polling substitui webhook quando não há IP público]] — integração sem abrir porta.
+- [[Processo que guarda conexão viva não tolera deploy frequente, e o log não denuncia]] —
+  serviço com WebSocket/sessão em memória morre inteiro a cada deploy, e com auto-deploy
+  cada push derruba todo mundo. O log escreve "Ready" igual nos dois casos; quem denuncia
+  é uma sonda de `uptimeSeconds`. Compare a vida do processo com a menor janela interna
+  que ele precisa cumprir.
 
 ## Princípios que mandam aqui
 

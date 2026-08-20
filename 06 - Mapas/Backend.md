@@ -130,6 +130,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Integrações
 
+- [[Recusa não é falha: contra o não do servidor, insistir é ruído]] — retry serve pra
+  falha passageira; contra recusa (banido, sem permissão, cota) insistir só gasta
+  tentativa e esconde o motivo. Classifique 403/401/429 antes de decidir o retry, guarde
+  a frase crua do outro lado e desligue a INTENÇÃO, não só a conexão. Princípio:
+  [[Chamada externa tem timeout e erro tratado]].
 - [[O bundle público do cliente entrega o contrato da API sem documentação]] — sem doc
   e sem HAR da ação, os chunks JS públicos do cliente oficial têm a URL e o payload
   literais; extrair de lá é contrato real, não palpite.

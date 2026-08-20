@@ -816,8 +816,39 @@ ferramenta mostrando o numero que da pra calcular em vez do que responde a pergu
 - Home e nav reordenadas (dex, itens, hunt, calc, breed, boost, eevee, meta) e as
   descricoes dos cards reescritas pra prometer o resultado em vez de listar a feature.
 
+**A conta banida e o robo que nao parava de bater na porta (26a passada, ago/2026):** uma
+conta assinante tomou ban do jogo e o Eduardo relatou "nao conecto em conta NENHUMA". Dois
+problemas separados apareceram no diagnostico, e o barulhento nao era o do titulo.
+
+O primeiro era INFRA. Os logs de producao pareciam saudaveis — `Ready` em todo ciclo, zero
+stack trace — mas o servico estava sendo redeployado a cada poucos minutos (parte disso
+por PUSH MEU: auto-deploy ligado, seis pushes numa sessao de trabalho). O que fechou o caso
+foi comparar dois numeros que viviam em camadas diferentes: o container ficava de pe ~13s,
+e `CONTESTED_MS` exige que a conexao dure 25s pra o robo "vencer" a sessao. 13 < 25 — a
+conexao nunca sobrevivia, e cada queda contava strike de "conta tomada", entao o robo se
+pausava sozinho por um motivo inventado. Nasceu `/api/health` com `uptimeSeconds` (log de
+boot nao distingue processo de 3 horas de processo recem-nascido) e o `healthcheckPath`,
+que nao existia. Ver
+[[Processo que guarda conexão viva não tolera deploy frequente, e o log não denuncia]].
+
+O segundo era o pedido original: o motor tratava ban, rate limit e token vencido como a
+MESMA falha generica e reconectava pra sempre. Agora `refusalOf()` classifica (403 =
+terminal, 401 = reconectar resolve, 429 = esperar), o motor faz UMA pergunta REST antes de
+reabrir o socket (WebSocket nao sabe dizer "voce esta banido", so fecha), a recusa desliga
+o `enabled` no banco pra o boot nao religar, e a tela mostra a FRASE DO JOGO junto da
+explicacao. Migration 020. Ver
+[[Recusa não é falha: contra o não do servidor, insistir é ruído]].
+
+Ficou uma incognita honesta: nao sabemos ainda QUAL codigo o jogo usa pra ban. Em vez de
+chutar, a falha nao classificada passou a mostrar o status HTTP e o corpo cru — a regra se
+ajusta com a evidencia da conta banida de verdade.
+
+Nota de escopo: automacao de jogo e area em que o piwdex se expoe — o jogo esta banindo, e
+quem perde conta e o assinante que pagou. Contornar bloqueio de IP ficou fora, por decisao
+minha; as ferramentas publicas (dex, meta, boost, hunt, breeding) nao correm esse risco.
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
-- Aplica: [[Ordene pela grandeza que decide, não pela que impressiona]] · [[Tier é nota com régua fixa, não posição na fila]] · [[Campo que a normalização não copia vira número errado, não erro]] · [[Bônus multiplicativo só rende onde há folga até o teto]] · [[Alerta guarda o retrato do instante; quem tem o id relê a fonte]] · [[Comando que responde ok e não muda nada tem pré-condição de estado]] · [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
+- Aplica: [[Recusa não é falha: contra o não do servidor, insistir é ruído]] · [[Processo que guarda conexão viva não tolera deploy frequente, e o log não denuncia]] · [[Ordene pela grandeza que decide, não pela que impressiona]] · [[Tier é nota com régua fixa, não posição na fila]] · [[Campo que a normalização não copia vira número errado, não erro]] · [[Bônus multiplicativo só rende onde há folga até o teto]] · [[Alerta guarda o retrato do instante; quem tem o id relê a fonte]] · [[Comando que responde ok e não muda nada tem pré-condição de estado]] · [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
 - Referencia: [[Poke Idle World - endpoints publicos de dados]]
 - Mapa: [[Projetos]]
