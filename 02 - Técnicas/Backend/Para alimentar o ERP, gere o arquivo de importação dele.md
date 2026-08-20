@@ -36,10 +36,12 @@ valida e **emite o arquivo no layout de importação do próprio ERP**; um human
 importa e confere lá dentro. O ERP aplica seus invariantes na ingestão, como
 faria num lançamento digitado.
 
-- O layout é fixo e conhecido (no Questor, o `.nli` de importação de lançamentos:
-  `C;empresa;estab;data;contaDeb;contaCred;histórico;complemento;valor`,
-  delimitado por `;`, decimal com vírgula; `TIPOLANCAMENTO`/`ORIGEMDADO` já
-  fixados pelo layout).
+- O layout é fixo e conhecido — e às vezes há mais de um para o mesmo dado: o
+  Questor importa lançamento tanto pelo `.nli` quanto por um CSV curto, que
+  mudam separador, data e decimal entre si. Os dois em
+  [[Layouts de importação de lançamento contábil no Questor]]. Por isso o
+  **formatador é do layout, não do domínio**: trocar de layout tem que ser
+  trocar as funções de formatação, não reescrever o gerador.
 - **A saída é uma só; a entrada é que varia.** Balancetes vêm de softwares
   diferentes — por isso o parser de origem multiplica, mas desemboca num
   **formato canônico** e o gerador do arquivo é escrito uma vez. Ver a mecânica
@@ -64,5 +66,6 @@ sendo uma decisão humana auditável.
 - Princípio: [[Um invariante se garante na estrutura, não no processo]]
 - Irmã: [[Importação em massa passa pela API, não pelo banco]]
 - Depende de: [[Questor - conexão read-only e regras]]
+- Layouts: [[Layouts de importação de lançamento contábil no Questor]]
 - Visto em: [[Navetech Hub]] (Implantação de Saldos e Conciliação)
 - Mapa: [[Backend]]
