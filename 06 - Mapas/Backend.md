@@ -90,6 +90,15 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Composição e honestidade do resultado
 
+- [[Tier é nota com régua fixa, não posição na fila]] — faixa cortada por percentil de
+  posição mede fila, não mérito: o corte sai de score calibrado no histograma e escrito
+  como constante, senão um patch que melhora trinta itens não promove nenhum. Princípio:
+  [[Ordene pela grandeza que decide, não pela que impressiona]].
+- [[Campo que a normalização não copia vira número errado, não erro]] — o normalizador é
+  o contrato com a fonte: campo raro que ninguém listou some sem log e o motor passa a
+  mentir. Varra as chaves do conjunto todo a cada ingestão. Princípio:
+  [[Auditar o registro, não só o agregado]].
+
 - [[Fluxo de fechamento é orquestração dos motores que já existem]] — a tela de
   "posso fechar?" reusa os motores validados e só decide a cor; não recalcula.
 - [[Regra de envio recorrente materializa uma campanha e reprograma]] — regra =
@@ -221,6 +230,7 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Princípios que mandam aqui
 
+- [[Ordene pela grandeza que decide, não pela que impressiona]]
 - [[Permissão se valida no servidor, não na interface]]
 - [[Configuração vem do ambiente, não do código]]
 - [[Ambiente de dev sobe igual ao de produção]]

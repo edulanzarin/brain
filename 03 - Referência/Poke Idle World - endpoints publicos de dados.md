@@ -22,7 +22,27 @@ Cloudflare bloqueia bot generico: mandar `User-Agent` de navegador.
 | `poke.idleworld.online/api/game/map-markers` | 347 hunts: `slug, name, looktype, level, area, pixel[x,y], range[]` + `map{w,h}` |
 
 `loot[]` = `{name, chance, minCount, maxCount}`. `attacks[]` =
-`{name, type, category, power, cooldownMs, learnLevel}`.
+`{name, type, category, power, cooldownMs, learnLevel, tm?}`.
+
+A criatura tambem traz `area?` e `captureBase?` (e `orreTier`/`orreXpMul` nas de Orre).
+
+## Tres chaves que destravam o dado
+
+- **`attacks[].tm` separa golpe de maquina de golpe natural** (o valor e o TIPO da TM,
+  ex. `"PSYCHIC"`; ausente = natural). Nao e detalhe: os **187 golpes de poder 600 do
+  jogo sao TODOS de TM**, 165 das 482 especies tem alguma, e em 164 delas o melhor golpe
+  muda ao incluir TM — Alakazam vai de Psybeam (poder 56) a Mental Singularity (poder
+  600), **10,7x de DPS**. Qualquer motor que compare velocidade de kill precisa de um
+  POOL explicito (natural x com TM), com o padrao no natural: e o que todo jogador tem.
+  Os golpes 600 sao um por tipo elemental (Petal Bloom = planta, Ignition Point = fogo,
+  Massive Hurricane = voador, Cyclonic Tide = agua, Mental Singularity = psiquico...).
+  TM nao pode ser usada em Shiny Ditto.
+- **`captureBase` separa variante de skin de especie de verdade.** Aponta a especie que
+  se captura pra chegar naquela. As 48 variantes fora de Orre (Brave Blastoise, Tribal
+  Feraligatr) apontam pra base e sao a MESMA linha do catalogo; as 72 de `area: "orre"`
+  tambem apontam, mas tem stats proprios (Treecko de Orre: HP 40 -> 53) e contam como
+  especie separada. O conjunto "jogavel" = `captureBase == null || area === "orre"` =
+  **434 especies**.
 
 ## Duas chaves que destravam o dado
 

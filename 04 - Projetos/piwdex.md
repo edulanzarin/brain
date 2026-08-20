@@ -754,8 +754,48 @@ Ordenar por "spot mais rico" mandava queimar boost no lugar errado. Nasceu `/boo
 aproveitamento em barra colorida e calcula o payback do proximo Streak Point sobre o
 cenario atual. Ver [[Bônus multiplicativo só rende onde há folga até o teto]].
 
+**Meta Analyzer, e o TM que sumia na porta de entrada (24a passada, ago/2026):** o pedido
+era a pagina `/meta` do piwtools. Descompilar o bundle deles mostrou o calculo: ataque =
+`poder x stat base`, defesa = `hp+def+spDef`, soma 55/35/10 (o 10 e VELOCIDADE) e tier
+cortado por posicao na fila. Os quatro pontos estao errados pro jogo, e a auditoria do
+proprio catalogo achou um quinto — dentro do piwdex.
+
+O achado que mudou mais coisa nao foi do meta: a fonte marca cada golpe com `tm` (o tipo
+da maquina) e a normalizacao do piwdex **jogava o campo fora**. Todos os 187 golpes de
+poder 600 do jogo sao de TM, 165 das 482 especies tem alguma, e em 164 delas o "melhor
+golpe" muda ao incluir TM — Alakazam sai de Psybeam (poder 56) pra Mental Singularity
+(poder 600), **10,7x de DPS**. O Hunt Planner e o robo vinham prometendo essa velocidade
+de kill pra quem nunca comprou a maquina. Ver
+[[Campo que a normalização não copia vira número errado, não erro]]. `area` e
+`captureBase` sumiam do mesmo jeito: marcam as 72 especies de Orre (stats proprios) e
+separam variante de skin (Brave Blastoise) de especie de verdade — e e delas que sai o
+conjunto "jogavel" de 434.
+
+`combat.ts` ganhou pool explicito (`natural` por padrao, `tm` opcional) e o lado selvagem
+nunca usa TM. `hitDamage()` virou a formula unica de dano dos dois motores.
+
+O motor novo (`src/lib/meta.ts`) troca as tres contas do piwtools pelas grandezas que
+decidem — ver [[Ordene pela grandeza que decide, não pela que impressiona]]:
+- ataque e **dano por segundo** (poder ÷ recarga, com STAB), porque o combate do PIW nao
+  tem turno: o golpe sai quando a recarga acaba. Solar Beam de 30s valia igual a um golpe
+  de 5s na conta deles;
+- defesa e **HP efetivo** (hp x defesa media), porque HP e defesa se multiplicam: somar
+  diz que 200/20 e igual a 20/200, e o primeiro aguenta 10x;
+- **velocidade sai do score**. A `pokepedia/systems/power` so usa Speed na soma do Power
+  exibido; nenhum sistema publicado do jogo da a ela efeito em combate.
+- tier virou nota com corte de score fixo, calibrado no histograma real (bimodal com TM,
+  unimodal sem) — ver [[Tier é nota com régua fixa, não posição na fila]].
+
+A pagina tem cinco abas sobre o mesmo motor, com o pool valendo pra ferramenta inteira:
+tier list agrupada, rankings ordenaveis, perfil (papel por percentil de stat, golpes por
+dano/s, tipagem, e nemesis/presas vindas de duelo com os DOIS lados medidos — nao "quem
+tem o tipo certo"), analise por tipo e **Stadium** (arena com alvo + time de 6, cartas com
+nivel/Quality/IV reais simuladas pelo mesmo modelo do Hunt Planner, deck no localStorage
+e link compartilhavel validado na entrada). Motor puro no `lib`, payload enxuto pro
+cliente (so os golpes que causam dano), i18n pt/en/es.
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
-- Aplica: [[Bônus multiplicativo só rende onde há folga até o teto]] · [[Alerta guarda o retrato do instante; quem tem o id relê a fonte]] · [[Comando que responde ok e não muda nada tem pré-condição de estado]] · [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
+- Aplica: [[Ordene pela grandeza que decide, não pela que impressiona]] · [[Tier é nota com régua fixa, não posição na fila]] · [[Campo que a normalização não copia vira número errado, não erro]] · [[Bônus multiplicativo só rende onde há folga até o teto]] · [[Alerta guarda o retrato do instante; quem tem o id relê a fonte]] · [[Comando que responde ok e não muda nada tem pré-condição de estado]] · [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
 - Referencia: [[Poke Idle World - endpoints publicos de dados]]
 - Mapa: [[Projetos]]
