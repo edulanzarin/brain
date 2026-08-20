@@ -58,6 +58,6 @@ normalização extra.
 
 ## Conexões
 - Princípio: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]]
-- Irmã: [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]]
+- Irmã: [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Bônus condicional se avalia contra quem não o recebe]]
 - Visto em: [[piwdex]]
 - Mapa: [[Backend]]

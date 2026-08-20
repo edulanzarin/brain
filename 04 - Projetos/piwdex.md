@@ -798,11 +798,13 @@ cliente (so os golpes que causam dano), i18n pt/en/es.
 lote de acertos pedidos pelo Eduardo, e tres deles vinham do mesmo tipo de erro — a
 ferramenta mostrando o numero que da pra calcular em vez do que responde a pergunta.
 
-- **Tipo do Dia era um campo de "%"** somado ao multiplicador global. Errado: ele da
-  +50% de loot (e de XP) SO nos pokemons daquele tipo — o unico bonus CONDICIONAL da
-  pilha. Virou seletor de tipo; `lootMultiplier`/`boostRoi` passaram a receber os tipos
-  do ALVO, o tile mostra os dois multiplicadores (fundo e tipo premiado) e a lista marca
-  com +50% quem pega. Ver [[Ordene pela grandeza que decide, não pela que impressiona]].
+- **Tipo do Dia era um campo de "%"** somado ao multiplicador global. Errado: ele so
+  rende nos pokemons daquele tipo — o unico bonus CONDICIONAL da pilha. Virou seletor de
+  tipo; `lootMultiplier`/`boostRoi` passaram a receber os tipos do ALVO, o tile mostra os
+  dois multiplicadores (fundo e tipo premiado) e a lista marca quem pega. Ver
+  [[Ordene pela grandeza que decide, não pela que impressiona]]. (O valor anotado aqui era
+  +50%, observado da tela do jogo; a 27a passada leu +20% da API e corrigiu — ver
+  [[Número de regra alheia se lê da fonte, não se congela em constante]].)
 - **Estrela da Eevee com os cards sobrepostos** (o Espeon cobrindo a Eevee): os cards
   eram posicionados em `left/top` de um container de 760px FIXOS, calibrado na fonte
   pixel antiga. Com a Quantico os cards ficaram mais altos e vazaram. Virou grid 3x3 —
@@ -847,8 +849,46 @@ Nota de escopo: automacao de jogo e area em que o piwdex se expoe — o jogo est
 quem perde conta e o assinante que pagou. Contornar bloqueio de IP ficou fora, por decisao
 minha; as ferramentas publicas (dex, meta, boost, hunt, breeding) nao correm esse risco.
 
+**O que paga mais hoje, e o +50% que era +20% (27a passada, ago/2026):** o Eduardo pediu
+na Hunt do robo uma forma de aproveitar o tipo premiado do dia — "pra ganhar mais dinheiro
+de acordo com os poke que tenho; o que vai me dar mais $$/h".
+
+Sondar a API antes de construir mudou duas coisas de uma vez. `/api/game/boosts` respondia
+401 (existe, e nosso com token) e entrega o Tipo do Dia pronto — nao precisa mais o
+Eduardo escolher o tipo todo dia. E o que ele entrega desmente o site: **+20%, nao os
++50%** que estavam na constante desde a 23a passada, anotados de observacao de tela. A
+ferramenta prometia 2,5x o ganho real. `TYPE_DAY_BONUS` virou reserva de quem nao tem
+conta conectada, `LootBonuses` ganhou `typeDayPct` pra o valor lido mandar, e o "+50%"
+chumbado na tabela do `/boost` passou a sair da constante — foi a etiqueta chumbada que
+fez o numero errado sobreviver a uma revisao inteira. Ver
+[[Número de regra alheia se lê da fonte, não se congela em constante]].
+
+O payload cobrou uma segunda licao: o campo `pct` do evento veio **zero** e o numero real
+estava na frase, no idioma da conta ("Tipo do Dia: Sombrio"). O parser le a frase primeiro,
+casa a porcentagem por proximidade da palavra-chave e traduz o tipo por palavra inteira em
+pt/en/es, guardando o rotulo cru quando nao reconhece. Testado contra o payload real do dia
+mais variacoes de idioma e formato. Ver
+[[Quando o campo numérico vem zerado, o número está na frase]].
+
+O ranking (`rankMoney` em `hunt-brain.ts`, rota `/api/vip/money`, painel
+`type-day-panel.tsx`) cruza roster REAL (time + box, do frame `pokes`) x alvos, com o
+ouro/abate recalculado **drop a drop com o teto** — o `goldEV` do motor de rota e ouro sem
+bonus e sem teto, e usar ele aqui esconderia justamente o efeito que decide. Sai o melhor
+pokemon SEU por alvo, alvo letal fica fora, e cada linha cai no mesmo modal de inicio do
+modo manual com alvo e pokemon preenchidos.
+
+A conferencia contra o snapshot deu a licao de desenho: hoje (Sombrio) os alvos de nivel
+alto convertem so **24-45%** do +20% — os drops comuns deles ja nascem em 95% de chance —
+e o **top 5 de ouro por abate do catalogo nao mudou** com o bonus ligado, nenhum deles do
+tipo premiado. Por isso a lista e o catalogo inteiro com o bonus aplicado onde vale, e nao
+os alvos do tipo do dia: filtrar teria mandado trocar de cacada com cara de otimizacao.
+Ver [[Bônus condicional se avalia contra quem não o recebe]].
+
+Pendente sem relacao com a feature: o banco local nao rodou a migration 020 (o boot do robo
+loga `column "block_status" does not exist`) — `npm run db:migrate` resolve.
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
-- Aplica: [[Recusa não é falha: contra o não do servidor, insistir é ruído]] · [[Processo que guarda conexão viva não tolera deploy frequente, e o log não denuncia]] · [[Ordene pela grandeza que decide, não pela que impressiona]] · [[Tier é nota com régua fixa, não posição na fila]] · [[Campo que a normalização não copia vira número errado, não erro]] · [[Bônus multiplicativo só rende onde há folga até o teto]] · [[Alerta guarda o retrato do instante; quem tem o id relê a fonte]] · [[Comando que responde ok e não muda nada tem pré-condição de estado]] · [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
+- Aplica: [[Número de regra alheia se lê da fonte, não se congela em constante]] · [[Quando o campo numérico vem zerado, o número está na frase]] · [[Bônus condicional se avalia contra quem não o recebe]] · [[Recusa não é falha: contra o não do servidor, insistir é ruído]] · [[Processo que guarda conexão viva não tolera deploy frequente, e o log não denuncia]] · [[Ordene pela grandeza que decide, não pela que impressiona]] · [[Tier é nota com régua fixa, não posição na fila]] · [[Campo que a normalização não copia vira número errado, não erro]] · [[Bônus multiplicativo só rende onde há folga até o teto]] · [[Alerta guarda o retrato do instante; quem tem o id relê a fonte]] · [[Comando que responde ok e não muda nada tem pré-condição de estado]] · [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]
 - Referencia: [[Poke Idle World - endpoints publicos de dados]]
 - Mapa: [[Projetos]]

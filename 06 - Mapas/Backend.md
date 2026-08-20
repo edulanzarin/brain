@@ -179,6 +179,21 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   pelo bruto manda gastar o bônus onde ele se perde. Ordene pelo ganho marginal e
   mostre a fração aproveitada.
   Princípio: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]].
+- [[Bônus condicional se avalia contra quem não o recebe]] — bônus que só vale pra parte
+  dos candidatos não pode virar filtro: a lista mostra o conjunto inteiro com o bônus
+  aplicado onde vale, mais o contrafactual (o mesmo candidato sem ele). "Quem ganha o
+  bônus" e "quem paga mais" costumam ser respostas diferentes.
+  Princípio: [[Ordene pela grandeza que decide, não pela que impressiona]].
+- [[Número de regra alheia se lê da fonte, não se congela em constante]] — número que é
+  de outro sistema vale pro dia em que foi observado; leia da API em execução com a
+  constante de reserva (datada), e a tela lendo a MESMA origem do cálculo — etiqueta
+  chumbada é o que faz o valor errado sobreviver à revisão.
+  Princípio: [[A definição em dado dirige o comportamento, não um caso no código]].
+- [[Quando o campo numérico vem zerado, o número está na frase]] — o campo tipado que
+  ninguém preenche (o front do dono renderiza o texto) devolve zero sem erro: frase como
+  fonte primária, campo como plano B, casando por proximidade e por palavra inteira, com
+  o rótulo cru preservado quando o nome não é reconhecido.
+  Princípio: [[Chamada externa tem timeout e erro tratado]].
 - [[Estimativa desmentida pela realidade vira veto temporário do motor]] — o fato
   observado (duas quedas no mesmo alvo) veta a recomendação, refaz o plano inteiro e
   caduca na unidade do problema; sem alternativa, alerta em vez de loop calado.

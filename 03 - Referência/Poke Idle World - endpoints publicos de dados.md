@@ -149,6 +149,20 @@ Formatos verificados com token real (todos `Bearer`):
   Icone via `assetIconUrl` (mesma regra do itemIconUrl).
 - `GET /api/game/streak` -> `{available, totalKills, bonusPct:{exp,loot,shiny}, tracks,...}`.
   **`bonusPct` e OBJETO** (exp/loot/shiny), nao numero.
+- `GET /api/game/boosts` -> `{boosts:[...], events:[{key,name,desc,pct,emoji,until}]}` — os
+  bonus ATIVOS. O **Tipo do Dia** e um evento de `key: "type-of-day"`, e tem duas
+  armadilhas: (1) o `pct` veio **ZERO** e o numero real estava na frase (`desc`: "+20% de
+  XP e +20% de loot em Pokemon do tipo Sombrio") — a frase e a fonte, o campo e o plano B;
+  (2) o tipo vem **no idioma da conta** ("Sombrio", nao "DARK"). `until` e epoch ms e cai
+  na virada do dia em horario de Brasilia (03:00Z). O bonus e de **+20%**, nao os +50% que
+  o piwdex tinha anotado por observacao de tela. `boosts` (temporarios, do jogador) veio
+  vazio na conferencia — formato ainda nao confirmado. Lido com token real, ago/2026. Ver
+  [[Quando o campo numérico vem zerado, o número está na frase]].
+- `GET /api/game/daily` -> calendario de recompensa diaria `{ym,vip,total,nextDay,canClaim,
+  claimedToday,rewards:[{day,label,icon,qty,tag,kind,locked,claimed,current}]}`. `kind` in
+  ball|item|idleball|xpboost|lootboost. Curiosidade util: o premio de boost do calendario
+  e "**Loot Boost +20% (1h)**", enquanto a Pokepedia da Loja de Diamantes fala em +40% —
+  ou sao itens diferentes, ou um dos dois textos esta velho. Nao confirmado.
 - `GET /api/game/breeding` -> `{unlocked, slots(desbloqueados), maxSlots(cap 6), usedSlots,
   pheromones, eggs:[...], shinyPartner}`.
 - `GET /api/game/professions` -> `{profession, rankName, catchBonusPct, speciesCount,...}`.
