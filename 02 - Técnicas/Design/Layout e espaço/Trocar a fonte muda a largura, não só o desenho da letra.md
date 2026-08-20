@@ -27,6 +27,12 @@ deliberada:
    Pedir 600 de uma fonte que só tem 400/700 não falha: o navegador casa o mais
    próximo (500→400, 600→700). O código passa a mentir sobre o que a tela mostra.
    Normalize as classes para os pesos que existem.
+4. **A ALTURA do bloco de texto.** Linha mais alta e rótulo que quebra em duas
+   engordam o card inteiro. Onde isso mata é o layout **posicionado à mão**: card
+   colocado em `left/top` de um container de altura fixa foi calibrado para a altura
+   antiga do conteúdo e não tem como avisar que cresceu — os cards simplesmente
+   passam a se sobrepor. Layout que se auto-mede (grid, flex) absorve a mudança
+   sozinho; posição absoluta com altura fixa é dívida esperando a próxima fonte.
 
 ## Por que importa
 
@@ -35,6 +41,13 @@ compilou de primeira e passou no build — o estrago era invisível para o compi
 slots truncando texto, cards apertados e `font-semibold` renderizando como bold sem
 ninguém ter pedido. A regra que sobrou: **trocar fonte agenda uma auditoria de
 largura**, não só um `git diff` no arquivo de layout.
+
+E o estrago continuou aparecendo semanas depois, no canto que ninguém revisou: a
+estrela de evolução da Eevee punha cada card em `left/top` de um container de 760px
+fixos. Com os cards mais altos, o Espeon passou a **cobrir** a Eevee do centro. O
+conserto não foi recalibrar as coordenadas — foi trocar por um grid 3x3, que não
+pode colidir em fonte nenhuma. Coordenada à mão precisa ser recalibrada a cada
+troca; layout que se auto-mede se conserta uma vez.
 
 ## Conexões
 - Princípio: [[Escala fechada em vez de valor solto]]

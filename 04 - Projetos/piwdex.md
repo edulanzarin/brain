@@ -794,6 +794,28 @@ nivel/Quality/IV reais simuladas pelo mesmo modelo do Hunt Planner, deck no loca
 e link compartilhavel validado na entrada). Motor puro no `lib`, payload enxuto pro
 cliente (so os golpes que causam dano), i18n pt/en/es.
 
+**Tipo do Dia, ordem da home, estrela quebrada e o XP invisivel (25a passada, ago/2026):**
+lote de acertos pedidos pelo Eduardo, e tres deles vinham do mesmo tipo de erro — a
+ferramenta mostrando o numero que da pra calcular em vez do que responde a pergunta.
+
+- **Tipo do Dia era um campo de "%"** somado ao multiplicador global. Errado: ele da
+  +50% de loot (e de XP) SO nos pokemons daquele tipo — o unico bonus CONDICIONAL da
+  pilha. Virou seletor de tipo; `lootMultiplier`/`boostRoi` passaram a receber os tipos
+  do ALVO, o tile mostra os dois multiplicadores (fundo e tipo premiado) e a lista marca
+  com +50% quem pega. Ver [[Ordene pela grandeza que decide, não pela que impressiona]].
+- **Estrela da Eevee com os cards sobrepostos** (o Espeon cobrindo a Eevee): os cards
+  eram posicionados em `left/top` de um container de 760px FIXOS, calibrado na fonte
+  pixel antiga. Com a Quantico os cards ficaram mais altos e vazaram. Virou grid 3x3 —
+  celula se estica com o conteudo e colisao deixa de ser possivel. Quarto item da
+  [[Trocar a fonte muda a largura, não só o desenho da letra]], que ganhou o caso.
+- **XP do pokemon nao aparecia em lugar nenhum** do bot (painel, Meus Pokemons, Conta):
+  dava pra ver "Lv19" e nao saber se faltava um minuto ou uma hora. A curva do jogo e
+  publica e bate exatamente com a conta real — novo `src/lib/xp.ts`, detalhe na nota de
+  referencia. Quando a fonte manda o XP acumulado a barra e exata; quando nao manda,
+  mostramos o TAMANHO do nivel, que com o XP/h da hunt ja responde "quanto falta".
+- Home e nav reordenadas (dex, itens, hunt, calc, breed, boost, eevee, meta) e as
+  descricoes dos cards reescritas pra prometer o resultado em vez de listar a feature.
+
 ## Conexoes
 - Usa: [[Design]] · [[Infra]]
 - Aplica: [[Ordene pela grandeza que decide, não pela que impressiona]] · [[Tier é nota com régua fixa, não posição na fila]] · [[Campo que a normalização não copia vira número errado, não erro]] · [[Bônus multiplicativo só rende onde há folga até o teto]] · [[Alerta guarda o retrato do instante; quem tem o id relê a fonte]] · [[Comando que responde ok e não muda nada tem pré-condição de estado]] · [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]] · [[Estimativa desmentida pela realidade vira veto temporário do motor]] · [[Sessão de outro domínio só se injeta rodando na origem dele]] · [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] · [[Lote recusado por um item se bissecciona até isolar o culpado]] · [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]] · [[Zero num medidor é estado, não barra vazia]] · [[Chip que serve a duas grandezas declara qual delas mostra]] · [[Fila de metas pula o item impossível com aviso, e nunca fica parada]]

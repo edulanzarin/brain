@@ -265,6 +265,29 @@ catchRate e um multiplicador -> so da pra falar em **eficiencia relativa** entre
 (Ultra ~4x menos bolas que Poke), nunca "% de captura". % real so calibrando com
 `used-balls` da conta.
 
+## Curva de XP e nivel (verificada contra a conta real)
+
+`pokepedia/systems/xp` publica a curva fechada, e ela vale pro TREINADOR e pro
+POKEMON — cada abate paga os dois, em niveis independentes:
+
+    XP acumulado pra estar no nivel L = round( 50/3 * (L^3 - 6L^2 + 17L - 12) )
+
+Nao ha teto de nivel. O custo de um nivel e `total(L+1) - total(L)`. Conferido com a
+conta do Eduardo: no Lv257 o jogo pede **3.264.100** pro proximo, e a formula da
+exatamente 3.264.100. (Lv19 -> 20 custa 15.400; a ~49k XP/h sao ~19 min.)
+
+Serve pra responder "quanto falta pro proximo nivel" mesmo quando a fonte NAO manda o
+XP acumulado do individuo — basta o nivel, que todo frame traz. Fontes de XP alem do
+abate: Pokedex (+25% uma vez por especie, apos 100 abates), tasks, quests e Game Pass.
+
+## Tipo do Dia (observado no jogo, fora da doc)
+
+Um tipo elemental e premiado por dia: **+50% de loot e +50% de XP, so nos pokemons
+DAQUELE tipo**. E o unico bonus CONDICIONAL da pilha — Streak, Loot Boost, evento e VIP
+valem em qualquer alvo. Tratar como percentual global infla o ganho do catalogo inteiro
+e manda cacar no lugar errado nos dias em que o tipo nao bate. A pokepedia so cita o
+nome no meio das fontes de bonus de loot; o valor vem da observacao (Eduardo, ago/2026).
+
 ## Formula de stat / IV / poder / qualidade (verificada)
 
 O stat final de cada atributo, dado base, IV, nivel e qualidade:
