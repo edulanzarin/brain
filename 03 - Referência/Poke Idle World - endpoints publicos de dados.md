@@ -149,6 +149,57 @@ Formatos verificados com token real (todos `Bearer`):
   Icone via `assetIconUrl` (mesma regra do itemIconUrl).
 - `GET /api/game/streak` -> `{available, totalKills, bonusPct:{exp,loot,shiny}, tracks,...}`.
   **`bonusPct` e OBJETO** (exp/loot/shiny), nao numero.
+## Captura: o que o jogo publica e o que ele esconde (ago/2026)
+
+A chance de captura por especie **nao existe no cliente**, e isso foi verificado ate o fim
+(nao e "nao achei"):
+
+- os 38 chunks do bundle **nao tem source map** — 114 URLs `.map` testadas, todas 404;
+  `/_next/static/` responde 403 e o build e Turbopack de producao;
+- `pokepedia/systems/capture` responde 200 mas com o corpo de "ainda nao documentado" — a
+  omissao e deliberada (as outras 13 fórmulas estao publicadas);
+- nenhum identificador de captura nos chunks (`catchBase`, `captureRate`, `pity`,
+  `ballsSpent` nao existem); o unico `Math.random()` do bundle e jitter de reconexao;
+- o frame `catch-result` devolve so `{success, pendingId, ballId, speciesName, ballName,
+  cooldownMs, auto}` — **quem rola o dado e o servidor**;
+- o `pending` (fila de captura) manda `{pokeId, name, level, shiny, shinyBase}`:
+  `shinyBase` e a UNICA probabilidade que o servidor entrega.
+
+O mecanismo, montado das strings do proprio jogo:
+
+- **captura normal** = chance por arremesso (funcao de HP, nivel e `catchRate` da bola)
+  MAIS um **medidor de investimento por especie**: sobe a cada bola gasta e **ZERA na
+  captura** (`usedBalls.recentAttemptsTip`, `tutorial.step.throwBall`). Ou seja, nao existe
+  "a chance do Pinsir" como numero fixo — ela se move dentro de cada ciclo.
+- **shiny** ignora o medidor: `pct = min(1, shinyBase x catchRate da bola)`.
+- **profissao**: +3% por rank na chance DIRETA, cumulativo de E ate x1,18 em S.
+- **Capture Boost** (loja de diamantes): dobra. **VIP nao da chance** — so libera o auto-catch.
+- **1 bola por tentativa**; `catchRate` das bolas: Poke 1, Great 2, Super 3, Ultra 4,
+  Idle 5, Master 255 (captura garantida).
+
+Correcoes do que se acreditava aqui antes:
+
+- **`catchChance` do `/api/game/hunt-config` e a chance de SHINY do spot**, nao a normal —
+  o editor de admin do jogo rotula esse mesmo campo como `admin.shinyCatchChance`. Vem 0
+  em todo spot (sem override).
+- **`captureBase` do catalogo nao e taxa de captura**: e o dexId da especie BASE de uma
+  variante (120 das 482, todas com pokeId 10xxx/13xxx). "War Heracross" -> 214 (Heracross).
+- **`/api/game/all-pokes` e PUBLICO** (200 sem token): 167 especies com
+  `{dexId, name, looktype, tier, count}`, onde `tier` e o tier de SHINY (E-S; hoje
+  C=90, D=51, B=11, E=8, A=7, S=0). A mesma tabela vive no cliente como `SHINY_BY_DEX`.
+
+Onde sobra medida (autenticado, e o unico caminho pra estimar):
+
+- `GET /api/game/used-balls` -> `{ballTypes, caught, pokemons:[{speciesId, dexId, name,
+  shiny, balls:{ballId:qtd}, attempts, total, price, goldSpent}]}`. **`attempts` = bolas
+  desde a ultima captura** (o medidor de investimento) e **`total`** = da vida inteira.
+- `GET /api/game/capture-log` -> `{total, shinyTotal, normalTotal, rows}` — `rows` e
+  limitado as **ultimas 100** capturas (nao serve de contador por especie).
+
+Etiqueta: o `robots.txt` do jogo pede `ai-train=no` e desautoriza `ClaudeBot`. As leituras
+acima foram consultas pontuais a pedido do dono da conta (GET, sem escrita); crawl em massa
+esta fora.
+
 - `GET /api/game/boosts` -> `{boosts:[...], events:[{key,name,desc,pct,emoji,until}]}` — os
   bonus ATIVOS. O **Tipo do Dia** e um evento de `key: "type-of-day"`, e tem duas
   armadilhas: (1) o `pct` veio **ZERO** e o numero real estava na frase (`desc`: "+20% de
