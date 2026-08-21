@@ -78,6 +78,22 @@ cravado por engenharia reversa (único caminho pros pokémons individuais — ve
 [[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]]), a sondagem
 paralela de shard com early-exit, e o porquê do login ser por token e não por senha.
 
+## Interface em português, e a fonte que levou cinco tentativas
+
+O vocabulário do sistema (tipo, raridade, categoria, papel) é traduzido; nome de espécie
+e de item ficam em inglês, porque são a chave de busca compartilhada com o jogo — a regra
+virou [[Traduza o vocabulário do sistema, não o nome próprio]]. Cada grandeza da tela tem
+símbolo próprio: 20 ícones de domínio em pixel art 8x8, além dos 18 de tipo.
+
+A fonte de rótulo é **Quantico** (peso 700), e chegou lá por eliminação: Press Start 2P
+(ilegível), Silkscreen (some no corpo pequeno), Jersey 10 (condensada e fina), Orbitron
+(legível, mas larga e fria). O padrão que as três primeiras revelam: **fonte bitmap só
+funciona com traço grosso E corpo grande**, e nessa combinação a densidade morre. A
+Quantico resolve por outro caminho — é quadrada e tecno com formas de letra normais.
+A escada inteira de tamanhos subiu um degrau junto (corpo em 15px, rótulo a partir de
+10px): o Eduardo reprovou a versão anterior por ser pequena demais, e legibilidade ganha
+de densidade.
+
 ## Próximos passos
 
 1. Itens com índice reverso (o motor já existe em `data.ts`).
@@ -90,7 +106,8 @@ paralela de shard com early-exit, e o porquê do login ser por token e não por 
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]]
-- Aprendizados: [[Quantos filtros existem é decisão de layout, não de produto]] ·
+- Aprendizados: [[Traduza o vocabulário do sistema, não o nome próprio]] ·
+  [[Quantos filtros existem é decisão de layout, não de produto]] ·
   [[A régua de um medidor é percentil, não máximo]] ·
   [[Conteúdo do servidor não pode nascer invisível esperando o cliente]] ·
   [[Sticky gruda no container que rola, não na janela]]

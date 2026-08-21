@@ -70,3 +70,5 @@ Tailwind por outro CSS, é Design; se depende do React, é Frontend.
 ---
 
 Voltar para [[Início]]
+- [[Traduza o vocabulário do sistema, não o nome próprio]] — em ferramenta PT sobre
+  sistema EN, conceito traduz e nome próprio não; e a tradução mexe no índice de busca.
