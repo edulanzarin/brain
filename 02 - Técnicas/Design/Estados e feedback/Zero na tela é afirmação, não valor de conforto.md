@@ -74,7 +74,8 @@ formatar por faixa e trocar a derivação por uma frase que diz que o número n�
 publicado.
 
 ## Conexões
-- Princípio: [[Todo estado da tela tem visual]]
-- Irmã: [[Zero num medidor é estado, não barra vazia]] · [[A régua de um medidor é percentil, não máximo]]
+- Princípio: [[A tela não afirma mais precisão do que a fonte tem]]
+- Depende de: [[Todo estado da tela tem visual]]
+- Irmã: [[Estimativa que inverte valor arredondado é faixa, não ponto]] · [[Zero num medidor é estado, não barra vazia]] · [[A régua de um medidor é percentil, não máximo]]
 - Visto em: [[piwdex2]]
 - Mapa: [[Design]]

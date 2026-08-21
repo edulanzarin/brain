@@ -97,12 +97,16 @@ Princípios: [[A variante de um controle muda a intenção, não o tamanho]]
   99% das barras no primeiro terço; teto no p98 e marca em quem satura.
 - [[Zero na tela é afirmação, não valor de conforto]] — arredondar valor minúsculo
   pra zero apaga dado, e zero herdado da fonte não pode alimentar derivação.
+- [[Estimativa que inverte valor arredondado é faixa, não ponto]] — inverter a
+  fórmula sobre um número já arredondado devolve intervalo; validar pelo ponto
+  reprova entrada boa.
 - [[Conteúdo do servidor não pode nascer invisível esperando o cliente]] — `opacity-0`
   até o `onLoad` apaga a página que o servidor já mandou pronta.
 
 Princípios: [[Todo estado da tela tem visual]] · [[Estado compartilhável mora na URL]] ·
 [[Dado que chega preenche espaço reservado, não empurra a tela]] ·
-[[A régua sai da distribuição, não dos extremos]]
+[[A régua sai da distribuição, não dos extremos]] ·
+[[A tela não afirma mais precisão do que a fonte tem]]
 
 ## Checklist de tela nova
 

@@ -51,6 +51,9 @@ alta; o dado vai no mono, senão a densidade morre de novo.
   abate. Carta de shiny e disco de TM não caem de ninguém, então a ficha deles lê a
   resposta do próprio nome e aponta pra espécie ou pro golpe.
 
+- **Calculadora de IV**: inverte a fórmula verificada pra achar o atributo que o jogo
+  esconde, projeta em qualquer nível e mostra o quanto falta pro IV perfeito.
+
 Motores puros portados e vivos em `src/lib`: `stats`, `xp`, `typing`, `rarity`,
 `catch-law`, `balls`, `combat`, `breeding`, `meta`, `boost`. Com eles no lugar,
 Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesquisa.
@@ -78,6 +81,12 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   farmável) é o número que decide se vale parar pra pegar o item — um drop de 1.344 que
   cai 94% das vezes rende mais que um de 50.000 que cai 0,4%. A ficha mostra a fórmula
   junto, senão vira número de autoridade que ninguém confere.
+- **O IV estimado é FAIXA, não ponto.** O stat que o jogo mostra já veio arredondado, e
+  o fator `(nível/100) × quality^exp` é tão pequeno em nível baixo que meia unidade de
+  stat vale 8 pontos de IV — um Electrode nível 5 com IV 32 de verdade estima 34,3 no
+  ponto. Isso também derruba a validação óbvia: entrada impossível é `piso da faixa > 32`,
+  não `ponto > 32`. Virou
+  [[Estimativa que inverte valor arredondado é faixa, não ponto]].
 - **O catálogo declara `chance: 0` em 346 linhas** (todas de Strange Pheromone, o item
   de breeding). Isso não é "nunca cai", é "a fonte não diz" — a ficha troca as
   derivações por uma frase em vez de imprimir zeros. Virou
@@ -102,6 +111,15 @@ e de item ficam em inglês, porque são a chave de busca compartilhada com o jog
 virou [[Traduza o vocabulário do sistema, não o nome próprio]]. Cada grandeza da tela tem
 símbolo próprio: 20 ícones de domínio em pixel art 8x8, além dos 18 de tipo.
 
+Os ícones das ferramentas na home são **pixel art de 32x32 desenhada por código**
+(`scripts/pixel-icons/`): um motor de formas em grid de caractere, porque 32x32 escrito
+à mão em JSON de coordenada é erro de índice garantido. Cada um usa a cor da própria
+ferramenta sobre o mesmo chassi escuro, com contorno preto e halo neon — a paleta saiu
+do `pokedex.png` que o Eduardo desenhou, quantizado. Detalhe que só aparece depois de
+montar: a arte tem de ter a **mesma proporção de margem** do arquivo de referência (73%
+da altura), senão um ícone colado na borda aparece maior que os outros dentro da mesma
+caixa de CSS. Por isso o grid é 32 dentro de uma moldura de 44.
+
 A fonte de rótulo é **Quantico** (peso 700), e chegou lá por eliminação: Press Start 2P
 (ilegível), Silkscreen (some no corpo pequeno), Jersey 10 (condensada e fina), Orbitron
 (legível, mas larga e fria). O padrão que as três primeiras revelam: **fonte bitmap só
@@ -113,10 +131,12 @@ de densidade.
 
 ## Próximos passos
 
-1. Calculadora de IV/Quality/Poder sobre `stats.ts`.
-2. Hunt, Breeding e Meta sobre os motores já portados. A rota de hunt tem agora um
+1. Hunt, Breeding e Meta sobre os motores já portados. A rota de hunt tem agora um
    segundo eixo pronto: o `items.ts` já sabe o que cada caçada rende de loot por abate.
-3. Decidir o que substitui o robô. Até lá, `parked/` fica como está.
+2. Decidir o que substitui o robô. Até lá, `parked/` fica como está.
+3. O `pokedex.png` tem 584 KB (arte gerada, com ruído) contra ~10 KB dos ícones
+   desenhados por código. Quantizar em 64 cores derruba pra 57 KB sem diferença visível
+   no tamanho em que ele aparece — decisão do Eduardo, é arte dele.
 4. As páginas hoje são dinâmicas (`ƒ`) porque a fonte roda com `cache: "no-store"` — o
    frescor é gerido no `source.ts`. Se virar gargalo de CDN, é aqui que se mexe.
 5. O script `lint` do `package.json` ainda chama `next lint`, que saiu no Next 16 e hoje
@@ -126,6 +146,8 @@ de densidade.
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]]
 - Aprendizados: [[Traduza o vocabulário do sistema, não o nome próprio]] ·
+  [[A tela não afirma mais precisão do que a fonte tem]] ·
+  [[Estimativa que inverte valor arredondado é faixa, não ponto]] ·
   [[Quantos filtros existem é decisão de layout, não de produto]] ·
   [[A régua sai da distribuição, não dos extremos]] ·
   [[A régua de um medidor é percentil, não máximo]] ·

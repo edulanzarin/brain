@@ -23,6 +23,7 @@ Independe de CSS, de Tailwind e de React. Técnicas concretas em [[Design]].
 - [[Hierarquia por superfície, não por borda]] — profundidade por fundo; borda é último recurso.
 - [[Todo estado da tela tem visual]] — carregando, vazio, erro e sucesso são design.
 - [[A régua sai da distribuição, não dos extremos]] — quem decide a escala de barra, trilho ou eixo é a forma do dado, não o seu máximo.
+- [[A tela não afirma mais precisão do que a fonte tem]] — casa decimal é o tamanho da afirmação; zero arredondado e ponto onde só há faixa inventam exatidão.
 - [[Estado compartilhável mora na URL]] — o que descreve a vista vai pro link.
 - [[Estado de tela pertence à seção, não à página]] — estado no menor escopo que resolve.
 - [[Entidade auxiliar se cria no ponto de uso, não em tela própria]] — grupo/etiqueta é campo, não aba.

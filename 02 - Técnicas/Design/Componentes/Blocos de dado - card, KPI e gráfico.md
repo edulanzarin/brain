@@ -20,6 +20,22 @@ Rótulo pequeno em `muted`, número grande em fonte tabular (`tnum`, senão o n�
 ao atualizar), e uma sub-linha de contexto: variação contra o período anterior, ou
 percentual do total. Número sem comparação não informa — 4.200 é bom ou ruim?
 
+### O símbolo do tile declara a unidade, e vence o rótulo
+
+Ícone ao lado de número **não é decoração: é a unidade**. Um `%`, um `$` ou um `×` diz
+o que aquele número é, e diz mais alto que a palavra do rótulo — quem lê um tile lê o
+número e o símbolo primeiro, e só depois (se depois) o rótulo.
+
+Custo real: um card de item mostrava `% FONTES 14`, onde 14 é a CONTAGEM de espécies que
+dropam o item. O ícone de porcentagem tinha sido escolhido só por ser "o ícone de chance
+que já existia no arquivo", e a primeira pessoa a ver o card leu "26% dos pokémon dropam
+isso" e perguntou o que aquilo significava. O rótulo dizia "fontes" e não adiantou nada.
+
+A regra que sai disso: **escolha o símbolo pela grandeza, não pelo assunto.** Contagem
+pede o ícone da coisa contada (uma pokébola, um usuário, um arquivo); taxa pede `%`;
+dinheiro pede moeda. E quando não há símbolo honesto disponível, melhor nenhum — tile
+sem ícone se lê; tile com ícone errado se lê errado.
+
 ## Gráfico
 
 Wrapper único (`ChartCard`) com título, subtítulo, ação, skeleton e estado de recarga.
