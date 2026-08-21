@@ -109,6 +109,7 @@ Princípios: [[A variante de um controle muda a intenção, não o tamanho]] ·
 
 Princípios: [[Todo estado da tela tem visual]] · [[Nota carrega só o que a pessoa não sabe]] ·
 [[Custo de processo aleatório se orça pela cauda, não pela média]] ·
+[[Peça o que a fonte mostra, não o que você precisa]] ·
 [[Estado compartilhável mora na URL]] ·
 [[Dado que chega preenche espaço reservado, não empurra a tela]] ·
 [[A régua sai da distribuição, não dos extremos]] ·

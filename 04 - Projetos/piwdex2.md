@@ -116,7 +116,8 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] e
   [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] ·
   [[Custo de processo aleatório se orça pela cauda, não pela média]] ·
-  [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]] — e Hunt,
+  [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]] ·
+  [[Peça o que a fonte mostra, não o que você precisa]] — e Hunt,
   Breeding e Meta já nascem com uma constante reservada lá.
 - **O planejador de breeding responde com distribuição, não com média.** A versão do
   piwdex antigo fazia `ceil(delta / ganho médio)` — um número só, pra um processo
@@ -128,7 +129,21 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   mediana, p90, média e a sobra que o teto 2.600 engole. Conferido contra Monte Carlo de
   400 mil rodadas: p50, p90 e sobra idênticos, média dentro de 0,14%; pior caso realista
   8 ms. Virou [[Custo de processo aleatório se orça pela cauda, não pela média]] e
-  [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]].
+  [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]] ·
+  [[Peça o que a fonte mostra, não o que você precisa]].
+- **O breeding pede STATS, não IV — porque IV é o que o jogo esconde.** A primeira
+  versão da tela tinha seis campos de IV, e o Eduardo cortou: o jogo mostra "Ataque
+  1000", e saber se aquilo é IV 32 ou IV 27 é justamente a conta que a Calculadora já
+  fazia. Era pedir o resultado como se fosse a entrada. A inversão virou
+  `lib/iv-reading.ts` e as **duas ferramentas passam por ela** — duas leituras separadas
+  podiam divergir sobre o mesmo pokémon, e ferramenta que se contradiz entre telas perde
+  a única coisa que tem. O corolário é o que dá trabalho: **a dúvida viaja junto com o
+  valor**. O filho herda o IV do pai, então herda a faixa daquele pai — leitura larga
+  aparece como faixa no ovo, o total vira "106–144" em vez de "131", e leitura impossível
+  (nenhum IV entre 0 e 32 explica os stats) PARA o ovo em vez de publicar o número travado
+  no teto. Conferido por round-trip: 20.000 pokémon gerados pela fórmula e lidos de volta,
+  IV real dentro da faixa em 100% dos casos e ponto exato em 100% das 94,6% de leituras
+  cravadas. Virou [[Peça o que a fonte mostra, não o que você precisa]].
 - **Três custos do breeding que nem o jogo nem a versão anterior mostravam.** (1) A
   corrente consome **N+1 pokémon** da espécie — cada breed come dois e devolve um, e esse
   é o custo que ninguém orça. (2) No Pheromone o ganho **mínimo** já é 0.150, que é o
@@ -210,6 +225,7 @@ de densidade.
   [[Nota carrega só o que a pessoa não sabe]] ·
   [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] ·
   [[Custo de processo aleatório se orça pela cauda, não pela média]] ·
-  [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]]
+  [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]] ·
+  [[Peça o que a fonte mostra, não o que você precisa]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

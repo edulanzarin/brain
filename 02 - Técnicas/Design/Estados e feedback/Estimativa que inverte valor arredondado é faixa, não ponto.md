@@ -63,6 +63,7 @@ Um Electrode nível 5 com IV 32 de verdade estima 34,3 no ponto — e a primeira
 validação acusou o pokémon de impossível por causa disso.
 
 ## Conexões
+- Irmã: [[Peça o que a fonte mostra, não o que você precisa]] — quem deriva o valor herda a faixa dele, e a faixa tem que atravessar as telas seguintes.
 - Princípio: [[A tela não afirma mais precisão do que a fonte tem]]
 - Irmã: [[Zero na tela é afirmação, não valor de conforto]]
 - Visto em: [[piwdex2]]

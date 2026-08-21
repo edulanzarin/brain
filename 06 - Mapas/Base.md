@@ -25,6 +25,7 @@ Independe de CSS, de Tailwind e de React. Técnicas concretas em [[Design]].
 - [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] — catálogo se explica de olhar; ferramenta pede número que mora fora dela e precisa de manual.
 - [[Nota carrega só o que a pessoa não sabe]] — legenda diz de onde o número saiu e o que ele não conta; repetir o campo é ruído com cara de ajuda.
 - [[Custo de processo aleatório se orça pela cauda, não pela média]] — estimativa de quantas tentativas mostra melhor caso, típico e azarado; média sozinha é armadilha de orçamento.
+- [[Peça o que a fonte mostra, não o que você precisa]] — campo que a pessoa não tem de onde copiar está errado; peça as grandezas visíveis e derive, e leve a incerteza da derivação adiante.
 - [[A régua sai da distribuição, não dos extremos]] — quem decide a escala de barra, trilho ou eixo é a forma do dado, não o seu máximo.
 - [[A tela não afirma mais precisão do que a fonte tem]] — casa decimal é o tamanho da afirmação; zero arredondado e ponto onde só há faixa inventam exatidão.
 - [[Estado compartilhável mora na URL]] — o que descreve a vista vai pro link.
