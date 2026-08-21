@@ -54,6 +54,10 @@ alta; o dado vai no mono, senão a densidade morre de novo.
 - **Calculadora de IV**: inverte a fórmula verificada pra achar o atributo que o jogo
   esconde, projeta em qualquer nível e mostra o quanto falta pro IV perfeito. Ela abre com
   o **"Como usar"** — resumo sempre visível, seis passos sob demanda.
+- **Breeding**: valida o par enquanto se digita (mesma espécie, Quality a até 0.150),
+  projeta o ovo — sorteio de Quality com as quatro probabilidades, IV herdado, stats
+  reais e custo — e planeja quantos breeds faltam até a Quality alvo. Estado do par na
+  URL, estante de pokémon salvos no `localStorage`.
 
 Motores puros portados e vivos em `src/lib`: `stats`, `xp`, `typing`, `rarity`,
 `catch-law`, `balls`, `combat`, `breeding`, `meta`, `boost`. Com eles no lugar,
@@ -110,8 +114,28 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   empurrar a ferramenta pra fora da primeira dobra. O texto mora em `lib/how-to.tsx` e
   importa `IV_MAX` em vez de digitar 32. Virou
   [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] e
-  [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] — e Hunt,
+  [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] ·
+  [[Custo de processo aleatório se orça pela cauda, não pela média]] ·
+  [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]] — e Hunt,
   Breeding e Meta já nascem com uma constante reservada lá.
+- **O planejador de breeding responde com distribuição, não com média.** A versão do
+  piwdex antigo fazia `ceil(delta / ganho médio)` — um número só, pra um processo
+  sorteado. No Free o ganho é 0.005 em metade dos sorteios, então quem orça pela média
+  começa uma corrente de 53 breeds (R$ 106 milhões) com dinheiro pra 53 e para na 58. O
+  `breed-plan.ts` resolve **exato** por cadeia absorvente: os ganhos de cada modo são
+  múltiplos de um mesmo passo (mdc 5 milésimos no Free, 50 no Pheromone), então a
+  unidade vira o mdc, tudo soma em inteiro e da mesma varredura saem melhor caso,
+  mediana, p90, média e a sobra que o teto 2.600 engole. Conferido contra Monte Carlo de
+  400 mil rodadas: p50, p90 e sobra idênticos, média dentro de 0,14%; pior caso realista
+  8 ms. Virou [[Custo de processo aleatório se orça pela cauda, não pela média]] e
+  [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]].
+- **Três custos do breeding que nem o jogo nem a versão anterior mostravam.** (1) A
+  corrente consome **N+1 pokémon** da espécie — cada breed come dois e devolve um, e esse
+  é o custo que ninguém orça. (2) No Pheromone o ganho **mínimo** já é 0.150, que é o
+  limite de diferença: metade dos sorteios deixa o filho **órfão**, sem par possível na
+  estante de hoje. É número, não adjetivo — 50%. (3) O filho herda a distribuição de IV
+  **inteira** do pai de maior Quality, então a tela avisa quando o descartado era o
+  melhor, com quantos pontos vão pro lixo.
 - **O catálogo declara `chance: 0` em 346 linhas** (todas de Strange Pheromone, o item
   de breeding). Isso não é "nunca cai", é "a fonte não diz" — a ficha troca as
   derivações por uma frase em vez de imprimir zeros. Virou
@@ -156,10 +180,9 @@ de densidade.
 
 ## Próximos passos
 
-1. Hunt, Breeding e Meta sobre os motores já portados. Cada uma entra com o próprio
-   `COMO_USAR_*` em `lib/how-to.tsx` — hoje só a Calculadora tem, porque só ela existe.
-   A rota de hunt tem agora um segundo eixo pronto: o `items.ts` já sabe o que cada
-   caçada rende de loot por abate.
+1. Hunt e Meta sobre os motores já portados. Cada uma entra com o próprio `COMO_USAR_*`
+   em `lib/how-to.tsx`. A rota de hunt tem um segundo eixo pronto: o `items.ts` já sabe
+   o que cada caçada rende de loot por abate.
 2. Decidir o que substitui o robô. Até lá, `parked/` fica como está.
 3. O `pokedex.png` tem 584 KB (arte gerada, com ruído) contra ~10 KB dos ícones
    desenhados por código. Quantizar em 64 cores derruba pra 57 KB sem diferença visível
@@ -185,6 +208,8 @@ de densidade.
   [[Sticky gruda no container que rola, não na janela]] ·
   [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] ·
   [[Nota carrega só o que a pessoa não sabe]] ·
-  [[Manual de ferramenta é resumo visível com passo a passo sob demanda]]
+  [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] ·
+  [[Custo de processo aleatório se orça pela cauda, não pela média]] ·
+  [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

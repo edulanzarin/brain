@@ -111,6 +111,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   [[Um invariante se garante na estrutura, não no processo]].
 - [[Deixar o método da conferência visível quando o SQL não foi validado]] — heurística
   que não deu pra validar mostra a memória de cálculo, pra o humano com o dado validar.
+- [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]] — "quantos
+  sorteios até somar N?" fecha por cadeia absorvente quando os ganhos são poucos e
+  múltiplos de um mesmo passo; troque a unidade pelo mdc, some em inteiro e a mediana,
+  o p90 e o desperdício saem da mesma varredura. Monte Carlo vira o teste, não o motor.
+  Princípio: [[Custo de processo aleatório se orça pela cauda, não pela média]].
 - [[O cálculo puro sai do módulo server-only para poder ser testado]] — a regra de
   negócio vive num módulo puro (sem DB, sem `server-only`) que o servidor orquestra;
   fica testável num runner e reusável em mais de um caminho. Princípio:

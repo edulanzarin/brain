@@ -63,10 +63,26 @@ R$ + 20 Stones; o modo Pheromone normal usa **9 Strange Pheromones**.
 - Colocar no **Slot 1** o Pokemon cujos IVs se quer preservar (doa a distribuicao em
   empate de Quality).
 
-Implementado em piwdex (`src/lib/breeding.ts` + ferramenta `/breed`): colecao local,
-validacao de par, projecao de Quality/IV/custo. As medias batem exato com o jogo.
+Implementado em [[piwdex2]] (`src/lib/breeding.ts` + `breed-plan.ts` + ferramenta
+`/breed`): estante local, validacao de par, projecao de Quality/IV/custo e o planejador.
+As medias batem exato com o jogo.
+
+**O planejador nao usa a media.** "Quantos breeds ate a Quality X" e um processo sorteado,
+e a tabela acima e discreta o bastante pra fechar EXATO por cadeia absorvente — os ganhos
+de cada modo sao multiplos de um mesmo passo (mdc 5 milesimos no Free, 50 no Pheromone).
+Da mesma conta saem melhor caso, mediana, p90 e a sobra que o teto engole. Ver
+[[Distribuição exata sai de programação dinâmica, não de Monte Carlo]].
+
+Dois numeros que a tabela nao diz e a conta revela:
+
+- Uma corrente de N breeds consome **N+1 pokemon** da especie (cada breed come dois e
+  devolve um).
+- No modo Pheromone o ganho **minimo** (0.150) ja e o limite de diferenca, entao **50%
+  dos sorteios deixam o filho sem par possivel** entre pokemon na Quality de origem. No
+  Free isso nunca acontece: o maior ganho e 0.040.
 
 ## Conexoes
 - Irma: [[Poke Idle World - endpoints publicos de dados]]
-- Visto em: [[piwdex]]
+- Tecnica: [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]]
+- Visto em: [[piwdex]] · [[piwdex2]]
 - Mapa: [[Backend]]

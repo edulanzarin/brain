@@ -108,6 +108,7 @@ Princípios: [[A variante de um controle muda a intenção, não o tamanho]] ·
   até o `onLoad` apaga a página que o servidor já mandou pronta.
 
 Princípios: [[Todo estado da tela tem visual]] · [[Nota carrega só o que a pessoa não sabe]] ·
+[[Custo de processo aleatório se orça pela cauda, não pela média]] ·
 [[Estado compartilhável mora na URL]] ·
 [[Dado que chega preenche espaço reservado, não empurra a tela]] ·
 [[A régua sai da distribuição, não dos extremos]] ·
