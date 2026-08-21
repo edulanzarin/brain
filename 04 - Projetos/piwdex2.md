@@ -81,6 +81,13 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   farmável) é o número que decide se vale parar pra pegar o item — um drop de 1.344 que
   cai 94% das vezes rende mais que um de 50.000 que cai 0,4%. A ficha mostra a fórmula
   junto, senão vira número de autoridade que ninguém confere.
+- **Formulário que É a tarefa ocupa a largura; trilho estreito é pra filtro.** A
+  calculadora nasceu com a entrada num trilho de 360px, copiando o da dex — e o Eduardo
+  reprovou o design. O trilho serve input que ACOMPANHA um conteúdo (a lista filtrada é o
+  que importa); numa calculadora o formulário é o conteúdo. Seis campos de stat espremidos
+  em duas colunas viravam rolagem, e o resultado saía em barras de 4px que ninguém compara
+  de relance. Vale como sinal: se o resultado da tela depende do que se digitou nela, o
+  campo é figura, não moldura.
 - **O IV estimado é FAIXA, não ponto.** O stat que o jogo mostra já veio arredondado, e
   o fator `(nível/100) × quality^exp` é tão pequeno em nível baixo que meia unidade de
   stat vale 8 pontos de IV — um Electrode nível 5 com IV 32 de verdade estima 34,3 no
