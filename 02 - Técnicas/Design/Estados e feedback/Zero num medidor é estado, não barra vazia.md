@@ -44,6 +44,8 @@ número, trilho vermelho pulsando, chip DESMAIADO e o botão de curar ao lado.
 
 ## Conexões
 - Princípio: [[Todo estado da tela tem visual]]
-- Irmã: [[Slot com placeholder esmaecido segura o lugar do dado vivo]]
+- Irmã: [[Slot com placeholder esmaecido segura o lugar do dado vivo]] ·
+  [[Medidor de razão nomeia a grandeza e mostra os operandos]] — o mesmo zero com o sinal
+  invertido: quando zero é a MELHOR notícia, ele também precisa de palavra.
 - Visto em: [[piwdex]]
 - Mapa: [[Design]]

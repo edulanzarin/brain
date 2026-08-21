@@ -117,7 +117,8 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] ·
   [[Custo de processo aleatório se orça pela cauda, não pela média]] ·
   [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]] ·
-  [[Peça o que a fonte mostra, não o que você precisa]] — e Hunt,
+  [[Peça o que a fonte mostra, não o que você precisa]] ·
+  [[Medidor de razão nomeia a grandeza e mostra os operandos]] — e Hunt,
   Breeding e Meta já nascem com uma constante reservada lá.
 - **O planejador de breeding responde com distribuição, não com média.** A versão do
   piwdex antigo fazia `ceil(delta / ganho médio)` — um número só, pra um processo
@@ -130,7 +131,8 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   400 mil rodadas: p50, p90 e sobra idênticos, média dentro de 0,14%; pior caso realista
   8 ms. Virou [[Custo de processo aleatório se orça pela cauda, não pela média]] e
   [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]] ·
-  [[Peça o que a fonte mostra, não o que você precisa]].
+  [[Peça o que a fonte mostra, não o que você precisa]] ·
+  [[Medidor de razão nomeia a grandeza e mostra os operandos]].
 - **O breeding pede STATS, não IV — porque IV é o que o jogo esconde.** A primeira
   versão da tela tinha seis campos de IV, e o Eduardo cortou: o jogo mostra "Ataque
   1000", e saber se aquilo é IV 32 ou IV 27 é justamente a conta que a Calculadora já
@@ -144,6 +146,12 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   no teto. Conferido por round-trip: 20.000 pokémon gerados pela fórmula e lidos de volta,
   IV real dentro da faixa em 100% dos casos e ponto exato em 100% das 94,6% de leituras
   cravadas. Virou [[Peça o que a fonte mostra, não o que você precisa]].
+- **O medidor do par nasceu ilegível, e quem reprovou foi quem sabe a regra.** A faixa
+  do veredito dizia `DIFERENÇA [barra] 0.000 / 0.150` e o Eduardo perguntou o que aquilo
+  era — ele, que conhece o limite do jogo de cor. Faltavam três coisas: a grandeza
+  ("diferença de Quality"), os operandos ("Quality 2.100 e 2.020") e o denominador em
+  palavra ("de 0.150 que o jogo permite"). Virou
+  [[Medidor de razão nomeia a grandeza e mostra os operandos]].
 - **Três custos do breeding que nem o jogo nem a versão anterior mostravam.** (1) A
   corrente consome **N+1 pokémon** da espécie — cada breed come dois e devolve um, e esse
   é o custo que ninguém orça. (2) No Pheromone o ganho **mínimo** já é 0.150, que é o
@@ -226,6 +234,7 @@ de densidade.
   [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] ·
   [[Custo de processo aleatório se orça pela cauda, não pela média]] ·
   [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]] ·
-  [[Peça o que a fonte mostra, não o que você precisa]]
+  [[Peça o que a fonte mostra, não o que você precisa]] ·
+  [[Medidor de razão nomeia a grandeza e mostra os operandos]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

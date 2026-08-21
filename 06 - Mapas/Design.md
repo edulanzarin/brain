@@ -76,6 +76,9 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 - [[Faixa de cauda longa entra por número, não por slider]] — o trilho é linear em
   pixel e o dado quase nunca é; com p75 no primeiro décimo da barra, o slider não
   consegue expressar a pergunta.
+- [[Medidor de razão nomeia a grandeza e mostra os operandos]] — "diferença 0.000 /
+  0.150" é placar sem jogo: nomeie a grandeza, mostre os operandos e ponha o
+  denominador em palavra. Reprova quando quem conhece o domínio pergunta o que é.
 - [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] — uma frase
   sempre visível e os passos num `<details>`; abrir/fechar é chrome, então o bloco
   continua sendo componente de servidor.
