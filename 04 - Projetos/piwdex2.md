@@ -29,7 +29,7 @@ alta; o dado vai no mono, senão a densidade morre de novo.
 
 ## Estado atual
 
-**Camada 1 entregue, verificada em build de produção e no navegador.**
+**Camadas 1 e 2 entregues, verificadas em build de produção.**
 
 - **Sistema de design**: tokens em `globals.css` (superfície/linha/texto/acento, raio
   pixel, brilho neon) e **22 primitivas** em `components/ui` — botão, campo, select,
@@ -45,6 +45,11 @@ alta; o dado vai no mono, senão a densidade morre de novo.
 - **Ficha da espécie**: stats, defesa com multiplicador, cobertura ofensiva, linha
   evolutiva, pontos de caça, golpes (natural x TM separados) e drops com a chance real.
 - **Home** que abre com os números do catálogo do momento e três recortes vivos.
+- **Itens** com o índice reverso: 428 itens, 10 filtros, grid ⇄ tabela e estado na URL.
+  A ficha de cada item responde de onde ele vem — quem dropa, com que chance real,
+  quantos abates custa uma unidade, em que áreas do mapa e quanto ele soma de ouro por
+  abate. Carta de shiny e disco de TM não caem de ninguém, então a ficha deles lê a
+  resposta do próprio nome e aponta pra espécie ou pro golpe.
 
 Motores puros portados e vivos em `src/lib`: `stats`, `xp`, `typing`, `rarity`,
 `catch-law`, `balls`, `combat`, `breeding`, `meta`, `boost`. Com eles no lugar,
@@ -65,6 +70,18 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   dado velho fingindo estar ao vivo.
 - **Sem coluna de cooldown**, de propósito: o valor do catálogo é o cooldown BASE e a
   velocidade do bicho o encurta no jogo.
+- **"Cai de alguém" e "dá pra farmar" são perguntas diferentes.** 54 itens só caem de
+  espécies sem ponto no mapa (quem só evolui ou só vem do cassino): a melhor fonte do
+  item é a de maior chance ENTRE AS CAÇÁVEIS, e a tela diz quando não existe nenhuma.
+  Sem isso a lista promete uma caçada que não existe.
+- **Ouro por abate** (`chance × quantidade média × valor de NPC` na melhor fonte
+  farmável) é o número que decide se vale parar pra pegar o item — um drop de 1.344 que
+  cai 94% das vezes rende mais que um de 50.000 que cai 0,4%. A ficha mostra a fórmula
+  junto, senão vira número de autoridade que ninguém confere.
+- **O catálogo declara `chance: 0` em 346 linhas** (todas de Strange Pheromone, o item
+  de breeding). Isso não é "nunca cai", é "a fonte não diz" — a ficha troca as
+  derivações por uma frase em vez de imprimir zeros. Virou
+  [[Zero na tela é afirmação, não valor de conforto]].
 
 ## O robô está parqueado, não portado
 
@@ -96,19 +113,25 @@ de densidade.
 
 ## Próximos passos
 
-1. Itens com índice reverso (o motor já existe em `data.ts`).
-2. Calculadora de IV/Quality/Poder sobre `stats.ts`.
-3. Hunt, Breeding e Meta sobre os motores já portados.
-4. Decidir o que substitui o robô. Até lá, `parked/` fica como está.
-5. As páginas hoje são dinâmicas (`ƒ`) porque a fonte roda com `cache: "no-store"` — o
+1. Calculadora de IV/Quality/Poder sobre `stats.ts`.
+2. Hunt, Breeding e Meta sobre os motores já portados. A rota de hunt tem agora um
+   segundo eixo pronto: o `items.ts` já sabe o que cada caçada rende de loot por abate.
+3. Decidir o que substitui o robô. Até lá, `parked/` fica como está.
+4. As páginas hoje são dinâmicas (`ƒ`) porque a fonte roda com `cache: "no-store"` — o
    frescor é gerido no `source.ts`. Se virar gargalo de CDN, é aqui que se mexe.
+5. O script `lint` do `package.json` ainda chama `next lint`, que saiu no Next 16 e hoje
+   quebra. Trocar por ESLint direto quando incomodar.
 
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]]
 - Aprendizados: [[Traduza o vocabulário do sistema, não o nome próprio]] ·
   [[Quantos filtros existem é decisão de layout, não de produto]] ·
+  [[A régua sai da distribuição, não dos extremos]] ·
   [[A régua de um medidor é percentil, não máximo]] ·
+  [[Faixa de cauda longa entra por número, não por slider]] ·
+  [[Zero na tela é afirmação, não valor de conforto]] ·
+  [[Chip que serve a duas grandezas declara qual delas mostra]] ·
   [[Conteúdo do servidor não pode nascer invisível esperando o cliente]] ·
   [[Sticky gruda no container que rola, não na janela]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]

@@ -50,6 +50,14 @@ zero. Os dois números moravam no mesmo campo, com o mesmo rótulo — e um rank
 que ele nem se caça. A correção foi a mesma: o campo passou a carregar uma bandeira
 (`valueFromNpc`) e o rótulo muda com ela.
 
+Terceira aparição, agora numa TABELA e não num componente: a lista de itens tinha as
+colunas "melhor fonte" e "nível mínimo" lado a lado, e cada uma falava de uma espécie
+diferente — a melhor fonte de Wool Ball é um Zangoose de nível 470, o nível mínimo é de
+um Meowth de 20. Lidas na mesma linha, as duas afirmavam um "Zangoose nível 20" que não
+existe. A regra é a mesma, e o custo de aplicá-la também: o sujeito entra na célula
+("Zangoose · nv 470"), em vez de morar no cabeçalho da coluna vizinha. **Colunas vizinhas
+afirmam falar da mesma coisa** — quando não falam, cada uma diz de quem fala.
+
 ## Conexões
 - Princípio: [[Um invariante se garante na estrutura, não no processo]]
 - Irmã: [[Primitiva de botão fecha o tamanho e abre só a variante]]

@@ -64,7 +64,8 @@ desenhavam a mesma faixa baixa e a espinha não distinguia nada. Com p98 (130) e
 que estouram, o perfil voltou a aparecer.
 
 ## Conexões
-- Princípio: [[Todo estado da tela tem visual]]
-- Irmã: [[Zero num medidor é estado, não barra vazia]] · [[Validar paleta de gráficos antes de escolher cores]]
+- Princípio: [[A régua sai da distribuição, não dos extremos]]
+- Depende de: [[Todo estado da tela tem visual]]
+- Irmã: [[Zero num medidor é estado, não barra vazia]] · [[Faixa de cauda longa entra por número, não por slider]] · [[Validar paleta de gráficos antes de escolher cores]]
 - Visto em: [[piwdex2]]
 - Mapa: [[Design]]

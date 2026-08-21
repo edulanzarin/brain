@@ -73,6 +73,9 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 - [[Quantos filtros existem é decisão de layout, não de produto]] — a barra horizontal
   cabe três controles e decide o escopo da tela sem ninguém notar; trilho fixo devolve
   a decisão pro produto.
+- [[Faixa de cauda longa entra por número, não por slider]] — o trilho é linear em
+  pixel e o dado quase nunca é; com p75 no primeiro décimo da barra, o slider não
+  consegue expressar a pergunta.
 
 Princípios: [[A variante de um controle muda a intenção, não o tamanho]]
 
@@ -92,11 +95,14 @@ Princípios: [[A variante de um controle muda a intenção, não o tamanho]]
   que resolve no mesmo card.
 - [[A régua de um medidor é percentil, não máximo]] — escalar pelo maior valor deixa
   99% das barras no primeiro terço; teto no p98 e marca em quem satura.
+- [[Zero na tela é afirmação, não valor de conforto]] — arredondar valor minúsculo
+  pra zero apaga dado, e zero herdado da fonte não pode alimentar derivação.
 - [[Conteúdo do servidor não pode nascer invisível esperando o cliente]] — `opacity-0`
   até o `onLoad` apaga a página que o servidor já mandou pronta.
 
 Princípios: [[Todo estado da tela tem visual]] · [[Estado compartilhável mora na URL]] ·
-[[Dado que chega preenche espaço reservado, não empurra a tela]]
+[[Dado que chega preenche espaço reservado, não empurra a tela]] ·
+[[A régua sai da distribuição, não dos extremos]]
 
 ## Checklist de tela nova
 
