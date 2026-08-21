@@ -32,7 +32,7 @@ alta; o dado vai no mono, senão a densidade morre de novo.
 **Camadas 1 e 2 entregues, verificadas em build de produção.**
 
 - **Sistema de design**: tokens em `globals.css` (superfície/linha/texto/acento, raio
-  pixel, brilho neon) e **22 primitivas** em `components/ui` — botão, campo, select,
+  pixel, brilho neon) e **26 primitivas** em `components/ui` — botão, campo, select,
   multi-select com modo E/OU, combobox, modal, popover em portal, faixa de dois polegares,
   segmentado, abas, chip, checkbox, switch, paginação, esqueleto, vazio, tooltip, sprite,
   medidor, pokébola. Ícones em **pixel art de verdade**, desenhados num grid de texto 8x8,
@@ -88,6 +88,12 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   em duas colunas viravam rolagem, e o resultado saía em barras de 4px que ninguém compara
   de relance. Vale como sinal: se o resultado da tela depende do que se digitou nela, o
   campo é figura, não moldura.
+- **Nota carrega só o que a pessoa não sabe.** O Eduardo cortou um "está no 50" que
+  aparecia ao lado do campo de nível onde ele mesmo tinha escrito 50. A regra que saiu:
+  valor vindo de input, rótulo que o campo já tem e instrução que a label já dá são
+  ruído — fica o que a tela sabe e ela não (de onde o número saiu, o que ele não conta,
+  o que fazer quando não fecha). E aviso vai em **itálico**, que separa a voz da
+  ferramenta do dado que ela apresenta. Virou a primitiva `Note`.
 - **O IV estimado é FAIXA, não ponto.** O stat que o jogo mostra já veio arredondado, e
   o fator `(nível/100) × quality^exp` é tão pequeno em nível baixo que meia unidade de
   stat vale 8 pontos de IV — um Electrode nível 5 com IV 32 de verdade estima 34,3 no
