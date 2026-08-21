@@ -1,11 +1,17 @@
 ---
 tags: [tipo/projeto, projeto/piwdex]
 criado: 2026-08-15
-status: ativo
+status: substituido
 codigo_em: ~/Dev/piwdex
 ---
 
 # piwdex
+
+> **Substituido pelo [[piwdex2]] em ago/2026.** A reescrita nasceu de um diagnostico
+> de densidade, nao de estetica: a moldura do aparelho comia area util e a barra de
+> filtros so comportava tres controles. O robo server-side ficou parqueado dentro do
+> piwdex2 (`parked/`), aguardando decisao sobre o substituto. O historico abaixo fica
+> como esta — e o registro de como cada peca foi descoberta.
 
 > Dex e ferramentas completas para o jogo **Poke Idle World** (poke.idleworld.online).
 > Faz o que o piwtools.com.br faz e vai alem: chance real de cada drop, indice reverso

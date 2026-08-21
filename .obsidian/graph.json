@@ -62,6 +62,13 @@
         "a": 1,
         "rgb": 15246103
       }
+    },
+    {
+      "query": "tag:#projeto/piwdex2",
+      "color": {
+        "a": 1,
+        "rgb": 10513407
+      }
     }
   ],
   "collapse-display": true,

@@ -43,8 +43,15 @@ painel, o modal de stats e o próprio jogo mostravam a faixa do INDIVÍDUO deriv
 quality (o mesmo Abra, "lendária"). O arquivo de raridade já avisava dos dois eixos — o
 aviso não impediu o erro; o parâmetro obrigatório impede.
 
+No piwdex2 a mesma armadilha voltou noutro eixo: "valor" do pokémon caía de `sellValue`
+(o que o jogo paga por abate) pra `priceNpc` (preço do cassino) quando o primeiro era
+zero. Os dois números moravam no mesmo campo, com o mesmo rótulo — e um ranking de
+"paga mais por abate" coroou o Aerodactyl com 6,5 bilhões, que é o que ele CUSTA, sendo
+que ele nem se caça. A correção foi a mesma: o campo passou a carregar uma bandeira
+(`valueFromNpc`) e o rótulo muda com ela.
+
 ## Conexões
 - Princípio: [[Um invariante se garante na estrutura, não no processo]]
 - Irmã: [[Primitiva de botão fecha o tamanho e abre só a variante]]
-- Visto em: [[piwdex]]
+- Visto em: [[piwdex]] · [[piwdex2]]
 - Mapa: [[Design]]

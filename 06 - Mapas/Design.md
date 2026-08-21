@@ -44,6 +44,8 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   default do primitivo é utilitário, concatenar não basta: precisa de merge.
 - [[Trocar a fonte muda a largura, não só o desenho da letra]] — a família nova
   reescreve os slots fixos, a base em rem e os pesos disponíveis.
+- [[Sticky gruda no container que rola, não na janela]] — `overflow-x-auto` promove o
+  outro eixo pra `auto` e vira o ancestral rolável; o `top` passa a medir de dentro.
 
 Princípios: [[Escala fechada em vez de valor solto]] ·
 [[Container tem largura máxima e respiro constante]]
@@ -68,6 +70,9 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
   topo muda por tela: cada módulo manda busca/ações via slot, sem busca duplicada.
 - [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]]
   — glifo cheio e traço fino não vivem na mesma escala; piso de 14px.
+- [[Quantos filtros existem é decisão de layout, não de produto]] — a barra horizontal
+  cabe três controles e decide o escopo da tela sem ninguém notar; trilho fixo devolve
+  a decisão pro produto.
 
 Princípios: [[A variante de um controle muda a intenção, não o tamanho]]
 
@@ -85,6 +90,10 @@ Princípios: [[A variante de um controle muda a intenção, não o tamanho]]
 - [[Zero num medidor é estado, não barra vazia]] — barra em 0 é igualzinha a "não
   carregou": número sempre visível, trilho de alerta, chip com a palavra e a ação
   que resolve no mesmo card.
+- [[A régua de um medidor é percentil, não máximo]] — escalar pelo maior valor deixa
+  99% das barras no primeiro terço; teto no p98 e marca em quem satura.
+- [[Conteúdo do servidor não pode nascer invisível esperando o cliente]] — `opacity-0`
+  até o `onLoad` apaga a página que o servidor já mandou pronta.
 
 Princípios: [[Todo estado da tela tem visual]] · [[Estado compartilhável mora na URL]] ·
 [[Dado que chega preenche espaço reservado, não empurra a tela]]

@@ -55,6 +55,7 @@ template: `docker logs <slug>-app`, `docker exec -it <slug>-db psql`.
 | [[Navehub]] | 4030 | 5030 |
 | [[Navecon CRM]] | 4046 | 5046 |
 | [[piwdex]] | 4070 | 5070 |
+| [[piwdex2]] | 4071 | 5071 |
 
 App `4xxx`, banco espelha trocando o `4` inicial por `5`. Regra e exceções (incluindo as
 portas *unsafe* que o navegador recusa, como a 4045) em [[Uma faixa de portas por projeto]].

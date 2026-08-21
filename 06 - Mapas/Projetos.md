@@ -18,9 +18,11 @@ mora aqui: mora em [[Base]] (princípios) e em [[Design]], [[Frontend]], [[Backe
 - [[Evento Navecon]] — landing da imersão com inscrição e pagamento (Mercado Pago).
 - [[Navehub]] — CRM + atendimento por WhatsApp para contabilidade (SaaS multi-tenant).
 - [[Idle Game]] — RPG idle de navegador com espécies emergentes (árvore evolutiva global).
-- [[piwdex]] — dex e ferramentas completas para o jogo Poke Idle World (piwdex.com.br).
+- [[piwdex2]] — reescrita da dex do Poke Idle World como ferramenta de consulta (17 filtros, estado na URL).
 
 ## Substituídos
+
+- [[piwdex]] — dex e ferramentas para Poke Idle World; substituído pelo [[piwdex2]] (ago/2026). O robô server-side ficou parqueado, aguardando decisão.
 
 - [[navetalks]] — atendimento multicanal no WhatsApp; substituído pelo [[Navehub]] (ago/2026).
 
