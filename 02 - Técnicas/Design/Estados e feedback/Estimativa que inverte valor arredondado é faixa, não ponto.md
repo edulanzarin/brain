@@ -60,7 +60,7 @@ round?"** — e a resposta é quase sempre sim.
 
 No piwdex2 a calculadora estima o IV de um pokémon a partir dos stats que o jogo mostra.
 Um Electrode nível 5 com IV 32 de verdade estima 34,3 no ponto — e a primeira versão da
-validação acusou o bicho de impossível por causa disso.
+validação acusou o pokémon de impossível por causa disso.
 
 ## Conexões
 - Princípio: [[A tela não afirma mais precisão do que a fonte tem]]

@@ -43,7 +43,7 @@ Dois casos concretos, a mesma raiz:
   jogo a partir do valor exibido. Como o jogo exibe arredondado, em nível baixo meia
   unidade de diferença valia 8 pontos do atributo: o mesmo número na tela era compatível
   com 4 e com 30 ao mesmo tempo. O ponto médio dizia "17,3" e a validação de faixa
-  chegou a acusar de impossível um bicho perfeitamente normal.
+  chegou a acusar de impossível uma leitura perfeitamente normal.
 
 ## Na prática
 

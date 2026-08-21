@@ -72,7 +72,7 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   mexeu, e o selo troca de `AO VIVO` pra `SNAPSHOT` quando a fonte cai — em vez de servir
   dado velho fingindo estar ao vivo.
 - **Sem coluna de cooldown**, de propósito: o valor do catálogo é o cooldown BASE e a
-  velocidade do bicho o encurta no jogo.
+  velocidade do pokémon o encurta no jogo.
 - **"Cai de alguém" e "dá pra farmar" são perguntas diferentes.** 54 itens só caem de
   espécies sem ponto no mapa (quem só evolui ou só vem do cassino): a melhor fonte do
   item é a de maior chance ENTRE AS CAÇÁVEIS, e a tela diz quando não existe nenhuma.
