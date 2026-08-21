@@ -52,7 +52,8 @@ alta; o dado vai no mono, senão a densidade morre de novo.
   resposta do próprio nome e aponta pra espécie ou pro golpe.
 
 - **Calculadora de IV**: inverte a fórmula verificada pra achar o atributo que o jogo
-  esconde, projeta em qualquer nível e mostra o quanto falta pro IV perfeito.
+  esconde, projeta em qualquer nível e mostra o quanto falta pro IV perfeito. Ela abre com
+  o **"Como usar"** — resumo sempre visível, seis passos sob demanda.
 
 Motores puros portados e vivos em `src/lib`: `stats`, `xp`, `typing`, `rarity`,
 `catch-law`, `balls`, `combat`, `breeding`, `meta`, `boost`. Com eles no lugar,
@@ -93,13 +94,24 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   valor vindo de input, rótulo que o campo já tem e instrução que a label já dá são
   ruído — fica o que a tela sabe e ela não (de onde o número saiu, o que ele não conta,
   o que fazer quando não fecha). E aviso vai em **itálico**, que separa a voz da
-  ferramenta do dado que ela apresenta. Virou a primitiva `Note`.
+  ferramenta do dado que ela apresenta. Virou a primitiva `Note` e o princípio
+  [[Nota carrega só o que a pessoa não sabe]].
 - **O IV estimado é FAIXA, não ponto.** O stat que o jogo mostra já veio arredondado, e
   o fator `(nível/100) × quality^exp` é tão pequeno em nível baixo que meia unidade de
   stat vale 8 pontos de IV — um Electrode nível 5 com IV 32 de verdade estima 34,3 no
   ponto. Isso também derruba a validação óbvia: entrada impossível é `piso da faixa > 32`,
   não `ponto > 32`. Virou
   [[Estimativa que inverte valor arredondado é faixa, não ponto]].
+- **Ferramenta tem manual; catálogo não.** Dex e Itens abrem cheios e se explicam de
+  olhar; a calculadora abre VAZIA, pedindo seis números que moram na tela do jogo — sem
+  manual, a tela mais útil do site é a que mais parece inacabada. O `HowTo` é um
+  `<details>` (abrir/fechar é chrome, não dado: sem estado de React, o bloco continua
+  componente de servidor e o texto nasce no HTML), com o resumo fora do fechado pra não
+  empurrar a ferramenta pra fora da primeira dobra. O texto mora em `lib/how-to.tsx` e
+  importa `IV_MAX` em vez de digitar 32. Virou
+  [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] e
+  [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] — e Hunt,
+  Breeding e Meta já nascem com uma constante reservada lá.
 - **O catálogo declara `chance: 0` em 346 linhas** (todas de Strange Pheromone, o item
   de breeding). Isso não é "nunca cai", é "a fonte não diz" — a ficha troca as
   derivações por uma frase em vez de imprimir zeros. Virou
@@ -144,8 +156,10 @@ de densidade.
 
 ## Próximos passos
 
-1. Hunt, Breeding e Meta sobre os motores já portados. A rota de hunt tem agora um
-   segundo eixo pronto: o `items.ts` já sabe o que cada caçada rende de loot por abate.
+1. Hunt, Breeding e Meta sobre os motores já portados. Cada uma entra com o próprio
+   `COMO_USAR_*` em `lib/how-to.tsx` — hoje só a Calculadora tem, porque só ela existe.
+   A rota de hunt tem agora um segundo eixo pronto: o `items.ts` já sabe o que cada
+   caçada rende de loot por abate.
 2. Decidir o que substitui o robô. Até lá, `parked/` fica como está.
 3. O `pokedex.png` tem 584 KB (arte gerada, com ruído) contra ~10 KB dos ícones
    desenhados por código. Quantizar em 64 cores derruba pra 57 KB sem diferença visível
@@ -168,6 +182,9 @@ de densidade.
   [[Zero na tela é afirmação, não valor de conforto]] ·
   [[Chip que serve a duas grandezas declara qual delas mostra]] ·
   [[Conteúdo do servidor não pode nascer invisível esperando o cliente]] ·
-  [[Sticky gruda no container que rola, não na janela]]
+  [[Sticky gruda no container que rola, não na janela]] ·
+  [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] ·
+  [[Nota carrega só o que a pessoa não sabe]] ·
+  [[Manual de ferramenta é resumo visível com passo a passo sob demanda]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

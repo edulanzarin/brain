@@ -76,8 +76,12 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 - [[Faixa de cauda longa entra por número, não por slider]] — o trilho é linear em
   pixel e o dado quase nunca é; com p75 no primeiro décimo da barra, o slider não
   consegue expressar a pergunta.
+- [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] — uma frase
+  sempre visível e os passos num `<details>`; abrir/fechar é chrome, então o bloco
+  continua sendo componente de servidor.
 
-Princípios: [[A variante de um controle muda a intenção, não o tamanho]]
+Princípios: [[A variante de um controle muda a intenção, não o tamanho]] ·
+[[Tela que abre vazia tem que ensinar, tela que abre cheia não]]
 
 ## Estados e feedback
 
@@ -103,7 +107,8 @@ Princípios: [[A variante de um controle muda a intenção, não o tamanho]]
 - [[Conteúdo do servidor não pode nascer invisível esperando o cliente]] — `opacity-0`
   até o `onLoad` apaga a página que o servidor já mandou pronta.
 
-Princípios: [[Todo estado da tela tem visual]] · [[Estado compartilhável mora na URL]] ·
+Princípios: [[Todo estado da tela tem visual]] · [[Nota carrega só o que a pessoa não sabe]] ·
+[[Estado compartilhável mora na URL]] ·
 [[Dado que chega preenche espaço reservado, não empurra a tela]] ·
 [[A régua sai da distribuição, não dos extremos]] ·
 [[A tela não afirma mais precisão do que a fonte tem]]
@@ -114,8 +119,10 @@ Princípios: [[Todo estado da tela tem visual]] · [[Estado compartilhável mora
 2. Container com largura máxima, padding constante e gap por nível.
 3. Hierarquia por superfície; borda só onde a superfície não resolveu.
 4. Os quatro estados desenhados: carregando, vazio, erro, sucesso.
-5. Filtro, busca e aba na URL; preferência pessoal no `localStorage`.
-6. Testado no tema claro **e** no escuro, e no build de produção
+5. Se a tela abre VAZIA (calculadora, simulador, importador), ela tem manual —
+   [[Manual de ferramenta é resumo visível com passo a passo sob demanda]].
+6. Filtro, busca e aba na URL; preferência pessoal no `localStorage`.
+7. Testado no tema claro **e** no escuro, e no build de produção
    ([[Verificar no build de produção, não só em dev]]).
 
 ## Onde uma nota nova entra

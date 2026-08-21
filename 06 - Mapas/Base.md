@@ -22,6 +22,8 @@ Independe de CSS, de Tailwind e de React. Técnicas concretas em [[Design]].
 - [[Container tem largura máxima e respiro constante]] — as três medidas de todo container.
 - [[Hierarquia por superfície, não por borda]] — profundidade por fundo; borda é último recurso.
 - [[Todo estado da tela tem visual]] — carregando, vazio, erro e sucesso são design.
+- [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] — catálogo se explica de olhar; ferramenta pede número que mora fora dela e precisa de manual.
+- [[Nota carrega só o que a pessoa não sabe]] — legenda diz de onde o número saiu e o que ele não conta; repetir o campo é ruído com cara de ajuda.
 - [[A régua sai da distribuição, não dos extremos]] — quem decide a escala de barra, trilho ou eixo é a forma do dado, não o seu máximo.
 - [[A tela não afirma mais precisão do que a fonte tem]] — casa decimal é o tamanho da afirmação; zero arredondado e ponto onde só há faixa inventam exatidão.
 - [[Estado compartilhável mora na URL]] — o que descreve a vista vai pro link.
