@@ -62,6 +62,32 @@ export function Field({ label, icon, hint, className, children }) {
 Com as duas, a fila alinha sozinha: nada de `items-end`, nada de `mt-` corretivo
 em tela nenhuma.
 
+## A segunda armadilha: em coluna flex, o padrão é esticar
+
+Padronizar a altura não basta se a LARGURA escapa. Um controle que deveria abraçar
+o conteúdo (segmentado, switch) vira filho de uma coluna flex e herda
+`align-self: stretch` — ele cresce até a largura do irmão mais largo, que costuma
+ser a frase de dica embaixo. No [[piwdex2]] o segmentado FREE/PHEROMONE do
+breeding esticou até a largura de "+0.0096 de Quality por breed, em média", e
+sobrou um vão morto à direita do botão selecionado.
+
+`inline-flex` não segura isso: `align-self` vence a display do próprio elemento.
+Quem segura é `self-start` — e o lugar dele é na primitiva, não na tela, senão
+cada uso novo redescobre o mesmo vão.
+
+## A terceira: um controle, um visual — não um `boxed` que a tela lembra de passar
+
+A casca começou como prop opcional (`boxed`) no switch e no checkbox. Resultado
+previsível: a Hunt passou, a dex, os itens e o breeding não — e o mesmo switch
+aparecia com moldura numa tela e solto na outra. Prop de aparência que cada tela
+decide é [[Primitiva de botão fecha o tamanho e abre só a variante]] de novo, com
+outro nome.
+
+O switch passou a vir sempre com a casca (ele é um controle solto e carrega o
+próprio rótulo). O checkbox NÃO: ele vive em lista dentro de grupo de filtro, e
+uma moldura por item transformaria a lista num paredão. A regra que sobrou:
+**controle que aparece sozinho tem casca; controle que aparece em lista, não.**
+
 ## A armadilha que veio junto: truncar corta o acento
 
 O rótulo trunca (`overflow: hidden`) pra caber na coluna. Mas truncar esconde nos
