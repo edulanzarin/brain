@@ -79,6 +79,11 @@ portas *unsafe* que o navegador recusa, como a 4045) em [[Uma faixa de portas po
   compose → Railway: migration vira pre-deploy na própria imagem (que precisa
   carregar `db/`), worker vira loop no processo, banco vira plugin; 1 réplica
   quando há estado singleton.
+- [[Herdar um deploy é herdar o contrato dele, não só o domínio]] — trocar a árvore
+  de um repositório que já está no ar herda domínio, certificado e variáveis, e
+  também o que a plataforma consome de dentro do repo: pre-deploy, healthcheck,
+  redirect canônico e rota com link salvo fora do seu controle. Duas dessas falham
+  caladas — o deploy não promove e o site velho continua servindo.
 
 Relacionado, no [[Backend]]:
 [[Polling substitui webhook quando não há IP público]] — integração sem abrir porta.

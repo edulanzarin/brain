@@ -7,11 +7,25 @@ codigo_em: ~/Dev/piwdex
 
 # piwdex
 
-> **Substituido pelo [[piwdex2]] em ago/2026.** A reescrita nasceu de um diagnostico
-> de densidade, nao de estetica: a moldura do aparelho comia area util e a barra de
-> filtros so comportava tres controles. O robo server-side ficou parqueado dentro do
-> piwdex2 (`parked/`), aguardando decisao sobre o substituto. O historico abaixo fica
-> como esta — e o registro de como cada peca foi descoberta.
+> **Substituido pelo [[piwdex2]] em ago/2026, e desde 22/08/2026 saiu do ar.** A
+> reescrita nasceu de um diagnostico de densidade, nao de estetica: a moldura do
+> aparelho comia area util e a barra de filtros so comportava tres controles. O
+> historico abaixo fica como esta — e o registro de como cada peca foi descoberta.
+
+> **Onde o codigo do v1 esta hoje.** O repositorio `edulanzarin/piwdex` continua
+> existindo, mas o conteudo dele passou a ser o do piwdex2 — foi assim que a
+> reescrita assumiu o deploy que ja rodava em piwdex.com.br, sem migrar dominio nem
+> criar servico novo. O v1 vive em tres copias:
+>
+> - tag anotada **`v1.0.0`** no proprio repositorio (empurrada);
+> - branch **`reserva/v1-robo`**, apontando pro mesmo commit (empurrada);
+> - **`~/Dev/reservas/piwdex-v1-robo.bundle`**, 5,9 MB, com as 38 branches e o
+>   historico completo — `git bundle verify` confere.
+>
+> Voltar e `git checkout v1.0.0`. O robo, a camada logada, as 20 migrations e o
+> `db/setup.mjs` do pre-deploy sairam do ar junto e existem SO ali. O protocolo do
+> WebSocket, que e a peca dificil, esta descrito em `parked/README.md` no piwdex2 —
+> mas o codigo que o implementa e o do v1.
 
 > Dex e ferramentas completas para o jogo **Poke Idle World** (poke.idleworld.online).
 > Faz o que o piwtools.com.br faz e vai alem: chance real de cada drop, indice reverso
@@ -71,7 +85,7 @@ sprites no lugar do select nativo, pokebola melhor + loaders animados (pikachu).
   fixa sob scrim. **Scroll reveal** (IntersectionObserver) nas secoes.
 - Home enxuta: sprite do aparelho foi pro card, hero sem botao duplicado.
 Principio herdado: aparencia pixel imersiva e por-projeto, nao dialeto de dashboard
-(ver [[Estetica e por projeto, principio de design e que se reusa]]).
+(ver [[Estética é por projeto, princípio de design é que se reusa]]).
 
 **Idioma BR/EN/ES + refinamentos (4a passada, ago/2026):** i18n **client-side com
 toggle na mesma URL** (preferencia no localStorage) — escolha do Eduardo pra manter o
@@ -294,7 +308,7 @@ que a aba Estatísticas virasse um dashboard de verdade, não só dois totais de
   por raridade**. Migration 012 estende `robot_sales` com kills/captures/xp/loot/supply/hunts,
   preenchidos no fim de cada hunt (`logSummary`, mesmo gancho do resumo). `captured_pokes`
   ganhou `capturedStats` (total/shiny/por raridade). Gráficos em barra CSS pura (sem lib), na
-  estética pixel — segue [[Estetica e por projeto, principio de design e que se reusa]].
+  estética pixel — segue [[Estética é por projeto, princípio de design é que se reusa]].
 - **Removido "Vender agora"**: o modal de ligar a hunt já pergunta se quer vender, e a venda
   é assim que coleta — botão manual só poluía. Tirado da UI, da rota e da sessão.
 - Limitação anotada: "itens raros coletados" não dá (o drop do `field-kill` não carrega
@@ -443,14 +457,14 @@ pixel de verdade: os SPRITES do jogo.
   mudaram. Pegadinha que virou o grosso do trabalho: os glifos pixel eram desenhados pra
   8-12px e ~350 chamadas usavam esses tamanhos — **icone de linha nessa escala e borrao**.
   Piso de 14, 16 em controle, 18 em cabecalho de painel. Ver
-  [[Trocar arte por icone de linha exige recalibrar tamanho, nao so trocar o componente]].
+  [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]].
 - **Molduras coloridas mortas**: `ToolFrame`/`tool-shell` deletados; a unica casca colorida
   do site e o aparelho vermelho da Pokedex. As paginas de ferramenta ganharam cabecalho em
   card pro texto nao boiar.
 - **Vidro como material padrao**: `.card`/`.well` com superficie translucida + blur +
   fio de luz (o material do modal, que ele aprovou). Flutuantes sairam do fundo chapado
   com opacidade calibrada caso a caso. Ver
-  [[Vidro precisa de opacidade por camada, senao o flutuante fica ilegivel]].
+  [[Vidro flutuante precisa de superfície mais opaca que a chrome]].
 - **Nav do topo espelha a home**: mesma ordem e mesmos icones dos cards (dex, items, hunt,
   calc, eevee, breed). Nav do VIP perdeu icone e cor por secao: ativo por superficie+peso.
 - **Pokedex em container proprio de 92rem** (`.container-wide`) pra o card caber os dois

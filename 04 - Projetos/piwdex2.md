@@ -15,6 +15,9 @@ codigo_em: ~/Dev/piwdex2
 Código em: `~/Dev/piwdex2` · remote `git@github.com:edulanzarin/piwdex2.git`
 Par de portas: **4071** (app) / **5071** (banco, reservado).
 
+**No ar desde 22/08/2026, em piwdex.com.br** — pelo repositório `edulanzarin/piwdex`,
+não por este. Ver "A reescrita assume o deploy do v1", no fim.
+
 ## Por que reescrever
 
 O Eduardo rejeitou o visual do piwdex depois de cinco passadas de refino. O diagnóstico não
@@ -351,6 +354,46 @@ ainda está ruim, muita frase de IA", "cadê ícones, animações em tudo".
   Conferido com Playwright em `reducedMotion: "reduce"` e **sem** `waitForTimeout`,
   que é o que escondia o defeito.
 
+## A reescrita assume o deploy do v1 (22/08/2026)
+
+O piwdex2 estava pronto e sem deploy; o [[piwdex]] estava no ar em piwdex.com.br, no
+Railway, com o visual que motivou a reescrita. Em vez de subir um serviço novo e migrar
+domínio, o **conteúdo do repositório do v1 passou a ser o deste projeto**. O deploy que
+já existia publica a versão nova sozinho.
+
+A commit da troca tem **dois pais**, de propósito: o histórico do v1 continua alcançável
+e o do piwdex2 vai junto, em vez de virar um despejo inicial sem passado. A árvore é
+byte a byte a do piwdex2 (conferido por `rev-parse HEAD^{tree}`).
+
+**Uma cópia por escrito antes de qualquer coisa** — tag `v1.0.0`, branch
+`reserva/v1-robo`, e um `git bundle` de 5,9 MB com as 38 branches. Detalhe na nota do
+[[piwdex]].
+
+### O que uma troca de árvore ingênua teria quebrado
+
+Nenhum dos três aparece como erro de código, e dois deles falham **em silêncio** — o
+deploy não promove e o site velho continua servindo:
+
+1. **`preDeployCommand: node db/setup.mjs`** no `railway.json` do v1. A pasta `db/` não
+   existe aqui, o pré-deploy falha, o deploy nunca sobe.
+2. **`healthcheckPath: /api/health`.** O piwdex2 não tinha uma rota de API sequer.
+   Healthcheck que responde 404 marca o deploy como falho.
+3. **`www` → apex.** Sem o redirect o mesmo site responde em dois endereços, e isso é
+   conteúdo duplicado na busca — o pior resultado para um site que vive de busca.
+
+Os três foram portados antes da troca. A lição geral virou
+[[Herdar um deploy é herdar o contrato dele, não só o domínio]].
+
+### O robô saiu do ar
+
+Sessão por WebSocket, fila de captura e de nivelamento, mercado, watchlist, alertas,
+Auth.js, cockpit e o pagamento de VIP. Decisão do Eduardo: "pensaremos em algo depois".
+
+`/vip` e `/bot-app` não viram 404 — caem na home por redirect **temporário** (307).
+Essas rotas estão salvas no próprio jogo, no Discord e no favorito de quem usava, e
+`permanent` ensinaria navegador e buscador a nunca mais pedi-las. O robô está parqueado,
+não enterrado.
+
 ## Próximos passos
 
 1. As seis ferramentas estão no ar; o "em breve" saiu da navegação.
@@ -408,6 +451,7 @@ ainda está ruim, muita frase de IA", "cadê ícones, animações em tudo".
   [[Sobre arte de fundo, a chrome também tem piso de opacidade]] ·
   [[Faixa de topo de ferramenta é chegada, não rótulo]] ·
   [[Reduzir movimento tem que zerar o atraso, não só a duração]] ·
-  [[Texto de interface soa a IA pelo ritmo, não pelo assunto]]
+  [[Texto de interface soa a IA pelo ritmo, não pelo assunto]] ·
+  [[Herdar um deploy é herdar o contrato dele, não só o domínio]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
