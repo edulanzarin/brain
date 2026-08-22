@@ -18,6 +18,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Componente de ícone não atravessa a fronteira server-client]]
 - [[Componente de terceiro que usa Context não roda em Server Component]] — ícone/lib
   com `useContext` quebra no server; usar a entrada `/ssr` context-free.
+- [[Altura 100% em item de grid de linha automática volta ao tamanho intrínseco]] — a
+  linha depende do item e o item da linha; o navegador desiste do 100% e o conteúdo
+  vaza da caixa de tamanho fixo. Só aparece com conteúdo não-quadrado.
 - [[React reseta o formulário ao fim de uma Server Action]]
 - [[Janela arrastável no React 19 se faz à mão, não com react-rnd]] — react-rnd/
   react-draggable usam `findDOMNode`, removido no React 19; arraste/resize à mão,

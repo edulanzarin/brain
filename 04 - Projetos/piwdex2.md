@@ -54,6 +54,13 @@ alta; o dado vai no mono, senão a densidade morre de novo.
 - **Calculadora de IV**: inverte a fórmula verificada pra achar o atributo que o jogo
   esconde, projeta em qualquer nível e mostra o quanto falta pro IV perfeito. Ela abre com
   o **"Como usar"** — resumo sempre visível, seis passos sob demanda.
+- **Hunt**: mede TODO alvo do jogo contra o pokémon que você tem — não existe "a
+  melhor hunt do jogo", existe a melhor hunt pra ele. Duas vistas sobre o mesmo
+  lutador: a **rota** (a subida em faixas até o nível alvo, com quantas horas cada
+  faixa custa pela curva de XP) e a **tabela inteira** (342 alvos, ordenável por
+  XP/h, ouro/h, abates/h, efetividade e segurança, com ficha por hunt). O
+  diferencial está no motor: o rendimento é EFETIVO — se a hunt te derruba, o
+  tempo parado na Joy já saiu do XP/h antes da lista ser ordenada.
 - **Breeding**: valida o par enquanto se digita (mesma espécie, Quality a até 0.150),
   projeta o ovo — sorteio de Quality com as quatro probabilidades, IV herdado, stats
   reais e custo — e planeja quantos breeds faltam até a Quality alvo. Estado do par na
@@ -159,6 +166,31 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   estante de hoje. É número, não adjetivo — 50%. (3) O filho herda a distribuição de IV
   **inteira** do pai de maior Quality, então a tela avisa quando o descartado era o
   melhor, com quantos pontos vão pro lixo.
+- **A Hunt tem dois tempos, e isso é a decisão de forma dela.** ENTRADA (o pokémon
+  e o cenário) só vale depois do botão; RESULTADO (filtro, ordem, nível alvo)
+  responde ao vivo. Não é custo de rede — a conta roda no navegador em dezenas de
+  ms —, é que recalcular a cada tecla troca a resposta no meio de "1,8", e que o
+  que exige comitar é o INSUMO, não a tela. O botão carrega o estado (calcular →
+  calculado → recalcular) e a espera tem piso de 700ms, senão o loader pisca sem
+  ser lido. Registrado em
+  [[Consulta pesada executa por botão, não por mudança de filtro]].
+- **A captura entra LÍQUIDA no ouro.** O jogo gasta uma bola por abate,
+  capturando ou não. Somar só o que a captura rende (o que o piwdex 1 fazia)
+  esconde a metade que importa: com Ultra Ball a 130 de ouro num alvo de chance
+  0,17%, as bolas torram mais do que a venda devolve. O número fica negativo, e
+  isso é resposta.
+- **O Tipo do Dia é refeito drop a drop, não somado no total.** O bônus multiplica
+  a CHANCE de cada drop e a chance tem teto: alvo cujo loot já sai em 95%
+  aproveita 5% do bônus, não 20%. Por isso o payload leva o loot cru de quem tem
+  ponto no mapa, em vez do ouro já somado.
+- **A economia entra pelo `goldEV` do alvo.** Tipo do Dia e captura são escolha do
+  jogador; o motor de combate não conhece nenhum dos dois. Trocar o campo antes de
+  chamar o motor faz o ouro/h e a rota por ouro já saírem completos — sem um
+  segundo caminho de cálculo que um dia discordaria do primeiro.
+- **Os golpes de TODO MUNDO viajam pro navegador, em tupla.** O combate tem dois
+  lados: sem o moveset do selvagem não dá pra estimar o que você TOMA, e a tela
+  promete XP/h de uma hunt que te mata. Com nome de campo em JSON são 133KB de
+  chave repetida; em tupla, 77KB — 55KB no fio depois do gzip, o mesmo peso da dex.
 - **O catálogo declara `chance: 0` em 346 linhas** (todas de Strange Pheromone, o item
   de breeding). Isso não é "nunca cai", é "a fonte não diz" — a ficha troca as
   derivações por uma frase em vez de imprimir zeros. Virou
@@ -203,9 +235,7 @@ de densidade.
 
 ## Próximos passos
 
-1. Hunt e Meta sobre os motores já portados. Cada uma entra com o próprio `COMO_USAR_*`
-   em `lib/how-to.tsx`. A rota de hunt tem um segundo eixo pronto: o `items.ts` já sabe
-   o que cada caçada rende de loot por abate.
+1. Meta sobre o `meta.ts` já portado, com o próprio `COMO_USAR_*` em `lib/how-to.tsx`.
 2. Decidir o que substitui o robô. Até lá, `parked/` fica como está.
 3. O `pokedex.png` tem 584 KB (arte gerada, com ruído) contra ~10 KB dos ícones
    desenhados por código. Quantizar em 64 cores derruba pra 57 KB sem diferença visível
@@ -235,6 +265,9 @@ de densidade.
   [[Custo de processo aleatório se orça pela cauda, não pela média]] ·
   [[Distribuição exata sai de programação dinâmica, não de Monte Carlo]] ·
   [[Peça o que a fonte mostra, não o que você precisa]] ·
-  [[Medidor de razão nomeia a grandeza e mostra os operandos]]
+  [[Medidor de razão nomeia a grandeza e mostra os operandos]] ·
+  [[Fila de campos alinha por altura fixa de controle, não por items-end]] ·
+  [[Altura 100% em item de grid de linha automática volta ao tamanho intrínseco]] ·
+  [[Consulta pesada executa por botão, não por mudança de filtro]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

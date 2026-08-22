@@ -49,8 +49,31 @@ sozinho. Skeleton cobre o primeiro load da área; ver
 [[Esqueleto de carregamento imita a forma do conteúdo]] e
 [[Todo estado da tela tem visual]].
 
+## O mesmo mecanismo quando a conta é local
+
+No [[piwdex2]] não há servidor no meio: a Hunt simula 342 alvos, dois lados de
+combate cada, mais um alvo por nível da rota — tudo no navegador, em dezenas de
+milissegundos. Ainda assim o padrão vale, por dois motivos que não são custo de
+rede:
+
+- **A tela pisca enquanto se digita.** Recalcular a cada tecla faz a resposta
+  trocar no meio de "1,8" — o resultado do "1," aparece e some.
+- **A fronteira não é a tela, é o insumo.** O que exige comitar é o pokémon e o
+  cenário; o que mora *no resultado* (filtro da tabela, ordenação, nível alvo da
+  rota) continua ao vivo, porque é refinamento de uma resposta que já existe.
+
+Dois detalhes que valeram:
+
+- **O botão carrega o estado**: "calcular" → "calculado" (desabilitado) →
+  "recalcular" quando o rascunho diverge do aplicado. O rótulo é o indicador de
+  que existe resultado velho na tela.
+- **A espera precisa de piso.** Cálculo de 30ms sem piso pisca um loader que
+  ninguém lê, e o resultado parece não ter mudado. Um piso de ~700ms com o
+  carregando visível é o que faz a ação ter acontecido — mesmo custo do
+  [[Esqueleto de carregamento imita a forma do conteúdo]], propósito inverso.
+
 ## Conexões
 - Princípio: [[Todo estado da tela tem visual]] · [[Estado compartilhável mora na URL]]
 - Irmã: [[Controles de filtro do dashboard]] · [[Filtro de lista mora na URL]]
-- Visto em: [[Navetech Hub]]
+- Visto em: [[Navetech Hub]] · [[piwdex2]]
 - Mapa: [[Design]]

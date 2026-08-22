@@ -66,6 +66,10 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
   pode crescer sem fim: teto no painel, scroll na parte que cresce.
 - [[Primitiva de botão fecha o tamanho e abre só a variante]] — o botão vira
   componente que expõe cor, não tamanho; o `!h-7` por instância deixa de existir.
+- [[Fila de campos alinha por altura fixa de controle, não por items-end]] — todo
+  controle veste a mesma casca e a célula reserva a linha do rótulo mesmo sem
+  rótulo; `items-end` só disfarça altura diferente. Traz junto a armadilha de
+  truncar, que esconde nos dois eixos e come o acento.
 - [[Barra de topo contextual - o módulo injeta suas ferramentas via portal]] — o
   topo muda por tela: cada módulo manda busca/ações via slot, sem busca duplicada.
 - [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]]
