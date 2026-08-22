@@ -55,9 +55,24 @@ chamada de cada página. Identidade repetida em três lugares é identidade que
 envelhece em dois. Um registro (`lib/ferramentas.ts`) abastece os três, e a ordem da
 lista passa a ser a ordem da navegação.
 
-Efeito colateral que valeu sozinho: a navegação ganhou o glifo e a cor que só a home
-tinha. Seis palavras curtas em caixa alta, no mesmo tom, viram uma fileira de manchas
-indistinguíveis — com a silhueta na frente, a palavra vira confirmação.
+Efeito colateral que valeu sozinho: a navegação ganhou a **cor** que só a home tinha. A
+palavra e a barra do item ativo acendem no tom da ferramenta, que é o mesmo sinal da
+faixa de topo repetido onde o olho já estava.
+
+O glifo, esse, não passou — e a tentativa vale registrar porque o erro é atraente. O
+argumento era que seis palavras curtas em caixa alta viram uma fileira de manchas
+iguais; com a barra montada, POKÉDEX / ITENS / CALCULADORA / HUNT / BREEDING / META
+têm comprimentos bem diferentes, e **o comprimento já é a silhueta**. O ícone resolvia
+um problema que a tipografia resolvia sozinha, e num chrome de 56px cada elemento a
+mais custa densidade.
+
+Usar a própria arte da ferramenta no lugar do glifo genérico parece a saída óbvia e
+não é: a arte é uma grade de 32×32 e a navegação pede 14–20px — não há como desenhar
+32 pixels em 20. Renderizada a 3× do tamanho real ela já vira seis manchas coloridas
+indistinguíveis. É a fronteira de
+[[Arte de ícone se julga no tamanho de uso, e o acento é a massa]] vista do outro
+lado: **arte de identidade não desce pro chrome miúdo**, e o teste que decide é
+render no tamanho de uso antes de discutir.
 
 ## O que só aparece montando
 
