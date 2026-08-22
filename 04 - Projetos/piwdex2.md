@@ -61,6 +61,14 @@ alta; o dado vai no mono, senão a densidade morre de novo.
   XP/h, ouro/h, abates/h, efetividade e segurança, com ficha por hunt). O
   diferencial está no motor: o rendimento é EFETIVO — se a hunt te derruba, o
   tempo parado na Joy já saiu do XP/h antes da lista ser ordenada.
+- **Meta**: três vistas sobre o catálogo — **tier list** com o corte por NOTA (não
+  por posição na fila: num jogo que recebe patch, espécie buffada tem que poder
+  subir sem alguém descer pra abrir vaga), **duelo** entre dois indivíduos com
+  nível e quality (a tier list compara espécies; dois Gyarados diferentes são dois
+  pokémon diferentes) e **tipos**, o panorama ofensivo pra montagem de time. O
+  perfil de cada espécie é modal, com os dois eixos da nota, o percentil de cada
+  stat e quem derruba quem — medindo os dois lados do duelo, não só quem tem o
+  tipo certo.
 - **Breeding**: valida o par enquanto se digita (mesma espécie, Quality a até 0.150),
   projeta o ovo — sorteio de Quality com as quatro probabilidades, IV herdado, stats
   reais e custo — e planeja quantos breeds faltam até a Quality alvo. Estado do par na
@@ -166,6 +174,11 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   estante de hoje. É número, não adjetivo — 50%. (3) O filho herda a distribuição de IV
   **inteira** do pai de maior Quality, então a tela avisa quando o descartado era o
   melhor, com quantos pontos vão pro lixo.
+- **Cor de dado vinda de módulo portado é fronteira.** `RISK_COLOR` e `TIER_COLOR`
+  chegaram com os tokens do piwdex 1 (`--green`, `--yellow`, `--cyan`), que aqui não
+  existem — e `var()` desconhecida cai pro valor herdado em vez de falhar. "SEGURO"
+  e "LETAL" saíam da mesma cor branca, sem um aviso sequer. Virou
+  [[Token de cor que não existe vira cor herdada, sem erro]].
 - **A Hunt tem dois tempos, e isso é a decisão de forma dela.** ENTRADA (o pokémon
   e o cenário) só vale depois do botão; RESULTADO (filtro, ordem, nível alvo)
   responde ao vivo. Não é custo de rede — a conta roda no navegador em dezenas de
@@ -235,7 +248,7 @@ de densidade.
 
 ## Próximos passos
 
-1. Meta sobre o `meta.ts` já portado, com o próprio `COMO_USAR_*` em `lib/how-to.tsx`.
+1. As seis ferramentas estão no ar; o "em breve" saiu da navegação.
 2. Decidir o que substitui o robô. Até lá, `parked/` fica como está.
 3. O `pokedex.png` tem 584 KB (arte gerada, com ruído) contra ~10 KB dos ícones
    desenhados por código. Quantizar em 64 cores derruba pra 57 KB sem diferença visível
@@ -268,6 +281,7 @@ de densidade.
   [[Medidor de razão nomeia a grandeza e mostra os operandos]] ·
   [[Fila de campos alinha por altura fixa de controle, não por items-end]] ·
   [[Altura 100% em item de grid de linha automática volta ao tamanho intrínseco]] ·
-  [[Consulta pesada executa por botão, não por mudança de filtro]]
+  [[Consulta pesada executa por botão, não por mudança de filtro]] ·
+  [[Token de cor que não existe vira cor herdada, sem erro]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

@@ -18,6 +18,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Componente de ícone não atravessa a fronteira server-client]]
 - [[Componente de terceiro que usa Context não roda em Server Component]] — ícone/lib
   com `useContext` quebra no server; usar a entrada `/ssr` context-free.
+- [[Token de cor que não existe vira cor herdada, sem erro]] — ao portar módulo entre
+  projetos os tokens são fronteira: `var(--green)` sem o token cai pro valor herdado,
+  fica legível e errado, e nada no console avisa.
 - [[Altura 100% em item de grid de linha automática volta ao tamanho intrínseco]] — a
   linha depende do item e o item da linha; o navegador desiste do 100% e o conteúdo
   vaza da caixa de tamanho fixo. Só aparece com conteúdo não-quadrado.
