@@ -61,6 +61,14 @@ alta; o dado vai no mono, senão a densidade morre de novo.
   XP/h, ouro/h, abates/h, efetividade e segurança, com ficha por hunt). O
   diferencial está no motor: o rendimento é EFETIVO — se a hunt te derruba, o
   tempo parado na Joy já saiu do XP/h antes da lista ser ordenada.
+- **Anúncios (preparado, desligado)**: o site nasce sem anúncio nenhum — sem
+  `NEXT_PUBLIC_ADSENSE_CLIENT` não há script, `<ins>` nem espaço reservado.
+  Ligado, entram um card intercalado a cada 12 na grade da dex e dos itens e uma
+  faixa antes do rodapé; nunca dentro de painel de ferramenta. Vieram junto
+  `robots`, `sitemap` com as ~900 fichas dinâmicas, `ads.txt` e a página de
+  privacidade — os quatro que a revisão do AdSense cobra e o site não tinha.
+  Mecânica em [[Slot de anúncio no App Router precisa de casca estável e filho keyado]],
+  forma em [[Anúncio em feed não pode vestir a roupa do conteúdo]].
 - **Apoio**: faixa no rodapé de todas as páginas (recado curto de um lado, botão
   do outro) e balão dispensável que espera a pessoa usar o site. O caminho de graça
   — o código de indicação no jogo — vem primeiro e sempre existe; o link de
@@ -288,6 +296,8 @@ de densidade.
   [[Altura 100% em item de grid de linha automática volta ao tamanho intrínseco]] ·
   [[Consulta pesada executa por botão, não por mudança de filtro]] ·
   [[Token de cor que não existe vira cor herdada, sem erro]] ·
-  [[Pedido de apoio entra depois do valor, e nunca ao lado de si mesmo]]
+  [[Pedido de apoio entra depois do valor, e nunca ao lado de si mesmo]] ·
+  [[Slot de anúncio no App Router precisa de casca estável e filho keyado]] ·
+  [[Anúncio em feed não pode vestir a roupa do conteúdo]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

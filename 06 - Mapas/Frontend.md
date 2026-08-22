@@ -18,6 +18,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Componente de ícone não atravessa a fronteira server-client]]
 - [[Componente de terceiro que usa Context não roda em Server Component]] — ícone/lib
   com `useContext` quebra no server; usar a entrada `/ssr` context-free.
+- [[Slot de anúncio no App Router precisa de casca estável e filho keyado]] — o nó do
+  anúncio só é reivindicado uma vez; entre rotas de mesma forma o React reconcilia e
+  ele sobrevive com o anúncio velho dentro. Casca estável + filho keyado por rota.
 - [[Token de cor que não existe vira cor herdada, sem erro]] — ao portar módulo entre
   projetos os tokens são fronteira: `var(--green)` sem o token cai pro valor herdado,
   fica legível e errado, e nada no console avisa.
