@@ -23,6 +23,10 @@ Projeto novo herda os princípios sempre; puxa este dialeto só se for da mesma 
   script que evita o flash no carregamento.
 - [[Vidro flutuante precisa de superfície mais opaca que a chrome]] — dois níveis de
   vidro: chrome arejada vs overlay opaco e legível.
+- [[Sobre arte de fundo, a chrome também tem piso de opacidade]] — quando o fundo é
+  foto ou wallpaper, a premissa da nota acima cai: a opacidade é multiplicativa entre
+  scrim, painel e campo, e o que faz o vidro parecer vidro é blur + aresta de luz +
+  sombra, não o alpha.
 - [[Validar paleta de gráficos antes de escolher cores]] — forma primeiro, cor por
   último; checagens objetivas antes de fechar a paleta.
 - [[Cor de marca precisa de variante acessível por tema]] — a cor crua do cliente
@@ -91,15 +95,21 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 - [[Medidor de razão nomeia a grandeza e mostra os operandos]] — "diferença 0.000 /
   0.150" é placar sem jogo: nomeie a grandeza, mostre os operandos e ponha o
   denominador em palavra. Reprova quando quem conhece o domínio pergunta o que é.
-- [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] — uma frase
-  sempre visível e os passos num `<details>`; abrir/fechar é chrome, então o bloco
-  continua sendo componente de servidor.
+- [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] — os passos
+  num `<details>`; abrir/fechar é chrome, então o bloco continua sendo componente de
+  servidor. A barra fechada anuncia o tamanho do manual, não repete a frase que o topo
+  da tela já dá.
+- [[Faixa de topo de ferramenta é chegada, não rótulo]] — o topo responde onde estou,
+  o que isso faz e qual o tamanho disso, antes de dizer como se chama; toda a
+  decoração sai de um `--tint` só, e a identidade da ferramenta vira registro que
+  abastece home, navegação e topo.
 - [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]] — folha de
   contato no fundo real, silhueta antes de cor, e a fronteira entre arte de figura
   (24px pra cima) e ícone de traço no chrome miúdo.
 
 Princípios: [[A variante de um controle muda a intenção, não o tamanho]] ·
-[[Tela que abre vazia tem que ensinar, tela que abre cheia não]]
+[[Tela que abre vazia tem que ensinar, tela que abre cheia não]] ·
+[[Texto de interface soa a IA pelo ritmo, não pelo assunto]]
 
 ## Estados e feedback
 
@@ -127,6 +137,9 @@ Princípios: [[A variante de um controle muda a intenção, não o tamanho]] ·
 - [[Pedido de apoio entra depois do valor, e nunca ao lado de si mesmo]] — o gatilho
   é uso e não chegada, o "agora não" tem prazo, e o balão some enquanto o rodapé
   está em cena; link que ainda não existe não vira botão.
+- [[Reduzir movimento tem que zerar o atraso, não só a duração]] — o reset padrão de
+  `prefers-reduced-motion` deixa `animation-delay` intacto, e com entrada em cascata
+  isso vira tela em branco pra quem pediu menos movimento.
 - [[Animação de enfeite escolhe a propriedade pelo custo, não pelo efeito]] — mesmo
   desenho, ordens de grandeza de diferença: `width` faz layout a cada quadro e
   animar caixa borrada rasteriza o desfoque em cada card da grade.
@@ -150,10 +163,16 @@ Princípios: [[Todo estado da tela tem visual]] · [[Nota carrega só o que a pe
 3. Hierarquia por superfície; borda só onde a superfície não resolveu.
 4. Os quatro estados desenhados: carregando, vazio, erro, sucesso.
 5. Se a tela abre VAZIA (calculadora, simulador, importador), ela tem manual —
-   [[Manual de ferramenta é resumo visível com passo a passo sob demanda]].
-6. Filtro, busca e aba na URL; preferência pessoal no `localStorage`.
-7. Testado no tema claro **e** no escuro, e no build de produção
-   ([[Verificar no build de produção, não só em dev]]).
+   [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] — e o topo
+   dela é chegada, não rótulo:
+   [[Faixa de topo de ferramenta é chegada, não rótulo]].
+6. O texto da tela lido em voz alta: travessão emendando, "não é X, é Y" e explicação
+   que ninguém pediu são os três tiques de
+   [[Texto de interface soa a IA pelo ritmo, não pelo assunto]].
+7. Filtro, busca e aba na URL; preferência pessoal no `localStorage`.
+8. Testado no tema claro **e** no escuro, no build de produção
+   ([[Verificar no build de produção, não só em dev]]) e com `prefers-reduced-motion`
+   ligado ([[Reduzir movimento tem que zerar o atraso, não só a duração]]).
 
 ## Onde uma nota nova entra
 

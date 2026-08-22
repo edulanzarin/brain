@@ -310,6 +310,47 @@ barra de aba que teletransporta. E duas animações no eixo errado, que eram tam
 `width` em laço infinito na tela de carregamento e caixa borrada crescendo em cada card
 → [[Animação de enfeite escolhe a propriedade pelo custo, não pelo efeito]].
 
+## Passada de superfície, herói e voz (ago/2026)
+
+Três queixas do Eduardo na mesma tela: "tá muito transparente o fundo", "esse herói
+ainda está ruim, muita frase de IA", "cadê ícones, animações em tudo".
+
+- **O vidro deixava passar a cena inteira.** Painel em 62%, campo em 66%, scrim
+  abrindo 46% no topo: o neon do wallpaper chegava a 20% de brilho **dentro** do
+  painel, atrás do número digitado. Painel foi a 90%, campo a 92%, scrim a 70%, e a
+  arte dentro do painel caiu pra 3%. O vidro continua vidro porque quem faz vidro é
+  blur + aresta de luz + sombra, não o alpha —
+  [[Sobre arte de fundo, a chrome também tem piso de opacidade]].
+- **O topo das seis ferramentas era rótulo.** Arte de 44px e a palavra: abrir a Hunt e
+  a Meta davam a mesma imagem com uma palavra trocada. Virou faixa que responde onde
+  estou, o que isso faz e qual o tamanho disso (a contagem real do catálogo), com toda
+  a decoração saindo de um `--tint` só —
+  [[Faixa de topo de ferramenta é chegada, não rótulo]].
+- **Identidade de ferramenta virou dado.** Nome, cor, arte, glifo e frase moravam na
+  home, na navegação e na chamada de cada página. `lib/ferramentas.ts` abastece os
+  três, e a navegação ganhou de brinde o glifo e a cor que só a home tinha.
+- **A frase saiu de dois lugares.** Com a faixa carregando a frase da ferramenta, a
+  barra do "Como usar" repetia a mesma coisa dois blocos abaixo. Ela passa a anunciar
+  o **tamanho** do manual ("7 passos, e 5 ressalvas"), que é o que decide se vale
+  abrir — [[Manual de ferramenta é resumo visível com passo a passo sob demanda]]
+  atualizada.
+- **A voz.** O tique não era o assunto, era o ritmo: travessão emendando uma segunda
+  oração, "não é X, é Y", e a explicação que se justifica sozinha. Reescritos os
+  quatro manuais inteiros (resumo, passos e ressalvas), as notas de Meta e Hunt e o
+  estado vazio. Nenhum dado do jogo mudou, e as constantes continuam importadas.
+  Saiu um número a menos: "o botão simula os 342 alvos" estava digitado à mão
+  enquanto a faixa de topo já mostra a contagem real —
+  [[Texto de interface soa a IA pelo ritmo, não pelo assunto]].
+- **Ícone onde ele paga aluguel.** Aba (o `icon` entrou no `TabItem`, não dentro do
+  `label`, pra o vão ser o mesmo em toda aba), navegação, e as duas ações que toda
+  ferramenta tem no cabeçalho — "preencher exemplo" e "limpar" eram texto puro numa
+  fila onde todo vizinho tinha glifo, e liam como link solto.
+- **Armadilha do reduced-motion.** O reset zerava a duração e deixava o atraso: com a
+  entrada em cascata, meio segundo de tela em branco pra exatamente quem pediu pra não
+  ver movimento — [[Reduzir movimento tem que zerar o atraso, não só a duração]].
+  Conferido com Playwright em `reducedMotion: "reduce"` e **sem** `waitForTimeout`,
+  que é o que escondia o defeito.
+
 ## Próximos passos
 
 1. As seis ferramentas estão no ar; o "em breve" saiu da navegação.
@@ -363,6 +404,10 @@ barra de aba que teletransporta. E duas animações no eixo errado, que eram tam
   [[Área de toque cresce por pseudo-elemento, não pela caixa]] ·
   [[Animação de enfeite escolhe a propriedade pelo custo, não pelo efeito]] ·
   [[Sonda que falhou não é sinal de que mudou]] ·
-  [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]]
+  [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]] ·
+  [[Sobre arte de fundo, a chrome também tem piso de opacidade]] ·
+  [[Faixa de topo de ferramenta é chegada, não rótulo]] ·
+  [[Reduzir movimento tem que zerar o atraso, não só a duração]] ·
+  [[Texto de interface soa a IA pelo ritmo, não pelo assunto]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
