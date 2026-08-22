@@ -113,6 +113,9 @@ Princípios: [[A variante de um controle muda a intenção, não o tamanho]] ·
   reprova entrada boa.
 - [[Conteúdo do servidor não pode nascer invisível esperando o cliente]] — `opacity-0`
   até o `onLoad` apaga a página que o servidor já mandou pronta.
+- [[Pedido de apoio entra depois do valor, e nunca ao lado de si mesmo]] — o gatilho
+  é uso e não chegada, o "agora não" tem prazo, e o balão some enquanto o rodapé
+  está em cena; link que ainda não existe não vira botão.
 
 Princípios: [[Todo estado da tela tem visual]] · [[Nota carrega só o que a pessoa não sabe]] ·
 [[Custo de processo aleatório se orça pela cauda, não pela média]] ·

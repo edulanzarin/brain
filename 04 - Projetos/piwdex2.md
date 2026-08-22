@@ -61,6 +61,11 @@ alta; o dado vai no mono, senão a densidade morre de novo.
   XP/h, ouro/h, abates/h, efetividade e segurança, com ficha por hunt). O
   diferencial está no motor: o rendimento é EFETIVO — se a hunt te derruba, o
   tempo parado na Joy já saiu do XP/h antes da lista ser ordenada.
+- **Apoio**: faixa no rodapé de todas as páginas (recado curto de um lado, botão
+  do outro) e balão dispensável que espera a pessoa usar o site. O caminho de graça
+  — o código de indicação no jogo — vem primeiro e sempre existe; o link de
+  pagamento nasce vazio em `lib/apoio.ts` e, vazio, não desenha botão. Detalhe e
+  porquê em [[Pedido de apoio entra depois do valor, e nunca ao lado de si mesmo]].
 - **Meta**: três vistas sobre o catálogo — **tier list** com o corte por NOTA (não
   por posição na fila: num jogo que recebe patch, espécie buffada tem que poder
   subir sem alguém descer pra abrir vaga), **duelo** entre dois indivíduos com
@@ -282,6 +287,7 @@ de densidade.
   [[Fila de campos alinha por altura fixa de controle, não por items-end]] ·
   [[Altura 100% em item de grid de linha automática volta ao tamanho intrínseco]] ·
   [[Consulta pesada executa por botão, não por mudança de filtro]] ·
-  [[Token de cor que não existe vira cor herdada, sem erro]]
+  [[Token de cor que não existe vira cor herdada, sem erro]] ·
+  [[Pedido de apoio entra depois do valor, e nunca ao lado de si mesmo]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
