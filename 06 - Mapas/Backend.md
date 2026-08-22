@@ -147,6 +147,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]] — a
   superfície real é maior que a REST documentada; o dado que falta num canal está
   noutro (WS/SSE/gRPC), ao custo da sessão viva. Irmã do shard por sondagem.
+- [[Sonda que falhou não é sinal de que mudou]] — a pergunta barata que decide se vale
+  buscar o volume tem TRÊS respostas, e quase toda implementação prevê duas: `catch`
+  devolvendo `null` faz qualquer falha virar download completo, em silêncio. Traz junto
+  o log por transição, a cadência como variável própria e o piso de plausibilidade na
+  resposta. Princípio: [[Peça o que a fonte mostra, não o que você precisa]].
 - [[Config que a sessão cacheia no init não vê a escrita no backend, reaplique na mesma conexão]] —
   sessão longa lê a config no init e não vê a escrita posterior; reaplique reenviando o
   init na mesma conexão (não reconecte), e dispare isso do caminho de escrita.

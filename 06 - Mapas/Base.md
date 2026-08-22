@@ -28,6 +28,8 @@ Independe de CSS, de Tailwind e de React. Técnicas concretas em [[Design]].
 - [[Peça o que a fonte mostra, não o que você precisa]] — campo que a pessoa não tem de onde copiar está errado; peça as grandezas visíveis e derive, e leve a incerteza da derivação adiante.
 - [[A régua sai da distribuição, não dos extremos]] — quem decide a escala de barra, trilho ou eixo é a forma do dado, não o seu máximo.
 - [[A tela não afirma mais precisão do que a fonte tem]] — casa decimal é o tamanho da afirmação; zero arredondado e ponto onde só há faixa inventam exatidão.
+- [[Travar o valor não impede a tela de afirmar a partir dele]] — `clamp` conserta o que se lê, não o que se conclui: projeção, cor, conselho e agregado continuam saindo do valor travado.
+- [[Limiar em grandeza contínua vira degrau, e o degrau decide a ordem]] — `if x >= K` que responde número, e não rótulo, faz 0,1% de entrada virar 2x de saída; o teste é medir a razão entre vizinhos.
 - [[Estado compartilhável mora na URL]] — o que descreve a vista vai pro link.
 - [[Estado de tela pertence à seção, não à página]] — estado no menor escopo que resolve.
 - [[Entidade auxiliar se cria no ponto de uso, não em tela própria]] — grupo/etiqueta é campo, não aba.

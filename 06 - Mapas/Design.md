@@ -44,6 +44,11 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   default do primitivo é utilitário, concatenar não basta: precisa de merge.
 - [[Trocar a fonte muda a largura, não só o desenho da letra]] — a família nova
   reescreve os slots fixos, a base em rem e os pesos disponíveis.
+- [[Alvo de toque pergunta pelo apontador, não pela largura da janela]] — `pointer:
+  coarse` e não breakpoint: janela estreita no desktop continua com mouse. Traz os
+  dois pisos (24 da WCAG, 44 da Apple) e como medir a área sensível de verdade.
+- [[Área de toque cresce por pseudo-elemento, não pela caixa]] — link dentro de
+  frase não pode engordar sem empurrar o parágrafo; cresce a área, não o elemento.
 - [[Sticky gruda no container que rola, não na janela]] — `overflow-x-auto` promove o
   outro eixo pra `auto` e vira o ancestral rolável; o `top` passa a medir de dentro.
 
@@ -89,6 +94,9 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 - [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] — uma frase
   sempre visível e os passos num `<details>`; abrir/fechar é chrome, então o bloco
   continua sendo componente de servidor.
+- [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]] — folha de
+  contato no fundo real, silhueta antes de cor, e a fronteira entre arte de figura
+  (24px pra cima) e ícone de traço no chrome miúdo.
 
 Princípios: [[A variante de um controle muda a intenção, não o tamanho]] ·
 [[Tela que abre vazia tem que ensinar, tela que abre cheia não]]
@@ -119,8 +127,12 @@ Princípios: [[A variante de um controle muda a intenção, não o tamanho]] ·
 - [[Pedido de apoio entra depois do valor, e nunca ao lado de si mesmo]] — o gatilho
   é uso e não chegada, o "agora não" tem prazo, e o balão some enquanto o rodapé
   está em cena; link que ainda não existe não vira botão.
+- [[Animação de enfeite escolhe a propriedade pelo custo, não pelo efeito]] — mesmo
+  desenho, ordens de grandeza de diferença: `width` faz layout a cada quadro e
+  animar caixa borrada rasteriza o desfoque em cada card da grade.
 
 Princípios: [[Todo estado da tela tem visual]] · [[Nota carrega só o que a pessoa não sabe]] ·
+[[Travar o valor não impede a tela de afirmar a partir dele]] ·
 [[Custo de processo aleatório se orça pela cauda, não pela média]] ·
 [[Peça o que a fonte mostra, não o que você precisa]] ·
 [[Estado compartilhável mora na URL]] ·

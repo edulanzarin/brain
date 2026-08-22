@@ -239,7 +239,11 @@ paralela de shard com early-exit, e o porquê do login ser por token e não por 
 O vocabulário do sistema (tipo, raridade, categoria, papel) é traduzido; nome de espécie
 e de item ficam em inglês, porque são a chave de busca compartilhada com o jogo — a regra
 virou [[Traduza o vocabulário do sistema, não o nome próprio]]. Cada grandeza da tela tem
-símbolo próprio: 20 ícones de domínio em pixel art 8x8, além dos 18 de tipo.
+símbolo próprio. Os de domínio e os 18 de tipo **não** são pixel art: nasceram 8x8 e o
+Eduardo reprovou ("muito feios, quero moderno"), então viraram ícone de traço do
+lucide, escolhido pela silhueta distinta e pareado com a cor canônica — quem não
+distingue matiz separa pela forma. A fronteira entre os dois virou
+[[Arte de ícone se julga no tamanho de uso, e o acento é a massa]].
 
 Os ícones das ferramentas na home são **pixel art de 32x32 desenhada por código**
 (`scripts/pixel-icons/`): um motor de formas em grid de caractere, porque 32x32 escrito
@@ -259,6 +263,53 @@ A escada inteira de tamanhos subiu um degrau junto (corpo em 15px, rótulo a par
 10px): o Eduardo reprovou a versão anterior por ser pequena demais, e legibilidade ganha
 de densidade.
 
+## Passada de robustez, mobile e arte (ago/2026)
+
+Auditoria multi-agente sobre as ~19,4k linhas, com refutação adversarial de cada
+alegação de defeito — 118 achados, 25 alegações de defeito, **17 confirmadas** e 8
+derrubadas. As mais graves eram todas do mesmo tipo: número errado com cara de certo.
+
+- **Degrau no rendimento.** `uptime` trocava por 1 acima de 6 abates por vida; como ele
+  multiplica XP/h, ouro/h e KOs/h, 0,08% de sobrevivência virava 2,5x na tela, e em 642
+  combinações o alvo vencedor da rota mudava só por isso. Virou `smoothstep`, preservando
+  o 1 na ponta pra não recalibrar a escala absoluta →
+  [[Limiar em grandeza contínua vira degrau, e o degrau decide a ordem]].
+- **Dois motores, dois critérios.** O Meta media só o melhor golpe enquanto a Hunt somava
+  o moveset — mesma luta, respostas 3x diferentes, e 292 das 434 espécies mudavam mais de
+  20 posições no ranking. Unificado em `poolDps`; `bestMove` sobrou só como o golpe que a
+  tela **nomeia**.
+- **Régua absoluta sobre escala móvel.** Os eixos normalizavam pelo maior do catálogo e
+  os cortes de tier eram fixos: uma única espécie buffada movia 308 outras de tier. As
+  referências viraram constantes versionadas — 308 → 0.
+- **IV travado, tela ainda afirmando.** A trava resolveu o "99–32"; a projeção, a cor e o
+  conselho continuavam saindo do valor travado →
+  [[Travar o valor não impede a tela de afirmar a partir dele]].
+- **Camada de fonte.** Selo preso em SNAPSHOT depois de um 502 passageiro, snapshot do
+  build descartando dado do jogo na segunda falha, sonda cega virando 1,6 MB a cada 10s e
+  validação que aceitava catálogo truncado como AO VIVO →
+  [[Sonda que falhou não é sinal de que mudou]].
+- **404 e erro** não existiam: um throw na derivação devolvia a tela padrão do Next, em
+  inglês. Os três arquivos entraram no dialeto do site.
+
+**Mobile, medido com Playwright e não por leitura** (iPhone 12 e Galaxy S9+). Sete telas
+empurravam a página para fora da janela — era a causa da queixa "não dá pra clicar": a
+página desliza de lado enquanto a pessoa mira. E o mesmo vazamento fazia o overlay
+`fixed` do modal centrar na largura errada, abrindo a gaveta de filtros deslocada. Sete
+telas → zero; alvos abaixo do piso duro da WCAG: 71 → zero. Detalhe: medir a **caixa** do
+elemento não serve — vale `elementFromPoint` →
+[[Alvo de toque pergunta pelo apontador, não pela largura da janela]] ·
+[[Área de toque cresce por pseudo-elemento, não pela caixa]].
+
+**Arte.** Doze peças novas em `scripts/pixel-icons/arte.py` (404, estado vazio, selo de
+frescor, oito categorias de item) e as seis existentes passaram a abrir as seis
+ferramentas, não só a home. A primeira leva saiu magra ao lado das antigas e teve de ser
+refeita → [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]].
+
+**Movimento.** Grade sem quadro de transição ao filtrar, botão sem resposta ao toque,
+barra de aba que teletransporta. E duas animações no eixo errado, que eram também custo:
+`width` em laço infinito na tela de carregamento e caixa borrada crescendo em cada card
+→ [[Animação de enfeite escolhe a propriedade pelo custo, não pelo efeito]].
+
 ## Próximos passos
 
 1. As seis ferramentas estão no ar; o "em breve" saiu da navegação.
@@ -266,6 +317,13 @@ de densidade.
 3. O `pokedex.png` tem 584 KB (arte gerada, com ruído) contra ~10 KB dos ícones
    desenhados por código. Quantizar em 64 cores derruba pra 57 KB sem diferença visível
    no tamanho em que ele aparece — decisão do Eduardo, é arte dele.
+4. Sobraram 101 alvos de toque entre 24 e 44px. Passam na norma, ficam abaixo do conforto
+   da Apple — subir todos mexe na densidade escolhida, então é decisão de produto.
+5. O piso de 1,2s do `pacing.ts` (loading sempre visível, pedido do Eduardo) é pago em
+   TODA renderização, e as rotas são dinâmicas: um rastreamento completo do sitemap custa
+   ~18 min de CPU parada em `setTimeout`. O interruptor está a vista (`MINIMO_MS = 0`).
+6. A auditoria deixou 16 achados de design de tela, 22 de primitiva e 17 de texto de
+   interface ainda não aplicados.
 4. As páginas hoje são dinâmicas (`ƒ`) porque a fonte roda com `cache: "no-store"` — o
    frescor é gerido no `source.ts`. Se virar gargalo de CDN, é aqui que se mexe.
 5. O script `lint` do `package.json` ainda chama `next lint`, que saiu no Next 16 e hoje
@@ -298,6 +356,13 @@ de densidade.
   [[Token de cor que não existe vira cor herdada, sem erro]] ·
   [[Pedido de apoio entra depois do valor, e nunca ao lado de si mesmo]] ·
   [[Slot de anúncio no App Router precisa de casca estável e filho keyado]] ·
-  [[Anúncio em feed não pode vestir a roupa do conteúdo]]
+  [[Anúncio em feed não pode vestir a roupa do conteúdo]] ·
+  [[Limiar em grandeza contínua vira degrau, e o degrau decide a ordem]] ·
+  [[Travar o valor não impede a tela de afirmar a partir dele]] ·
+  [[Alvo de toque pergunta pelo apontador, não pela largura da janela]] ·
+  [[Área de toque cresce por pseudo-elemento, não pela caixa]] ·
+  [[Animação de enfeite escolhe a propriedade pelo custo, não pelo efeito]] ·
+  [[Sonda que falhou não é sinal de que mudou]] ·
+  [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
