@@ -73,6 +73,38 @@ vira "site sem conteúdo" na revisão — e política de privacidade dizendo que
 terceiros usam cookies. A falta desses quatro reprova mais gente que erro de
 código.
 
+## O gate tem que barrar a casca, não só o conteúdo
+
+A casca estável resolve a reconciliação e cria um segundo problema: ela é
+**estável demais**. Quando o lugar não tem unidade — conta ainda não criada, site
+em análise, ou você ligando um slot de cada vez —, o placeholder de dentro some e a
+casca fica: o `min-height` e o rótulo "Publicidade" continuam desenhando. O site
+vai ao ar com uma caixa vazia rotulada.
+
+E rótulo é obrigatório por política ([[Anúncio em feed não pode vestir a roupa do
+conteúdo]]), então o buraco vem legendado — que é pior. Caixa que diz
+"Publicidade" e não mostra nada promete conteúdo que não vem, e aparece
+exatamente durante a revisão do AdSense.
+
+O erro de raciocínio é ter uma pergunta só. São duas:
+
+- **"está ligado?"** decide se sai o `<ins>`;
+- **"desenha alguma coisa?"** decide se a casca existe — e a resposta muda por
+  ambiente: em desenvolvimento o lugar sem slot vira o marcador tracejado (que
+  existe pra dar pra desenhar contra o layout real), em produção ele não existe.
+
+```ts
+export const mostrarAnuncio = (lugar) =>
+  temSlot(lugar) || process.env.NODE_ENV !== "production";
+```
+
+Vale também pra quem **intercala** anúncio numa lista: a função que espalha os
+marcadores faz a mesma pergunta antes de espalhar, senão a grade abre células
+vazias. Só se pega isso medindo os três estados num build de produção — sem conta,
+conta sem slot, e tudo ligado —, porque em `next dev` os três desenham o
+placeholder e parecem certos. É [[Verificar no build de produção, não só em dev]]
+com um estado a mais: o do MEIO, que é o que dura semanas.
+
 ## Conexões
 - Princípio: [[Verificar no build de produção, não só em dev]]
 - Irmã: [[Anúncio em feed não pode vestir a roupa do conteúdo]] ·
