@@ -130,6 +130,9 @@ Princípios: [[A variante de um controle muda a intenção, não o tamanho]] ·
 - [[Animação de enfeite escolhe a propriedade pelo custo, não pelo efeito]] — mesmo
   desenho, ordens de grandeza de diferença: `width` faz layout a cada quadro e
   animar caixa borrada rasteriza o desfoque em cada card da grade.
+- [[Ponto decimal em interface pt-BR afirma outro número]] — `toFixed` devolve ponto,
+  e em português ponto é separador de milhar: a mesma chance saía "3,4%" no
+  parágrafo e "3.400%" na tabela logo abaixo. Um formatador só, desde o começo.
 
 Princípios: [[Todo estado da tela tem visual]] · [[Nota carrega só o que a pessoa não sabe]] ·
 [[Travar o valor não impede a tela de afirmar a partir dele]] ·
