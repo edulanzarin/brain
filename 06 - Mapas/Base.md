@@ -84,6 +84,7 @@ UI que mostra dado que muda sem o usuário pedir.
 - [[Laço que trata toda falha igual apaga a causa da primeira]] — repetir até dar certo apaga o diagnóstico: a primeira tentativa era a única que carregava a causa, e o erro final costuma ser do próprio laço. Classifique antes de repetir, e nunca reuse recurso queimado.
 - [[Contador que conta sucesso de promessa afirma que deu certo]] — desistir cedo também resolve a promessa, então "N/N ok" some com quem foi pulado. Conte por desfecho, e desconfie da métrica escrita junto com o código.
 
+- [[Ver o plano e mandar executar são duas ações]] — quando escolher o modo já liga o modo, quem ainda está decidindo se confia precisa delegar para poder olhar, e depois desfazer. O modo é do olho, o objetivo é da máquina.
 - [[Fórmula verificada só vale na escala em que foi verificada]] — a conferência valida a fórmula E a procedência dos números; trocada a fonte, a aritmética não reclama de unidade e o erro sai formatado. Cheque contra um invariante que a fonte declare.
 ## Cérebro — como este vault funciona
 

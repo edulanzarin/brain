@@ -795,6 +795,18 @@ em outro lugar. O nível virou rascunho com botão, e o seletor passou a acompan
 que está no ar — travado enquanto o objetivo comanda, porque aceitar uma ordem que a
 próxima reavaliação desfaz em segundos é pior que recusar.
 
+### "Volte para manual" (24/08/2026)
+
+Escolher um objetivo já entregava o comando ao robô, e o seletor manual travava com um aviso
+mandando voltar. Era eu obrigando a desfazer para poder olhar. O modo virou estado local (o
+que estou vendo) e o objetivo continuou no banco (o que a máquina persegue), com um botão
+explícito entre os dois; e começar uma caçada no manual desliga o piloto sozinho, em vez de
+recusar. Ver [[Ver o plano e mandar executar são duas ações]].
+
+Terceira vez na mesma pedra do primitivo: os painéis do robô estavam lisos ao lado das
+fichas da dex porque eu desenhava um `<h2>` solto no corpo em vez de usar o `title`/`actions`
+do `Panel` — que é o que dá a barra com divisória e o vidro. Onze painéis convertidos.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -855,6 +867,7 @@ próxima reavaliação desfaz em segundos é pior que recusar.
   [[Objetivo é exclusivo, interruptor é combinável]] ·
   [[O primitivo só padroniza o que passa por dentro dele]] ·
   [[Freio de oscilação vale para a máquina, não para a ordem de quem manda]] ·
+  [[Ver o plano e mandar executar são duas ações]] ·
   [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
