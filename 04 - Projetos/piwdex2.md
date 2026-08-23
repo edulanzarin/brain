@@ -497,6 +497,46 @@ Scyther. Registrado em [[Bônus multiplicativo só rende onde há folga até o t
 Sobrou uma primitiva: `NumberField` ganhou `grouped`, que separa o milhar no próprio campo
 (meta de ouro tem oito dígitos, e "10000000" não se lê, se conta com o dedo).
 
+## A sessão medida corrige o motor (23/08/2026)
+
+O Eduardo caçou 738 Furious Scyther com Ultra Ball e trouxe o painel do Hunt Analyzer.
+Comparado por termo contra a previsão (e não pelo total), o diagnóstico saiu limpo.
+
+**O que já estava certo:** abates/h 580 previstos contra 602 medidos, e o loot batendo
+DROP A DROP — Straw 2.223 contra 2.214 esperados, Scythe 416 contra 408, Pot of Moss Bug
+718 contra 738, Cocoon e Feather Stone 11 cada contra 9. Os 7% de diferença no ouro por
+abate são quatro pedras a mais num drop de 1%. De quebra a sessão confirmou o teto de
+chance: Straw sai em 95% base, o dia empurra pra 114% e o jogo entregou 100%.
+
+**Erro 1: os bônus multiplicavam onde o jogo soma.** O `boost.ts` já documentava o
+empilhamento somado do jogo para o loot, mas o XP fazia `e.xp * (vip ? 1.5 : 1)` e o Tipo
+do Dia multiplicava por fora — 1,8 onde o jogo dá 1,7. E não havia campo nenhum para o que
+a ferramenta não conhece (evento de servidor, boost de loja, streak): com um evento de XP
+ligado, o XP/h saía a 0,66x do real sem nada na tela explicando. O cenário ganhou "XP
+extra (%)" e "Loot extra (%)", o empilhamento virou soma, e o XP por abate previsto passou
+de 0,46x para 1,03x do medido. VIP passou a entrar pela camada de economia junto do dia e
+do evento: `estimateHunt` perdeu o parâmetro `vip` e o motor de combate deixou de conhecer
+bônus de qualquer espécie.
+
+**Erro 2: a captura, e ela sozinha estourava a conta.** A lei previa 1 captura a cada 129
+abates; a sessão fez 1 em 738. Como a bola é cobrada em todo abate, o termo trocou de
+sinal: +194k/h prometidos contra −30k/h reais. O ouro/h total previsto era 434k contra
+236k medidos, e o buraco inteiro era captura. A captura saiu do `perKill`: o ouro que
+ordena as três vistas voltou a ser só loot, e ela virou coluna marcada como estimativa com
+o ponto de equilíbrio ao lado (1 em 462 para um alvo de 60.000 com bola de 130), que é
+aritmética e se confere numa sessão. Virou
+[[Estimativa fraca informa, número verificado ordena]].
+
+O efeito visível: o topo do farm de ouro deixou de ser o Scyther, que só liderava pela
+captura inflada, e passou a ser o Furious Scyther — onde o Eduardo já estava caçando por
+conta própria.
+
+**Fio solto:** o catálogo traz um campo `captureBase` em 120 das 482 espécies (Furious
+Scyther 123, Psy Jynx 124, Brave Charizard 6), com 119 valores distintos e correlação
+−0,06 com o valor de venda. O cabeçalho de `catch-law.ts` afirma que não há campo de
+captura no catálogo. Independente do preço e específico por espécie é a cara de um
+parâmetro de captura de verdade, e vale sondar contra `/api/game/used-balls`.
+
 ## Próximos passos
 
 1. As seis ferramentas estão no ar; o "em breve" saiu da navegação.
@@ -559,6 +599,7 @@ Sobrou uma primitiva: `NumberField` ganhou `grouped`, que separa o milhar no pr�
   [[Total acumulado premia a lentidão quando o tempo é livre]] ·
   [[Taxa que muda ao longo do trecho se integra, não se amostra na ponta]] ·
   [[Bônus multiplicativo só rende onde há folga até o teto]] ·
-  [[Bônus condicional se avalia contra quem não o recebe]]
+  [[Bônus condicional se avalia contra quem não o recebe]] ·
+  [[Estimativa fraca informa, número verificado ordena]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

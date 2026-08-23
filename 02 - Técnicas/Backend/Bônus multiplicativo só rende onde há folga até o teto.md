@@ -52,6 +52,13 @@ normalização extra.
   multiplicador único, subir uma fonte reduz a folga das outras: o segundo bônus vale
   menos que o primeiro. O payback de "mais um ponto" tem que ser medido **sobre o
   cenário atual**, não sobre o cenário limpo.
+- **Somar e multiplicar divergem rápido, e o sistema costuma dizer qual dos dois usa.**
+  Se o produto mostra um detalhamento de ganho ("base + streak + boost + vip + evento"),
+  ele está somando as frações. Multiplicar por engano parece inofensivo com duas fontes
+  (1,5 × 1,2 = 1,8 contra 1,7) e explode com três: numa sessão medida de 738 abates com
+  evento ligado, o empilhamento somado errou 0,6% e o multiplicado errou 37,6%. O erro
+  cresce com o número de fontes, então ele aparece justamente no cenário do jogador
+  avançado, que é quem confere.
 - **Um anúncio, duas grandezas, duas regras.** O mesmo bônus costuma incidir em mais de
   uma moeda, e nem todas saturam. O Tipo do Dia do Poke Idle World é anunciado como "+20%
   de XP e +20% de loot": no XP entra inteiro, porque não há teto; no loot ele multiplica a

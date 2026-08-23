@@ -204,6 +204,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   ponta erra sempre pro mesmo lado. Some dentro do laço, exiba a média do trecho, e use
   "soma das partes = fórmula fechada" como invariante de conferência.
   Princípio: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]].
+- [[Estimativa fraca informa, número verificado ordena]] — número de ranking que soma um
+  termo medido com um estimado entrega a ordem ao erro do estimado, e termo que pode ficar
+  negativo chega a trocar o sinal. Separe: o verificado ordena, o estimado fica ao lado
+  com o limiar que o torna conferível.
+  Princípio: [[Ordene pela grandeza que decide, não pela que impressiona]].
 - [[Número de regra alheia se lê da fonte, não se congela em constante]] — número que é
   de outro sistema vale pro dia em que foi observado; leia da API em execução com a
   constante de reserva (datada), e a tela lendo a MESMA origem do cálculo — etiqueta

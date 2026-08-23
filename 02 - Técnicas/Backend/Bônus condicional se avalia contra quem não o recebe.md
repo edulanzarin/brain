@@ -56,6 +56,10 @@ dia quer saber se amanhã muda o plano, e o mesmo motor já responde.
   plausível. No piwdex2 o Tipo do Dia entrava no ouro e não entrava no XP, e o que isso
   escondia numa rota 352→500 eram 17 horas. Ao ler o anúncio, liste as grandezas que ele
   toca antes de escrever a conta.
+- **Deixe onde receber o bônus que você não conhece.** Evento de servidor, boost de loja,
+  trilha de progressão: se não há campo pra informar, o número sai curto e ninguém
+  descobre por quê. No piwdex2 o XP/h saía a 0,66x do real por falta de um campo, e o
+  cálculo estava certo em tudo o mais.
 - Vale para qualquer promoção segmentada: cupom por categoria, cashback por bandeira,
   frete grátis por região. A pergunta do usuário nunca é "o que tem desconto", é "o que
   sai mais barato".
