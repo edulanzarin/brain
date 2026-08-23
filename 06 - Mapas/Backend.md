@@ -140,6 +140,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   tentativa e esconde o motivo. Classifique 403/401/429 antes de decidir o retry, guarde
   a frase crua do outro lado e desligue a INTENÇÃO, não só a conexão. Princípio:
   [[Chamada externa tem timeout e erro tratado]].
+- [[Duas listas parecidas respondem perguntas diferentes, e a errada some com o item]] —
+  catálogo e posse trazem os mesmos campos e divergem só na ausência; usar um pelo outro
+  faz o item exclusivo de uma das listas sumir sem erro nenhum.
+  Princípio: [[Estado mutável se lê da fonte no uso, não de cópia guardada]].
 - [[Adquirir o recurso exclusivo é uma ação, usá-lo é outra]] — quando "ligar" faz junto
   a primeira tarefa, essa tarefa vira pré-requisito de todas as outras e trocar de tarefa
   passa por largar o recurso. Dois estados: quero segurando, e qual tarefa.

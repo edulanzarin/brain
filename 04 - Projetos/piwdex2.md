@@ -659,6 +659,31 @@ segundo (e sem auto-catch ela só cresce), e a venda de pokémon não tinha trav
 concorrência — o `pokes-get` de confirmação chega a meio segundo do poll, e as duas rodadas
 liam o mesmo box.
 
+### A conta inteira, e a caçada que sobe sozinha (24/08/2026)
+
+A Idle Ball não aparecia no seletor da captura automática, e a causa vale mais que o
+sintoma: os dois seletores de bola liam o catálogo da LOJA, e a Idle Ball não está à
+venda. Catálogo e posse respondem perguntas diferentes e divergem só na ausência — que
+não dá erro. Ver
+[[Duas listas parecidas respondem perguntas diferentes, e a errada some com o item]].
+
+Qualidade virou trava de venda ao lado do IV: são grandezas diferentes, e IV médio com
+qualidade DIVINA vale mais que IV alto com qualidade comum. A tela pergunta pela faixa
+(`qualityTier`) porque é assim que a decisão se pensa; o piso de cada faixa passou a sair
+de uma tabela só (`TIER_MIN`) em `rarity.ts`.
+
+A caçada automática até um nível **não ganhou motor próprio**: chama o mesmo `buildRoute`
+da ferramenta pública de rota. O que a camada do robô acrescenta é o slug — o motor
+raciocina em espécie e o `enter-hunt` quer o ponto no mapa. Verificado ponta a ponta:
+Bulbasaur nv20 → nv60 sai em três faixas (Kabuto, Larvitar, Graveler), e os três slugs
+existem no catálogo do jogo. A prévia da rota não exige ligar nada, porque decidir se
+concorda com o plano depois de ligá-lo é a ordem errada para um robô que joga sozinho por
+horas.
+
+Os IVs individuais o jogo não manda (só `ivTotal`), então a estimativa espalha o total
+igualmente pelos seis: erra a distribuição, acerta o montante, e o montante é o que domina
+o dano. Chutar distribuição enviesaria o ranking de alvos sem evidência.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -712,6 +737,7 @@ liam o mesmo box.
   [[O código com que o socket fecha é a classificação que o retry precisa]] ·
   [[Socket que não abre não emite evento, e só um temporizador percebe]] ·
   [[Adquirir o recurso exclusivo é uma ação, usá-lo é outra]] ·
+  [[Duas listas parecidas respondem perguntas diferentes, e a errada some com o item]] ·
   [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
