@@ -684,6 +684,28 @@ Os IVs individuais o jogo não manda (só `ivTotal`), então a estimativa espalh
 igualmente pelos seis: erra a distribuição, acerta o montante, e o montante é o que domina
 o dano. Chutar distribuição enviesaria o ranking de alvos sem evidência.
 
+### O F5 e a confirmação (24/08/2026)
+
+Duas coisas se passavam por "o robô resetou no F5" e nenhuma era o F5. O painel abria em
+`parado` com tudo em travessão até o primeiro frame do stream — mas a página roda no MESMO
+processo do motor, então passou a entregar o estado vivo já no primeiro render. E o placar
+das automações só existia em memória: um deploy apagava a conta do dia. Foi pro banco,
+volta no boot, e zera só quando o robô é desligado de fato.
+
+No caminho, o log do boot mentia: `1/1 sessao(oes) retomada(s)` para um alvo que tinha
+saído na primeira linha por token vencido. Cheguei a investigar se o `globalThis` era
+compartilhado entre o contexto da instrumentação e o das rotas (é — mesmo pid) porque a
+única evidência afirmava que a retomada tinha acontecido. Ver
+[[Contador que conta sucesso de promessa afirma que deu certo]].
+
+A aba de automação virou rascunho com salvar/descartar. Antes, marcar "vender o que o box
+acumula" já valia — e venda de pokémon não desfaz. A automação do jogo entrou no mesmo
+rascunho apesar de ir por outra rota: para quem mexe é tudo "as configurações do robô".
+
+Bolsa e mochila se separaram pelo mesmo critério que já tinha resolvido a Idle Ball: poção,
+revive e bola são o que a caçada GASTA; drop é o que ela PRODUZ. Estavam na mesma lista de
+venda, e um "marcar tudo" deixaria a conta sem cura no meio da noite.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -738,6 +760,7 @@ o dano. Chutar distribuição enviesaria o ranking de alvos sem evidência.
   [[Socket que não abre não emite evento, e só um temporizador percebe]] ·
   [[Adquirir o recurso exclusivo é uma ação, usá-lo é outra]] ·
   [[Duas listas parecidas respondem perguntas diferentes, e a errada some com o item]] ·
+  [[Contador que conta sucesso de promessa afirma que deu certo]] ·
   [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

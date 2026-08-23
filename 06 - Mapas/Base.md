@@ -82,6 +82,7 @@ UI que mostra dado que muda sem o usuário pedir.
 - [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] — ao ranquear opções, o custo de falhar entra como tempo parado dentro do mesmo número; vazão de pico escolhe o que quebra primeiro.
 - [[Ordene pela grandeza que decide, não pela que impressiona]] — a métrica intuitiva costuma ser uma parcela da grandeza real; a dimensão esquecida é tempo, multiplicação ou folga até o teto, e errar por ela erra sempre pro pior lado.
 - [[Laço que trata toda falha igual apaga a causa da primeira]] — repetir até dar certo apaga o diagnóstico: a primeira tentativa era a única que carregava a causa, e o erro final costuma ser do próprio laço. Classifique antes de repetir, e nunca reuse recurso queimado.
+- [[Contador que conta sucesso de promessa afirma que deu certo]] — desistir cedo também resolve a promessa, então "N/N ok" some com quem foi pulado. Conte por desfecho, e desconfie da métrica escrita junto com o código.
 
 ## Cérebro — como este vault funciona
 
