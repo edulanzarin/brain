@@ -706,6 +706,25 @@ Bolsa e mochila se separaram pelo mesmo critério que já tinha resolvido a Idle
 revive e bola são o que a caçada GASTA; drop é o que ela PRODUZ. Estavam na mesma lista de
 venda, e um "marcar tudo" deixaria a conta sem cura no meio da noite.
 
+### A ficha de pokémon, e o IV 340 (24/08/2026)
+
+O modal de pokémon virou um componente só, aberto do topo, do time, da conta e do chat — e
+já pronto para o mercado, que é a próxima fonte a fazer a mesma pergunta. Ele reusa
+`estimateIvs`, a inversão de fórmula da calculadora pública.
+
+Foi bom ter testado com dado real: contra um Lucario do chat, a inversão devolveu **IV 340
+num teto de 32**. A fórmula estava certa; a escala dos stats que aquela fonte manda, não. A
+ficha passou a só exibir o IV por atributo quando ele fecha com o `ivTotal` que o próprio
+jogo declara. Ver [[Fórmula verificada só vale na escala em que foi verificada]].
+
+O chat ganhou os cartões: `[poke!<b64>]` e `[item!<b64>]` são JSON em base64
+(`{k,n,lv,sh,q,iv,pw,t1,t2,st}` e `{k,ic,cat,npc,d}`) — antes apareciam como trezentos
+caracteres de lixo no meio da conversa. Bloco que não decodifica volta como texto.
+
+O topo do painel mudou de assunto: como ele fica em toda aba, passou a mostrar só o que
+vale em todas (sessão, pokémon ativo com vida e XP, treinador, ouro, diamante, bolsa). O
+seletor de caçada desceu para a aba de caçada.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -761,6 +780,7 @@ venda, e um "marcar tudo" deixaria a conta sem cura no meio da noite.
   [[Adquirir o recurso exclusivo é uma ação, usá-lo é outra]] ·
   [[Duas listas parecidas respondem perguntas diferentes, e a errada some com o item]] ·
   [[Contador que conta sucesso de promessa afirma que deu certo]] ·
+  [[Fórmula verificada só vale na escala em que foi verificada]] ·
   [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
