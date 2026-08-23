@@ -27,9 +27,21 @@ mesmo com a troca feita. A correção: após o summon, mandar `pokes-get` e conf
 alvo volta `leader:true` na lista — o efeito observado. O echo virou caminho rápido
 opcional, não o único.
 
+### Quando não há estado para reler
+
+Nem toda mutação deixa estado consultável. Mandar mensagem no chat do jogo não
+tem `get` que responda "ela entrou?" — a única evidência é o **broadcast de volta**:
+o servidor ecoa a mensagem aceita como um frame de chat normal, com o seu nome, e
+recusa devolvendo um frame de sistema sem remetente.
+
+Aqui o eco não é atalho, é a prova — mas continua sendo o *efeito observado* e não
+o ack do comando. E a distinção vale dinheiro: só envio confirmado arma o
+cooldown anti-flood. Recusa não gasta a janela, então o texto se corrige e vai de
+novo na hora, em vez de esperar um minuto por uma mensagem que nunca saiu.
+
 ## Conexões
 - Princípio: [[Um invariante se garante na estrutura, não no processo]]
 - Irmã: [[Persistir a mensagem não espera a entrega, a entrega é status]]
 - Irmã: [[Config que a sessão cacheia no init não vê a escrita no backend, reaplique na mesma conexão]]
-- Visto em: [[piwdex]]
+- Visto em: [[piwdex]] · [[piwdex2]]
 - Mapa: [[Backend]]

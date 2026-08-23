@@ -639,6 +639,26 @@ O painel virou três abas (Caçada, Automação, Registro), e o registro é grav
 trabalha quando ninguém está olhando, e o que aconteceu de madrugada só existe se estiver
 no banco.
 
+### Ligar deixou de significar caçar (24/08/2026)
+
+O botão fazia duas coisas: tomava a sessão de jogo e entrava numa caçada. Com uma tarefa
+só isso passa; com quatro (caçar, vender, repor, chat) ficou claro que a caçada tinha
+virado pré-requisito das outras três, e que trocar de hunt passava por desligar o robô —
+devolvendo a sessão para a aba do navegador no meio. Agora `/ligar` só adquire e segura, e
+`/cacar` entra, troca ou sai do campo pelo socket que já está de pé. Ver
+[[Adquirir o recurso exclusivo é uma ação, usá-lo é outra]].
+
+O chat entrou junto, porque chega de graça no mesmo socket. Ele não tem estado para reler:
+a confirmação do envio é o próprio jogo ecoar a mensagem de volta com o seu nome, e recusa
+é um frame de sistema sem remetente. Só envio confirmado arma o cooldown de ~1 min — recusa
+corrige e manda de novo na hora. Ver
+[[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]].
+
+Dois vazamentos fechados no caminho: a fila de captura ia inteira no stream uma vez por
+segundo (e sem auto-catch ela só cresce), e a venda de pokémon não tinha trava de
+concorrência — o `pokes-get` de confirmação chega a meio segundo do poll, e as duas rodadas
+liam o mesmo box.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -690,6 +710,8 @@ no banco.
   [[Retry que reusa o cliente queimado esconde o erro da primeira tentativa]] ·
   [[O empacotador segue o valor importado, não o tipo]] ·
   [[O código com que o socket fecha é a classificação que o retry precisa]] ·
-  [[Socket que não abre não emite evento, e só um temporizador percebe]]
+  [[Socket que não abre não emite evento, e só um temporizador percebe]] ·
+  [[Adquirir o recurso exclusivo é uma ação, usá-lo é outra]] ·
+  [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

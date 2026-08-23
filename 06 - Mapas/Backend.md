@@ -140,6 +140,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   tentativa e esconde o motivo. Classifique 403/401/429 antes de decidir o retry, guarde
   a frase crua do outro lado e desligue a INTENÇÃO, não só a conexão. Princípio:
   [[Chamada externa tem timeout e erro tratado]].
+- [[Adquirir o recurso exclusivo é uma ação, usá-lo é outra]] — quando "ligar" faz junto
+  a primeira tarefa, essa tarefa vira pré-requisito de todas as outras e trocar de tarefa
+  passa por largar o recurso. Dois estados: quero segurando, e qual tarefa.
+  Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[O código com que o socket fecha é a classificação que o retry precisa]] — a faixa
   4000–4999 do WebSocket é da aplicação, e é ali que o outro lado diz se foi credencial,
   roteamento ou recusa. Descartar o número troca o diagnóstico por um laço infinito.
