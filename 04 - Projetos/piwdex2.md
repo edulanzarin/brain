@@ -767,6 +767,21 @@ Mensagem privada ainda não dá: o jogo tem, e o formato não está em captura n
 tenha. Em vez de adivinhar o nome do frame, o motor passou a gravar a forma dos frames
 desconhecidos (`/api/robo/frames`) — implementar contra evidência, não contra suposição.
 
+### Três reclamações, uma causa (24/08/2026)
+
+Barra fora do padrão, selo de raridade mais baixo que os badges de tipo, e a chave
+liga/desliga ilegível. As três eram primitivo escrito de novo em vez de reusado — e a
+segunda rodada de reclamação sobre a barra foi o que deixou a lição clara: eu tinha
+corrigido o wrapper e deixado uma cópia local dentro do modal, que é onde há mais barras na
+tela. Corrigir uma cópia não encontra as outras. Ver
+[[O primitivo só padroniza o que passa por dentro dele]].
+
+A chave ganhou desenho novo (40x20, miolo de 12, fundo e rótulo acendendo juntos) e uma
+prop `block`: numa grade de cartões cada rótulo tem tamanho diferente, e encolher até o
+texto desenhava quatro larguras. Na fila de filtros da dex o padrão continua encolhendo.
+De quebra, o realce do rótulo nunca tinha funcionado — usava `group-has-[:checked]` sem
+`group` na casca.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -825,6 +840,7 @@ desconhecidos (`/api/robo/frames`) — implementar contra evidência, não contr
   [[Fórmula verificada só vale na escala em que foi verificada]] ·
   [[Comando sem resposta precisa de vigia, não de fé]] ·
   [[Objetivo é exclusivo, interruptor é combinável]] ·
+  [[O primitivo só padroniza o que passa por dentro dele]] ·
   [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

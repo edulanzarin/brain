@@ -107,7 +107,8 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
   contato no fundo real, silhueta antes de cor, e a fronteira entre arte de figura
   (24px pra cima) e ícone de traço no chrome miúdo.
 
-Princípios: [[A variante de um controle muda a intenção, não o tamanho]] ·
+Princípios: [[O primitivo só padroniza o que passa por dentro dele]] ·
+[[A variante de um controle muda a intenção, não o tamanho]] ·
 [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] ·
 [[Texto de interface soa a IA pelo ritmo, não pelo assunto]]
 
