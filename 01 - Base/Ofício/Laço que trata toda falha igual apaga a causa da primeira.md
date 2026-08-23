@@ -44,5 +44,7 @@ A forma é a mesma nos dois: **o laço transforma um diagnóstico em silêncio.*
 - Irmã: [[Chamada externa tem timeout e erro tratado]] ·
   [[Sonda que falhou não é sinal de que mudou]]
 - Exemplo: [[Recusa não é falha: contra o não do servidor, insistir é ruído]] ·
-  [[Retry que reusa o cliente queimado esconde o erro da primeira tentativa]]
+  [[Retry que reusa o cliente queimado esconde o erro da primeira tentativa]] ·
+  [[O código com que o socket fecha é a classificação que o retry precisa]] ·
+  [[Socket que não abre não emite evento, e só um temporizador percebe]]
 - Mapa: [[Base]] · [[Backend]]

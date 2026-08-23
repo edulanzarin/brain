@@ -140,6 +140,14 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   tentativa e esconde o motivo. Classifique 403/401/429 antes de decidir o retry, guarde
   a frase crua do outro lado e desligue a INTENÇÃO, não só a conexão. Princípio:
   [[Chamada externa tem timeout e erro tratado]].
+- [[O código com que o socket fecha é a classificação que o retry precisa]] — a faixa
+  4000–4999 do WebSocket é da aplicação, e é ali que o outro lado diz se foi credencial,
+  roteamento ou recusa. Descartar o número troca o diagnóstico por um laço infinito.
+  Princípio: [[Laço que trata toda falha igual apaga a causa da primeira]].
+- [[Socket que não abre não emite evento, e só um temporizador percebe]] — handshake que
+  não completa não dispara `open`, `close` nem `error`: nada falha formalmente e a
+  reconexão nunca é agendada. O sintoma é um "conectando" que não termina.
+  Princípio: [[Laço que trata toda falha igual apaga a causa da primeira]].
 - [[O bundle público do cliente entrega o contrato da API sem documentação]] — sem doc
   e sem HAR da ação, os chunks JS públicos do cliente oficial têm a URL e o payload
   literais; extrair de lá é contrato real, não palpite.

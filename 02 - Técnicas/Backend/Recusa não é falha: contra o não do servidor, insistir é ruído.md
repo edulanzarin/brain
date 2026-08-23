@@ -22,8 +22,12 @@ O usuário via só "não conectou", reconectava na mão, e nunca descobria que o
 recusado a conta. O sistema **martelava a porta de quem já tinha dito não** e ainda
 guardava o motivo pra si.
 
-O agravante é que **socket não conta o motivo**: ele fecha, e o código de fechamento
-raramente distingue "sua rede caiu" de "você está banido".
+O agravante parecia ser que **socket não conta o motivo**. Não era: em ago/2026 a
+sondagem do mesmo jogo mostrou que ele fecha com `4001 unauthorized` e `4003
+wrong-shard` — a faixa 4000–4999 do WebSocket existe pra aplicação dizer o que
+houve, e o motor estava descartando a resposta. Antes de concluir que o
+transporte é mudo, leia o código e o `reason`: ver
+[[O código com que o socket fecha é a classificação que o retry precisa]].
 
 ## A solução
 
@@ -46,7 +50,9 @@ export async function refusalOf(res: Response): Promise<Refusal | null> {
 
 - **Quando o canal não sabe recusar, pergunte a um que saiba.** Antes de reabrir o
   socket, uma chamada REST responde com código HTTP. Uma pergunta barata substitui um
-  loop de tentativas que nunca ia entender a resposta.
+  loop de tentativas que nunca ia entender a resposta. Vale como rede de proteção para
+  o fechamento genérico (`1006`), depois de confirmar que o transporte realmente não
+  classificou.
 - **Recusa terminal desliga a intenção**, não só a conexão do momento. Se o "quero
   rodando" continua ligado no banco, o próximo boot religa e o loop recomeça — ver
   [[Estado desejado persistido religa o robô depois do restart]], que é a mesma
@@ -66,7 +72,8 @@ export async function refusalOf(res: Response): Promise<Refusal | null> {
 
 ## Conexões
 - Princípio: [[Chamada externa tem timeout e erro tratado]]
-- Irmã: [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] (o
+- Irmã: [[O código com que o socket fecha é a classificação que o retry precisa]] ·
+  [[Falha de automação recorrente vira alerta com throttle, não catch vazio]] (o
   outro lado da moeda: lá o erro estrutural era engolido, aqui era confundido com
   transitório) · [[Estado desejado persistido religa o robô depois do restart]]
 - Visto em: [[piwdex]]

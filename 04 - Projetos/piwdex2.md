@@ -603,6 +603,42 @@ parâmetro de captura de verdade, e vale sondar contra `/api/game/used-balls`.
 5. O script `lint` do `package.json` ainda chama `next lint`, que saiu no Next 16 e hoje
    quebra. Trocar por ESLint direto quando incomodar.
 
+## O robô: por que ele "não funcionava" (23/08/2026)
+
+O painel mostrava a caçada alternando entre `sessão perdida` e `conectando`, com os seis
+números em travessão. Nenhum log acusava nada, e do lado de fora só dava para dizer "não
+funciona porra nenhuma" — que foi exatamente o relato.
+
+A causa não era a conexão: era o motor **descartar o código com que o jogo fechava o
+socket**. Sondando o servidor na mão, ele responde `4001 unauthorized` para token ruim e
+`4003 wrong-shard` para shard remanejado. Os dois viravam `chutado`, e os dois recebiam o
+mesmo tratamento — backoff e tenta de novo —, que é o que não resolve nem um nem outro. O
+robô batia na porta para sempre e a tela não tinha o que dizer. Ver
+[[O código com que o socket fecha é a classificação que o retry precisa]].
+
+Junto saiu o segundo estado invisível: sem teto de abertura, um socket que não completa o
+handshake não emite `open`, `close` nem `error`, e o agendador nunca era chamado. Era o
+`conectando há 6s` do print. Ver
+[[Socket que não abre não emite evento, e só um temporizador percebe]].
+
+Verificado de ponta a ponta com um token propositalmente inválido: o motor agora para em
+`vencido`, grava `expired` no vínculo e a tela manda colar o token novo, em vez de
+reconectar indefinidamente.
+
+### O que faltava para ser robô
+
+Segurar uma sessão numa hunt não é jogar sozinho. Bola zerada trava a fila de captura do
+jogo, e uma caçada boa queima centenas por hora — então o robô passava a maior parte do
+tempo sem capturar nada. Entraram as automações que faltavam: reposição de bola, poção e
+revive por piso/alvo com teto de gasto, venda de drop por lista branca, venda de pokémon
+por vetos, e o Auto-Helper do jogo (captura, poção e revive automáticos rodam no servidor
+deles). Compra e venda vão por REST de propósito: REST não disputa a sessão, então a
+reposição acontece com a caçada correndo.
+
+O painel virou três abas (Caçada, Automação, Registro), e o registro é gravado — o robô
+trabalha quando ninguém está olhando, e o que aconteceu de madrugada só existe se estiver
+no banco.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -652,6 +688,8 @@ parâmetro de captura de verdade, e vale sondar contra `/api/game/used-balls`.
   [[Ponte pro endereço novo só se levanta quando o outro lado responde]] ·
   [[Laço que trata toda falha igual apaga a causa da primeira]] ·
   [[Retry que reusa o cliente queimado esconde o erro da primeira tentativa]] ·
-  [[O empacotador segue o valor importado, não o tipo]]
+  [[O empacotador segue o valor importado, não o tipo]] ·
+  [[O código com que o socket fecha é a classificação que o retry precisa]] ·
+  [[Socket que não abre não emite evento, e só um temporizador percebe]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
