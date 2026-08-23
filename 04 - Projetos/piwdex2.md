@@ -745,6 +745,28 @@ O chat guarda 300 mensagens e conta só as não lidas. As 300 só cabem porque e
 estado e ganhou evento próprio no stream: dentro do estado, que sai uma vez por segundo,
 seriam ~45KB/s reenviando a mesma conversa.
 
+### Objetivo, e o chat que dizia ter falhado (24/08/2026)
+
+"Quero mais dinheiro" virou conta: `motor/objetivo.ts` cruza o time com o catálogo de
+alvos pelo mesmo `rankHunts` da ferramenta pública e devolve os pares (meu pokémon ×
+caçada) ordenados por dólares/h. Alvo letal fica fora do ranking — ele às vezes lidera o
+ouro por hora, e lidera até o primeiro desmaio. Verificado com um time de seis: Golem nv400
+→ Brave Charizard a 296k/h por dinheiro, e → Furious Scyther a 10M xp/h por XP, que é a
+mesma hunt que o Eduardo tinha escolhido na mão.
+
+Os dois objetivos (dinheiro, nível) viraram uma ESCOLHA e não duas chaves: disputam o mesmo
+par de valores (quem é o líder, em que campo). Ver
+[[Objetivo é exclusivo, interruptor é combinável]].
+
+O chat dizia "o jogo não confirmou o envio" numa mensagem que tinha entrado — o eco levava
+mais que os 6s de prazo. Sem eco não é sem envio: o prazo subiu, e no silêncio o cooldown
+arma mesmo assim, porque reenviar num canal com anti-flood de um minuto ou duplica a
+mensagem ou queima a janela.
+
+Mensagem privada ainda não dá: o jogo tem, e o formato não está em captura nenhuma que eu
+tenha. Em vez de adivinhar o nome do frame, o motor passou a gravar a forma dos frames
+desconhecidos (`/api/robo/frames`) — implementar contra evidência, não contra suposição.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -802,6 +824,7 @@ seriam ~45KB/s reenviando a mesma conversa.
   [[Contador que conta sucesso de promessa afirma que deu certo]] ·
   [[Fórmula verificada só vale na escala em que foi verificada]] ·
   [[Comando sem resposta precisa de vigia, não de fé]] ·
+  [[Objetivo é exclusivo, interruptor é combinável]] ·
   [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

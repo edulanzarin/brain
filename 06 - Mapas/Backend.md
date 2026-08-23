@@ -148,6 +148,8 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   a primeira tarefa, essa tarefa vira pré-requisito de todas as outras e trocar de tarefa
   passa por largar o recurso. Dois estados: quero segurando, e qual tarefa.
   Princípio: [[Um invariante se garante na estrutura, não no processo]].
+- [[Objetivo é exclusivo, interruptor é combinável]] — duas automações que escrevem no mesmo valor não são duas chaves, são uma escolha; com N booleanos o estado impossível existe e alguém liga.
+  Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[O código com que o socket fecha é a classificação que o retry precisa]] — a faixa
   4000–4999 do WebSocket é da aplicação, e é ali que o outro lado diz se foi credencial,
   roteamento ou recusa. Descartar o número troca o diagnóstico por um laço infinito.
