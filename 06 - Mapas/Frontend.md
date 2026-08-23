@@ -53,6 +53,10 @@ Princípios: [[Estado compartilhável mora na URL]] ·
 - [[Sessão de outro domínio só se injeta rodando na origem dele]] — storage é isolado por
   origem; pra logar noutro domínio, o código roda lá (console/bookmarklet), não na sua
   página. REST Bearer server-side não tem essa trava. Candidato a princípio na 2ª aparição.
+- [[O empacotador segue o valor importado, não o tipo]] — componente de cliente pode
+  importar `type` de módulo de servidor à vontade; importar um VALOR do mesmo arquivo
+  arrasta o módulo e as dependências dele pro navegador. O erro cita `net` e `fs`, nunca
+  o seu arquivo. O contrato entre motor e tela vira módulo próprio.
 
 ## Arquitetura de canvas / motor
 

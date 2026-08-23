@@ -29,10 +29,26 @@ Mapa atual:
 | [[Navecon CRM]] | 4046 | 5046 |
 | [[Idle Game]] | 4060 | 5060 |
 | [[piwdex]] | 4070 | 5070 |
-| [[piwdex2]] | 4071 | 5071 |
+| [[piwdex2]] | 4071 · 4072 | 5071 |
 
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte
 da verdade, não o `docker ps` da máquina que por acaso está ligada.
+
+## Um projeto pode ter duas portas de app, e um banco só
+
+O par nasceu supondo um processo web por projeto, e o [[piwdex2]] quebrou a
+suposição em ago/2026: ele publica **dois** endereços (a dex e o robô) a partir
+da mesma imagem, porque as duas metades precisam de cadências de deploy
+diferentes — ver
+[[Um processo serve dois hosts quando o papel vem do ambiente]].
+
+A regra continua a mesma, só que o `4xxx` identifica **o processo**, não o
+projeto: piwdex2 fica com 4071 (dex) e 4072 (robô), e um banco só, o 5071. O
+espelho `4`→`5` vale pro par principal; a segunda porta de app não ganha banco
+espelhado porque não há um segundo banco.
+
+Reservar 4072 tira esse número da fila de projetos novos. É o preço, e é barato:
+a faixa tem 999 números.
 
 ## Uma porta livre ainda pode ser proibida pelo navegador
 

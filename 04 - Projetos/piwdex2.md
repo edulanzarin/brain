@@ -237,17 +237,56 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   derivações por uma frase em vez de imprimir zeros. Virou
   [[Zero na tela é afirmação, não valor de conforto]].
 
-## O robô está parqueado, não portado
+## O robô voltou, em bot.piwdex.com.br (23/08/2026)
 
-Pedido do Eduardo: trazer o bot pro piwdex2 pra pensar no substituto depois. Ele vive em
-`parked/`, **fora de `src/` e no `exclude` do tsconfig** — não compila, não entra no build.
-Religar direto arrastaria Auth.js, Postgres, Mercado Pago e a UI antiga inteira, ou seja,
-justamente o design que motivou a reescrita, e ainda travaria a decisão em aberto.
+Ficou parqueado em `parked/` de 20 a 23/08. O que o desparqueou não foi só a decisão de
+tê-lo de volta — foi decidir ONDE ele roda.
 
-O que não pode se perder está apontado no `parked/README.md`: o protocolo do WebSocket
-cravado por engenharia reversa (único caminho pros pokémons individuais — ver
-[[Quando a REST não expõe o dado, o WebSocket do mesmo sistema entrega]]), a sondagem
-paralela de shard com early-exit, e o porquê do login ser por token e não por senha.
+**Ele tem serviço próprio, e essa é a decisão central.** O robô segura um WebSocket por
+usuário, e WebSocket morre inteiro a cada deploy; a dex é publicada várias vezes por dia
+por causa de SEO. Enquanto dividiam um serviço, cada push derrubava a caçada de todo
+mundo ([[Processo que guarda conexão viva não tolera deploy frequente, e o log não denuncia]]).
+Dois serviços a partir da **mesma imagem**, papel decidido por `PIW_ROLE`, roteamento por
+host no `proxy.ts` — [[Um processo serve dois hosts quando o papel vem do ambiente]].
+Sem duplicar as 22 primitivas nem os motores puros, que os dois compartilham.
+
+`PIW_ROLE` ausente em produção vale `site`: esquecer a variável deixa a dex intacta e o
+robô apagado.
+
+### O que entrou
+
+Escopo escolhido pelo Eduardo: **núcleo** (conta, vínculo, caçada ao vivo), **pago desde
+o começo**. Seis camadas, uma commit cada:
+
+1. **Chassi** — `PIW_ROLE`, `proxy.ts`, grupos de rota `(site)`/`(robo)`. Nenhuma URL da
+   dex mudou (grupo de rota não aparece em endereço).
+2. **Banco** — quatro tabelas numa migration consolidada, não a replay das 20 do v1.
+3. **Conta** — Auth.js v5 sobre SQL puro, com o freio de login e o `bcrypt.compare` em
+   usuário inexistente que a revisão do v1 tinha deixado em aberto.
+4. **Vínculo** — token do jogo cifrado (AES-256-GCM), recusa classificada (401/403/429
+   pedem coisas opostas), shard por sondagem paralela.
+5. **Assinatura** — Mercado Pago por PIX, avulso, com o `x-signature` do webhook que
+   também estava na lista de pendências do v1.
+6. **Motor e cockpit** — sessão por usuário, desmaio do líder, reconexão com backoff, e
+   um stream SSE no lugar de cinco pollings.
+
+O `parked/` continua onde está: o que sobrou lá (mercado, sniper, watchlist, alertas,
+venda automática, fila de nivelamento, admin) é o que NÃO entrou no núcleo, e o
+`ws-protocol.md` segue sendo a fonte do protocolo.
+
+### O que não foi verificado
+
+O laço de caçada de verdade — `enter-hunt`, analyzer acumulando, kill, captura, desmaio —
+**não foi testado contra o jogo**. Testar exige um token real, e conectar TOMA a sessão de
+jogo: chutaria a aba do Eduardo. Tudo o que dá pra provar sem isso foi provado, inclusive
+uma ida e volta real ao jogo com JWT falso (o jogo respondeu 401 "Sessão inválida ou
+expirada" e a classificação de recusa funcionou de ponta a ponta).
+
+### O v1 estava desatualizado num ponto
+
+A nota do [[piwdex]] listava "sessão por usuário (`Map<userId, GameSession>`)" como
+pendência antes de vender pra 2+ pessoas. Ela já tinha sido feita — o `robot-boot.ts` do
+v1 já religava todas. Isso encurtou o caminho pro modelo pago.
 
 ## Interface em português, e a fonte que levou cinco tentativas
 
@@ -539,8 +578,16 @@ parâmetro de captura de verdade, e vale sondar contra `/api/game/used-balls`.
 
 ## Próximos passos
 
-1. As seis ferramentas estão no ar; o "em breve" saiu da navegação.
-2. Decidir o que substitui o robô. Até lá, `parked/` fica como está.
+1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com
+   `PIW_ROLE=bot`, Postgres, DNS de `bot.piwdex.com.br`, e — o passo que faz a separação
+   valer — **Watch Paths** restritos no serviço do robô. Sem eles ele redeploya junto com
+   cada ajuste da dex, e volta o problema que motivou o subdomínio. Guia em `docs/railway.md`.
+2. **`NEXT_PUBLIC_BOT_URL` no serviço da DEX é o interruptor** de `/vip` e `/bot-app`:
+   enquanto estiver vazia, os dois seguem caindo na home. Preencher só depois do DNS
+   responder — [[Ponte pro endereço novo só se levanta quando o outro lado responde]].
+3. **Provar o laço de caçada** com token real (toma a sessão de jogo — é ato do Eduardo).
+4. Decidir o que volta do `parked/` depois do núcleo: mercado e sniper são os candidatos
+   com mais código pronto; alertas e venda automática, os de maior valor por linha.
 3. O `pokedex.png` tem 584 KB (arte gerada, com ruído) contra ~10 KB dos ícones
    desenhados por código. Quantizar em 64 cores derruba pra 57 KB sem diferença visível
    no tamanho em que ele aparece — decisão do Eduardo, é arte dele.
@@ -558,7 +605,7 @@ parâmetro de captura de verdade, e vale sondar contra `/api/game/used-balls`.
 
 ## Conexões
 - Substitui: [[piwdex]]
-- Usa: [[Design]] · [[Infra]] · [[Frontend]]
+- Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
 - Aprendizados: [[Traduza o vocabulário do sistema, não o nome próprio]] ·
   [[A tela não afirma mais precisão do que a fonte tem]] ·
   [[Estimativa que inverte valor arredondado é faixa, não ponto]] ·
@@ -600,6 +647,11 @@ parâmetro de captura de verdade, e vale sondar contra `/api/game/used-balls`.
   [[Taxa que muda ao longo do trecho se integra, não se amostra na ponta]] ·
   [[Bônus multiplicativo só rende onde há folga até o teto]] ·
   [[Bônus condicional se avalia contra quem não o recebe]] ·
-  [[Estimativa fraca informa, número verificado ordena]]
+  [[Estimativa fraca informa, número verificado ordena]] ·
+  [[Um processo serve dois hosts quando o papel vem do ambiente]] ·
+  [[Ponte pro endereço novo só se levanta quando o outro lado responde]] ·
+  [[Laço que trata toda falha igual apaga a causa da primeira]] ·
+  [[Retry que reusa o cliente queimado esconde o erro da primeira tentativa]] ·
+  [[O empacotador segue o valor importado, não o tipo]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

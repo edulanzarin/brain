@@ -273,6 +273,12 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   o dev server não tem CSP; recurso externo (fonte, tile) só quebra em prod.
   Princípio: [[Verificar no build de produção, não só em dev]].
 
+## Retry e diagnóstico
+
+- [[Retry que reusa o cliente queimado esconde o erro da primeira tentativa]] — cliente
+  com handshake não sobrevive a uma falha: instância nova a cada volta, e o motivo
+  impresso junto da contagem. Senão o laço passa a medir a si mesmo.
+
 ## Princípios que mandam aqui
 
 - [[Ordene pela grandeza que decide, não pela que impressiona]]

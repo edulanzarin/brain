@@ -84,14 +84,25 @@ portas *unsafe* que o navegador recusa, como a 4045) em [[Uma faixa de portas po
   também o que a plataforma consome de dentro do repo: pre-deploy, healthcheck,
   redirect canônico e rota com link salvo fora do seu controle. Duas dessas falham
   caladas — o deploy não promove e o site velho continua servindo.
-
-Relacionado, no [[Backend]]:
-[[Polling substitui webhook quando não há IP público]] — integração sem abrir porta.
+- [[Retry que reusa o cliente queimado esconde o erro da primeira tentativa]] — laço de
+  espera pelo banco que reusa o mesmo `pg.Client` reporta o próprio defeito, e a causa
+  real (senha errada) some na primeira volta.
 - [[Processo que guarda conexão viva não tolera deploy frequente, e o log não denuncia]] —
   serviço com WebSocket/sessão em memória morre inteiro a cada deploy, e com auto-deploy
   cada push derruba todo mundo. O log escreve "Ready" igual nos dois casos; quem denuncia
   é uma sonda de `uptimeSeconds`. Compare a vida do processo com a menor janela interna
   que ele precisa cumprir.
+- [[Um processo serve dois hosts quando o papel vem do ambiente]] — o remédio da nota
+  acima: cadência de deploy é propriedade do SERVIÇO, não do repositório. A mesma imagem
+  sobe duas vezes e uma variável decide qual host cada processo atende, sem duplicar o
+  sistema de design. Roteie por lista explícita de rotas, nunca por prefixo — prefixo
+  arrasta favicon e imagem social pra um 404 silencioso.
+- [[Ponte pro endereço novo só se levanta quando o outro lado responde]] — redirect é
+  código, mas o destino é fato de infraestrutura. A variável de ambiente é a declaração
+  de que o outro lado existe; sem ela, o comportamento anterior continua valendo.
+
+Relacionado, no [[Backend]]:
+[[Polling substitui webhook quando não há IP público]] — integração sem abrir porta.
 
 ## Princípios que mandam aqui
 
