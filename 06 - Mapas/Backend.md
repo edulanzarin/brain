@@ -156,6 +156,8 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   não completa não dispara `open`, `close` nem `error`: nada falha formalmente e a
   reconexão nunca é agendada. O sintoma é um "conectando" que não termina.
   Princípio: [[Laço que trata toda falha igual apaga a causa da primeira]].
+- [[Comando sem resposta precisa de vigia, não de fé]] — frame que o servidor aceita ou ignora, quando se perde, não gera erro: gera silêncio com cara de espera. Observe o efeito que ele deveria produzir e reaja à ausência dele.
+  Princípio: [[Laço que trata toda falha igual apaga a causa da primeira]].
 - [[O bundle público do cliente entrega o contrato da API sem documentação]] — sem doc
   e sem HAR da ação, os chunks JS públicos do cliente oficial têm a URL e o payload
   literais; extrair de lá é contrato real, não palpite.

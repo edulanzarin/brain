@@ -725,6 +725,26 @@ O topo do painel mudou de assunto: como ele fica em toda aba, passou a mostrar s
 vale em todas (sessão, pokémon ativo com vida e XP, treinador, ouro, diamante, bolsa). O
 seletor de caçada desceu para a aba de caçada.
 
+### O deploy travava a caçada (24/08/2026)
+
+`enter-hunt` é frame sem resposta. A conexão que nasce logo depois de um deploy pega o
+servidor do jogo no meio da troca e às vezes perde esse frame — e o que sobra é o pior
+estado possível: socket aberto, sessão válida, analyzer zerado, tela dizendo "a conexão
+está aberta e o jogo não está mandando combate", indefinidamente. O robô segurava a conta
+do dono a noite inteira sem caçar, e nada tinha falhado. Ver
+[[Comando sem resposta precisa de vigia, não de fé]].
+
+Duas correções de padrão vieram junto, e as duas eram erro meu de não reusar o que já
+existia: a moeda do jogo é **dólar**, não ouro (o rótulo errado atravessou quatro telas com
+um ícone de moeda genérica sustentando a leitura), e eu tinha escrito uma barra lisa
+própria no painel do robô em vez de usar `Segments` — o medidor em blocos que a dex e a
+calculadora já usam. `Medidor` passou a embrulhar `Segments`: um arquivo mudou, todas as
+barras acompanharam.
+
+O chat guarda 300 mensagens e conta só as não lidas. As 300 só cabem porque ele saiu do
+estado e ganhou evento próprio no stream: dentro do estado, que sai uma vez por segundo,
+seriam ~45KB/s reenviando a mesma conversa.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -781,6 +801,7 @@ seletor de caçada desceu para a aba de caçada.
   [[Duas listas parecidas respondem perguntas diferentes, e a errada some com o item]] ·
   [[Contador que conta sucesso de promessa afirma que deu certo]] ·
   [[Fórmula verificada só vale na escala em que foi verificada]] ·
+  [[Comando sem resposta precisa de vigia, não de fé]] ·
   [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
