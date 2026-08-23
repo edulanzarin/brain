@@ -782,6 +782,19 @@ texto desenhava quatro larguras. Na fila de filtros da dex o padrão continua en
 De quebra, o realce do rótulo nunca tinha funcionado — usava `group-has-[:checked]` sem
 `group` na casca.
 
+### O objetivo mostrava e não ia (24/08/2026)
+
+Escolher um objetivo caía na mesma trava anti-oscilação das decisões automáticas: leitura a
+cada 20s mais 60s de freio, então o clique podia levar um minuto e meio para virar alguma
+coisa na tela. Ver
+[[Freio de oscilação vale para a máquina, não para a ordem de quem manda]].
+
+Junto: a rota montava um plano por tecla (digitar "500" pedia rota para 5, 50 e 500), e o
+seletor de caçada continuava mostrando o que a pessoa tinha digitado enquanto o robô caçava
+em outro lugar. O nível virou rascunho com botão, e o seletor passou a acompanhar a caçada
+que está no ar — travado enquanto o objetivo comanda, porque aceitar uma ordem que a
+próxima reavaliação desfaz em segundos é pior que recusar.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -841,6 +854,7 @@ De quebra, o realce do rótulo nunca tinha funcionado — usava `group-has-[:che
   [[Comando sem resposta precisa de vigia, não de fé]] ·
   [[Objetivo é exclusivo, interruptor é combinável]] ·
   [[O primitivo só padroniza o que passa por dentro dele]] ·
+  [[Freio de oscilação vale para a máquina, não para a ordem de quem manda]] ·
   [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

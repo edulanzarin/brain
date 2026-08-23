@@ -150,6 +150,8 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[Objetivo é exclusivo, interruptor é combinável]] — duas automações que escrevem no mesmo valor não são duas chaves, são uma escolha; com N booleanos o estado impossível existe e alguém liga.
   Princípio: [[Um invariante se garante na estrutura, não no processo]].
+- [[Freio de oscilação vale para a máquina, não para a ordem de quem manda]] — o piso de tempo entre decisões automáticas, aplicado largo, freia também o clique: some com a resposta e não deixa rastro, porque do ponto de vista dele nada aconteceu.
+  Princípio: [[Estado mutável se lê da fonte no uso, não de cópia guardada]].
 - [[O código com que o socket fecha é a classificação que o retry precisa]] — a faixa
   4000–4999 do WebSocket é da aplicação, e é ali que o outro lado diz se foi credencial,
   roteamento ou recusa. Descartar o número troca o diagnóstico por um laço infinito.
