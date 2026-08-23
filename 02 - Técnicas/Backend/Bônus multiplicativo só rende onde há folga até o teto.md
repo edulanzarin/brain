@@ -52,6 +52,12 @@ normalização extra.
   multiplicador único, subir uma fonte reduz a folga das outras: o segundo bônus vale
   menos que o primeiro. O payback de "mais um ponto" tem que ser medido **sobre o
   cenário atual**, não sobre o cenário limpo.
+- **Um anúncio, duas grandezas, duas regras.** O mesmo bônus costuma incidir em mais de
+  uma moeda, e nem todas saturam. O Tipo do Dia do Poke Idle World é anunciado como "+20%
+  de XP e +20% de loot": no XP entra inteiro, porque não há teto; no loot ele multiplica a
+  chance de cada drop e o teto engole a maior parte. No Scyther o mesmo dia paga **+20% de
+  XP e +6,6% de ouro**. Ler o anúncio como um número só é o que faz as duas metades
+  divergirem sem ninguém notar.
 - Vale fora de jogo: desconto sobre preço com piso, retry sobre uma cota já no limite,
   otimizar taxa de acerto de cache que já está em 98%, verba de anúncio num público
   saturado. Em todos, a pergunta útil é quanta folga sobrou.

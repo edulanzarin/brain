@@ -194,6 +194,16 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   aplicado onde vale, mais o contrafactual (o mesmo candidato sem ele). "Quem ganha o
   bônus" e "quem paga mais" costumam ser respostas diferentes.
   Princípio: [[Ordene pela grandeza que decide, não pela que impressiona]].
+- [[Total acumulado premia a lentidão quando o tempo é livre]] — total é taxa vezes
+  duração, então oferecer o acumulado como objetivo escolhe a opção mais lenta. A taxa é
+  o objetivo; atividade sem linha de chegada ganha a pergunta invertida (quantidade alvo
+  → horas), não a meta emprestada da outra.
+  Princípio: [[Ordene pela grandeza que decide, não pela que impressiona]].
+- [[Taxa que muda ao longo do trecho se integra, não se amostra na ponta]] — dividir o
+  custo do trecho inteiro pela taxa de um ponto cobra tudo naquele ponto, e amostrar a
+  ponta erra sempre pro mesmo lado. Some dentro do laço, exiba a média do trecho, e use
+  "soma das partes = fórmula fechada" como invariante de conferência.
+  Princípio: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]].
 - [[Número de regra alheia se lê da fonte, não se congela em constante]] — número que é
   de outro sistema vale pro dia em que foi observado; leia da API em execução com a
   constante de reserva (datada), e a tela lendo a MESMA origem do cálculo — etiqueta

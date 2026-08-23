@@ -68,12 +68,14 @@ alta; o dado vai no mono, senão a densidade morre de novo.
   esconde, projeta em qualquer nível e mostra o quanto falta pro IV perfeito. Ela abre com
   o **"Como usar"** — resumo sempre visível, seis passos sob demanda.
 - **Hunt**: mede TODO alvo do jogo contra o pokémon que você tem — não existe "a
-  melhor hunt do jogo", existe a melhor hunt pra ele. Duas vistas sobre o mesmo
+  melhor hunt do jogo", existe a melhor hunt pra ele. Três vistas sobre o mesmo
   lutador: a **rota** (a subida em faixas até o nível alvo, com quantas horas cada
-  faixa custa pela curva de XP) e a **tabela inteira** (342 alvos, ordenável por
-  XP/h, ouro/h, abates/h, efetividade e segurança, com ficha por hunt). O
-  diferencial está no motor: o rendimento é EFETIVO — se a hunt te derruba, o
-  tempo parado na Joy já saiu do XP/h antes da lista ser ordenada.
+  faixa custa pela curva de XP), o **farm de ouro** (alvo em ouro, não em nível:
+  quanto você quer juntar, quantas horas leva no melhor spot, e de onde o ouro vem)
+  e a **tabela inteira** (342 alvos, ordenável por XP/h, ouro/h, abates/h,
+  efetividade e segurança, com ficha por hunt). O diferencial está no motor: o
+  rendimento é EFETIVO — se a hunt te derruba, o tempo parado na Joy já saiu do
+  XP/h antes da lista ser ordenada.
 - **Anúncios (preparado, desligado)**: o site nasce sem anúncio nenhum — sem
   `NEXT_PUBLIC_ADSENSE_CLIENT` não há script, `<ins>` nem espaço reservado.
   Ligado, entram um card intercalado a cada 12 na grade da dex e dos itens e uma
@@ -222,9 +224,9 @@ Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesqui
   a CHANCE de cada drop e a chance tem teto: alvo cujo loot já sai em 95%
   aproveita 5% do bônus, não 20%. Por isso o payload leva o loot cru de quem tem
   ponto no mapa, em vez do ouro já somado.
-- **A economia entra pelo `goldEV` do alvo.** Tipo do Dia e captura são escolha do
-  jogador; o motor de combate não conhece nenhum dos dois. Trocar o campo antes de
-  chamar o motor faz o ouro/h e a rota por ouro já saírem completos — sem um
+- **A economia entra pelos campos `goldEV` e `xp` do alvo.** Tipo do Dia e captura
+  são escolha do jogador; o motor de combate não conhece nenhum dos dois. Trocar os
+  campos antes de chamar o motor faz o ouro/h e o XP/h já saírem completos — sem um
   segundo caminho de cálculo que um dia discordaria do primeiro.
 - **Os golpes de TODO MUNDO viajam pro navegador, em tupla.** O combate tem dois
   lados: sem o moveset do selvagem não dá pra estimar o que você TOMA, e a tela
@@ -455,6 +457,46 @@ desafio da Cloudflare, e que a home passa em "É possível indexar a página".
 Daqui o gargalo não é mais código: é a fila de rastreio do Google, que para site
 novo leva de dias a semanas.
 
+## O farm de ouro sai da rota (23/08/2026)
+
+O Eduardo abriu a rota em modo "ganhar ouro" e viu a tela recomendar a caçada que paga
+**menos** por hora. Reproduzido no motor contra o catálogo real (Golem nv352 → 500, IV
+médio, VIP, captura com Ultra Ball): "subir rápido" dava Furious Scyther em 99h a 459k/h,
+"ganhar ouro" dava Scyther em 176h a 447k/h. Os 78,7M de "ouro no caminho" que coroavam o
+segundo eram 447k vezes 176 horas — o modo vencia por demorar. Virou
+[[Total acumulado premia a lentidão quando o tempo é livre]].
+
+O que fazia a promessa "cada faixa é a de maior ouro/h" quebrar era a histerese: no 352 o
+Scyther paga mais mesmo (410k contra 396k), no 500 o Furious vira por 2,8% e a margem de
+troca é 8%, então a faixa nunca troca. Como o card mostrava a estimativa do FIM da faixa,
+a tela imprimia o número que desmentia o próprio botão.
+
+Três mudanças, decididas com o Eduardo:
+
+- **Aba "Farmar ouro"**, com alvo em ouro e não em nível. Você diz quanto quer juntar e a
+  tela responde quantas horas no melhor spot; abre a origem do ouro (loot × captura
+  líquida), o que rende parado em 1h/8h/24h e os nove seguintes com a fração do melhor.
+  Spot letal fica fora: farm que precisa de você olhando rende zero.
+- **A rota volta a perseguir nível e mais nada.** `RouteMode` saiu do motor junto com
+  `pickHunt`, que era export sem chamador e só existia pra passar o modo.
+- **O tempo da rota passou a ser integrado nível a nível.** Ele saía de "XP da faixa
+  inteira ÷ XP/h do fim da faixa", e o ritmo sobe com o lutador: numa faixa 352→500 o
+  alvo rende 11,7M de XP/h no começo e 13,6M no fim. Junto veio um nível cobrado a mais
+  (`xpTotal(fim+1)`). A mesma rota passou de 99h28 pra 104h43, e a soma bate exatamente
+  com a curva fechada em 7.628 faixas varridas. Virou
+  [[Taxa que muda ao longo do trecho se integra, não se amostra na ponta]].
+
+**O Tipo do Dia estava pela metade.** O jogo publica "+20% de XP e +20% de loot", e só a
+metade do loot estava implementada — `xpH` saía de `e.xp * kosH * (vip ? 1.5 : 1)`, sem o
+dia em lugar nenhum. Numa rota 352→500 com dia de Inseto isso escondia 17 horas. As duas
+moedas têm regra diferente e agora o código diz isso: no XP o bônus entra inteiro, no loot
+o teto de chance engole a maior parte, e o mesmo dia paga +20% de XP e +6,6% de ouro no
+Scyther. Registrado em [[Bônus multiplicativo só rende onde há folga até o teto]] e
+[[Bônus condicional se avalia contra quem não o recebe]].
+
+Sobrou uma primitiva: `NumberField` ganhou `grouped`, que separa o milhar no próprio campo
+(meta de ouro tem oito dígitos, e "10000000" não se lê, se conta com o dedo).
+
 ## Próximos passos
 
 1. As seis ferramentas estão no ar; o "em breve" saiu da navegação.
@@ -513,6 +555,10 @@ novo leva de dias a semanas.
   [[Faixa de topo de ferramenta é chegada, não rótulo]] ·
   [[Reduzir movimento tem que zerar o atraso, não só a duração]] ·
   [[Texto de interface soa a IA pelo ritmo, não pelo assunto]] ·
-  [[Herdar um deploy é herdar o contrato dele, não só o domínio]]
+  [[Herdar um deploy é herdar o contrato dele, não só o domínio]] ·
+  [[Total acumulado premia a lentidão quando o tempo é livre]] ·
+  [[Taxa que muda ao longo do trecho se integra, não se amostra na ponta]] ·
+  [[Bônus multiplicativo só rende onde há folga até o teto]] ·
+  [[Bônus condicional se avalia contra quem não o recebe]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

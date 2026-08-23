@@ -50,6 +50,12 @@ dia quer saber se amanhã muda o plano, e o mesmo motor já responde.
 - **Bônus condicional não pode entrar como percentual global.** Se ele multiplicar todo o
   catálogo, ninguém troca de posição e a conta infla tudo por igual — o sintoma some e o
   erro fica. O multiplicador é função do candidato.
+- **Cobrir uma das grandezas e não a outra é o erro que não dá erro.** Quando o bônus
+  paga em mais de uma moeda ("+20% de XP e +20% de loot"), implementar metade não estoura
+  nada: a metade que falta simplesmente não acontece, e o número resultante continua
+  plausível. No piwdex2 o Tipo do Dia entrava no ouro e não entrava no XP, e o que isso
+  escondia numa rota 352→500 eram 17 horas. Ao ler o anúncio, liste as grandezas que ele
+  toca antes de escrever a conta.
 - Vale para qualquer promoção segmentada: cupom por categoria, cashback por bandeira,
   frete grátis por região. A pergunta do usuário nunca é "o que tem desconto", é "o que
   sai mais barato".
@@ -58,5 +64,5 @@ dia quer saber se amanhã muda o plano, e o mesmo motor já responde.
 - Princípio: [[Ordene pela grandeza que decide, não pela que impressiona]]
 - Irmã: [[Bônus multiplicativo só rende onde há folga até o teto]]
 - Parente: [[Número de regra alheia se lê da fonte, não se congela em constante]] · [[Num confronto, medir só o seu lado recomenda o alvo que te destrói]]
-- Visto em: [[piwdex]]
+- Visto em: [[piwdex]] · [[piwdex2]]
 - Mapa: [[Backend]]
