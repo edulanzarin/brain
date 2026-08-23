@@ -2,7 +2,7 @@
 tags: [tipo/projeto, projeto/piwdex2]
 criado: 2026-08-20
 status: ativo
-codigo_em: ~/Dev/piwdex2
+codigo_em: ~/Dev/piwdex
 ---
 
 # piwdex2
@@ -12,11 +12,21 @@ codigo_em: ~/Dev/piwdex2
 > responde não é "como é o Bulbasaur", é "quem apanha de Fogo, dropa Bulb e dá pra encarar
 > no nível 40".
 
-Código em: `~/Dev/piwdex2` · remote `git@github.com:edulanzarin/piwdex2.git`
+Código em: **`~/Dev/piwdex`** · remote `git@github.com:edulanzarin/piwdex.git`
 Par de portas: **4071** (app) / **5071** (banco, reservado).
 
-**No ar desde 22/08/2026, em piwdex.com.br** — pelo repositório `edulanzarin/piwdex`,
-não por este. Ver "A reescrita assume o deploy do v1", no fim.
+**No ar desde 22/08/2026, em piwdex.com.br.**
+
+> **Atenção ao caminho: ele inverteu.** O projeto se chama piwdex2 e o código dele mora
+> no repositório do **piwdex**. Foi assim que a reescrita assumiu o deploy que já rodava,
+> sem migrar domínio. `~/Dev/piwdex2` virou `~/Dev/piwdex2-arquivo` (com um
+> `ARQUIVADO.md` dentro dizendo para onde ir) e o repo `edulanzarin/piwdex2` foi
+> arquivado no GitHub. Editar lá e dar push não muda o site.
+>
+> O nome do projeto continua piwdex2 no Brain de propósito: renomear quebraria os links
+> de todas as notas que apontam pra cá, e o nome nunca foi o do repositório — era o do
+> sistema. O [[piwdex]] segue sendo outra coisa: a versão 1, com o robô, arquivada na
+> tag `v1.0.0`.
 
 ## Por que reescrever
 
