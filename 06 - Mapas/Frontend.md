@@ -13,6 +13,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 
 ## Armadilhas do React e do Next
 
+- [[Peso de página se mede no fio, não na saída do render]] — `wc -c` devolve o
+  bruto; markup de card comprime ~95%, e 1,14 MB viraram 68 KB. Escolher o número
+  errado faz reescrever componente pra resolver problema que não existe.
 - [[router.replace do Next falha no build de produção]] — funciona em `dev`, falha
   calado em `build`. Princípio: [[Verificar no build de produção, não só em dev]].
 - [[Componente de ícone não atravessa a fronteira server-client]]

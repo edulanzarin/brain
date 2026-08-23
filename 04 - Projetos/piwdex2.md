@@ -404,6 +404,57 @@ Essas rotas estão salvas no próprio jogo, no Discord e no favorito de quem usa
 `permanent` ensinaria navegador e buscador a nunca mais pedi-las. O robô está parqueado,
 não enterrado.
 
+## Passada de SEO (23/08/2026)
+
+Auditoria do que estava no ar, com evidência medida: **62,7/100, grau C** (perfil
+publisher). O objetivo do Eduardo é aparecer para "poke idle world" e derivados.
+
+### O erro central: o termo-alvo estava no lugar errado
+
+As ~910 fichas traziam "Poke Idle World" no `og:title` e **não** no `<title>`.
+OpenGraph pinta card de rede social; quem o buscador casa com a consulta é o
+`<title>`. Quem digitava "bulbasaur poke idle world" batia numa página cujo título
+não dizia isso em lugar nenhum — na maior superfície do site.
+
+### As ~910 fichas viraram cacheáveis
+
+Eram `force-dynamic`: todo rastreio renderizava do zero um conteúdo que só muda
+quando o jogo publica patch. Isso queima orçamento de rastreio, que é o que decide
+quantas páginas o buscador se dá ao trabalho de reler. `force-static` +
+`revalidate`: de `ƒ` para `○` na tabela de rotas, e **1,9s → 13ms** na visita
+cacheada. Saiu junto o piso de carregamento dessas telas — ele lê `headers()`, que
+sozinho já impede o cache.
+
+### Dezoito hubs de tipo
+
+`/dex/tipo/fogo` e irmãos. A dex só filtrava por parâmetro de busca, que o
+buscador rastreia com má vontade, e as fichas estavam alcançáveis só pela lista
+filtrada. O selo de tipo da ficha virou link pro hub, fechando a malha.
+
+Cada hub afirma o que só vale pra aquele tipo (contra quem bate, de quem apanha,
+faixa de nível), tudo saindo de `typing.ts` e do catálogo — mesma regra do
+`prosa.ts`, sem molde com o nome trocado.
+
+**Soft 404 que a primeira versão criou:** com `dynamicParams` no padrão,
+`/dex/tipo/banana` respondia **200** com a tela de "não encontrado". Soft 404 é
+pior que 404 — o buscador indexa página vazia. `dynamicParams = false` fecha o
+conjunto nos dezoito.
+
+### O achado que eu registrei errado
+
+Marquei "/dex serve 1,14 MB" como falha ALTA. No fio são **68 KB** (Brotli, 94%).
+Não havia o que consertar. Virou
+[[Peso de página se mede no fio, não na saída do render]].
+
+### O que ficou com o Eduardo
+
+Search Console verificado por DNS (propriedade de Domínio, na Cloudflare) e
+sitemap enviado — 936 URLs. Conferido que o Googlebot recebe 200 em tudo, sem
+desafio da Cloudflare, e que a home passa em "É possível indexar a página".
+
+Daqui o gargalo não é mais código: é a fila de rastreio do Google, que para site
+novo leva de dias a semanas.
+
 ## Próximos passos
 
 1. As seis ferramentas estão no ar; o "em breve" saiu da navegação.
