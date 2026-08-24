@@ -18,8 +18,10 @@ Código em: `~/Dev/evento-navecon`
 Pronto e **mergeado na `main`** (push feito). A stack sobe via
 `docker compose up --build`. O **Mercado Pago foi validado com o token real** —
 `/api/register` gera um checkout de verdade. Vai rodar em
-**`navecon.net.br/imersao`** (subcaminho atrás do servidor web do TI, que já
-serve a raiz); o suporte a subcaminho está pronto — ver
+**`imersao.navecon.net.br`** (subdomínio próprio, Caddy do compose de prod
+terminando o TLS; `APP_BASE_PATH=/`). A ideia anterior era subcaminho
+`navecon.net.br/imersao` atrás do servidor web do TI — o suporte continua pronto
+e sem custo caso volte a ser preciso, ver
 [[App sob subcaminho fica na raiz e o proxy tira o prefixo]]. Hardening feito
 (helmet/CSP, rate limit, banco em loopback). Falta: o TI subir em `/imersao`
 (proxy com strip do prefixo) e **validar o SMTP no ambiente real** (não testei
@@ -153,8 +155,10 @@ Só links. O texto mora na nota de técnica/princípio.
 ## Próximos passos
 
 - [x] Merge da branch `feat/mercadopago-checkout` na `main` (push feito)
-- [ ] TI subir em `navecon.net.br/imersao`: `APP_BASE_PATH=/imersao/`,
-  `PUBLIC_BASE_URL=https://navecon.net.br/imersao`, proxy com strip do prefixo
+- [ ] Subir em `imersao.navecon.net.br`: DNS A/AAAA no IP do servidor e
+  `docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build`
+  (o `.env.production` já está com o subdomínio; falta preencher token do MP e
+  senha do painel). Painel em `imersao.navecon.net.br/admin`.
 - [ ] Ativar **pix** e **parcelamento até 6x** no painel do Mercado Pago
 - [ ] Validar o envio de e-mail no servidor real (SMTP não testado do ambiente de dev)
 - [ ] Testar o pagamento em **modo de teste do MP** (token `TEST-` + cartões de teste)
