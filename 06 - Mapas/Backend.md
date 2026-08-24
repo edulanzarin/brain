@@ -144,6 +144,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   catálogo e posse trazem os mesmos campos e divergem só na ausência; usar um pelo outro
   faz o item exclusivo de uma das listas sumir sem erro nenhum.
   Princípio: [[Estado mutável se lê da fonte no uso, não de cópia guardada]].
+- [[Re-chavear um sistema é refactor mudo, force o compilador a achar as chamadas]] —
+  trocar por quem o sistema é chaveado não muda um tipo: os dois ids são `string`, e cada
+  chamada segue compilando com a chave errada. Mude a aridade ou troque dois parâmetros
+  por um objeto, e o erro de tipo enumera o trabalho.
+  Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[Campo cujo nome você não sabe se lê do payload, nunca se chuta]] — API tolerante
   ignora chave desconhecida e devolve 200, então o palpite errado não falha, PASSA: o
   seletor mostra a escolha aplicada e o comportamento nunca muda. Leia o nome do campo no

@@ -940,6 +940,45 @@ sistema que reavalia, o ranking muda antes da troca acontecer — o topo vira o 
 novo enquanto o motor ainda executa o antigo, e o destaque aponta pra linha errada
 exatamente durante a mudança. Agora casa com `estado.slug`.
 
+### Várias contas de jogo por assinante (24/08/2026)
+
+O modelo dizia "uma conta por pessoa" da forma mais dura possível: `user_id` era a CHAVE
+PRIMÁRIA de `game_links` e de `robot_sessions`. Não era regra de código — era a estrutura
+do banco, e por isso não havia como duplicar por engano.
+
+A chave passou a ser o VÍNCULO. Tudo que parecia ser "do usuário" era na verdade "da
+conta": estado desejado, config das automações, placar, shard, snapshot de time. Um
+WebSocket por conta, todas rodando ao mesmo tempo. O que continua do usuário é o que ele
+paga e o que ele pode ver — `robot_events` guarda os dois ids, porque "o que aconteceu
+comigo" é a pergunta sobre todas as contas.
+
+O refactor foi MUDO: 27 arquivos, e nenhum tipo mudou (os dois ids são `string`). O que
+achou as chamadas foi mudar a FORMA — aridade em `registrarEvento`, objeto `DonoDaSessao`
+em `segurar`. Virou
+[[Re-chavear um sistema é refactor mudo, force o compilador a achar as chamadas]].
+
+Teto de 5 contas por assinatura, numa constante só: cada conta é um socket aberto o tempo
+todo mais o poll do analyzer, e o processo é um só (`numReplicas: 1`).
+
+### Coleta e o Flint: o dinheiro que estava parado (24/08/2026)
+
+Uma captura completa do jogo — todas as ações feitas à mão — entregou o contrato de tudo
+que ficava de fora do robô por não passar pela loja nem pelo campo. Três eram dinheiro
+parado: **diária**, **passe de batalha** (missão concluída e tier alcançado esperando
+clique) e o **Flint**, o NPC de Pewter que compra PEDRA por um preço por unidade que a
+loja comum não paga — 413 Cocoon Stone a 5.000 são dois milhões que estavam na mochila.
+
+Duas decisões: a coleta é a única automação do robô **sem lista branca e sem teto**
+(recusar presente não protege ninguém de nada), e tem **relógio próprio** de 10 minutos —
+no ritmo do minuto seriam mil chamadas por dia para ouvir "já coletou". Pedra vai por
+lista branca com reserva, porque é material de evolução e vender não desfaz.
+
+O mapa inteiro da API, inclusive o que ficou de fora e por quê, está em
+`docs/api-do-jogo.md` no repositório. Mercado, tasks, streak, breeding e gifts aparecem na
+captura só como LEITURA: o POST de cada um não foi capturado, e implementar contra
+suposição ali mandaria um corpo que o jogo ignora e responde 200 — ver
+[[Campo cujo nome você não sabe se lê do payload, nunca se chuta]].
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -1005,6 +1044,7 @@ exatamente durante a mudança. Agora casa com `estado.slug`.
   [[Ausência de leitura cai no valor que dispara a ação]] ·
   [[Limiar conta a unidade que se consome, não o balde que a contém]] ·
   [[Campo cujo nome você não sabe se lê do payload, nunca se chuta]] ·
-  [[Ranking de opções não usa o verbo do estado ao vivo]]
+  [[Ranking de opções não usa o verbo do estado ao vivo]] ·
+  [[Re-chavear um sistema é refactor mudo, force o compilador a achar as chamadas]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
