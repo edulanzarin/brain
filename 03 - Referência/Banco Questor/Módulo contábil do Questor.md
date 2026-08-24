@@ -25,6 +25,16 @@ Partida dobrada, uma linha por lançamento. PK `(codigoempresa, chavelctoctb)`.
 - `lctoctbexcluido` (~10,5M) guarda os lançamentos **excluídos** — rastro de auditoria.
 - Filtrar **sempre** por `codigoempresa` + `datalctoctb`; é tabela enorme → [[Agregar antes de juntar em tabelas gigantes no Postgres]].
 
+### Duas datas, dois relatórios (verificado ago/2026)
+
+`datalctoctb` é a data do FATO (competência) e `datahoralctoctb` é o carimbo de quando a linha foi gravada. As duas divergem muito: no escritório, lançamentos de maio seguiam sendo gravados em agosto. Relatório de movimento usa a primeira; produtividade de equipe usa a segunda — ver [[Produtividade se mede pela hora do registro, não pela data do fato]].
+
+Há índice dedicado no carimbo (`ixlctoctbdatahora`), então filtrar por período de trabalho não custa mais caro que por competência. Custo medido de uma varredura agregada do escritório inteiro, sem filtro de empresa: mês ~1,5s (≈2M lançamentos), trimestre ~10s, ano ~30s.
+
+- `codigolotectb` **vem sempre zerado** nesta base — não serve como agrupador de "rodada de trabalho". Para reconstruir a rodada, use a combinação `empresa × dia × origem` por usuário.
+- `tipolancamento` é `LN` em praticamente tudo; `LF`/`LS` aparecem em punhados de linhas.
+- `origemdado` (1 manual, 2 importado, 3 integração) **não** é confiável para separar trabalho a dedo de rotina: a integração fiscal grava boa parte das linhas como `1`. Quem separa é `codigooriglctoctb`.
+
 ## Plano de contas — `planoespec` (por empresa)
 
 Plano de contas **específico de cada empresa**. PK `(codigoempresa, contactb)`.
@@ -80,6 +90,10 @@ O Questor tem uma **função própria de Implantação de Saldos**, separada dos
 `codigooriglctoctb` diz qual módulo gerou o lançamento — é o **mapa de como o ERP alimenta a contabilidade**:
 
 `FP` Folha de Pagamento · `FI` Fiscal · `CP` Contas a Pagar · `CR` Contas a Receber · `FN` Financeiro · `IM` Controle Patrimonial · `IP` Importação · `CB` Contabilidade (manual) · `CC` Conciliação de Cartão · `CE` Empréstimos · `LA` Lalur · `AA` Ajustes Anteriores · `XX` Extemporâneo · `ZZ` Zeramento (e outros). Assim dá para separar o que é lançamento manual do que veio automático de cada módulo.
+
+**O que a Navecon realmente usa** (mai–ago/2026, escritório inteiro): só seis origens aparecem — `FI` Fiscal e `IP` Importação respondem por ~99% do volume; `CB` (digitado na contabilidade), `FP` (folha), `ZZ` (zeramento) e `IM` (patrimônio) somam o resto. O digitado a dedo é pequeno em quantidade (~1%) e grande em valor — é onde mora o ajuste.
+
+Para leitura de gestão, o código vira **natureza** do lançamento: digitado (`CB`), importado (`IP`, `CC`), integrado de outro módulo (`FI`, `FP`, `CP`, `CR`, `FN`, `IM`, `CT`, `CE`, `AD`) e apuração/ajuste (`ZZ`, `XX`, `AA`, `LA`, `EF`, `AI`, `IS`, `IF`, `TF`, `TR`, `TS`). Sem esse eixo, um mês de integração fiscal esconde as poucas milhares de linhas feitas à mão.
 
 ## Por que importa
 

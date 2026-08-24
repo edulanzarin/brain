@@ -24,6 +24,10 @@ de sistema externo é referência e tem mapa próprio.
   mínima; feature nova é tabela que referencia, não coluna adicionada. Escala por composição.
 - [[Campo que vira indicador é coluna, o resto do documento é jsonb]] — num documento de
   forma fixa, o que se agrega/filtra vira coluna; narrativa e listas variáveis vão em jsonb.
+- [[Grão fino numa varredura só dispensa os count distinct]] — painel que quebra o
+  mesmo fato por vários eixos: agrupe uma vez pelo grão mais fino da tela (2M de
+  linhas viram 6 mil) e faça ranking, série, distintos e calendário em memória.
+  Princípio: [[Reduzir a cardinalidade vem antes de enriquecer]].
 - [[Numeric e bigint do Postgres chegam como string no driver pg]] — o `node-pg`
   entrega `numeric`/`bigint` como string; castar pra `float8` pra receber number.
 - [[Consumir recurso de uso único é UPDATE condicional, não checar antes]] —
@@ -42,6 +46,8 @@ mapa [[Infra]].
 
 ## Princípios que mandam aqui
 
+- [[Reduzir a cardinalidade vem antes de enriquecer]] — a ordem das duas metades de
+  toda consulta sobre tabela enorme: reduzir e só depois enriquecer.
 - [[Plataforma de IA hospedada prende o app pelo banco]] — o banco é o que realmente
   prende um app a um fornecedor.
 

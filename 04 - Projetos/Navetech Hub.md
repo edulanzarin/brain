@@ -166,6 +166,17 @@ Home do módulo (`/contabil/painel`), a segunda aplicação do princípio [[A ho
 - **Fonte = a trilha de auditoria**, não uma tabela de métrica nova: `count(*) filter (where acao=...)` por período dá "quantas vezes rodou" e `sum((detalhe->>'linhas')::int)` dá o volume — [[A trilha de auditoria já é o placar de atividade, não crie tabela de métrica à parte]]. 100% banco do app (`auditoria`/`conf_*`), nenhuma consulta ao Questor: carrega rápido e não degrada. Escopo por empresa na trilha; base é contagem pura. Cada bloco independente (`allSettled`).
 - Diferente dos painéis do DP, este **rodou de verdade no dev** — as 4 queries validadas contra o app-db local (é tudo banco do app). Libs `painel-contabil.ts`/`painel-contabil-tipos.ts`. Branch `feat/painel-contabil`, merge ff na `main`.
 
+### Produtividade do Contábil (ago/2026)
+
+Seção `/contabil/produtividade`: o que o time contábil lançou no período, por pessoa, origem, empresa, dia e hora — fecha o par com as produtividades do Fiscal e do DP (o Contábil era o setor sem placar). Única tela do módulo que **não** é bancada de uma empresa: empresa vira filtro opcional (o catálogo de abas ganhou `empresaOpcional` e o shell repassa pro `ConfFilterBar`, que já sabia disso pela Folha).
+
+- **Fonte**: `lctoctb`, recortado por `datahoralctoctb` (quando o lançamento foi FEITO), não por `datalctoctb` — [[Produtividade se mede pela hora do registro, não pela data do fato]]. No escritório a diferença é enorme: lançamento de maio sendo gravado em agosto.
+- **Uma consulta só**, no grão (usuário, empresa, origem, dia, hora), e todo o rollup em Node — ranking, origens, empresas, série, calendário, horas e distintos saem daí, sem nenhum `count(distinct)` no SQL. Um mês do escritório inteiro (2M de lançamentos) vira ~6 mil linhas de grão. Método e medições em [[Grão fino numa varredura só dispensa os count distinct]].
+- **Natureza do lançamento** como eixo (digitado / importado / integrado / apuração), derivada de `codigooriglctoctb`: sem ela, o mês de integração fiscal esconde as ~16 mil linhas digitadas a dedo (0,8% do volume, e é onde mora o ajuste). Cores da paleta categórica `--esp-*`, não das semânticas — `--ent` e `--accent` são quase o mesmo azul e embaralhavam "Digitado" com "Integrado".
+- **"Rodada" = empresa × dia × origem**: o `codigolotectb` do Questor vem sempre zerado nesta base, então o lote é reconstruído pelo grão (mapeado em [[Módulo contábil do Questor]], junto das seis origens que a Navecon realmente usa e do índice `ixlctoctbdatahora`).
+- **Isolar uma pessoa não vai ao banco**: cada pessoa carrega no payload os próprios recortes (origens, top empresas, 24 horas, dias com movimento). Com pessoa isolada, o gráfico de ritmo vira **área única** em vez de empilhado — a quebra dia × natureza por pessoa não existe no payload, e ratear pela proporção do período desenharia uma distribuição que o dado não sustenta.
+- Custo medido (escritório inteiro, sem filtro de empresa): mês ~4,5s, trimestre ~10s, ano ~39s — dentro do timeout de 60s, atrás do "Executar". Uma empresa cai para frações de segundo. Verificado com dados reais (jul/2026: 2.025.926 lançamentos, 38 pessoas, 517 empresas) e nas telas, inclusive período vazio. Branch `feat/contabil-produtividade`.
+
 ### Arquitetura de módulos e permissão
 
 O **seam de permissão** foi cravado antes do login (`src/lib/sessao.ts`) e em **jul/2026 o login real entrou** — exatamente como previsto, **só o stub de `getSessao()` mudou**, nada foi retrofitado (launcher, layouts e `apiRoute` já passavam por ele). Hoje `getSessao` lê o cookie opaco → linha `sessao` no banco do app → `usuario` + perfil. Padrão em [[Cravar o seam de permissão antes do login]] e [[Sessão opaca no banco separa autenticação de permissão]]; doutrina em [[Permissão se valida no servidor, não na interface]].
@@ -508,6 +519,9 @@ Banco Questor (pasta `03 - Recursos/Banco Questor`):
 - [[Contas bancárias e layout de contabilização no Questor]]
 
 Gerais de dev (continuação):
+- [[Produtividade se mede pela hora do registro, não pela data do fato]] (princípio)
+- [[Reduzir a cardinalidade vem antes de enriquecer]] (princípio)
+- [[Grão fino numa varredura só dispensa os count distinct]]
 - [[Ler extrato bancário em PDF]]
 - [[Armadilhas de child_process no Node]]
 - [[Recorrência guarda a receita e o próximo disparo, não N ocorrências futuras]] (princípio)
@@ -569,6 +583,7 @@ O glass também virou **dois níveis explícitos**: `.glass-chrome` (arejada) e
 
 - [x] Login e usuários (jul/2026) — feito. Autenticação por email/senha, sessão opaca no banco, 3 eixos (módulo/seção/empresa com grupos), área `/admin`. Ver "Arquitetura de módulos e permissão" acima.
 - [ ] Folha: recorte por categoria de vínculo na Rotatividade (só CLT), quando o banco estiver acessível e os `codigocateg` confirmados; outras telas de folha (custo de pessoal, headcount, provisões).
+- [ ] Produtividade nos setores que faltam: o RH ainda não tem placar (Fiscal, DP e Contábil já têm) — decidir qual é a unidade de trabalho lá (formulário respondido? entrevista de experiência? denúncia triada?), já que não há tabela do Questor com carimbo por pessoa como nos outros três.
 - [ ] Módulo Patrimônio (ainda "em breve" no launcher) — reusar o padrão de módulo/seção/abas.
 - [ ] Talvez repensar grupos de empresas (hoje só localStorage; poderia ser compartilhado entre máquinas).
 - [ ] Possíveis análises futuras: mapa por UF, exportação Excel.

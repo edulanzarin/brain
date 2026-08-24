@@ -35,7 +35,8 @@ Agrega os milhões, corta pra 10, e só então faz join — 10 lookups por índi
 Regra geral de performance SQL: **reduza a cardinalidade antes de enriquecer**. Join é barato sobre 10 linhas, proibitivo sobre 47M. Vale pra qualquer "top N + nome bonito" sobre fato grande. Depende de conhecer o [[Modelo de dados fiscais do Questor]] e seus índices.
 
 ## Conexões
-- Princípio: [[Verificar no build de produção, não só em dev]]
+- Princípio: [[Reduzir a cardinalidade vem antes de enriquecer]]
+- Irmã: [[Grão fino numa varredura só dispensa os count distinct]]
 - Relacionado: [[Modelo de dados fiscais do Questor]]
 - Visto em: [[Navetech Hub]]
 - Mapa: [[Dados]]
