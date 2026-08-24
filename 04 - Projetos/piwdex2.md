@@ -1045,6 +1045,7 @@ suposição ali mandaria um corpo que o jogo ignora e responde 200 — ver
   [[Limiar conta a unidade que se consome, não o balde que a contém]] ·
   [[Campo cujo nome você não sabe se lê do payload, nunca se chuta]] ·
   [[Ranking de opções não usa o verbo do estado ao vivo]] ·
-  [[Re-chavear um sistema é refactor mudo, force o compilador a achar as chamadas]]
+  [[Re-chavear um sistema é refactor mudo, force o compilador a achar as chamadas]] ·
+  [[403 do escudo não é 403 do dono da API]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
