@@ -690,6 +690,26 @@ do site continuam os de 32×32 — a troca pra vetor está oferecida e não feit
 script de preview que obriga a olhar o render antes de entregar. Ela não depende
 de API nenhuma: o desenho é autorado, não gerado.
 
+### Ícones em vetor, espera sem gif e lendários fora do meta (24/08/2026)
+
+**Os seis ícones viraram SVG**, autorados com a skill nova. Duas armadilhas que
+falham caladas e custaram a achar: comentário XML não pode conter `--` (e nome de
+token CSS começa com `--`, então documentar a paleta dentro do comentário deixava
+o arquivo malformado e o navegador recusava a imagem inteira), e SVG só com
+`viewBox` tem `naturalWidth` 0, o que fazia a verificação de carregamento do
+`Sprite` dar a arte como falha.
+
+**O gif de pokémon saiu da tela de espera** — era a última peça em pixel do site.
+No lugar entra o ícone da própria ferramenta, então a espera passa a mostrar pra
+onde se está indo e vira o primeiro quadro da tela que chega.
+
+**Lendário saiu da tier list.** Os desenvolvedores disseram que não vão ser
+jogáveis, e os 11 ocupavam o topo do S. Entrou como chave com padrão, não como
+exclusão cravada — a mesma fonte disse "tudo pode mudar". Virou
+[[Regra que veio de fora do sistema entra como chave declarada, não cravada no código]].
+A home segue de graça, porque chama o mesmo motor: o destaque deixou de ser
+Zapdos e passou a ser Gengar.
+
 ## Próximos passos
 
 1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com
@@ -1189,6 +1209,7 @@ saudável.
   [[Nada que está na tela pode estar invisível esperando o scroll]] ·
   [[Peça desenhada fora do DOM é uma segunda implementação do tema, e ela envelhece calada]] ·
   [[Mais resolução não compra qualidade em ícone; trocar de meio compra]] ·
+  [[Regra que veio de fora do sistema entra como chave declarada, não cravada no código]] ·
   [[Invertida a fórmula, o arredondamento é meia-aberto e o meio da faixa não é a resposta]] ·
   [[Invertida a fórmula, o arredondamento é meia-aberto e o meio da faixa não é a resposta]] ·
   [[Sinal booleano da fonte não ocupa o lugar de uma escala]] ·

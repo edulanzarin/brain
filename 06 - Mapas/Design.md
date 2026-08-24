@@ -90,6 +90,9 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
   — cartão em canvas, imagem de OG, PDF: não leem token, não quebram, e continuam
   publicando o visual de duas viradas atrás. Traz junto as armadilhas de canvas (halo que
   vira disco, `transparent` que suja a borda, offset cravado).
+- [[Regra que veio de fora do sistema entra como chave declarada, não cravada no código]]
+  — "o jogo disse que X não vai valer" tem data de validade; vira chave com padrão certo e
+  recorte declarado na tela, e o critério mora no campo da fonte, não numa lista de nomes.
 - [[Sinal booleano da fonte não ocupa o lugar de uma escala]] — `raro: true` ligado em
   metade do catálogo não é escala mal desenhada, é outro fato no slot errado. Derive a
   escada da grandeza que a tela já mostra, em décadas, e devolva faixa NENHUMA onde a
