@@ -88,8 +88,14 @@ O que é **aparência** (token, componente, estado visual) mora em [[Design]]. O
 **comportamento do framework** mora aqui. Na dúvida: se continua verdade trocando o
 Tailwind por outro CSS, é Design; se depende do React, é Frontend.
 
+## Saída de dado (arquivo que o usuário abre)
+
+- [[CSV que abre no Excel pt-BR usa ponto e vírgula, BOM e vírgula decimal]] — os três
+  detalhes de locale; o pior é o decimal, que faz a coluna chegar como texto e não
+  somar sem parecer defeito.
+- [[Traduza o vocabulário do sistema, não o nome próprio]] — em ferramenta PT sobre
+  sistema EN, conceito traduz e nome próprio não; e a tradução mexe no índice de busca.
+
 ---
 
 Voltar para [[Início]]
-- [[Traduza o vocabulário do sistema, não o nome próprio]] — em ferramenta PT sobre
-  sistema EN, conceito traduz e nome próprio não; e a tradução mexe no índice de busca.
