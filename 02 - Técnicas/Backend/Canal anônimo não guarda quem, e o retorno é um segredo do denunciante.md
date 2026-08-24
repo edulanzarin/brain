@@ -49,6 +49,7 @@ exigir login, o sistema **deliberadamente não sabe** e não pode saber quem fal
 
 ## Conexões
 - Princípio: [[Um invariante se garante na estrutura, não no processo]]
+- Depende de: [[Anonimato se perde na saída, não só na entrada]]
 - Irmã: [[Formulário público por token opaco fica fora do gate de sessão]]
 - Visto em: [[Navetech Hub]]
 - Mapa: [[Backend]]

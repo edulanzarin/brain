@@ -55,6 +55,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   quando o canal promete anonimato, não se grava identidade nenhuma; o retorno é
   um protocolo+senha (hash) que só o denunciante tem, e o agregado suprime recorte
   pequeno. Princípio: [[Um invariante se garante na estrutura, não no processo]].
+- [[Recorte pequeno em pesquisa anônima identifica, então o painel se recusa a mostrar]]
+  — o piso de N respostas por recorte, valendo também para a exportação.
+  Princípio: [[Anonimato se perde na saída, não só na entrada]].
 - [[Uma resposta canônica de um grupo é um token compartilhado]] — vários podem
   responder, mas só uma resposta vale: um token para o grupo, o primeiro fecha.
   Princípio: [[Um invariante se garante na estrutura, não no processo]].

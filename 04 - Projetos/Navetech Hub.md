@@ -441,6 +441,15 @@ irregularidades, atende a Lei 14.457/2022) e uma **avaliação anônima da empre
   passeio autenticado pelos dois painéis. QR do link ficou de fora (sem lib de QR;
   hoje é copiar/abrir o link) — follow-up fácil.
 
+### Resultados da rodada de clima (ago/2026)
+
+A tela de Avaliações listava as respostas uma embaixo da outra, cada uma redesenhando o formulário inteiro em leitura — 14 respostas eram 14 formulários pra ler e contar na mão. Agora a rodada abre num **resumo que se monta da definição do formulário**: o `tipo` de cada campo, que já dizia como DESENHAR a pergunta, passou a dizer também como APURÁ-LA (marcação → contagem por opção; escala → distribuição, média e top-2-box; número → média/mediana/faixas; texto → a lista). Pergunta nova no construtor nasce com o seu bloco, sem caso no código. A lista individual virou a segunda aba. Método e armadilhas da conta em [[Formulário montado pelo usuário — a definição no banco dirige renderer e validação]].
+
+- **Recorte também sai da definição**: toda marcação de uma opção com poucas opções (setor, tempo de casa) vira filtro — ninguém marca "campo de segmento".
+- **Trava de anonimato**: recorte com menos de 3 respostas não é exibido NEM exportável — [[Recorte pequeno em pesquisa anônima identifica, então o painel se recusa a mostrar]], que promoveu o princípio [[Anonimato se perde na saída, não só na entrada]] (2º caso; o 1º foi o eNPS por setor do canal de denúncia).
+- **Índice geral** normaliza cada escala pra 0..100 antes de somar (escala de 4 níveis pesaria diferente de uma de 5 pra mesma opinião); percentual é sobre quem RESPONDEU a pergunta, não sobre o total da rodada; a barra é o percentual, não a proporção contra a maior fatia (senão cinco opções empatadas em 20% viravam cinco barras cheias).
+- A apuração é **lib puro com 16 testes** e o painel é componente genérico sobre `campos + respostas` — serve qualquer formulário do construtor, não só o clima (o próximo candidato é a resposta das campanhas de Formulários). Exportação junto: respostas (linha por pessoa), apuração por pergunta e as escritas, respeitando o recorte. `scripts/seed-clima-teste.mjs` semeia uma rodada fictícia pra conferir o painel sem depender de produção.
+
 ### Painel do RH (ago/2026)
 
 Home do módulo (`/rh/painel`), a quarta aplicação de [[A home de um módulo é o resumo que carrega sozinho; automação não abre sozinha]] — com isso **os quatro módulos têm painel-home** (Fiscal, DP, Contábil, RH). O RH é o retrato do pessoal da casa: PENDÊNCIAS (experiências a decidir com atrasadas em destaque, denúncias abertas com as novas em destaque, avaliação de clima com a rodada aberta) + PANORAMA do mês (experiências respondidas, denúncias recebidas, campanhas enviadas, respostas de clima). Cards de pendência linkam pra seção que resolve.
@@ -521,6 +530,8 @@ Banco Questor (pasta `03 - Recursos/Banco Questor`):
 - [[Contas bancárias e layout de contabilização no Questor]]
 
 Gerais de dev (continuação):
+- [[Anonimato se perde na saída, não só na entrada]] (princípio)
+- [[Recorte pequeno em pesquisa anônima identifica, então o painel se recusa a mostrar]]
 - [[Produtividade se mede pela hora do registro, não pela data do fato]] (princípio)
 - [[Reduzir a cardinalidade vem antes de enriquecer]] (princípio)
 - [[Grão fino numa varredura só dispensa os count distinct]]
