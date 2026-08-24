@@ -887,6 +887,34 @@ A lição de ofício é mais curta que a técnica: **"a nossa lista branca" não
 Ficou de fora, de propósito: **compra manual** — a Loja hoje só configura a automática — e
 o **filtro de captura por nome**, que o jogo tem e o painel ainda não expõe.
 
+### AdSense: a conta entrou, e o ads.txt virou rota (24/08/2026)
+
+Conta aprovada (`ca-pub-5164828819712988`), e o passo era a verificação — o Google pede o
+script no `<head>` e nada mais. Toda a infraestrutura já estava pronta e desligada desde a
+camada de anúncios, então "ligar" é uma variável de build no Railway:
+`NEXT_PUBLIC_ADSENSE_CLIENT`. Com a conta e **sem nenhum slot**, o site carrega o script,
+emite a meta `google-adsense-account` e não desenha caixa de anúncio nenhuma — que é
+exatamente o que a verificação precisa.
+
+O que mudou no código foi o `ads.txt`. Ele era arquivo em `public/` com um aviso escrito
+pra si mesmo: "o id também entra em `lib/ads.ts`, os dois precisam bater". Virou rota
+(`src/app/ads.txt/route.ts`), derivando o publisher id do MESMO `ADSENSE_CLIENT` que monta
+o script, sem o prefixo `ca-`. `robots.ts` e `sitemap.ts` já eram gerados; o `ads.txt` era
+o arquivo público que ainda repetia um valor do código.
+
+A razão não é elegância: **o modo de falha da divergência é silencioso e caro**. O site
+serve anúncio normalmente enquanto o AdSense trata o inventário como não autorizado, e
+isso aparece semanas depois como receita que não chega. Agora preencher a variável liga o
+script e a autorização juntos, e esquecê-la desliga os dois juntos — em vez de produzir
+meia configuração. O arquivo estático foi removido junto, senão `public/` venceria a rota
+e ela seria código morto que passa em qualquer teste.
+
+Conferido servindo o build de produção nos dois estados: com a variável, `ads.txt` traz a
+linha e a home traz script e meta, com zero caixas de anúncio na dex; sem ela, só
+comentário. `.env.example` passou a dizer por que a variável fica vazia em
+desenvolvimento — preenchida, ela carrega o script real do Google em localhost, que é
+impressão inválida na própria conta.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
