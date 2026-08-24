@@ -657,6 +657,19 @@ o inteiro errado — sempre uma unidade acima, concentrado em nível 50 com qual
 contra o jogo é decisão do Eduardo. A saída é enumerar os 33 IVs em vez de
 inverter.
 
+### A espera, os ícones e o cartão (24/08/2026)
+
+**A tela de espera vestia a cor errada.** Halo e barra eram `--color-t-dex`
+cravado, então esperar a Calculadora abria uma cena vermelha — a cor da Pokédex.
+A cor sai da rota agora (`usePathname` + `ferramentaDoCaminho`), e não de um
+`tint` por chamada: são nove arquivos de uma linha e o décimo nasceria sem.
+
+**O cartão de compartilhamento ficou órfão da virada pro console macio** — grade
+de 20px, moldura dupla em fio neon, canto reto e os medidores em BLOCOS, que a
+interface já tinha abandonado. Redesenhado nos tokens do grafite morno, com arte
+oficial suavizada e medidor em linha contínua. Virou
+[[Peça desenhada fora do DOM é uma segunda implementação do tema, e ela envelhece calada]].
+
 ## Próximos passos
 
 1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com
@@ -1154,6 +1167,7 @@ saudável.
   [[Trocar de sujeito na mesma rota não remonta, e o estado do anterior fica]] ·
   [[Processo que segura sessão viva não morre em exceção não tratada]] ·
   [[Nada que está na tela pode estar invisível esperando o scroll]] ·
+  [[Peça desenhada fora do DOM é uma segunda implementação do tema, e ela envelhece calada]] ·
   [[Invertida a fórmula, o arredondamento é meia-aberto e o meio da faixa não é a resposta]] ·
   [[Sinal booleano da fonte não ocupa o lugar de uma escala]] ·
   [[A mesma grandeza usa a mesma escada nas duas telas]] ·
