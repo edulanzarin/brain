@@ -53,6 +53,11 @@ Princípios: [[Estado compartilhável mora na URL]] ·
 - [[Sessão de outro domínio só se injeta rodando na origem dele]] — storage é isolado por
   origem; pra logar noutro domínio, o código roda lá (console/bookmarklet), não na sua
   página. REST Bearer server-side não tem essa trava. Candidato a princípio na 2ª aparição.
+- [[Trocar de sujeito na mesma rota não remonta, e o estado do anterior fica]] — mudar só
+  a query (`?conta=X`) mantém o componente montado: todo `useState` sobrevive e todo
+  `useEffect(…, [])` não roda de novo. O próximo "salvar" grava os valores do sujeito
+  anterior no novo, sem erro nenhum. `key` no sujeito resolve todos os filhos de uma vez.
+  Princípio: [[Estado de tela pertence à seção, não à página]].
 - [[O empacotador segue o valor importado, não o tipo]] — componente de cliente pode
   importar `type` de módulo de servidor à vontade; importar um VALOR do mesmo arquivo
   arrasta o módulo e as dependências dele pro navegador. O erro cita `net` e `fs`, nunca

@@ -1046,6 +1046,7 @@ suposição ali mandaria um corpo que o jogo ignora e responde 200 — ver
   [[Campo cujo nome você não sabe se lê do payload, nunca se chuta]] ·
   [[Ranking de opções não usa o verbo do estado ao vivo]] ·
   [[Re-chavear um sistema é refactor mudo, force o compilador a achar as chamadas]] ·
-  [[403 do escudo não é 403 do dono da API]]
+  [[403 do escudo não é 403 do dono da API]] ·
+  [[Trocar de sujeito na mesma rota não remonta, e o estado do anterior fica]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
