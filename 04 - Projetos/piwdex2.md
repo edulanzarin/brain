@@ -777,6 +777,43 @@ com versao. Os tipos e as raridades NAO sao arquivo: sao caminho inline nos
 componentes, porque precisam de `currentColor` pra herdar a cor do tipo e da
 faixa — arquivo em `public/` nao se tinge por CSS.
 
+### A Hunt entra na linguagem, e a barra de rolagem some (24/08/2026)
+
+Duas coisas na mesma passada, e a segunda saiu de uma queixa de um fiapo.
+
+**O fiapo de barra horizontal na home.** Toda faixa de ferramenta sangra de borda
+a borda com `width: 100vw`, e o site reserva a canaleta da barra sempre
+(`scrollbar-gutter: stable`). Medido em 1920/1440/1280/768/390, o estouro era
+exatamente 5px pra cada lado, sempre nas mesmas tres divs. O corte foi
+`overflow-x: clip` na raiz — no ancestral mais proximo ele mataria o proprio
+sangramento. Virou
+[[Faixa que sangra estoura pela barra de rolagem, e o corte é na raiz]].
+
+**A Hunt era a ultima tela no registro velho.** A faixa do lutador tinha sprite de
+52px numa linha de 60: dizia o necessario, no vocabulario errado. Passou a ser a
+mesma ficha da calculadora — halo pela quality, arte de 132, epiteto na cor da
+faixa, discos de tipo e tres manchetes. O que muda e o CONTEUDO das manchetes,
+porque a pergunta e outra: la e quanto o pokemon vale, aqui e melhor XP/h, melhor
+ouro/h e quantos dos 342 alvos ele aguenta.
+
+E as manchetes so puderam existir porque a conta subiu de nivel: `economyOf` e
+`rankHunts` rodavam identicos dentro de DUAS abas, e a rota fazia o `withEconomy`
+por conta propria. Foram pro `hunt-tool`, que calcula uma vez e distribui o array
+pronto. O ganho de custo e o segundo motivo; o primeiro e que o resumo do topo sai
+do mesmo array que as abas listam, em vez de virar a segunda definicao de "qual e
+a melhor hunt" — o mesmo erro que a home ja tinha cometido contra a tier list.
+Virou [[Número de resumo sai do mesmo cálculo que a tela detalha]].
+
+A rota tambem saiu do aperto: o TEMPO da faixa lidera o degrau (era legenda de
+11px), o tipo do alvo virou disco de 26px no lugar da pastilha com a palavra
+escrita, e os tres numeros por hora viraram manchete com rotulo pixel.
+
+As tres abas trocaram o lucide por glifo. A da rota virou **bandeira** depois de a
+folha de contato reprovar as trilhas literais: escada colide com o `IconLevel` que
+fica a centimetros dela, fita com dois marcos vira osso, trilha pontilhada com
+mastro vira colcheia. Virou
+[[Glifo miúdo é lido como o símbolo mais próximo que a pessoa já conhece]].
+
 ## Próximos passos
 
 1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com

@@ -59,6 +59,10 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   frase não pode engordar sem empurrar o parágrafo; cresce a área, não o elemento.
 - [[Sticky gruda no container que rola, não na janela]] — `overflow-x-auto` promove o
   outro eixo pra `auto` e vira o ancestral rolável; o `top` passa a medir de dentro.
+- [[Faixa que sangra estoura pela barra de rolagem, e o corte é na raiz]] — `100vw`
+  mede a janela com a canaleta junto, então toda seção de borda a borda nasce larga
+  pela espessura da barra. O corte é `overflow-x: clip` na raiz: no ancestral mais
+  próximo ele mataria o próprio sangramento, e `hidden` soltaria todo sticky.
 
 Princípios: [[Escala fechada em vez de valor solto]] ·
 [[Container tem largura máxima e respiro constante]]
@@ -140,6 +144,10 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 - [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]] — folha de
   contato no fundo real, silhueta antes de cor, e a fronteira entre arte de figura
   (24px pra cima) e ícone de traço no chrome miúdo.
+- [[Glifo miúdo é lido como o símbolo mais próximo que a pessoa já conhece]] — em
+  14px o olho fecha a figura no repertório dele: trilha pontilhada vira colcheia,
+  fita com dois marcos vira osso. Pergunte "o que mais isso parece?" antes de
+  "está bonito?", e cuide também da colisão interna, com os ícones do próprio set.
 
 Princípios: [[O primitivo só padroniza o que passa por dentro dele]] ·
 [[A variante de um controle muda a intenção, não o tamanho]] ·

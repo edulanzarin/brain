@@ -47,6 +47,10 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Trocar o arquivo repede a senha e relê os dados]] — estado derivado do arquivo
   se recalcula ao trocar a fonte, não se herda. Princípio:
   [[Um invariante se garante na estrutura, não no processo]].
+- [[Número de resumo sai do mesmo cálculo que a tela detalha]] — cabeçalho que
+  afirma "o melhor é X" e a lista abaixo são a mesma pergunta em dois tamanhos.
+  Suba a conta pro pai e distribua o array pronto; um `filter` no pai com condição
+  que já existe no filho é a segunda definição nascendo.
 
 Princípios: [[Estado compartilhável mora na URL]] ·
 [[Estado de tela pertence à seção, não à página]]
