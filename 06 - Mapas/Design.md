@@ -79,6 +79,10 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
   "quão raro é isto?", respondem com os mesmos nomes, cores e ordem; o que se
   compartilha é o TIPO, não umas cores parecidas. Traz o contrapeso: espelhar é da
   forma e da escada, nunca da contagem.
+- [[Invertida a fórmula, o arredondamento é meia-aberto e o meio da faixa não é a resposta]]
+  — o intervalo é fechado embaixo e ABERTO em cima, e o ponto médio erra o inteiro quando a
+  faixa mede exatamente 1. Com entrada inteira de faixa curta, enumerar é exato e mais barato
+  que inverter.
 - [[Sinal booleano da fonte não ocupa o lugar de uma escala]] — `raro: true` ligado em
   metade do catálogo não é escala mal desenhada, é outro fato no slot errado. Derive a
   escada da grandeza que a tela já mostra, em décadas, e devolva faixa NENHUMA onde a
@@ -152,6 +156,10 @@ Princípios: [[O primitivo só padroniza o que passa por dentro dele]] ·
   reprova entrada boa.
 - [[Conteúdo do servidor não pode nascer invisível esperando o cliente]] — `opacity-0`
   até o `onLoad` apaga a página que o servidor já mandou pronta.
+- [[Nada que está na tela pode estar invisível esperando o scroll]] — `rootMargin`
+  negativo embaixo dispara mais TARDE, e limiar por fração castiga o bloco alto; junto,
+  deixam o rodapé da janela baixa permanentemente apagado. Traz também o recorte: revela-se
+  por unidade de significado, não por metade de composição.
 - [[Pedido de apoio entra depois do valor, e nunca ao lado de si mesmo]] — o gatilho
   é uso e não chegada, o "agora não" tem prazo, e o balão some enquanto o rodapé
   está em cena; link que ainda não existe não vira botão.

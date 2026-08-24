@@ -621,6 +621,42 @@ pixelização e serrilhava a arte suavizada), o `MultiSelect` ganhou slot de dic
 cor sozinha não ensina que rosa é caro — e os medidores do perfil de meta viraram
 pílula.
 
+### A home aparecia sem texto, e a calculadora ficou pra trás (24/08/2026)
+
+O Eduardo mandou print da home com as artes das ferramentas boiando sobre o
+wallpaper e **nenhuma palavra**. Duas causas somadas, nenhuma nova — o wallpaper
+claro só tirou a maquiagem de um defeito que existia em janela baixa:
+
+1. o gatilho da revelação segurava conteúdo já visível (`threshold: 0.15` com
+   `rootMargin` de -12% embaixo, que ENCOLHE a raiz e dispara mais tarde — o
+   comentário afirmava o contrário do que o valor fazia);
+2. texto e arte eram duas revelações independentes de uma composição só.
+
+Virou [[Nada que está na tela pode estar invisível esperando o scroll]]. A
+densidade abriu a porta: empilhada a faixa mede ~810px contra ~470 de altura útil,
+então duas colunas passaram a valer de `md` e não de `lg` — os 256px entre um e
+outro eram exatamente a janela em que a home se desmontava.
+
+**A calculadora entrou na linguagem das fichas.** Ela era a única tela que ainda
+mostrava o sprite pixel de 96px (o `animatedSrc` do gif gen5 entra por cima do
+render oficial), e o cabeçalho dela falava dois idiomas de raridade ao mesmo
+tempo: halo na raridade da ESPÉCIE, chip na faixa do INDIVÍDUO. Tela de indivíduo
+— quem manda é a quality digitada.
+
+**E a marca de escala saiu do topo das seis ferramentas.** O "482 espécies" na
+ponta direita da faixa respondia pergunta que ninguém faz na chegada, e a lista já
+diz "428 itens" na barra dela três centímetros abaixo.
+
+**O motor de IV foi auditado e a fórmula está certa** (a conferência declarada no
+cabeçalho bate; ida e volta passou em 14.406 de 14.406). O defeito está em como o
+inverso é RELATADO, e virou
+[[Invertida a fórmula, o arredondamento é meia-aberto e o meio da faixa não é a resposta]]:
+em 73% das leituras o stat fixa um único IV possível, e em 1% dessas a tela mostra
+o inteiro errado — sempre uma unidade acima, concentrado em nível 50 com quality
+1,0. **Não foi corrigido**: mexer nos números exibidos de uma fórmula verificada
+contra o jogo é decisão do Eduardo. A saída é enumerar os 33 IVs em vez de
+inverter.
+
 ## Próximos passos
 
 1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com
@@ -1117,6 +1153,8 @@ saudável.
   [[403 do escudo não é 403 do dono da API]] ·
   [[Trocar de sujeito na mesma rota não remonta, e o estado do anterior fica]] ·
   [[Processo que segura sessão viva não morre em exceção não tratada]] ·
+  [[Nada que está na tela pode estar invisível esperando o scroll]] ·
+  [[Invertida a fórmula, o arredondamento é meia-aberto e o meio da faixa não é a resposta]] ·
   [[Sinal booleano da fonte não ocupa o lugar de uma escala]] ·
   [[A mesma grandeza usa a mesma escada nas duas telas]] ·
   [[Trocar a arte de fundo é refazer a calibração, e a régua não é a média]] ·
