@@ -76,6 +76,6 @@ publicado.
 ## Conexões
 - Princípio: [[A tela não afirma mais precisão do que a fonte tem]]
 - Depende de: [[Todo estado da tela tem visual]]
-- Irmã: [[Estimativa que inverte valor arredondado é faixa, não ponto]] · [[Zero num medidor é estado, não barra vazia]] · [[A régua de um medidor é percentil, não máximo]]
+- Irmã: [[Ausência de leitura cai no valor que dispara a ação]] (a mesma coerção, do lado de quem AGE em cima do zero) · [[Estimativa que inverte valor arredondado é faixa, não ponto]] · [[Zero num medidor é estado, não barra vazia]] · [[A régua de um medidor é percentil, não máximo]]
 - Visto em: [[piwdex2]]
 - Mapa: [[Design]]

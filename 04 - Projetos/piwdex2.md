@@ -807,6 +807,42 @@ Terceira vez na mesma pedra do primitivo: os painéis do robô estavam lisos ao 
 fichas da dex porque eu desenhava um `<h2>` solto no corpo em vez de usar o `title`/`actions`
 do `Panel` — que é o que dá a barra com divisória e o vidro. Onze painéis convertidos.
 
+### O balcão virou aba, e a reposição parou de comprar às cegas (23/08/2026)
+
+**A aba Automação guardava duas coisas que não se parecem.** De um lado o Auto-Helper —
+capturar, beber poção e reviver sozinho —, que roda no servidor do JOGO: o robô só liga o
+interruptor, e quando não pega o motivo é o VIP de lá. Do outro, repor consumível e vender:
+chamada REST nossa, que gasta ouro e destrói pokémon. O Eduardo cortou pelo **uso**:
+automação é o que se faz com o que a conta já tem, e comprar/vender é balcão, então virou
+aba **Loja**. O ganho não é arrumação — juntas, a decisão de quanto gastar ficava a três
+rolagens da de quanto se recebe, que é a única comparação que essa tela precisa permitir.
+
+A Loja abre no caixa da sessão (dólares, comprou, vendeu, saldo), traz a reposição inteira
+e as duas vendas lado a lado. O "rodar agora" veio junto e agora **relê a bolsa depois de
+rodar**: um botão que não mostra o resultado é um botão que pede fé.
+
+**E o bug que a tela nova expôs.** Cada cartão de consumível passou a mostrar o ESTOQUE ao
+lado do piso — configurar "abaixo de 25 poções" sem o número que os 25 comparam era
+escolher no escuro. Ao ligar os dois, apareceu que o motor contava poção e revive pelo
+frame `inventory` do WebSocket. O frame é mais fresco que qualquer REST, e era essa a razão
+de usá-lo, mas ele **nasce vazio a cada conexão e é limpo quando ela cai**. Bolsa vazia lia
+como "zero poções", zero fura qualquer piso, e piso furado é compra: uma conta com 400
+poções comprava 100 a cada minuto enquanto o socket não mandasse o primeiro frame. Agora a
+decisão lê a bolsa por REST na hora — como a própria doc do arquivo já mandava ("nada roda
+às cegas") e como a compra de bola sempre fez — e quando o catálogo não responde a função
+devolve `null` em vez de zero, porque não saber quanto tem é razão pra NÃO comprar. Virou
+[[Ausência de leitura cai no valor que dispara a ação]], que é a terceira vez desta pedra
+no projeto (as outras duas: [[Sonda que falhou não é sinal de que mudou]] e
+[[Zero na tela é afirmação, não valor de conforto]]).
+
+A mesma função que decide a compra é a que serve o estoque pra tela, pela rota da loja.
+Uma segunda contagem lá daria uma tela dizendo 30 e um robô comprando como se fossem 12 —
+e a que ninguém revisa seria a de lá.
+
+Ficou de fora, de propósito: **compra manual** (a Loja hoje só configura a automática) e
+**piso por item** — o piso soma a categoria inteira, Potion fraca com Hyper Potion, e por
+enquanto a tela resolve isso mostrando do que o total é feito, item a item.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -868,6 +904,7 @@ do `Panel` — que é o que dá a barra com divisória e o vidro. Onze painéis 
   [[O primitivo só padroniza o que passa por dentro dele]] ·
   [[Freio de oscilação vale para a máquina, não para a ordem de quem manda]] ·
   [[Ver o plano e mandar executar são duas ações]] ·
-  [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]]
+  [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]] ·
+  [[Ausência de leitura cai no valor que dispara a ação]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

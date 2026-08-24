@@ -86,6 +86,7 @@ UI que mostra dado que muda sem o usuário pedir.
 
 - [[Ver o plano e mandar executar são duas ações]] — quando escolher o modo já liga o modo, quem ainda está decidindo se confia precisa delegar para poder olhar, e depois desfazer. O modo é do olho, o objetivo é da máquina.
 - [[Fórmula verificada só vale na escala em que foi verificada]] — a conferência valida a fórmula E a procedência dos números; trocada a fonte, a aritmética não reclama de unidade e o erro sai formatado. Cheque contra um invariante que a fonte declare.
+- [[Ausência de leitura cai no valor que dispara a ação]] — leitura que falhou vira `0`, `[]` ou `null`, e num sistema que decide por limiar esses são exatamente os valores do lado "faltando, faça alguma coisa". O bug não dá número errado: dá ação máxima, a cada ciclo, em silêncio. Não saber é razão pra não agir.
 ## Cérebro — como este vault funciona
 
 - [[Camadas do conhecimento - princípio, padrão, aplicação]]

@@ -54,7 +54,8 @@ E dado antigo da **fonte real** ganha do snapshot do build sempre — quem decid
 procedência do dado, não o selo que ele carrega no momento.
 
 ## Conexões
-- Princípio: [[Peça o que a fonte mostra, não o que você precisa]] ·
+- Princípio: [[Ausência de leitura cai no valor que dispara a ação]] ·
+  [[Peça o que a fonte mostra, não o que você precisa]] ·
   [[Estado mutável se lê da fonte no uso, não de cópia guardada]]
 - Irmã: [[Travar o valor não impede a tela de afirmar a partir dele]]
 - Visto em: [[piwdex2]]
