@@ -73,6 +73,32 @@ Glifo, cor, posição e texto são canais diferentes para o mesmo fato. Quando o
 tamanho reprova um, o próximo passo é o canal seguinte — encolher o glifo abaixo
 do piso é escolher a versão ilegível do canal que não cabia.
 
+## Trocar de biblioteca quase nunca é a resposta; trocar de REGISTRO é
+
+A queixa costuma chegar como *"esse pacote de ícones não combina"*, e o reflexo é
+procurar outro pacote. Quase sempre o que não combina não é o desenho — é o
+**registro**: traço fino, neutro, de ferramenta, num produto que pede massa.
+
+O recorte que resolve é por FUNÇÃO, e ele se descobre inventariando:
+
+| grupo | o que fazer |
+|---|---|
+| **chrome** (chevron, busca, fechar, grade, ordenar) | deixar na biblioteca |
+| **domínio** (o que fala do assunto: stat, moeda, item, tipo) | desenhar |
+
+Chrome não ganha nada com desenho — ninguém olha uma seta e sente falta de
+personalidade, e desenhar quinze à mão devolve as mesmas quinze setas. Domínio
+ganha tudo, porque é o que aparece seis vezes por card e sessenta cards por tela.
+
+**E o glifo de domínio se desenha CHEIO.** Contorno de 2px a 14px perde metade da
+forma pro antisserrilhado e o que sobra é cinza; massa se lê. O aviso que vem
+junto é o mesmo do resto desta nota ao contrário: cheio pesa mais que traço no
+mesmo tamanho, então a troca pede reconferir no tamanho de uso.
+
+Mantendo a API do wrapper (`{ size, className }` + `currentColor`), a troca não
+toca nenhuma das centenas de chamadas — e as classes de cor que cada tela passa
+continuam valendo.
+
 ## Conexões
 - Princípio: [[A variante de um controle muda a intenção, não o tamanho]]
 - Irmã: [[Trocar a fonte muda a largura, não só o desenho da letra]] ·
