@@ -863,7 +863,29 @@ o hint passou a dizer **o que não dá para escolher** — só a bola se escolhe
 poção e revive o jogo usa o que estiver na bolsa e não expõe a escolha. A pergunta "onde
 escolho a poção?" não tinha resposta dentro da tela.
 
-Ficou de fora, de propósito: **compra manual** — a Loja hoje só configura a automática.
+**E eu tinha respondido errado sobre a poção.** O Eduardo perguntou por que não dava para
+escolher revive e poção na aba de automação; eu respondi que o jogo não expõe a escolha,
+baseado só em `CAMPOS_AUTO`, que é a nossa lista branca — quer dizer, no que a gente já
+tinha mapeado, e não no que o jogo tem. Ele insistiu, e insistir estava certo: o bundle
+público do jogo traz o bloco i18n `autoHelper` inteiro, com **três** seletores
+(`Pokébola:`, `Pokébola (shiny):`, `Potion:`), o padrão `Automático (melhor)`, e mais um
+filtro de captura por nome que ninguém tinha visto. Só o revive não tem seletor mesmo — a
+dica do próprio jogo é "usa Revive ao desmaiar", o item, no singular.
+
+O que o bundle NÃO deu foi o nome do campo: a i18n vem num chunk público, o componente que
+chama a API só carrega depois do login. Chutar `autoPotionId` seria pior que não ter — API
+tolerante ignora chave desconhecida, responde 200, e a tela mostraria uma escolha que nunca
+aconteceu. Então o campo se descobre no payload da conta, pela forma, e a escrita volta na
+mesma chave que leu. Virou
+[[Campo cujo nome você não sabe se lê do payload, nunca se chuta]], e a nota do bundle
+ganhou o capítulo do chunk atrás do login —
+[[O bundle público do cliente entrega o contrato da API sem documentação]].
+
+A lição de ofício é mais curta que a técnica: **"a nossa lista branca" não é resposta para
+"o que o jogo tem"**. Eu li o nosso mapeamento e falei como se fosse o território.
+
+Ficou de fora, de propósito: **compra manual** — a Loja hoje só configura a automática — e
+o **filtro de captura por nome**, que o jogo tem e o painel ainda não expõe.
 
 ## Conexões
 - Substitui: [[piwdex]]
@@ -928,6 +950,7 @@ Ficou de fora, de propósito: **compra manual** — a Loja hoje só configura a 
   [[Ver o plano e mandar executar são duas ações]] ·
   [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]] ·
   [[Ausência de leitura cai no valor que dispara a ação]] ·
-  [[Limiar conta a unidade que se consome, não o balde que a contém]]
+  [[Limiar conta a unidade que se consome, não o balde que a contém]] ·
+  [[Campo cujo nome você não sabe se lê do payload, nunca se chuta]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
