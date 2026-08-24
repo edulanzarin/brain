@@ -10,6 +10,12 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Processos e arquivos
 
+- [[Contador de popularidade conta votante, não evento]] — "o mais visto" contando
+  evento é placar de F5; a chave (item, dia, votante) transforma spam em `DO NOTHING`, e o
+  votante é hash com sal e data — deduplicação, não identificação.
+- [[Rotação por período se apura na leitura, e dispensa agendador]] — guarde quando o
+  período acaba e apure na primeira leitura depois disso; traz a gravação condicional que
+  resolve a corrida da virada.
 - [[Armadilhas de child_process no Node]] — timeout, stderr e `EPIPE`; por que
   `spawn` em vez de `exec`.
 - [[Ler extrato bancário em PDF]] — extrair dado estruturado de PDF.

@@ -726,6 +726,28 @@ própria. O Mega Alakazam lidera a tier list e a home mostrava Gengar. Quem sepa
 skin de espécie é o `captureBase`, e o `playableSet` já aplicava isso: a home
 tinha uma segunda definição de "quem conta".
 
+### O destaque da home vira "em alta" (24/08/2026)
+
+O card mostrava o número 1 da tier list, e o Eduardo apontou o defeito: o mais
+forte do jogo não muda, então a home nunca mudava. O desenho é dele — mostrar o
+pokémon mais pesquisado, num reinado de três dias, contando uso nas ferramentas e
+na ficha da dex, com o "preencher exemplo" **fora** (o pokémon dali não foi
+escolhido por ninguém, e como é sempre o mesmo venceria toda eleição pra sempre).
+
+Duas notas saíram daqui:
+[[Contador de popularidade conta votante, não evento]] e
+[[Rotação por período se apura na leitura, e dispensa agendador]].
+
+**Pendência de infra:** o serviço `piwdex-app` não tem Postgres — só o
+`piwdex-bot` tem. Enquanto o `DATABASE_URL` não for anexado no painel do Railway,
+a home cai na semente (o topo da tier list, o comportamento antigo) e os
+registros viram no-op. Verificado com a variável vazia: home 200, ping 204, seis
+telas 200, zero erro. Falta também rodar `node db/migrate.mjs` no pré-deploy da
+dex, que hoje não tem nenhum.
+
+A página de privacidade dizia "Nada" sobre o que o site guarda; deixou de ser
+verdade nesta mudança e foi reescrita no mesmo commit.
+
 ## Próximos passos
 
 1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com
@@ -1226,6 +1248,8 @@ saudável.
   [[Peça desenhada fora do DOM é uma segunda implementação do tema, e ela envelhece calada]] ·
   [[Mais resolução não compra qualidade em ícone; trocar de meio compra]] ·
   [[Regra que veio de fora do sistema entra como chave declarada, não cravada no código]] ·
+  [[Contador de popularidade conta votante, não evento]] ·
+  [[Rotação por período se apura na leitura, e dispensa agendador]] ·
   [[Invertida a fórmula, o arredondamento é meia-aberto e o meio da faixa não é a resposta]] ·
   [[Invertida a fórmula, o arredondamento é meia-aberto e o meio da faixa não é a resposta]] ·
   [[Sinal booleano da fonte não ocupa o lugar de uma escala]] ·
