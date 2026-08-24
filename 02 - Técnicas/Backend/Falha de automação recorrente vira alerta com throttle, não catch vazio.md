@@ -46,5 +46,6 @@ private logOpError(op: string, title: string, body: string | null) {
 ## Conexões
 - Princípio: [[Chamada externa tem timeout e erro tratado]]
 - Irmã: [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]]
-- Visto em: [[piwdex]]
+- Irmã: [[Processo que segura sessão viva não morre em exceção não tratada]]
+- Visto em: [[piwdex]] · [[piwdex2]]
 - Mapa: [[Backend]]

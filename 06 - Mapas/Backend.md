@@ -317,6 +317,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Retry e diagnóstico
 
+- [[Processo que segura sessão viva não morre em exceção não tratada]] — crash-only é certo
+  para servidor sem estado e errado para quem segura socket por usuário; quem decide é o
+  que se perde na queda. Princípio:
+  [[Rendimento é vazão vezes tempo em pé, não vazão de pico]].
 - [[Retry que reusa o cliente queimado esconde o erro da primeira tentativa]] — cliente
   com handshake não sobrevive a uma falha: instância nova a cada volta, e o motivo
   impresso junto da contagem. Senão o laço passa a medir a si mesmo.

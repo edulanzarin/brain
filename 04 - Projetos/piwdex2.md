@@ -979,6 +979,32 @@ captura só como LEITURA: o POST de cada um não foi capturado, e implementar co
 suposição ali mandaria um corpo que o jogo ignora e responde 200 — ver
 [[Campo cujo nome você não sabe se lê do payload, nunca se chuta]].
 
+### Uma conta que quebra parava a caçada de todas (24/08/2026)
+
+Não havia `uncaughtException` nem `unhandledRejection` em lugar nenhum do projeto, e havia
+**16 disparos `void this.algumaCoisa()`** espalhados pelo motor. No Node moderno, promessa
+rejeitada sem `catch` derruba o processo — e o processo é um só, com o WebSocket de todas
+as contas dentro. Uma venda que falhasse numa conta levava a caçada das outras dezenove.
+
+O sintoma era o pior possível de diagnosticar: o boot religa sozinho e o log escreve
+"Ready" igual ao do processo que rodava havia horas. Mesma pegadinha do deploy que derrubava
+a caçada, e mesma lição da nota de log — processo que renasce parece processo que nasceu.
+
+Três camadas, da origem pra fora: `protegido(oQue, fn)` na sessão envolvendo os disparos e
+os handlers do socket; o erro virando evento `falha` no feed do dono com throttle de 10
+minutos por trabalho; e `motor/guarda.ts` segurando o que ninguém previu **sem** matar o
+processo. A guarda contraria o conselho padrão de propósito, e é essa a decisão que virou
+[[Processo que segura sessão viva não morre em exceção não tratada]]: crash-only pressupõe
+um servidor sem estado, onde o request perdido o cliente repete. Aqui não — morrer troca
+uma inconsistência possível por uma perda certa.
+
+O `message` do socket ganhou proteção antes de todos: é o único ponto que roda código
+nosso sobre dado que o JOGO escolheu, e o jogo muda de forma sem avisar.
+
+O contador da guarda sai no `/api/health`, e isso não é enfeite: rede que apara em silêncio
+é um jeito mais lento de esconder defeito. Número subindo é conserto na origem, não robô
+saudável.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -1047,6 +1073,7 @@ suposição ali mandaria um corpo que o jogo ignora e responde 200 — ver
   [[Ranking de opções não usa o verbo do estado ao vivo]] ·
   [[Re-chavear um sistema é refactor mudo, force o compilador a achar as chamadas]] ·
   [[403 do escudo não é 403 do dono da API]] ·
-  [[Trocar de sujeito na mesma rota não remonta, e o estado do anterior fica]]
+  [[Trocar de sujeito na mesma rota não remonta, e o estado do anterior fica]] ·
+  [[Processo que segura sessão viva não morre em exceção não tratada]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
