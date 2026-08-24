@@ -38,6 +38,12 @@ por código memorável (`NAVECON100`) com limite de usos, criado e gerido na aba
 Cupons do painel. Validado ponta a ponta (criar, limite sob corrida, esgotado,
 inativo, quem usou, excluir). A gestão de cupons agora é toda no `/admin`.
 
+**Cupom com porcentagem de desconto (24/08/2026, mergeado na `main`):** o cupom
+deixou de ser só cortesia — agora carrega `discount_percent` (1–100) escolhido no
+painel. 100% continua pulando o Mercado Pago; 1–99% (o caso que pediram, 15%)
+apenas abate o valor e o checkout segue normal. Validado contra o banco: criar,
+resgatar, valor abatido, limite e esgotamento.
+
 ## Infra
 
 Slug `evento-navecon` · app `evento-navecon-app` na `4099` · banco
@@ -76,6 +82,14 @@ app) · **Mercado Pago Checkout Pro** (redirect).
   divulgar um código só pra vários convidados. O resgate atômico virou
   `uses < max_uses`; "quem usou" vem de `registrations.coupon_code` (uma linha por
   resgate). O CLI saiu.
+- **A porcentagem do cupom é que escolhe o fluxo.** Em vez de dois tipos de cupom,
+  um campo só: 100% desvia do Mercado Pago (cortesia), 1–99% só muda o valor da
+  cobrança. O resgate atômico devolve a porcentagem junto com a vitória na corrida
+  (`RETURNING`), então ele vem antes de gravar a inscrição e a falha da gravação
+  devolve o uso ao cupom. Ver
+  [[Consumir recurso de uso único é UPDATE condicional, não checar antes]].
+  Efeito colateral aceito: quem pega um cupom parcial e abandona o checkout queima
+  um uso — o limite é de retirada, não de pagamento.
 - **Ingresso digital na tela de sucesso.** Quem paga ou entra por cortesia vê um
   cartão com nome, data, local e localizador (8 chars do id da inscrição). O
   `GET /api/payment/status` passou a devolver o primeiro nome e o localizador só

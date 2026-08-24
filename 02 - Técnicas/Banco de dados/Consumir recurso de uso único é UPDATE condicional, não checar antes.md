@@ -35,10 +35,19 @@ UPDATE`, sem lock de aplicação — a atomicidade do próprio UPDATE basta.
 
 ## O que mais vale lembrar
 
-- **Se há uma linha órfã criada antes do consumo, desfaça-a quando o consumo
-  falha.** No Evento Navecon a inscrição de cortesia é gravada e só então o cupom é
-  resgatado; se o resgate devolve 0 (código já usado), a inscrição recém-criada é
-  apagada — senão sobra lixo `pending`.
+- **O UPDATE não devolve só quem ganhou: devolve o dado que decide o resto.** Um
+  `RETURNING` no mesmo comando traz, junto com a vitória na corrida, o valor
+  guardado no recurso — no Evento Navecon o cupom passou a carregar a
+  porcentagem de desconto, e é ela que diz se a inscrição pula o checkout (100%)
+  ou só sai mais barata. Ganho e parâmetro chegam numa ida só, sem um SELECT
+  depois que reabriria a janela.
+- **Consuma antes de gravar o dependente, e compense se a gravação falhar.**
+  Quando o consumo decide o fluxo, ele tem que vir primeiro — gravar antes
+  obrigaria a adivinhar. A ordem inverte quem limpa a sujeira: em vez de apagar a
+  linha órfã quando o consumo perde a corrida, devolve-se o uso
+  (`SET uses = uses - 1 WHERE uses > 0`) quando a gravação falha. O Evento Navecon
+  fazia o primeiro e passou ao segundo ao ganhar cupom com porcentagem. As duas
+  formas funcionam; a que compensa é a que sobrevive ao consumo virar parâmetro.
 - **O mesmo padrão faz o "claim" de efeito colateral idempotente.** Para não
   mandar o mesmo e-mail duas vezes quando dois gatilhos (webhook + poller)
   concorrem, reivindique o direito de enviar antes de enviar:
