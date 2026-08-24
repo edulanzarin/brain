@@ -83,6 +83,9 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
   — o intervalo é fechado embaixo e ABERTO em cima, e o ponto médio erra o inteiro quando a
   faixa mede exatamente 1. Com entrada inteira de faixa curta, enumerar é exato e mais barato
   que inverter.
+- [[Mais resolução não compra qualidade em ícone; trocar de meio compra]] — dobrar a
+  grade do pixel piorou o ícone três passadas seguidas; o mesmo desenho em SVG ganhou dos
+  dois na primeira. Traz a tabela de escolha de meio e o teste de silhueta.
 - [[Peça desenhada fora do DOM é uma segunda implementação do tema, e ela envelhece calada]]
   — cartão em canvas, imagem de OG, PDF: não leem token, não quebram, e continuam
   publicando o visual de duas viradas atrás. Traz junto as armadilhas de canvas (halo que

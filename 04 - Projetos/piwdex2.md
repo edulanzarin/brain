@@ -670,6 +670,26 @@ interface já tinha abandonado. Redesenhado nos tokens do grafite morno, com art
 oficial suavizada e medidor em linha contínua. Virou
 [[Peça desenhada fora do DOM é uma segunda implementação do tema, e ela envelhece calada]].
 
+### O motor de IV corrigido, e os ícones que não melhoraram (24/08/2026)
+
+**O IV saiu da inversão e virou enumeração.** O defeito relatado na sessão
+anterior foi confirmado e corrigido: em 73% das leituras o stat fixa um único IV
+possível, e em 1% dessas a tela mostrava o inteiro errado, sempre uma unidade
+acima — e o breeding lia `inteiros` como o IV do pai, então o erro entrava na
+previsão do filho. Enumerar os 33 candidatos por stat dá resposta exata; depois da
+troca, 0 erros nas mesmas 57 mil combinações. A inversão fica como reserva pra
+quando a quality digitada estiver arredondada e nenhum inteiro fechar.
+
+**Os ícones não melhoraram, e isso virou nota.** A tentativa foi dobrar a grade de
+32×32 pra 48×48 com mais tons; piorou em três passadas seguidas. O mesmo desenho
+em SVG ganhou dos dois logo de cara. Virou
+[[Mais resolução não compra qualidade em ícone; trocar de meio compra]]. Os ícones
+do site continuam os de 32×32 — a troca pra vetor está oferecida e não feita.
+
+**Skill nova de ilustração SVG** em `~/.claude/skills/svg-illustration/`, com o
+script de preview que obriga a olhar o render antes de entregar. Ela não depende
+de API nenhuma: o desenho é autorado, não gerado.
+
 ## Próximos passos
 
 1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com
@@ -1168,6 +1188,8 @@ saudável.
   [[Processo que segura sessão viva não morre em exceção não tratada]] ·
   [[Nada que está na tela pode estar invisível esperando o scroll]] ·
   [[Peça desenhada fora do DOM é uma segunda implementação do tema, e ela envelhece calada]] ·
+  [[Mais resolução não compra qualidade em ícone; trocar de meio compra]] ·
+  [[Invertida a fórmula, o arredondamento é meia-aberto e o meio da faixa não é a resposta]] ·
   [[Invertida a fórmula, o arredondamento é meia-aberto e o meio da faixa não é a resposta]] ·
   [[Sinal booleano da fonte não ocupa o lugar de uma escala]] ·
   [[A mesma grandeza usa a mesma escada nas duas telas]] ·
