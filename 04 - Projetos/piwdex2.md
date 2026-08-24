@@ -767,6 +767,11 @@ O piso dos simbolos de tipo subiu pra 16 depois que o Eduardo apontou que estava
 "tortoes" no miudo — piso resolve melhor que corrigir 21 chamadas, porque o
 proximo ponto de uso ja nasce certo.
 
+Os 18 tipos foram desenhados à mão primeiro e depois TROCADOS pelos símbolos
+oficiais (partywhale, MIT) — não por qualidade de traço, mas por reconhecimento:
+tipo é cânone do jogo e o jogador já tem os dezoito na cabeça. Virou
+[[Onde existe cânone visual, use o cânone; desenhe só onde a taxonomia é sua]].
+
 `public/images/icons` agora tem 16 arquivos, todos SVG, servidos pelo `iconeUrl`
 com versao. Os tipos e as raridades NAO sao arquivo: sao caminho inline nos
 componentes, porque precisam de `currentColor` pra herdar a cor do tipo e da

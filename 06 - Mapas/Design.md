@@ -83,6 +83,9 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
   — o intervalo é fechado embaixo e ABERTO em cima, e o ponto médio erra o inteiro quando a
   faixa mede exatamente 1. Com entrada inteira de faixa curta, enumerar é exato e mais barato
   que inverter.
+- [[Onde existe cânone visual, use o cânone; desenhe só onde a taxonomia é sua]] — antes
+  de desenhar um símbolo, pergunte se o público já o tem na cabeça; se tem, o seu cobra
+  pedágio. Traz a tabela de decisão e como adaptar conjunto de terceiro ao seu tema.
 - [[Mais resolução não compra qualidade em ícone; trocar de meio compra]] — dobrar a
   grade do pixel piorou o ícone três passadas seguidas; o mesmo desenho em SVG ganhou dos
   dois na primeira. Traz a tabela de escolha de meio e o teste de silhueta.
