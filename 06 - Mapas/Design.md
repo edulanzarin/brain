@@ -103,6 +103,11 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
   o que isso faz e qual o tamanho disso, antes de dizer como se chama; toda a
   decoração sai de um `--tint` só, e a identidade da ferramenta vira registro que
   abastece home, navegação e topo.
+- [[Ranking de opções não usa o verbo do estado ao vivo]] — lista de possibilidades e
+  painel de status têm as mesmas linhas e os mesmos números; o que os separa é o verbo.
+  "caçando X" em seis linhas afirma seis caçadas simultâneas onde só uma existe.
+  Numere a ordem, troque o verbo, e tire o rótulo de "no ar" do ESTADO, nunca da posição.
+  Princípio: [[Ver o plano e mandar executar são duas ações]].
 - [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]] — folha de
   contato no fundo real, silhueta antes de cor, e a fronteira entre arte de figura
   (24px pra cima) e ícone de traço no chrome miúdo.

@@ -915,6 +915,31 @@ comentário. `.env.example` passou a dizer por que a variável fica vazia em
 desenvolvimento — preenchida, ela carrega o script real do Google em localhost, que é
 impressão inválida na própria conta.
 
+### O registro sem valor, e a lista que afirmava seis caçadas (24/08/2026)
+
+Duas leituras do Eduardo sobre a mesma tela, e a segunda achou um erro de fato.
+
+**O registro dizia "191 itens vendidos" e não dizia por quanto.** O número sempre
+esteve gravado — `aplicarRecados` grava `{ ouro, quantidade }` em `data` desde o primeiro
+dia — e a tela nunca leu. Faltava justamente a metade que responde "valeu a pena deixar
+isso ligado". Agora cada linha traz o movimento com sinal e cor, e zero não vira "+0"
+(recusa grava `ouro: 0`, e um zero ao lado de "não comprou" é ruído com cara de dado).
+
+Junto veio um caixa que acompanha o **filtro**, não o total: filtrar por "essence of fire"
+e ver quanto aquele drop rendeu em quatorze dias é uma conta que não tinha como ser feita.
+Total fixo no topo responde sempre a mesma coisa.
+
+**A lista de "mais dinheiro" dizia "caçando X" nas seis linhas.** O Eduardo perguntou
+"como que cada um tá caçando um? dá pra fazer isso?" — e não dá: o jogo entrega uma
+sessão, com um líder, em um campo. Era um ranking de pares lido como seis caçadas
+simultâneas. Nada estava errado ali além do verbo, e o verbo mentia seis vezes. Virou
+[[Ranking de opções não usa o verbo do estado ao vivo]].
+
+O detalhe que quase passou: o realce de "está rodando" saía da POSIÇÃO (`i === 0`). Num
+sistema que reavalia, o ranking muda antes da troca acontecer — o topo vira o candidato
+novo enquanto o motor ainda executa o antigo, e o destaque aponta pra linha errada
+exatamente durante a mudança. Agora casa com `estado.slug`.
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -979,6 +1004,7 @@ impressão inválida na própria conta.
   [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]] ·
   [[Ausência de leitura cai no valor que dispara a ação]] ·
   [[Limiar conta a unidade que se consome, não o balde que a contém]] ·
-  [[Campo cujo nome você não sabe se lê do payload, nunca se chuta]]
+  [[Campo cujo nome você não sabe se lê do payload, nunca se chuta]] ·
+  [[Ranking de opções não usa o verbo do estado ao vivo]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]
