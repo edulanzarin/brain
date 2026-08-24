@@ -576,6 +576,51 @@ Scyther 123, Psy Jynx 124, Brave Charizard 6), com 119 valores distintos e corre
 captura no catálogo. Independente do preço e específico por espécie é a cara de um
 parâmetro de captura de verdade, e vale sondar contra `/api/game/used-balls`.
 
+## Itens, meta e fundo entram na linguagem da dex (24/08/2026)
+
+A dex e a ficha de espécie já tinham virado "console macio" — raio, elevação,
+card com medalhão na costura, epíteto acima do nome. Itens e meta ficaram pra
+trás, e o Eduardo apontou o sintoma exato: *"o raro nem é o mesmo de pokédex"*.
+
+**A raridade dos itens era um interruptor, e ele mentia.** O jogo publica
+`rare: true/false`, ligado em 206 dos 428 itens; cruzado com a dificuldade real,
+31 dos 85 itens mais fáceis do catálogo o carregavam. A escada agora é derivada
+de quantos abates custa uma unidade na melhor fonte farmável, em décadas, e reusa
+o `Rarity` da dex — mesmos seis nomes, mesmas seis cores, mesma chave `?r=` na
+URL. Deu 85/90/47/38/10/18. Os 140 itens sem chance publicada ficam **sem faixa** e
+a ficha diz por quê. O selo do jogo volta só na ficha, dizendo de quem é a
+afirmação. Virou [[Sinal booleano da fonte não ocupa o lugar de uma escala]] e
+[[A mesma grandeza usa a mesma escada nas duas telas]].
+
+**A ficha do item virou chegada de campeão**, no mesmo tratamento da ficha de
+espécie — era o cabeçalho em linha que a dex já tinha abandonado. E o ouro por
+abate saiu da tabela pro rodapé do card: era a resposta da tela, e só aparecia
+pra quem trocava de modo de visualização.
+
+**A tier list do meta era a última tela no dialeto antigo** — faixas de canto reto
+com `border border-line` contra o `panel` de vidro do resto, e cada pokémon num
+retângulo cinza. Além da forma, faltava informação: **o tipo não aparecia em
+lugar nenhum** numa tela que existe pra decidir quem usar. Entrou como faixa de
+cor de 3px na costura, e não como o medalhão do card grande — que reprovou por
+escala e virou seção nova em
+[[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]].
+
+**O wallpaper trocou por uma ilustração clara** (média 77 na fonte contra 19 da
+cidade anterior). Ela pediu desfoque assado no arquivo, o que derrubou a regra
+antiga de "quem borra é o vidro dos painéis", e pediu o scrim mais **aberto** das
+três calibrações — 18% no topo contra 40%. Em
+[[Trocar a arte de fundo é refazer a calibração, e a régua não é a média]].
+
+**O destaque da home voltou pra dentro de um card.** A passada anterior tinha
+tirado o painel em favor de "luz em vez de caixa"; sem superfície ele não lia como
+peça, ficava pousado sobre o wallpaper. A forma não foi inventada: é o `ArtCard`,
+que já morava em `ui/` e só aparecia na página de estilo.
+
+De quebra: o `image-rendering: pixelated` do fundo saiu (sobreviveu à remoção da
+pixelização e serrilhava a arte suavizada), o `MultiSelect` ganhou slot de dica —
+cor sozinha não ensina que rosa é caro — e os medidores do perfil de meta viraram
+pílula.
+
 ## Próximos passos
 
 1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com
@@ -588,9 +633,6 @@ parâmetro de captura de verdade, e vale sondar contra `/api/game/used-balls`.
 3. **Provar o laço de caçada** com token real (toma a sessão de jogo — é ato do Eduardo).
 4. Decidir o que volta do `parked/` depois do núcleo: mercado e sniper são os candidatos
    com mais código pronto; alertas e venda automática, os de maior valor por linha.
-3. O `pokedex.png` tem 584 KB (arte gerada, com ruído) contra ~10 KB dos ícones
-   desenhados por código. Quantizar em 64 cores derruba pra 57 KB sem diferença visível
-   no tamanho em que ele aparece — decisão do Eduardo, é arte dele.
 4. Sobraram 101 alvos de toque entre 24 e 44px. Passam na norma, ficam abaixo do conforto
    da Apple — subir todos mexe na densidade escolhida, então é decisão de produto.
 5. O piso de 1,2s do `pacing.ts` (loading sempre visível, pedido do Eduardo) é pago em
@@ -1074,6 +1116,10 @@ saudável.
   [[Re-chavear um sistema é refactor mudo, force o compilador a achar as chamadas]] ·
   [[403 do escudo não é 403 do dono da API]] ·
   [[Trocar de sujeito na mesma rota não remonta, e o estado do anterior fica]] ·
-  [[Processo que segura sessão viva não morre em exceção não tratada]]
+  [[Processo que segura sessão viva não morre em exceção não tratada]] ·
+  [[Sinal booleano da fonte não ocupa o lugar de uma escala]] ·
+  [[A mesma grandeza usa a mesma escada nas duas telas]] ·
+  [[Trocar a arte de fundo é refazer a calibração, e a régua não é a média]] ·
+  [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

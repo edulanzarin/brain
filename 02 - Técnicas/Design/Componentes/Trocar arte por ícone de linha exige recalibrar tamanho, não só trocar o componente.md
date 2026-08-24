@@ -47,8 +47,35 @@ larguras de slot em volta deles.
 Vale para a direção contrária também: adotar arte cheia onde havia linha permite
 descer de tamanho, e ninguém desce — a tela fica com ícones grandes demais.
 
+## Quando o piso não cabe, troque de CANAL — não encolha o glifo
+
+O piso de 14px é uma restrição, e restrição serve pra reprovar desenho. Uma peça
+pequena demais pra caber um ícone legível não pede um ícone menor: pede outra
+forma de dizer a mesma coisa.
+
+Caso concreto: numa tier list, cada pokémon é um tile de 76px, e faltava dizer o
+TIPO dele — que é a informação que decide o uso. A primeira tentativa copiou o
+medalhão do card grande, com o glifo do tipo dentro. Reprovou por duas contas de
+escala, e as duas se descobrem medindo:
+
+1. o glifo teria de sair a **12px**, abaixo do piso;
+2. dois discos (bitipo) somam ~34px numa peça de 76 — **quase metade da largura**,
+   e viram a coisa mais clara do tile, disputando com o sprite a atenção que o
+   sprite existe pra receber. O mesmo medalhão no card grande ocupa 18%.
+
+O que entrou foi uma **faixa de cor de 3px** na costura, dividida ao meio no
+bitipo. Custa 3px de altura e nenhuma largura, e diz o tipo pela cor — que é o
+canal que quem lê tier list já tem calibrado. A palavra fica no `title`, e a faixa
+sai do leitor de tela por `aria-hidden`, porque o `title` do botão já diz os dois
+tipos por extenso.
+
+Glifo, cor, posição e texto são canais diferentes para o mesmo fato. Quando o
+tamanho reprova um, o próximo passo é o canal seguinte — encolher o glifo abaixo
+do piso é escolher a versão ilegível do canal que não cabia.
+
 ## Conexões
 - Princípio: [[A variante de um controle muda a intenção, não o tamanho]]
-- Irmã: [[Trocar a fonte muda a largura, não só o desenho da letra]]
-- Visto em: [[piwdex]]
+- Irmã: [[Trocar a fonte muda a largura, não só o desenho da letra]] ·
+  [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]]
+- Visto em: [[piwdex]] · [[piwdex2]]
 - Mapa: [[Design]]

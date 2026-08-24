@@ -27,6 +27,10 @@ Projeto novo herda os princípios sempre; puxa este dialeto só se for da mesma 
   foto ou wallpaper, a premissa da nota acima cai: a opacidade é multiplicativa entre
   scrim, painel e campo, e o que faz o vidro parecer vidro é blur + aresta de luz +
   sombra, não o alpha.
+- [[Trocar a arte de fundo é refazer a calibração, e a régua não é a média]] — o scrim
+  se mede pelo perfil vertical da arte (a mais clara das três pediu o scrim mais
+  ABERTO), e o desfoque se decide pelo gênero dela: ilustração tem assunto e o olho
+  tenta lê-la, geometria não.
 - [[Validar paleta de gráficos antes de escolher cores]] — forma primeiro, cor por
   último; checagens objetivas antes de fechar a paleta.
 - [[Cor de marca precisa de variante acessível por tema]] — a cor crua do cliente
@@ -71,6 +75,14 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 - [[Chip que serve a duas grandezas declara qual delas mostra]] — dois eixos que
   compartilham vocabulário (espécie x indivíduo, previsto x realizado) precisam do
   eixo declarado no componente, senão a mesma entidade se contradiz entre telas.
+- [[A mesma grandeza usa a mesma escada nas duas telas]] — se duas telas respondem
+  "quão raro é isto?", respondem com os mesmos nomes, cores e ordem; o que se
+  compartilha é o TIPO, não umas cores parecidas. Traz o contrapeso: espelhar é da
+  forma e da escada, nunca da contagem.
+- [[Sinal booleano da fonte não ocupa o lugar de uma escala]] — `raro: true` ligado em
+  metade do catálogo não é escala mal desenhada, é outro fato no slot errado. Derive a
+  escada da grandeza que a tela já mostra, em décadas, e devolva faixa NENHUMA onde a
+  fonte se cala.
 - [[Modal com conteúdo que cresce tem teto de altura e área que rola]] — overlay não
   pode crescer sem fim: teto no painel, scroll na parte que cresce.
 - [[Primitiva de botão fecha o tamanho e abre só a variante]] — o botão vira
