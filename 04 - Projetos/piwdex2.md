@@ -748,6 +748,30 @@ dex, que hoje não tem nenhum.
 A página de privacidade dizia "Nada" sobre o que o site guarda; deixou de ser
 verdade nesta mudança e foi reescrita no mesmo commit.
 
+### A arte do site inteiro vira vetor (24/08/2026)
+
+Migracao fechada em quatro levas, e o que a guiou foi uma fronteira que so
+apareceu no meio do caminho: **glifo e ilustracao sao registros diferentes, e a
+fronteira e o tamanho de uso.**
+
+- **29 glifos de dominio** (stat, ouro, gema, TM, drop, nivel) e **18 de tipo**
+  saem do lucide e passam a ser desenhados, CHEIOS. A 12-14px, onde 16 dos 21
+  usos vivem, contorno de 2px perde metade da forma pro antisserrilhado e vira
+  cinza. O chrome (chevron, busca, fechar) fica na biblioteca de proposito.
+- **6 brasoes de raridade**, com a escada na FORMA e nao so na cor.
+- **10 ilustracoes**: os 8 de categoria de item, a bola quebrada do 404 e o funil
+  do vazio. Slot de 56 a 128px, entao levam sombra de contato e rampa de tres
+  tons, como os icones das ferramentas.
+
+O piso dos simbolos de tipo subiu pra 16 depois que o Eduardo apontou que estavam
+"tortoes" no miudo — piso resolve melhor que corrigir 21 chamadas, porque o
+proximo ponto de uso ja nasce certo.
+
+`public/images/icons` agora tem 16 arquivos, todos SVG, servidos pelo `iconeUrl`
+com versao. Os tipos e as raridades NAO sao arquivo: sao caminho inline nos
+componentes, porque precisam de `currentColor` pra herdar a cor do tipo e da
+faixa — arquivo em `public/` nao se tinge por CSS.
+
 ## Próximos passos
 
 1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com
