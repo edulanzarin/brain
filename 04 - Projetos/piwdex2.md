@@ -710,6 +710,22 @@ exclusão cravada — a mesma fonte disse "tudo pode mudar". Virou
 A home segue de graça, porque chama o mesmo motor: o destaque deixou de ser
 Zapdos e passou a ser Gengar.
 
+### Dois defeitos que só existiam pra quem já tinha visitado (24/08/2026)
+
+**Os ícones sumiam.** Publicados com o erro do `--`, corrigidos em minutos — mas
+`public/` não leva hash de build e `/images/` sai com cache de um dia mais 30 de
+`stale-while-revalidate`, então quem abriu na janela errada ficou com o arquivo
+inválido preso. No computador de quem consertou já estava certo. Virou
+[[Arte servida sem hash de build precisa de versão na URL]]; a URL agora sai de
+`arteUrl()`, com a versão dentro.
+
+**O destaque da home mostrava o segundo colocado.** Havia um `pokeId < 1e4` que
+pretendia pular variante de skin, mas sete espécies acima de 10000 têm
+`captureBase` nulo e looktype próprio (os Megas, o Castform de Fogo) — são linha
+própria. O Mega Alakazam lidera a tier list e a home mostrava Gengar. Quem separa
+skin de espécie é o `captureBase`, e o `playableSet` já aplicava isso: a home
+tinha uma segunda definição de "quem conta".
+
 ## Próximos passos
 
 1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com
