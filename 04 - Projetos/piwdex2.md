@@ -839,9 +839,31 @@ A mesma função que decide a compra é a que serve o estoque pra tela, pela rot
 Uma segunda contagem lá daria uma tela dizendo 30 e um robô comprando como se fossem 12 —
 e a que ninguém revisa seria a de lá.
 
-Ficou de fora, de propósito: **compra manual** (a Loja hoje só configura a automática) e
-**piso por item** — o piso soma a categoria inteira, Potion fraca com Hyper Potion, e por
-enquanto a tela resolve isso mostrando do que o total é feito, item a item.
+**E "o piso por item" saiu de pendência para bug, no dia seguinte.** Com o estoque na
+tela, o Eduardo mostrou o robô com a reposição ligada e sem comprar nada: 555 Poké Ball e
+41 Idle Ball na bolsa, piso em 150 — e o auto-catch configurado em **Ultra Ball**, da qual
+havia **zero**. O piso somava a categoria inteira, então 596 passava folgado, enquanto a
+bola que o jogo de fato joga estava zerada e a captura ficava parada. Bolsa cheia da bola
+errada não é bolsa cheia, e o sintoma foi inércia: nada quebrou, nada foi logado, os dois
+lados estavam certos isoladamente. Virou
+[[Limiar conta a unidade que se consome, não o balde que a contém]] — segunda aparição de
+[[Espelhar por balde esconde item no lugar errado]] no vault, agora do lado de quem decide
+por limiar.
+
+`estoqueDoAlvo` mora em `motor/tipos.ts` e não no motor porque a TELA compara o mesmo
+número: o cartão mostra o estoque ao lado do piso, e duas contagens dariam uma tela
+dizendo 596 e um robô decidindo por 0. Pela mesma razão a rota da loja parou de mandar
+total pronto e manda a bolsa item a item.
+
+O caso ganhou aviso na tela: bola do auto-catch zerada agora é uma frase dizendo que o
+jogo não vai capturar nada e que ter outra bola não resolve. Na mesma passada, os quatro
+cartões da automação viraram grade de verdade (slot de ajuste com altura fixa, presente
+até no cartão que não tem ajuste; limiar da poção em linha em vez de rótulo empilhado), e
+o hint passou a dizer **o que não dá para escolher** — só a bola se escolhe, porque para
+poção e revive o jogo usa o que estiver na bolsa e não expõe a escolha. A pergunta "onde
+escolho a poção?" não tinha resposta dentro da tela.
+
+Ficou de fora, de propósito: **compra manual** — a Loja hoje só configura a automática.
 
 ## Conexões
 - Substitui: [[piwdex]]
@@ -905,6 +927,7 @@ enquanto a tela resolve isso mostrando do que o total é feito, item a item.
   [[Freio de oscilação vale para a máquina, não para a ordem de quem manda]] ·
   [[Ver o plano e mandar executar são duas ações]] ·
   [[Confirme a mutação pelo estado que ela deixa, não pelo ack que pode não chegar]] ·
-  [[Ausência de leitura cai no valor que dispara a ação]]
+  [[Ausência de leitura cai no valor que dispara a ação]] ·
+  [[Limiar conta a unidade que se consome, não o balde que a contém]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
 - Mapa: [[Projetos]]

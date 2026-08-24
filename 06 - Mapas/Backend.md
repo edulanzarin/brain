@@ -144,6 +144,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   catálogo e posse trazem os mesmos campos e divergem só na ausência; usar um pelo outro
   faz o item exclusivo de uma das listas sumir sem erro nenhum.
   Princípio: [[Estado mutável se lê da fonte no uso, não de cópia guardada]].
+- [[Limiar conta a unidade que se consome, não o balde que a contém]] — reposição
+  automática compara estoque com piso, e o estoque costuma ser soma de categoria enquanto
+  o consumo é de UM item: com a soma alta o piso nunca dispara, e a coisa que acabou
+  continua acabada. O sintoma é inércia, não erro.
+  Princípio: [[Espelhar por balde esconde item no lugar errado]].
 - [[Adquirir o recurso exclusivo é uma ação, usá-lo é outra]] — quando "ligar" faz junto
   a primeira tarefa, essa tarefa vira pré-requisito de todas as outras e trocar de tarefa
   passa por largar o recurso. Dois estados: quero segurando, e qual tarefa.

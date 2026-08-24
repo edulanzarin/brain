@@ -24,5 +24,6 @@ acontecer, ou a substituição vira imediata. Não existe "vai ser tratado" invi
 ## Conexões
 - Visto em: [[Navetech Hub]] — Balancete Fiscal: empresa com dezenas de notas na conta errada dava "tudo ok"; espelho por nota (com exclusão só no bypass) expôs os pares ±, mantendo dupla partida e reconciliação exata; excluir tudo da nota reproduzida criou fantasma de milhões (PIS/COFINS a recuperar sem substituto).
 - Visto em: [[piwdex]] — robô: pokémon capturado que batia a trava de venda saía do acervo ("vai ser vendido") mas a venda era 1x/hora — ficava em limbo (nem vendido nem no acervo) até a varredura. Corrigido tornando a venda imediata (assim que coleta), fechando a janela.
+- Visto em: [[piwdex2]] — robô: o piso de reposição somava todas as bolas (596) e o auto-catch consumia UMA (Ultra Ball, zero em estoque); a soma alta segurava a compra e a captura ficava parada. Ver [[Limiar conta a unidade que se consome, não o balde que a contém]].
 - Parente: [[Balancete é movimento do período, saldo é consequência]]
 - Mapa: [[Base]] · [[Dados]]
