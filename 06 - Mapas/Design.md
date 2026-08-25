@@ -230,6 +230,9 @@ depois de uma ação → **Estados e feedback**.
 Se não couber em nenhuma e ainda assim for verdade sem CSS, é princípio: vai pra
 [[Base]].
 
+- [[Motivo de piso tem que tocar a borda do tile]] — desenho centrado com folga vira
+  poá ao ladrilhar; padrão nasce do encontro entre vizinhos. Renderize 4x4 antes de aceitar.
+
 ---
 
 Voltar para [[Início]]

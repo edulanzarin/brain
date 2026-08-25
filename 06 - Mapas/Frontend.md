@@ -112,6 +112,10 @@ Tailwind por outro CSS, é Design; se depende do React, é Frontend.
 - [[Traduza o vocabulário do sistema, não o nome próprio]] — em ferramenta PT sobre
   sistema EN, conceito traduz e nome próprio não; e a tradução mexe no índice de busca.
 
+- [[Efeito que roda duas vezes destrói o que ainda não terminou de nascer]] — recurso
+  criado com `await` dentro de efeito só se publica depois do init; a limpeza da
+  primeira passada do React 19 em dev chega com a criação no ar e destrói pela metade.
+
 ---
 
 Voltar para [[Início]]

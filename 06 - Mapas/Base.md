@@ -107,6 +107,11 @@ contexto diferente. Antes disso é técnica, e técnica mora em [[Design]], [[In
 Princípio que nunca teve dois casos concretos costuma ser regra inventada, não regra
 aprendida — e regra inventada é o que faz base virar entulho.
 
+- [[Calibre nas pontas, o meio esconde o defeito]] — o caso médio fecha por acaso; o
+  defeito mora no extremo, e o extremo de baixo é onde o usuário novo entra.
+- [[Desgaste constante contra recuperação constante é bimodal]] — mexer nas taxas move a
+  fronteira, nunca cria a faixa do meio; ela vem de um consumível que responde ao estado.
+
 ---
 
 Voltar para [[Início]]

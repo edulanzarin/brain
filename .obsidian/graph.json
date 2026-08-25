@@ -69,6 +69,13 @@
         "a": 1,
         "rgb": 10513407
       }
+    },
+    {
+      "query": "tag:#projeto/poke-idle",
+      "color": {
+        "a": 1,
+        "rgb": 15767112
+      }
     }
   ],
   "collapse-display": true,

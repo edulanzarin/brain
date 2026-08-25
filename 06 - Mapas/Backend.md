@@ -367,6 +367,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Um invariante se garante na estrutura, não no processo]]
 - [[Índice só é identidade enquanto a coleção não muda]]
 
+- [[Multiplicador de contexto entra depois da razão, não dentro dela]] — o que entra
+  numa razão `a/(a+b)` é a grandeza crua dos DOIS lados; bônus de contexto multiplica o
+  resultado. Inflar um prato faz a razão saturar e apagar a diferença que ela media.
+
 ---
 
 Voltar para [[Início]]

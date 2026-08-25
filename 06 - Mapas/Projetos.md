@@ -18,6 +18,7 @@ mora aqui: mora em [[Base]] (princípios) e em [[Design]], [[Frontend]], [[Backe
 - [[Evento Navecon]] — landing da imersão com inscrição e pagamento (Mercado Pago).
 - [[Navehub]] — CRM + atendimento por WhatsApp para contabilidade (SaaS multi-tenant).
 - [[Idle Game]] — RPG idle de navegador com espécies emergentes (árvore evolutiva global).
+- [[Vespéria]] — idle de Pokémon em cidade caminhável; a rota é população viva e a captura tem piso garantido.
 - [[piwdex2]] — reescrita da dex do Poke Idle World como ferramenta de consulta (17 filtros, estado na URL).
 
 ## Substituídos
