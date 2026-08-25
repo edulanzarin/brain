@@ -35,10 +35,25 @@ Dois casos, os dois no [[piwdex2]]:
 
 - **A penalidade de grupo do boss.** A API do jogo devolve, por boss, `members`,
   `strength`, `deficit` e `mult`, e a relação entre os dois últimos é exata:
-  `mult = 3^deficit`. O que não está publicado é como `strength` se calcula nem o que
+  `mult = 3^deficit`. O que não estava publicado era como `strength` se calcula nem o que
   `mult` multiplica (HP do boss? dano recebido? recompensa?). Numa observação real, `mult`
   valia 48,7 — quase cinquenta vezes. Enfiar isso na conta faria o resultado ser a
   penalidade, não o time. Ficou fora, com o mecanismo escrito na tela.
+
+  **E aí a regra fechou o ciclo, que é o melhor que podia acontecer com ela.** Dias
+  depois, um print da ficha do boss no próprio jogo respondeu as duas perguntas de uma
+  vez: "Seu time: 2.5/6 no nível · dano recebido ×48.51 — leve 6 Pokémon no nível do boss
+  para tomar menos dano". `mult` multiplica o dano recebido, e `strength` soma o quanto
+  cada um dos seis está no nível. Conferido contra duas observações independentes, a base
+  implícita deu 2,9999 e 2,9969: é 3. Deixou de ser chute e entrou na conta no mesmo dia —
+  e ela mudou o veredito de "aguenta infinito" para "morre no primeiro golpe", que era o
+  que acontecia no jogo. Ver
+  [[A interface do sistema explica o que a API dele esconde]].
+
+  O ponto não é que esperar valeu a pena por sorte. É que **deixar de fora é reversível e
+  chutar não é**: com o fator fora, a tela dizia o que não sabia e ninguém tomou decisão
+  com base num 48,7 inventado; quando o número apareceu, entrou. Se tivesse entrado como
+  chute, o erro estaria enterrado dentro de um resultado plausível.
 - **A velocidade na nota da tier list.** Ela ficou de fora enquanto foi chute — a doc do
   jogo só usa Speed na soma do Power exibido, e nenhum sistema público dá a ela efeito em
   combate. Só entrou quando virou medida: uma varredura de 231 combinações contra 35

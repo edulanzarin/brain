@@ -126,6 +126,22 @@ alta; o dado vai no mono, senão a densidade morre de novo.
   **seis stats de verdade**; só o alvo é projetado, porque de boss o jogo não publica
   stat nenhum, e a tela diz isso.
 
+- **A penalidade de grupo** (25/08/2026): o Eduardo testou no jogo e o Golem dele tomou IK
+  enquanto a tela dizia "fatia 100%, aguenta infinito". Três erros ao mesmo tempo, e a
+  ficha do boss NO JOGO entregou os três — ver
+  [[A interface do sistema explica o que a API dele esconde]].
+
+  A penalidade de grupo é `dano recebido × 3^(6 − força)`, com a força somando, nos seis
+  lugares, o quanto cada um está no nível do boss. Um sozinho no nível toma **243x**. Era
+  isso que matava. O elemento do boss é **Neutro**, e não o tipo da espécie de que ele é
+  feito — o de-para prometia 2,5x numa luta que é 1x. E a vida do Ancient Aero é **72 mil**
+  contra os 4,6 mil que a projeção sobre o Aerodactyl dava, então os seis stats do alvo
+  viraram campos, guardados por boss.
+
+  O piwtools resolve o mesmo problema cravando 130 em todos os seis stats de todo boss:
+  número inventado com cara de dado, e com 130 de vida onde há 72 mil qualquer time vence
+  em dois segundos.
+
 - **Bolsa e decks** (25/08/2026): a estante de pokémon salvos saiu de dentro do Breeding e
   virou a **bolsa do site inteiro** — um pokémon cadastrado é da pessoa, não da
   ferramenta. Cada entrada é uma **carta** (apelido, nível, quality, os seis stats, e o IV
@@ -1311,6 +1327,8 @@ saudável.
 - Aprendizados: [[Índice só é identidade enquanto a coleção não muda]] ·
   [[Sem servidor, a migração de dado local acontece na leitura]] ·
   [[Flutuante dentro de modal precisa vencer no z-index e no Escape]] ·
+  [[A interface do sistema explica o que a API dele esconde]] ·
+  [[Fator que domina o resultado não entra na conta por estimativa]] ·
   [[Fator que domina o resultado não entra na conta por estimativa]] ·
   [[Traduza o vocabulário do sistema, não o nome próprio]] ·
   [[A tela não afirma mais precisão do que a fonte tem]] ·

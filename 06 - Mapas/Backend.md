@@ -334,6 +334,13 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   com handshake não sobrevive a uma falha: instância nova a cada volta, e o motivo
   impresso junto da contagem. Senão o laço passa a medir a si mesmo.
 
+## Engenharia reversa de sistema fechado
+
+- [[A interface do sistema explica o que a API dele esconde]] — a tela precisa se explicar
+  a um humano, então ela NOMEIA o mecanismo que o JSON só numera: um print da ficha do boss
+  deu o que `mult` multiplica, como a força se calcula e o elemento que faltava. E expôs o
+  arquivo público desatualizado, que listava outras recompensas. Peça o print.
+
 ## Princípios que mandam aqui
 
 - [[Ordene pela grandeza que decide, não pela que impressiona]]
