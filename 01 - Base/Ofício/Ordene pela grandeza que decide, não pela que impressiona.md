@@ -57,6 +57,16 @@ A pergunta prática, quando as opções empatam na métrica óbvia: **o que o de
 sistema deixou diferente?** Ali está a decisão, e quase sempre é uma coisa que a fonte
 não publica em número — tem de ser derivada.
 
+O mesmo jogo repetiu a forma dias depois, com outro sistema: o TM Researcher cobra o
+mesmo tanto de peças por um disco de **qualquer** tipo. Duas aparições seguidas
+sugerem que não é coincidência de desenho — é como este tipo de jogo separa decisões
+que ele quer que sejam sobre o time, e não sobre o bolso. Onde o preço é uniforme de
+propósito, ele está dizendo "não é aqui que você escolhe".
+
+E aí aparece a segunda metade da armadilha, que é sobre O QUE ordenar quando o custo
+empata: pelo **salto** que o item dá, e não pelo resultado final de quem o recebe. Ver
+[[Recurso indivisível se aloca pelo salto, não pelo resultado]].
+
 ## Na prática
 
 - Calcule as duas dimensões separadas e mostre as duas. Um número só ordena; dois
@@ -70,12 +80,15 @@ não publica em número — tem de ser derivada.
   barata para exibir. A ordem é o que decide.
 - **Empate perfeito é suspeita, não resposta.** Se as opções não se separam pela métrica
   que você escolheu, o problema é a métrica.
+- **Custo uniforme costuma ser desenho, não descuido.** Quando todo caminho custa o
+  mesmo, o sistema está dizendo onde ele NÃO quer que você decida.
 
 ## Conexões
 - Irmã: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] (o caso em que a
   dimensão esquecida é o tempo de pé) · [[Auditar o registro, não só o agregado]] (o
   agregado é outra forma de olhar uma dimensão só)
 - Técnica que aplica: [[Bônus multiplicativo só rende onde há folga até o teto]] ·
-  [[Tier é nota com régua fixa, não posição na fila]]
+  [[Tier é nota com régua fixa, não posição na fila]] ·
+  [[Recurso indivisível se aloca pelo salto, não pelo resultado]]
 - Visto em: [[piwdex]] · [[piwdex2]] · [[Idle Game]]
 - Mapa: [[Base]] · [[Backend]]

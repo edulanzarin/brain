@@ -351,6 +351,12 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Poke Idle World - regras de breeding]] — regras curadas, que não vêm em endpoint nenhum.
 - [[Poke Idle World - evolucao e a troca do Eevee]] — os dois caminhos de evolução, e o
   Eevee, que não evolui: é trocado com um NPC por um de cinco, cada um pedindo a sua pedra.
+- [[Poke Idle World - TM e os discos]] — o maior salto de poder do jogo (60 contra 43,3 do
+  melhor natural), quem aprende cada disco e as três armadilhas do catálogo.
+
+- [[Recurso indivisível se aloca pelo salto, não pelo resultado]] — com UM item pra dar a
+  vários candidatos, ordene pelo quanto ele MUDA cada um e não pelo estado em que cada um
+  fica: quem termina no topo costuma ser quem já estava perto dele.
 
 ## Princípios que mandam aqui
 

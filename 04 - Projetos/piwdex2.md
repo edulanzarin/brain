@@ -1001,6 +1001,59 @@ perguntas, duas cores — a barra lateral veste a ferramenta ("onde mexeu"), o s
 o tipo ("o que aconteceu"). As três últimas aparecem na home, antes das cenas de
 ferramenta, porque são a única informação da home que envelhece.
 
+## TM, a nona ferramenta (25/08/2026)
+
+Perguntado "que mais dá pra fazer", olhei o que o catálogo sustenta antes de sugerir,
+e a resposta apareceu num número: **o melhor golpe natural das 482 espécies rende
+43,3 de poder por segundo e TODO golpe de TM rende 60**. Não é upgrade incremental, é
+outra categoria — e nenhuma tela do jogo nem do piwtools diz onde ele rende. Mecânica
+e números em [[Poke Idle World - TM e os discos]].
+
+O que fez a ferramenta valer é a segunda coincidência de desenho do mesmo jogo: **o
+Researcher cobra o mesmo tanto de peças por qualquer disco**, exatamente como as cinco
+trocas do Eevee custam o mesmo. Duas vezes seguidas o preço não separa nada. Virou
+parágrafo em [[Ordene pela grandeza que decide, não pela que impressiona]] — onde o
+custo é uniforme de propósito, o sistema está dizendo "não é aqui que você escolhe".
+
+### O aprendizado que ficou: ordenar pelo salto
+
+A lista ordena por quanto o disco TRANSFORMA e não por quem termina batendo mais, e as
+duas respostas divergem de um jeito que decide errado:
+
+| | Sem disco | Com disco | Salto |
+|---|---|---|---|
+| Scizor | 15.145 | 26.811 | 1,77x |
+| Jolteon | 1.495 | 11.395 | **7,62x** |
+
+Ordenado pelo resultado, o Scizor lidera — e ele é o que menos precisa. O Jolteon sobe
+de tier **B pra S** com o mesmo disco. Virou
+[[Recurso indivisível se aloca pelo salto, não pelo resultado]], irmã da nota do bônus
+com teto: mesmo defeito por outra causa.
+
+Um presente que caiu no colo e vale registrar: **a razão é invariante ao nível**. Os
+dois lados usam o mesmo stat multiplicado pelo mesmo fator de nível e quality, então
+ele cancela — a ordem vale pra todo mundo e se calcula uma vez. O que não cancela é o
+IV, e só quando o golpe natural e o do TM usam stats diferentes.
+
+### Três armadilhas do catálogo, todas na tela
+
+- `Draconic Soul`, o TM de Dragão, tem **300 de poder e não 600** — o único dos quinze
+  pela metade.
+- **Normal, Aço e Fada têm disco e nenhum golpe.** Eles ficam na grade, apagados, em
+  vez de serem filtrados: virou a seção preventiva de
+  [[Tirar o dado errado não põe a verdade no lugar]]. Ausência que não aparece parece
+  decisão de quem fez a tela.
+- O `AoE TM Disk` não ensina golpe — faz os Normais acertarem em área —, e o efeito
+  não está no moveset publicado. A tela diz o que ele faz e para aí.
+
+### Um defeito de desenho que o teste pegou
+
+Os dezoito discos elementais compartilham **o mesmo arquivo de ícone** no jogo
+(`tm_disk_elemental.png`). A grade nasceu mostrando ele em cada célula, ao lado do
+símbolo de tipo: dezoito imagens idênticas roubando o lugar do único glifo que
+separava uma célula da outra. Saiu da grade e ficou uma vez, no título do painel.
+Repetição idêntica não é informação — é ruído com aparência de identidade.
+
 ## Próximos passos
 
 1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com
@@ -1515,6 +1568,7 @@ saudável.
   [[A mesma grandeza usa a mesma escada nas duas telas]] ·
   [[Trocar a arte de fundo é refazer a calibração, e a régua não é a média]] ·
   [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]] ·
-  [[Tirar o dado errado não põe a verdade no lugar]]
-- Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]] · [[Poke Idle World - evolucao e a troca do Eevee]]
+  [[Tirar o dado errado não põe a verdade no lugar]] ·
+  [[Recurso indivisível se aloca pelo salto, não pelo resultado]]
+- Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]] · [[Poke Idle World - evolucao e a troca do Eevee]] · [[Poke Idle World - TM e os discos]]
 - Mapa: [[Projetos]]

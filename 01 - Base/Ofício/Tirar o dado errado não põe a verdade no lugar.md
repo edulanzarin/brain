@@ -59,6 +59,14 @@ Os dois casos têm a mesma forma: **o vazio caiu no ramo mais afirmativo que
 existia**. Não é coincidência — o ramo padrão costuma ser o do caso feliz, porque é
 o que se escreve primeiro.
 
+E há a versão preventiva, que é a mais barata de aplicar: **quando um item do
+conjunto não tem resposta, ele fica na lista dizendo por quê, em vez de sumir dela**.
+Na ferramenta de TM do mesmo projeto, três dos dezoito discos do jogo (Normal, Aço e
+Fada) não têm golpe nenhum no catálogo. Filtrá-los deixaria uma grade de quinze
+perfeitamente coerente — e um jogador com peças na mão olhando o disco de Aço na loja
+do jogo sem entender por que a ferramenta não fala dele. Eles ficam, apagados, com a
+frase. **Ausência que não aparece parece decisão de quem fez a tela.**
+
 ## Na prática
 
 - Depois de cortar, LEIA a tela. Não o diff: a tela. O defeito só existe em texto
@@ -68,6 +76,8 @@ o que se escreve primeiro.
   que um silêncio, e muito mais que um padrão.
 - Desconfie de todo `else`, `?? 0`, `|| []` e "estado vazio" que herdou um caso que
   não existia quando ele foi escrito.
+- **`filter()` sobre um conjunto que a pessoa vê no sistema de origem é remoção, não
+  limpeza.** Se ela consegue contar os itens lá fora, a sua lista curta vira dúvida.
 - Corte a origem, não o sintoma: aqui a aresta falsa foi recusada na derivação
   (`evolutionChainOf`), num lugar só, e não em cada tela que a desenhava.
 
