@@ -69,6 +69,11 @@ Princípios: [[Estado compartilhável mora na URL]] ·
   importar `type` de módulo de servidor à vontade; importar um VALOR do mesmo arquivo
   arrasta o módulo e as dependências dele pro navegador. O erro cita `net` e `fs`, nunca
   o seu arquivo. O contrato entre motor e tela vira módulo próprio.
+- [[Flutuante dentro de modal precisa vencer no z-index e no Escape]] — select e tooltip
+  dentro de modal quebram de duas formas caladas: a lista abre atrás do véu (portais
+  irmãos, o 100 cobre o 50) e o Escape fecha o modal inteiro (captura chama na ordem de
+  REGISTRO, e o modal registrou antes). Flutuante vai pra cima do modal, e quem está por
+  baixo pergunta se há camada acima antes de responder à tecla.
 - [[Sem servidor, a migração de dado local acontece na leitura]] — com o dado no
   `localStorage` de quem usa, não há rotina de virada: a única hora de alcançar aquele
   navegador é quando ele abre a página. A chave velha entra na função que lê, só de

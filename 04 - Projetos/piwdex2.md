@@ -1310,6 +1310,7 @@ saudável.
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
 - Aprendizados: [[Índice só é identidade enquanto a coleção não muda]] ·
   [[Sem servidor, a migração de dado local acontece na leitura]] ·
+  [[Flutuante dentro de modal precisa vencer no z-index e no Escape]] ·
   [[Fator que domina o resultado não entra na conta por estimativa]] ·
   [[Traduza o vocabulário do sistema, não o nome próprio]] ·
   [[A tela não afirma mais precisão do que a fonte tem]] ·
