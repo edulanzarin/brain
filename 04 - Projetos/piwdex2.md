@@ -118,6 +118,13 @@ alta; o dado vai no mono, senão a densidade morre de novo.
   e os 36 restantes (a categoria Terror inteira, os humanos da Rocket) continuam na lista
   dizendo que não dá pra simular.
 
+- **Eevee** (25/08/2026): a oitava ferramenta, e a única de uma espécie só — porque o
+  Eevee é o único caso de decisão irreversível com cinco saídas do mesmo preço. Mostra a
+  estrela dos cinco destinos, o que a troca custa, **onde farmar as dez pedras no seu
+  nível** e o que cada eeveelution vale em combate, nas duas colunas lado a lado. Detalhe
+  na seção de 25/08 abaixo; a mecânica em
+  [[Poke Idle World - evolucao e a troca do Eevee]].
+
   A primeira versão pedia espécie, nível e quality e **supunha IV médio** — e o Eduardo
   pegou na primeira olhada: "ele nem está pedindo os status do meu pokémon". Estava certo,
   e o defeito era de natureza, não de precisão: IV é justamente o número que o jogo
@@ -895,6 +902,105 @@ grade de IV abria em tres colunas. Sem barra, sem erro — a caixa simplesmente 
 cortada. Virou a secao nova de
 [[Faixa que sangra estoura pela barra de rolagem, e o corte é na raiz]].
 
+## O Eevee vira a oitava ferramenta (25/08/2026)
+
+O Eduardo pediu "a parte do Eevee". A resposta que o piwdex tinha era uma mentira que
+ninguém tinha percebido: **`creatures.json` afirma `Eevee: { evolvesToId: 134,
+evolveLevel: 80 }`** — um caminho só, por nível, pro Vaporeon. Campo preenchido, bem
+tipado, plausível, e falso nos dois pontos.
+
+O que acontece de verdade está em [[Poke Idle World - evolucao e a troca do Eevee]]: o
+Eevee **não evolui, é trocado** com o NPC Marlon por um de cinco destinos, e o custo é
+igual nos cinco — $65.000, dez pedras, um Eevee no time. A tabela não existe em fonte
+pública nenhuma; ela veio de um print da tela da loja, que o Eduardo mandou. Antes do
+print eu tinha chutado Moon/Sun Stone pra Umbreon/Espeon, com dois argumentos bons e
+errados. São Darkness e Enigma.
+
+**O achado que definiu a ferramenta foi o preço igual.** Como o ouro não separa nada, a
+decisão se muda pra duas perguntas que o piwdex já sabia responder separadas e nunca
+tinha cruzado: de onde cai a pedra (índice reverso de drop + hunts) e o que a espécie
+vale em combate (tier list do meta). A tela põe as duas colunas lado a lado, e elas
+discordam — Flareon lidera o combate (S, 83,8) e pede a pior pedra até o nível 60. Virou
+seção nova em [[Ordene pela grandeza que decide, não pela que impressiona]].
+
+A estrela é radial de propósito: cinco destinos simultâneos, excludentes e de mesmo
+custo não são uma fila, e numa fila o primeiro pareceria o padrão.
+
+### O corte da aresta falsa abriu um buraco
+
+`evolutionChainOf` seguia `evolvesToId` cegamente e desenhava "Eevee -> nv 80 ->
+Vaporeon" em SEIS fichas (a do Eevee e a dos cinco destinos, porque a cadeia também se
+caminha pra trás). A aresta foi recusada na derivação, num lugar só.
+
+E aí o painel caiu no texto padrão: *"Eevee não evolui e não vem de nenhuma evolução"* —
+falso pelo outro lado, nas mesmas seis fichas. Virou o princípio
+[[Tirar o dado errado não põe a verdade no lugar]], que é o aprendizado mais transferível
+desta passada. A ficha agora diz o que acontece, com o custo, e leva pra `/eevee`.
+
+### Duas coisas que o teste de navegador pegou
+
+- **A linha da estrela atravessava o cartão.** Ia de centro a centro, e virava um espeto
+  no meio do pokémon. Agora é um trecho do raio, de fora do disco central até a borda do
+  cartão, em fração e não em pixel — a figura é a mesma em 320px e em 560px.
+- **26px de rolagem lateral no telefone**, silenciosos. Item de grade nasce com
+  `min-width: auto`, então a trilha cresceu até o min-content do painel de pedras (374px
+  num aparelho de 360) e empurrou a página. `grid-cols-[minmax(0,1fr)]` na coluna base;
+  quem cede passou a ser o nome da criatura, que já tinha `truncate`. Mesma família de
+  [[Faixa que sangra estoura pela barra de rolagem, e o corte é na raiz]].
+
+### O que ficou declarado como não sabido
+
+Se a troca devolve o pokémon no nível em que ele entrou. O botão do jogo diz "Trocar",
+não "Evoluir", e a Pokepedia só garante herança de nível/quality pra evolução comum — o
+Eevee ela declara caso à parte sem dizer o que ele herda. Por isso os stats projetados
+comparam as cinco espécies na mesma régua e a tela diz, colada nos números, que não é
+promessa do que chega no time.
+
+### O Eduardo pegou o mesmo defeito duas vezes, e a segunda foi minha
+
+*"Não tá muito robusto não, ele tá usando stats base? Preciso informar os meus."*
+
+A primeira versão da ferramenta pedia nível e quality e supunha IV 21 nos seis. É
+**exatamente o defeito que o Stadium já tinha cometido e corrigido no dia anterior**,
+depois da mesma reclamação — e eu reescrevi ele numa tela nova algumas horas depois.
+Vale registrar sem enfeite: o padrão certo existia, estava no arquivo ao lado, e ainda
+assim a tela nova nasceu supondo. Corrigir um defeito não o remove do repertório.
+
+O conserto é o mesmo: os seis stats viram campo e o IV sai lido de volta por `lerIvs`.
+A ordem da confiança ficou escrita no código — leitura dos stats, IV da carta guardada,
+IV 21 por último — e leitura **impossível** não entra, porque `lerIvs` trava tudo no
+teto e usar isso afirmaria um Eevee perfeito que ninguém digitou. Enquanto os stats não
+vierem, a estrela avisa que os cinco ramos estão projetando um genérico:
+[[A tela não afirma mais precisão do que a fonte tem]].
+
+Verificado no navegador semeando IV conhecido (25/30/12/28/19/31 em nível 50, quality
+1,8): a leitura devolveu os seis exatos, 145 de 192.
+
+## A página de atualizações (25/08/2026)
+
+O Eduardo pediu, e a razão de ela existir é mais específica do que "changelog": **um
+conserto de CÁLCULO muda a resposta que alguém já tomou como boa**. Quem montou time
+contra um boss antes de a penalidade de grupo entrar na conta saiu daqui com um "você
+ganha" que o jogo desmentiu. Sem uma página que diga "isto mudou no dia tal", a única
+leitura possível pra essa pessoa é que a ferramenta erra — e não que ela errava, foi
+corrigida, e a correção tem data.
+
+Duas decisões que valem lembrar:
+
+- **Escrita à mão, não gerada do `git log`.** O histórico conta a mudança pelo que foi
+  mexido no código, em granularidade de commit, incluindo dezenas de passadas que
+  ninguém de fora percebe. Geraria uma lista longa, técnica e sem hierarquia — que é o
+  que faz ninguém ler changelog. Aqui entra o que muda a RESPOSTA, e a frase diz o
+  efeito, não o mecanismo.
+- **Sem aba separando novidade de correção.** A correção é a parte que mais importa e
+  não pode ficar numa segunda página que ninguém abre. O tipo é selo na linha.
+
+E um defeito que o teste pegou: o selo de tipo estava herdando a cor da FERRAMENTA, e
+aí "Conserto" e "Melhoria" do mesmo Stadium saíam os dois em verde-limão. Duas
+perguntas, duas cores — a barra lateral veste a ferramenta ("onde mexeu"), o selo veste
+o tipo ("o que aconteceu"). As três últimas aparecem na home, antes das cenas de
+ferramenta, porque são a única informação da home que envelhece.
+
 ## Próximos passos
 
 1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com
@@ -1408,6 +1514,7 @@ saudável.
   [[Sinal booleano da fonte não ocupa o lugar de uma escala]] ·
   [[A mesma grandeza usa a mesma escada nas duas telas]] ·
   [[Trocar a arte de fundo é refazer a calibração, e a régua não é a média]] ·
-  [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]]
-- Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]]
+  [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]] ·
+  [[Tirar o dado errado não põe a verdade no lugar]]
+- Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]] · [[Poke Idle World - evolucao e a troca do Eevee]]
 - Mapa: [[Projetos]]

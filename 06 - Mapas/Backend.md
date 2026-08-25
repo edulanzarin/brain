@@ -339,7 +339,18 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[A interface do sistema explica o que a API dele esconde]] — a tela precisa se explicar
   a um humano, então ela NOMEIA o mecanismo que o JSON só numera: um print da ficha do boss
   deu o que `mult` multiplica, como a força se calcula e o elemento que faltava. E expôs o
-  arquivo público desatualizado, que listava outras recompensas. Peça o print.
+  arquivo público desatualizado, que listava outras recompensas. Depois expôs o pior dos
+  três furos — o campo público que MENTE com valor bem tipado e plausível — e a regra que
+  saiu daí: onde há botão desligado, há requisito publicado. Peça o print.
+- [[Tirar o dado errado não põe a verdade no lugar]] — o outro lado do mesmo trabalho:
+  achado o dado falso e cortado, confira o que a AUSÊNCIA dele passa a afirmar.
+
+## Referência de sistema externo
+
+- [[Poke Idle World - endpoints publicos de dados]] — o catálogo inteiro em JSON sem auth.
+- [[Poke Idle World - regras de breeding]] — regras curadas, que não vêm em endpoint nenhum.
+- [[Poke Idle World - evolucao e a troca do Eevee]] — os dois caminhos de evolução, e o
+  Eevee, que não evolui: é trocado com um NPC por um de cinco, cada um pedindo a sua pedra.
 
 ## Princípios que mandam aqui
 

@@ -92,6 +92,7 @@ UI que mostra dado que muda sem o usuário pedir.
 - [[Reduzir a cardinalidade vem antes de enriquecer]] — sobre fato grande, corte o volume primeiro e só então junte nome, conte distinto e fatie; trabalho caro antes do corte é trabalho feito milhões de vezes à toa.
 - [[Índice só é identidade enquanto a coleção não muda]] — posição só identifica enquanto o array é o mesmo; filtrou, compactou ou reordenou, o índice guardado aponta pra outra coisa e a leitura continua válida, então nada avisa.
 - [[Fator que domina o resultado não entra na conta por estimativa]] — termo desconhecido grande o bastante pra mandar sozinho no resultado fica FORA da conta e DENTRO da tela; chutado, o número deixa de falar do modelo e passa a falar do chute.
+- [[Tirar o dado errado não põe a verdade no lugar]] — apagar um valor falso não deixa a tela em silêncio, deixa ela no caminho PADRÃO, e o padrão também afirma; metade das vezes ele afirma o oposto, que é igualmente mentira e agora sem nada errado no código pra procurar.
 ## Cérebro — como este vault funciona
 
 - [[Camadas do conhecimento - princípio, padrão, aplicação]]

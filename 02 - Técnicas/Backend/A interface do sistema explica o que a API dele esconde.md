@@ -20,6 +20,11 @@ que só aparecem depois de horas gastas:
    `strength` se calcula. Dá pra passar muito tempo concluindo "isso não está publicado".
 2. **O arquivo público pode estar velho ou ser genérico.** Ele não quebra nada quando
    envelhece, então ninguém percebe.
+3. **E ele pode simplesmente MENTIR.** Este é o pior dos três, porque não parece falta:
+   `Eevee: { evolvesToId: 134, evolveLevel: 80 }` é campo preenchido, bem tipado e
+   plausível — e é falso nos dois pontos. O Eevee não evolui por nível e não tem um
+   destino só; ele é trocado com um NPC por um de cinco, cada um pedindo a sua pedra.
+   Nenhuma validação de schema pega isso, porque o schema está certo.
 
 ## A solução
 
@@ -47,14 +52,39 @@ como Boss Token / Rare Candy / Heart Scale, e a tela do jogo mostra TM Disk Piec
 Ancient Stone / Rock Stone. Não é discordância de formato — é o arquivo público sendo
 uma lista genérica que ninguém atualiza.
 
+O terceiro furo apareceu no mesmo jogo, semanas depois, e é o mais grave porque não se
+parece com falta. A Pokepedia declarava o Eevee "caso à parte (sistema próprio de
+stones)" sem publicar qual, e o `creatures.json` preenchia o campo com uma evolução por
+nível que não existe. Um print da Loja do Marlon entregou a tabela inteira de uma vez:
+
+```
+Flareon  EVOLUÇÃO  $ 65.000   1 Eevee no time   28/10 Fire Stone
+Vaporeon EVOLUÇÃO  $ 65.000   1 Eevee no time    0/10 Water Stone
+Jolteon  EVOLUÇÃO  $ 65.000   1 Eevee no time    0/10 Thunder Stone
+Umbreon  EVOLUÇÃO  $ 65.000   1 Eevee no time    0/10 Darkness Stone
+Espeon   EVOLUÇÃO  $ 65.000   1 Eevee no time   50/10 Enigma Stone
+```
+
+E note o que a tela dá de graça além da tabela: o **contador `28/10`**. Ele diz quantas
+a pessoa tem e quantas o NPC pede, ou seja, a interface publica o requisito ao lado do
+estoque porque senão o jogador não entende o botão desligado. Requisito é justamente o
+que a API esconde. Antes do print eu tinha CHUTADO Moon Stone e Sun Stone para
+Umbreon/Espeon, com dois argumentos bons — são as únicas duas stones com `npcPrice: 0`
+no catálogo inteiro, e a tradição da série manda lua e sol. Estava errado: são Darkness
+e Enigma. Ver [[Fator que domina o resultado não entra na conta por estimativa]].
+
 ## O que mais vale lembrar
 
 - **A tela existe pra ser entendida; a API, pra ser consumida.** Onde há um mecanismo
   punitivo, a interface quase sempre o explica, porque senão o usuário reclama. É
   justamente o mecanismo que você mais precisa modelar.
 - **Peça o print.** Quando alguém usa o sistema todo dia, uma captura de tela vale mais
-  que uma tarde de leitura de payload. No caso acima, um print fechou três perguntas
-  abertas de uma vez.
+  que uma tarde de leitura de payload. Nos casos acima, dois prints fecharam três
+  perguntas de mecânica e uma tabela de cinco linhas que não existe em lugar nenhum.
+- **Onde há botão desligado, há requisito publicado.** Interface que bloqueia uma ação
+  precisa dizer o que falta, senão vira suporte. `0/10 Water Stone`, "Faltam {{stone}}",
+  "Você precisa de um Eevee no time" — é a regra de negócio escrita por obrigação de
+  usabilidade. Procure a tela do estado IMPEDIDO, não a do estado feliz.
 - **Fonte pública sem consumidor apodrece.** Se um JSON público não alimenta a tela que
   você está vendo, desconfie dele antes de confiar.
 - **Isto não substitui a medição.** A tela deu a fórmula; conferir a fórmula contra dois
@@ -64,7 +94,9 @@ uma lista genérica que ninguém atualiza.
 Candidato a princípio na segunda aparição, fora deste sistema.
 
 ## Conexões
-- Princípio: [[Peça o que a fonte mostra, não o que você precisa]]
+- Princípio: [[Peça o que a fonte mostra, não o que você precisa]] ·
+  [[Tirar o dado errado não põe a verdade no lugar]]
+- Referência que saiu daqui: [[Poke Idle World - evolucao e a troca do Eevee]]
 - Irmã: [[Campo cujo nome você não sabe se lê do payload, nunca se chuta]] ·
   [[Fórmula verificada só vale na escala em que foi verificada]]
 - Visto em: [[piwdex2]]

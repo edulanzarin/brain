@@ -37,6 +37,26 @@ Pior: a parcela e o risco costumam crescer juntos. O golpe de maior poder é o d
 recarga. O alvo de maior XP é o que te mata. O spot mais rico é o mais saturado. Quem
 ordena pela parcela não erra por acaso — erra **sistematicamente para o pior lado**.
 
+## O caso extremo: a grandeza que NÃO varia
+
+Existe uma versão desta armadilha em que a métrica intuitiva não é uma parcela — é uma
+constante. Aí a lista ordenada por ela não erra: ela empata, e o empate é lido como
+"tanto faz", que costuma ser a conclusão mais errada disponível.
+
+No [[piwdex2]], as cinco trocas do Eevee cobram exatamente o mesmo: $65.000, dez pedras
+e um Eevee. Uma calculadora de custo responderia "os cinco custam igual, escolha o que
+você gosta" — e estaria certa em cada número e errada no conselho, porque uma das cinco
+pedras pede 5.889 abates no nível 60 e outra pede 2.123.
+
+**Eixo constante é o sinal de que a decisão mudou de lugar.** O preço em ouro é igual
+porque o jogo quis que ele não decidisse; o que decide é o que ele deixou variar — de
+onde cai a pedra, e o que a espécie vale em combate. A ferramenta que aceita o empate
+para de ser ferramenta.
+
+A pergunta prática, quando as opções empatam na métrica óbvia: **o que o desenhista do
+sistema deixou diferente?** Ali está a decisão, e quase sempre é uma coisa que a fonte
+não publica em número — tem de ser derivada.
+
 ## Na prática
 
 - Calcule as duas dimensões separadas e mostre as duas. Um número só ordena; dois
@@ -48,6 +68,8 @@ ordena pela parcela não erra por acaso — erra **sistematicamente para o pior 
   onde a variável muda o resultado, ela não entra no índice.
 - Se a grandeza certa for cara de calcular, calcule mesmo assim para ordenar e deixe a
   barata para exibir. A ordem é o que decide.
+- **Empate perfeito é suspeita, não resposta.** Se as opções não se separam pela métrica
+  que você escolheu, o problema é a métrica.
 
 ## Conexões
 - Irmã: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]] (o caso em que a
@@ -55,5 +77,5 @@ ordena pela parcela não erra por acaso — erra **sistematicamente para o pior 
   agregado é outra forma de olhar uma dimensão só)
 - Técnica que aplica: [[Bônus multiplicativo só rende onde há folga até o teto]] ·
   [[Tier é nota com régua fixa, não posição na fila]]
-- Visto em: [[piwdex]] · [[Idle Game]]
+- Visto em: [[piwdex]] · [[piwdex2]] · [[Idle Game]]
 - Mapa: [[Base]] · [[Backend]]
