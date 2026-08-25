@@ -30,6 +30,27 @@ O eixo entra no componente, não na disciplina de quem usa:
 - Onde os dois aparecem juntos, um deles ganha marca visível — cor igual só se pode
   quando o significado é igual.
 
+## A variante: uma escada só, com o eixo dito no texto ao lado
+
+Há um caminho oposto que também fecha, e ele apareceu depois — vale registrar
+porque a escolha entre os dois é de contexto, não de gosto.
+
+Em vez de dois componentes, **uma escada só** (mesma cor, mesmo símbolo por
+degrau) servindo os dois eixos, e o eixo declarado pela **frase colada nela**:
+"Lendário · quality 1.82" é indivíduo; "Lendário" sozinho, na ficha da espécie, é
+catálogo. Funciona sob duas condições, e as duas têm de ser verdade:
+
+1. **Os dois eixos nunca aparecem lado a lado.** Cada tela fala de um sujeito só.
+   Onde eles se encontrarem, volta a valer a regra de cima.
+2. **A escada mais longa cabe inteira no primitivo.** Se um eixo tem degraus que o
+   outro não tem, o primitivo precisa dos dois conjuntos. Faltando, o chamador é
+   empurrado a emprestar o degrau vizinho — e emprestar afirma que os dois são o
+   mesmo, que é o erro original de volta pela porta dos fundos.
+
+O ganho é aprendizado: quem decorou o brasão na grade do catálogo reconhece o
+mesmo brasão na calculadora sem reaprender. O risco continua sendo o da nota — se
+as duas telas se encostarem um dia, a fusão volta.
+
 ## O que mais vale lembrar
 
 Suspeite sempre que duas grandezas dividirem vocabulário. Espécie x indivíduo, plano x
@@ -42,6 +63,12 @@ No piwdex a Conta mostrava a raridade da ESPÉCIE no time (todo mundo "comum") e
 painel, o modal de stats e o próprio jogo mostravam a faixa do INDIVÍDUO derivada da
 quality (o mesmo Abra, "lendária"). O arquivo de raridade já avisava dos dois eixos — o
 aviso não impediu o erro; o parâmetro obrigatório impede.
+
+Depois, no mesmo produto, a variante de cima: o brasão de raridade — um desenho por
+degrau, com a escada na forma e não só na cor — passou a servir os dois eixos, e teve
+de crescer de seis degraus (a raridade da espécie) para nove (a quality do indivíduo,
+que tem `WEAK` embaixo e `ANCIENT`/`DIVINE` em cima). Foi a condição 2 cobrando o
+preço dela antes mesmo de a decisão ir pro ar.
 
 No piwdex2 a mesma armadilha voltou noutro eixo: "valor" do pokémon caía de `sellValue`
 (o que o jogo paga por abate) pra `priceNpc` (preço do cassino) quando o primeiro era

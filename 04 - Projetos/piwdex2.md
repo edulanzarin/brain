@@ -814,6 +814,38 @@ fica a centimetros dela, fita com dois marcos vira osso, trilha pontilhada com
 mastro vira colcheia. Virou
 [[Glifo miúdo é lido como o símbolo mais próximo que a pessoa já conhece]].
 
+### O brasao vale no site inteiro, e o breed fecha a linguagem (24/08/2026)
+
+**O brasao de raridade so aparecia nas seis paginas de `/dex/raridade`.** No card
+de item era pior que ausencia: o medalhao desenhava a CATEGORIA (um cubo) com o
+anel na cor da faixa, enquanto a palavra logo abaixo dizia "Raro" — glifo e
+palavra a 20px um do outro falando de coisas diferentes. Agora o medalhao desenha
+a faixa; sem faixa, desenha a origem, que e o que o epiteto escreve no lugar dela.
+O brasao entrou tambem no card e na linha de especie, na linha de item, nos chips
+de filtro ativo (onde uma gema generica servia os seis degraus), nos dois menus de
+filtro, nas duas fichas, na calculadora, na hunt, na ficha do robo e no seletor de
+qualidade minima da loja.
+
+Pra isso a escada foi de seis degraus pra **nove**: a raridade da especie tem
+seis, mas a quality do individuo vai de `WEAK` a `DIVINE`. Ficar nos seis
+obrigaria a calculadora, a hunt e o robo a nao ter brasao nenhum — ou a emprestar
+o de `MYTHIC` pra `ANCIENT`, que e afirmar que os dois degraus sao o mesmo. Virou
+a condicao 2 registrada em
+[[Chip que serve a duas grandezas declara qual delas mostra]].
+
+**O breed era a ultima tela no dialeto antigo.** O bloco do filho ja era um
+perfil, mas com `scanline`, nome em fonte de texto, pastilha de tipo com a palavra
+escrita e o halo saindo da RARIDADE DA ESPECIE — o mesmo erro que a calculadora ja
+tinha corrigido: a tela e de um individuo, entao quem manda e a faixa da quality
+dele. Charizard e Raro; o filho de 1.830 e Lendario.
+
+E dois defeitos de largura, os dois so no telefone de 390 e os dois SILENCIOSOS
+depois que a raiz passou a aparar o eixo X: o cabecalho do slot nao podia quebrar
+(340px de minimo, e slot e item de grid, que nasce com `min-width: auto`) e a
+grade de IV abria em tres colunas. Sem barra, sem erro — a caixa simplesmente saia
+cortada. Virou a secao nova de
+[[Faixa que sangra estoura pela barra de rolagem, e o corte é na raiz]].
+
 ## Próximos passos
 
 1. **Subir o serviço do robô no Railway**: segundo serviço apontando pro mesmo repo com
