@@ -102,9 +102,26 @@ alta; o dado vai no mono, senão a densidade morre de novo.
   reais e custo — e planeja quantos breeds faltam até a Quality alvo. Estado do par na
   URL, estante de pokémon salvos no `localStorage`.
 
+- **Stadium** (24/08/2026): o time de seis contra um boss, com o combate inteiro
+  simulado. É a sétima ferramenta, e a mecânica que a separa do Duelo do Meta é o **HP do
+  boss atravessando a troca de lutador**: o segundo pokémon não entra contra um boss
+  inteiro, entra contra o que sobrou — por isso um time de seis medianos derruba o que
+  nenhum deles derruba sozinho, e nenhuma soma de duelos consegue dizer isso. A recarga
+  do boss atravessa junto (ele estava lutando quando o seu caiu); quem entra chega com a
+  própria recarga zerada. A medida que manda na tela é a **fatia**: quanto do boss cada
+  um leva embora antes de cair, que é o único número que se soma de cabeça. Alvo, time e
+  reforço na URL; times salvos no `localStorage`.
+
+  O **catálogo de bosses** entrou na ingestão (`/game/bossCatalog.json`): 87 bosses com
+  nome, categoria, nível oficial (300 a 625) e drops. O jogo não publica tipo nem stat de
+  boss, então cada um é resolvido pra **espécie de que ele é feito** — fecha em 51 dos 87,
+  e os 36 restantes (a categoria Terror inteira, os humanos da Rocket) continuam na lista
+  dizendo que não dá pra simular.
+
 Motores puros portados e vivos em `src/lib`: `stats`, `xp`, `typing`, `rarity`,
-`catch-law`, `balls`, `combat`, `breeding`, `meta`, `boost`. Com eles no lugar,
-Calculadora / Hunt / Breeding / Meta viram trabalho de interface, não de pesquisa.
+`catch-law`, `balls`, `combat`, `breeding`, `meta`, `boost`, `sim`, `stadium`. Com eles no
+lugar, Calculadora / Hunt / Breeding / Meta / Stadium viram trabalho de interface, não de
+pesquisa.
 
 ## Decisões que valem lembrar
 
@@ -1275,7 +1292,9 @@ saudável.
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
-- Aprendizados: [[Traduza o vocabulário do sistema, não o nome próprio]] ·
+- Aprendizados: [[Índice só é identidade enquanto a coleção não muda]] ·
+  [[Fator que domina o resultado não entra na conta por estimativa]] ·
+  [[Traduza o vocabulário do sistema, não o nome próprio]] ·
   [[A tela não afirma mais precisão do que a fonte tem]] ·
   [[Estimativa que inverte valor arredondado é faixa, não ponto]] ·
   [[Quantos filtros existem é decisão de layout, não de produto]] ·

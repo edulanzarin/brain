@@ -341,6 +341,7 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Configuração vem do ambiente, não do código]]
 - [[Ambiente de dev sobe igual ao de produção]]
 - [[Um invariante se garante na estrutura, não no processo]]
+- [[Índice só é identidade enquanto a coleção não muda]]
 
 ---
 

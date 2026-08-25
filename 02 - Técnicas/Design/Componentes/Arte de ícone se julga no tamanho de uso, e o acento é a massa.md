@@ -21,6 +21,15 @@ colorido lê bem a 140px e vira mancha preta a 44. Nas artes que sobrevivem, a c
 corpo: a gema é toda azul, a poção é meio frasco de vermelho, a bandeira é rosa inteira.
 Nas que falham, a cor é uma tira.
 
+**E a massa clara tem que cair no ASSUNTO, não na moldura.** Ter área de cor suficiente
+não basta: importa em que parte da figura ela está. O ícone do Stadium do [[piwdex2]]
+nasceu com a arquibancada clara e o campo escuro — área de cor de sobra, e no tamanho de
+uso a peça era uma rosca com dois palitos atrás, que é a figura mais próxima que o olho
+tinha pra fechar. Invertido (gramado aceso, arquibancada escura, que é como estádio
+aparece em toda foto noturna), passou a ler de primeira. Nenhum detalhe a mais tinha
+resolvido isso nas passadas anteriores. Pergunte qual é o assunto e entregue a maior
+mancha clara pra ele; o resto do quadro é cerco.
+
 **Separe por silhueta antes de separar por cor.** Num conjunto que aparece junto —
 categorias, estados —, a forma é o que distingue pra quem não diferencia matiz, e é o
 que sobra quando o ícone encolhe. Bolsa, gema, frasco, ampola, bandeira, disco, carta,
@@ -50,6 +59,7 @@ numa tela de erro, onde seria a segunda falha em cima da primeira.
 
 ## Conexões
 - Princípio: [[Estética é por projeto, princípio de design é que se reusa]]
-- Irmã: [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]]
+- Irmã: [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]] ·
+  [[Glifo miúdo é lido como o símbolo mais próximo que a pessoa já conhece]]
 - Visto em: [[piwdex2]]
 - Mapa: [[Design]]
