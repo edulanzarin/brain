@@ -34,6 +34,22 @@ Vale também para o caso degenerado: quando **nenhum** valor de entrada explica 
 informado, a tela para. Travar no limite e seguir publicando número é o caminho em que o
 sistema mente com cara de certeza — ver [[Zero na tela é afirmação, não valor de conforto]].
 
+## O outro lado do mesmo erro: derivar o que a fonte já entrega
+
+O caso do IV é pedir o que a fonte esconde. O espelho dele é **derivar o que a fonte
+mostra**, e ele engana mais porque o formulário fica curto e limpo.
+
+O Stadium do [[piwdex2]] nasceu pedindo espécie, nível e quality, e calculava os seis
+stats supondo IV médio. Três campos em vez de nove, tudo aparentemente elegante. Só que a
+tela do jogo mostra os seis stats, e o IV é justamente o que ela esconde: supô-lo fazia o
+combate responder sobre um Charizard MÉDIO em vez do da pessoa, sem uma palavra na tela
+dizendo isso. Quem usou reclamou na primeira olhada — "ele nem está pedindo os status do
+meu pokémon".
+
+Vale a pergunta invertida, então: além de "de onde a pessoa copia esse campo?", pergunte
+**"o que mais a fonte mostra que eu estou calculando?"**. Campo a mais que se copia vale
+mais que campo a menos que se estima.
+
 ## Regra de bolso
 
 Abra a fonte (a tela do outro sistema, o extrato, o relatório) ao lado do seu formulário.

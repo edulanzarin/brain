@@ -30,6 +30,17 @@ Dois casos no mesmo dia, no mesmo sistema (robô do piwdex):
 O sintoma típico é intermitência inexplicável: funciona depois de religar (cópia
 fresca), degrada com o tempo (cópia velha), "às vezes funciona" (depende do caminho).
 
+## O mesmo princípio quando a "fonte" é uma coleção do próprio usuário
+
+Vale igual sem credencial e sem servidor. Uma composição salva — playlist, deck, cesta,
+lista de favoritos — aponta pras ENTIDADES, não copia os campos delas. No Stadium do
+[[piwdex2]], o deck guarda os ids das cartas da bolsa: corrigir o nível do Charizard numa
+carta arruma os quatro decks em que ele está. Com cópia, os quatro seguiriam afirmando o
+nível de dois meses atrás, e nada na tela diria isso.
+
+O preço da referência é a entidade apagada, e ele se paga à vista: o lugar dela volta
+VAZIO e visível. Um time de seis virando de cinco em silêncio é pior que o buraco.
+
 ## Na prática
 
 - Toda frente que renova credencial persiste o novo valor NA HORA; toda frente que vai

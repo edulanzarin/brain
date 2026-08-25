@@ -24,6 +24,12 @@ consumidores precisam responder, e que a trava não responde por eles:
   conselho conservador, é conselho errado.
 - **Agregado**: o valor travado entra em soma, média ou total? Aí ele contamina algo que
   ninguém liga à leitura original.
+- **Gravação**: o valor travado pode ser SALVO? Este é o pior, porque ele sobrevive à
+  sessão em que o aviso estava na tela. No [[piwdex2]], o cadastro de pokémon do Stadium
+  salvava a carta mesmo com a leitura impossível — e gravava IV 32 nos seis stats, que
+  ninguém digitou. O estrago nem ficava ali: o Breeding lê esse mesmo campo como o IV do
+  PAI, então um nível digitado errado numa ferramenta virava projeção de ovo mentindo na
+  outra, sem nada ligando as duas. Leitura inválida não persiste.
 
 Ausência de dado tem representação própria — um travessão — e ela precisa vencer todas
 as escadas visuais, não entrar como mais um caso delas.

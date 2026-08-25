@@ -118,6 +118,22 @@ alta; o dado vai no mono, senão a densidade morre de novo.
   e os 36 restantes (a categoria Terror inteira, os humanos da Rocket) continuam na lista
   dizendo que não dá pra simular.
 
+  A primeira versão pedia espécie, nível e quality e **supunha IV médio** — e o Eduardo
+  pegou na primeira olhada: "ele nem está pedindo os status do meu pokémon". Estava certo,
+  e o defeito era de natureza, não de precisão: IV é justamente o número que o jogo
+  esconde, então o combate respondia sobre um Charizard médio em vez do dele. Virou caso
+  em [[Peça o que a fonte mostra, não o que você precisa]]. Agora o time entra com os
+  **seis stats de verdade**; só o alvo é projetado, porque de boss o jogo não publica
+  stat nenhum, e a tela diz isso.
+
+- **Bolsa e decks** (25/08/2026): a estante de pokémon salvos saiu de dentro do Breeding e
+  virou a **bolsa do site inteiro** — um pokémon cadastrado é da pessoa, não da
+  ferramenta. Cada entrada é uma **carta** (apelido, nível, quality, os seis stats, e o IV
+  lido de volta), e o **deck** aponta pras cartas em vez de copiar os números: corrigir o
+  nível numa carta arruma todos os decks em que ela está. Sem login, os dois moram no
+  `localStorage`, e a estante antiga é migrada **na leitura** —
+  [[Sem servidor, a migração de dado local acontece na leitura]].
+
 Motores puros portados e vivos em `src/lib`: `stats`, `xp`, `typing`, `rarity`,
 `catch-law`, `balls`, `combat`, `breeding`, `meta`, `boost`, `sim`, `stadium`. Com eles no
 lugar, Calculadora / Hunt / Breeding / Meta / Stadium viram trabalho de interface, não de
@@ -1293,6 +1309,7 @@ saudável.
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
 - Aprendizados: [[Índice só é identidade enquanto a coleção não muda]] ·
+  [[Sem servidor, a migração de dado local acontece na leitura]] ·
   [[Fator que domina o resultado não entra na conta por estimativa]] ·
   [[Traduza o vocabulário do sistema, não o nome próprio]] ·
   [[A tela não afirma mais precisão do que a fonte tem]] ·
