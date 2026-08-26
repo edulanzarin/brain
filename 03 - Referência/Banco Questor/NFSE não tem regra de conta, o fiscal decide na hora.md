@@ -27,10 +27,34 @@ de entrada com natureza única:
 | pares (empresa, filial, natureza) com TODAS as notas numa conta só, ≠ da tabela | 443, em 169 empresas |
 | desses, com a conta da tabela sem nenhum movimento no trimestre | 79% |
 
-Exemplo típico: empresa 42, natureza 8001010 "Manutenção de Veículos" — a tabela
-manda `4507 Manutenção de Veículos` (cadastrada em 2007) e o contábil lança em
-`5973 Manutenção de veículos` (cadastrada em mai/2024, mesmo apelido `MDV`).
-Conta duplicada; o fiscal ficou na velha.
+São **dois caminhos**, medidos nos 446 pares sistemáticos do trimestre:
+
+- **373 — natureza específica apontando pra conta aposentada.** Empresa 42,
+  natureza 8001010 "Manutenção de Veículos": a tabela manda `4507 Manutenção de
+  Veículos` (cadastrada em 2007) e o contábil lança em `5973 Manutenção de
+  veículos` (cadastrada em mai/2024, mesmo apelido `MDV`). Conta duplicada; só o
+  contábil mudou de lado.
+- **73 — natureza genérica na nota.** O e-Doc importa a nota como "Serviço
+  Tomados Geral" (`8000001`), cuja tabela é vala-comum (`3171 Serviços de
+  Terceiros`), mas a empresa tem um **catálogo inteiro** de naturezas de
+  serviço, uma por conta (`8001001` Honorários Contábeis → 4538, `8001004`
+  Internet e Software → 4941, `8001015` Serv. Profiss. → 4537…), e a
+  contabilização usa a específica. Empresa 767, jul/2026: as 50 NFSE entram na
+  genérica e saem em 4537, 4941, 4481, 4084, 4337, 4542 — exatamente as contas
+  das naturezas específicas do catálogo dela.
+
+**Essa escolha não fica gravada na nota.** Procurado exaustivamente: a conta
+(4537) não aparece em nenhuma coluna numérica de nenhuma tabela `lctofisent*`
+daquela nota, nem o número da tabela (772/765); e no banco inteiro da empresa a
+conta só existe em `tabelactbfislctoctb` (as tabelas 765 e 772) e em
+`relacplanoecd`. O lançamento sai com o histórico `227` — o mesmo da linha da
+tabela — e com a fórmula `vlrContISS`; só a conta difere. O rastro de qual
+natureza foi aplicada não existe no dado.
+
+`relacserviconatureza` (serviço municipal + fornecedor + produto → natureza) é a
+candidata óbvia e **não é a resposta**: onde ela aponta para naturezas
+específicas, ela acertou 0 de 5 notas contra 5 de 5 da natureza carimbada na
+nota. Ela é de-para de importação do e-Doc, não regra de conta.
 
 E há o segundo caso, esse sim o do título: natureza **genérica** (ex.: "Serviços
 Tomados S/ Retenção – Serv. Profiss."), em que a conta muda de nota para nota de

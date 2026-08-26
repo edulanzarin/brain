@@ -17,13 +17,17 @@ de contabilização → conta + fórmula. Para mercadoria isso é regra viva, po
 tabela é o que o próprio ERP executa. Para **serviço**, a mesma leitura produz
 erro em massa, por dois motivos diferentes:
 
-1. **Config morta.** A empresa cadastra uma conta nova — às vezes com o mesmo
-   nome e o mesmo apelido da antiga — e repõe o lançamento nela, mas a natureza
-   continua apontando pra velha. Medido no Questor (mai–jul/2026, 11.866 NFSE de
-   natureza única): a conta da tabela acerta **62%**; a conta habitual da
-   natureza acerta **86%**. Em 443 pares (empresa, filial, natureza) TODAS as
-   notas caem numa conta só, diferente da configurada — e em **79%** deles a
-   conta configurada não teve nenhum movimento no trimestre.
+1. **A tabela não é o que foi aplicado.** Medido no Questor (mai–jul/2026,
+   11.866 NFSE de natureza única): a conta da tabela acerta **62%**; a conta
+   habitual da natureza acerta **86%**. Em 446 pares (empresa, filial, natureza)
+   TODAS as notas caem numa conta só, diferente da configurada — em **79%** a
+   conta configurada não teve um centavo de movimento no trimestre. Dois
+   caminhos levam a isso: **conta aposentada** (373 pares — criaram conta nova,
+   às vezes com o mesmo nome e apelido, e só o contábil mudou) e **natureza
+   genérica** (73 — a nota entra pelo e-Doc como "Serviço Tomados Geral" e é
+   contabilizada pela natureza específica do catálogo da empresa). No segundo, a
+   escolha aplicada **não fica gravada na nota**: nem a conta nem o número da
+   tabela aparecem em qualquer coluna de qualquer tabela da nota.
 2. **Natureza genérica.** "Serviços Tomados S/ Retenção – Serv. Profiss." recebe
    de tudo, e a conta muda de nota para nota **de propósito**. Ali nenhuma conta
    domina: 3.424 notas viviam nesse caso, e 2.612 delas eram acusadas de conta
@@ -70,6 +74,10 @@ Depois, três decisões e não uma:
 - **Só o componente principal.** As linhas de tributo (PIS/COFINS a recuperar)
   seguem a tabela do ERP, que nelas não envelhece — trocá-las junto criaria erro
   onde não havia.
+- **Não procure o rastro na nota.** Quando a natureza aplicada difere da
+  carimbada, o ERP não guarda qual foi: o lançamento sai com o histórico e a
+  fórmula da tabela, e só a conta denuncia. O histórico é o único registro do
+  que de fato aconteceu — por isso ele vira a regra.
 - **A tela de configuração continua mostrando o plano cru.** O aprendizado é do
   conferidor; quem for consertar o cadastro no ERP precisa ver o que o ERP diz.
 - Nada disso vale para mercadoria: lá a tabela é executada pelo próprio ERP, e
