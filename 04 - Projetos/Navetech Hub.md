@@ -313,7 +313,12 @@ diziam "as duas empresas". Reusa a casca inteira (uma linha em `modulos.ts`,
   status rascunho/ativo/arquivado. Padrão em [[Formulário montado pelo usuário — a
   definição no banco dirige renderer e validação]].
 - **Experiência** (`/rh/experiencia`): o coração. Contrato CLT = **45 + 45 dias**,
-  dois marcos (45/90). Os critérios **deixaram de ser fixos no código**: a RH
+  dois marcos (45/90). A contagem **inclui o dia da admissão** (admissão é o dia
+  1), então o marco vence em `admissão + (marco − 1)` — quem entra 01/09 fecha 45
+  dias em 15/10. Estava um dia adiante até ago/2026, corrigido no
+  `vencimentoMarco` com migration recuando as datas já materializadas:
+  [[Duração conta o dia inicial, prazo para agir conta do dia seguinte]].
+  Os critérios **deixaram de ser fixos no código**: a RH
   **liga um formulário ativo a cada marco** e define a **antecedência** do aviso
   (padrão **7 dias** antes) na própria tela (`rh_experiencia_config`). O painel
   projeta os marcos em curso com status (aguardando · respondido · **atraso**). O

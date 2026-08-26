@@ -264,6 +264,12 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   negativo chega a trocar o sinal. Separe: o verificado ordena, o estimado fica ao lado
   com o limiar que o torna conferível.
   Princípio: [[Ordene pela grandeza que decide, não pela que impressiona]].
+- [[Duração conta o dia inicial, prazo para agir conta do dia seguinte]] — duração é
+  intervalo fechado (`início + n − 1`), prazo para agir é deslocamento (`início + n`);
+  a mesma palavra "45 dias" cobre as duas e o erro sai como data plausível um dia
+  adiante. Regra numa função só, exemplo conferível no comentário, e migration para a
+  data derivada que já ficou gravada.
+  Princípio: folha isolada.
 - [[Número de regra alheia se lê da fonte, não se congela em constante]] — número que é
   de outro sistema vale pro dia em que foi observado; leia da API em execução com a
   constante de reserva (datada), e a tela lendo a MESMA origem do cálculo — etiqueta
