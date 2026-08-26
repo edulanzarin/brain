@@ -5,7 +5,39 @@ criado: 2026-07-21
 
 # NFSE não tem regra de conta, o fiscal decide na hora
 
-> Diferente da mercadoria (onde o CFOP determina a conta contábil pela regra), a **NFSE de serviço não tem CFOP** e a conta de despesa é escolhida **manualmente pelo fiscal, nota a nota**. Não vem de tabela: mesmo fornecedor pode cair em contas diferentes em meses diferentes, dependendo do serviço/produto.
+> **Corrigida em ago/2026** — a premissa original ("a NFSE não tem CFOP") era falsa; o título fica só para não quebrar links. A NFSE **tem** natureza (código interno `8xxxxxx` na tabela `cfop`) e **tem** tabela de contabilização como qualquer CFOP. O que ela não tem é uma regra *confiável*: parte das naturezas aponta para conta aposentada, e as genéricas recebem serviço de todo tipo, com a conta decidida nota a nota. Ver "O que se sabe hoje", abaixo.
+
+## O que se sabe hoje (ago/2026)
+
+A natureza de serviço é um código `8xxxxxx` em `cfop` — a descrição costuma até
+carregar a conta ("Serviços Tomados S/ Retenção - 42748 ASSISTENCIA TECNICA
+INFORMATICA"). Dali sai `codigotabctbfisvlrcontabil` → `tabelactbfislctoctb`
+(`seq`, `naturlctoctb` +1/−1, `contactb`, `regravalorlctoctb`), igual à
+mercadoria. A nota ainda carimba a tabela que usou, em
+`lctofisentcfop.codigotabctbfis` — e ela bate com a config, então não há
+"tabela alternativa" escondida.
+
+O problema é que essa tabela **envelhece**. Medido em mai–jul/2026, 11.866 NFSE
+de entrada com natureza única:
+
+| | |
+|---|---|
+| conta da tabela acerta a conta real | 62% |
+| conta habitual da natureza acerta | 86% |
+| pares (empresa, filial, natureza) com TODAS as notas numa conta só, ≠ da tabela | 443, em 169 empresas |
+| desses, com a conta da tabela sem nenhum movimento no trimestre | 79% |
+
+Exemplo típico: empresa 42, natureza 8001010 "Manutenção de Veículos" — a tabela
+manda `4507 Manutenção de Veículos` (cadastrada em 2007) e o contábil lança em
+`5973 Manutenção de veículos` (cadastrada em mai/2024, mesmo apelido `MDV`).
+Conta duplicada; o fiscal ficou na velha.
+
+E há o segundo caso, esse sim o do título: natureza **genérica** (ex.: "Serviços
+Tomados S/ Retenção – Serv. Profiss."), em que a conta muda de nota para nota de
+propósito e nenhuma domina — 3.424 notas no trimestre.
+
+O tratamento dos dois está em
+[[Conta da natureza de serviço vem do hábito, não da tabela do ERP]].
 
 ## Consequência prática
 
@@ -39,6 +71,7 @@ Ou seja: "NFSE espelha e não gera divergência" segue válido **para a nota
 lançada**; a não lançada agora aparece como o que é — uma falta.
 
 ## Conexões
+- Regra e mecanismo: [[Conta da natureza de serviço vem do hábito, não da tabela do ERP]]
 - Vínculo nota↔lançamento: [[Vínculo nota fiscal e lançamento contábil no Questor]]
 - Visto em: [[Navetech Hub]] (Balancete Fiscal, NFSE-espelho e pendentes)
 - Mapa: [[Banco Questor]]

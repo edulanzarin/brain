@@ -270,6 +270,12 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   adiante. Regra numa função só, exemplo conferível no comentário, e migration para a
   data derivada que já ficou gravada.
   Princípio: folha isolada.
+- [[Conta da natureza de serviço vem do hábito, não da tabela do ERP]] — a tabela de
+  contabilização do serviço aponta pra conta aposentada (acerta 62%; o hábito da
+  natureza acerta 86%), e a natureza genérica não tem conta nenhuma pra cobrar.
+  Aprende a moda por (empresa, filial, natureza) com dominância de 80%, marca a
+  linha sem hábito como conta variável e espelha por NOTA, não por conta.
+  Princípio: [[Config declarada envelhece; quem diz a regra é o comportamento observado]].
 - [[Número de regra alheia se lê da fonte, não se congela em constante]] — número que é
   de outro sistema vale pro dia em que foi observado; leia da API em execução com a
   constante de reserva (datada), e a tela lendo a MESMA origem do cálculo — etiqueta

@@ -29,6 +29,7 @@ Notas em `03 - Referência/Banco Questor`. Banco é **produção**: acesso somen
 - [[Receitas SQL do Questor]] — consultas prontas e testadas.
 - [[Agregar antes de juntar em tabelas gigantes no Postgres]] — padrão obrigatório nas tabelas de milhões de linhas.
 - [[grupoprocessam do Questor não é grupo de empresas]] — armadilha de nomenclatura.
+- [[NFSE não tem regra de conta, o fiscal decide na hora]] — armadilha do serviço: a NFSE TEM natureza `8xxxxxx` e tabela de contabilização (o título é herança de uma premissa errada, corrigida em ago/2026), só que a tabela envelhece — acerta 62% das notas, contra 86% do hábito da natureza.
 
 ## Quem usa
 
