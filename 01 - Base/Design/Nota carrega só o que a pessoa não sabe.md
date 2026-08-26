@@ -31,6 +31,23 @@ metade das notas repete o óbvio, a pessoa aprende a não ler nota — e a que i
 Sintoma que originou a regra: um “está no 50” ao lado do campo de nível onde o próprio
 usuário tinha escrito 50.
 
+## O mesmo desconto vale para a LINHA dentro de um grupo
+
+A regra nasceu de legenda, e vale para qualquer texto que a tela repete de si
+mesma. O caso caro é a lista agrupada: se o cabeçalho do bloco diz LEDIAN, cada
+linha embaixo dele não pode começar por "Ledian".
+
+No [[piwdex2]] a ficha de patch fazia isso seis vezes seguidas — "Ledian rende
+37,5 de ouro...", "Ledian: Bug Gosme de 15% pra 0,82%..." — e o custo não é o
+espaço. É a POSIÇÃO: a primeira palavra da linha é onde o olho procura o que
+mudou, e ela estava ocupada por um dado que a pessoa acabou de ler no cabeçalho,
+idêntico em todas as linhas. Tirando o sujeito, a mesma lista passa a abrir por
+"Rende", "Bug Gosme", "Straw" — que é a informação.
+
+O corolário é que a frase precisa saber viver dos dois jeitos: fora do grupo (um
+cartão de resumo, um resultado de busca) a linha viaja sozinha e o sujeito volta
+a ser obrigatório. Então o sujeito é PARÂMETRO da frase, não texto colado nela.
+
 ## Regra de bolso
 
 Leia a nota tapando o resto da tela. Se ela continuar fazendo sentido sozinha, ela
