@@ -1508,6 +1508,28 @@ era o campo `tm` nascendo na normalização. Virou
 `PIPELINE` em `src/lib/patches.ts`. Esquecer troca um erro barulhento (passada pulada,
 dita no log) por um silencioso (patch inventado, publicado com data).
 
+## A área logada ganhou a passada visual (25/08/2026)
+
+O robô estava com os glifos todos certos e nenhuma arte: abria com um `h1` de 17px
+em cima de um formulário enquanto a dex abre com faixa, ilustração e uma frase.
+Dez artes novas (`robo*.svg`), um registro de telas (`src/lib/telas-robo.ts`, o
+espelho do `FERRAMENTAS`) e dois pesos de chegada — faixa nas telas que se abrem,
+cabeçalho de 44px nas seis abas do cockpit.
+
+Duas decisões que valem lembrar:
+
+- **A cor é uma só, e quem separa é a silhueta.** Na dex cada ferramenta tem a sua
+  cor porque lá ela responde "onde estou" num site de dez destinos. Aqui são as
+  telas de um produto, e dez matizes inventariariam dez identidades pra um painel.
+- **A marca da barra deixou de ser a pokébola.** Ela é a marca do site inteiro, e
+  a única tela que precisa se anunciar como OUTRO endereço estava se anunciando
+  com o símbolo de onde a pessoa acabou de sair.
+
+Duas artes voltaram pra prancheta depois de rasterizadas (a caçada lia como riscos
+soltos, a loja lia como balde) — o teste de [[Arte de ícone se julga no tamanho de
+uso, e o acento é a massa]] pagando de novo. E o par ilustração/glifo virou
+[[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]].
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]

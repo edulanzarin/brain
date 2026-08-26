@@ -99,6 +99,27 @@ Mantendo a API do wrapper (`{ size, className }` + `currentColor`), a troca não
 toca nenhuma das centenas de chamadas — e as classes de cor que cada tela passa
 continuam valendo.
 
+## Os dois registros CONVIVEM, e quem reparte é o tamanho
+
+O recorte por função (chrome na biblioteca, domínio desenhado) tem um irmão que só
+aparece quando o produto ganha ilustração: ilustração e glifo não competem, e a
+pergunta não é qual dos dois adotar. É **em que tamanho cada um vai aparecer.**
+
+- **Ilustração** (quadro de 128, base + sombra + luz) abre uma tela ou uma seção,
+  e o piso dela é uns 40px. É o "onde estou".
+- **Glifo** de traço ou massa vive nos 14px de um trilho de abas, de uma linha de
+  lista, de um rótulo. É o "qual é este".
+
+Usar a ilustração nos dois lugares parece economia de arquivo e devolve uma mancha
+colorida ilegível no trilho. Usar o glifo nos dois devolve uma tela sem chegada —
+que foi exatamente o defeito da área logada do [[piwdex2]]: ela tinha os glifos
+todos certos e nenhuma arte, e o efeito era o de atravessar uma porta e cair nos
+fundos do prédio.
+
+O registro de telas guarda os DOIS campos por tela (`arte` e `Icone`), e cada
+lugar de uso escolhe pelo tamanho que tem. Um campo só forçaria a escolha errada
+em metade das telas.
+
 ## Conexões
 - Princípio: [[A variante de um controle muda a intenção, não o tamanho]]
 - Irmã: [[Trocar a fonte muda a largura, não só o desenho da letra]] ·
