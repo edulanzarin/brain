@@ -1480,6 +1480,34 @@ O contador da guarda sai no `/api/health`, e isso não é enfeite: rede que apar
 é um jeito mais lento de esconder defeito. Número subindo é conserto na origem, não robô
 saudável.
 
+## O diário do catálogo (25/08/2026)
+
+O jogo não publica changelog, e patch de balanceamento troca a resposta de TODAS as
+ferramentas de uma vez. O sinal já existia e ninguém usava: o `source.ts` confere o ETag
+do `creatures.json` quase a cada visita e sabe o segundo em que o catálogo mudou — só
+que usava isso pra recarregar e jogava fora.
+
+Agora a ingestão compara o catálogo baixado com o snapshot em disco **antes** de
+sobrescrever, grava a diferença em `src/data/patches.json` e isso vira a rota
+`/patches`, com ficha por patch. Uma rotina do GitHub Actions roda de 6 em 6h e commita
+quando o jogo mexeu; de brinde, o snapshot de fallback parou de envelhecer.
+
+A manchete de cada espécie é o **ouro por abate**, derivado, e não a lista de chances que
+o causou. No patch de 20/08 o Ledian caiu de 492,8 para 37,5 (13,1x) — que é exatamente
+o "493 pra 38, 13x" escrito à mão no cabeçalho do `source.ts` meses antes, e o motor
+chegou lá sozinho, sem receber o número. Serviu de conferência do próprio motor.
+
+O diário nasceu com esse patch, reconstruído de duas revisões do snapshot no git. Os
+pares anteriores ficaram de fora porque misturam mudança do jogo com mudança da própria
+ingestão: entre 16/08 e 20/08 o diff acusa 481 das 482 espécies "mudando de golpe", e
+era o campo `tm` nascendo na normalização. Virou
+[[Diferença entre duas leituras só fala do mundo se o instrumento não mudou]] e
+[[Diff de catálogo externo carimba a versão do extrator]].
+
+**Disciplina que o mecanismo exige:** mexeu na normalização do `ingest.mjs`? Suba o
+`PIPELINE` em `src/lib/patches.ts`. Esquecer troca um erro barulhento (passada pulada,
+dita no log) por um silencioso (patch inventado, publicado com data).
+
 ## Conexões
 - Substitui: [[piwdex]]
 - Usa: [[Design]] · [[Infra]] · [[Frontend]] · [[Backend]]
@@ -1569,6 +1597,9 @@ saudável.
   [[Trocar a arte de fundo é refazer a calibração, e a régua não é a média]] ·
   [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]] ·
   [[Tirar o dado errado não põe a verdade no lugar]] ·
-  [[Recurso indivisível se aloca pelo salto, não pelo resultado]]
+  [[Recurso indivisível se aloca pelo salto, não pelo resultado]] ·
+  [[Diferença entre duas leituras só fala do mundo se o instrumento não mudou]] ·
+  [[Diff de catálogo externo carimba a versão do extrator]] ·
+  [[Produtividade se mede pela hora do registro, não pela data do fato]]
 - Referência: [[Poke Idle World - endpoints publicos de dados]] · [[Poke Idle World - regras de breeding]] · [[Poke Idle World - evolucao e a troca do Eevee]] · [[Poke Idle World - TM e os discos]]
 - Mapa: [[Projetos]]

@@ -54,7 +54,8 @@ que o dado está certo, e o campo continua chegando em runtime, invisível ao c�
 Cast em fronteira externa é promessa, não verificação.
 
 ## Conexões
-- Princípio: [[Auditar o registro, não só o agregado]]
+- Princípio: [[Auditar o registro, não só o agregado]] ·
+  [[Diferença entre duas leituras só fala do mundo se o instrumento não mudou]]
 - Irmã: [[Contador de terceiro conta no escopo dele, o seu recorte é delta sobre uma base]]
 - Visto em: [[piwdex]]
 - Mapa: [[Backend]]

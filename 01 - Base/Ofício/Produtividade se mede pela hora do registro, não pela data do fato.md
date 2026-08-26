@@ -29,8 +29,24 @@ O sinal de que a escolha está errada é esse: **produtividade de período fecha
 - Deixe explícito na interface qual data recorta o período. Quem olha assume competência por hábito.
 - O mesmo par aparece fora da contabilidade: chamado (aberto × resolvido), pedido (emitido × faturado), tarefa (vencimento × conclusão).
 
+## O mesmo par quando a fonte é um sistema de fora
+
+Fora do transacional o par continua existindo, com outros nomes: `Last-Modified` do
+arquivo é a data do FATO (quando o fornecedor publicou), e a hora em que a sua rotina
+baixou é a data do REGISTRO. A regra vira: **carimbe o fato pelo relógio de quem o
+produziu, e guarde o seu só como auditoria.**
+
+No [[piwdex2]], o diário de patches do jogo datava pelo relógio da máquina que rodou a
+ingestão. Com uma rotina de 6 em 6 horas, um patch publicado às 21h de terça sai datado
+como quarta de manhã — e quem tenta cruzar isso com o que sentiu jogando erra por dois
+dias. A fonte respondia o `Last-Modified` desde sempre; era só ler.
+
+O sinal de erro é o mesmo de cima: **se a data de um fato passado muda quando você troca
+a cadência da coleta, você está carimbando pelo observador.**
+
 ## Conexões
-- Irmã: [[Auditar o registro, não só o agregado]]
+- Irmã: [[Auditar o registro, não só o agregado]] ·
+  [[Diferença entre duas leituras só fala do mundo se o instrumento não mudou]]
 - Irmã: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]]
 - Técnica que aplica: [[Grão fino numa varredura só dispensa os count distinct]]
 - Visto em: [[Navetech Hub]]

@@ -103,6 +103,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   posição mede fila, não mérito: o corte sai de score calibrado no histograma e escrito
   como constante, senão um patch que melhora trinta itens não promove nenhum. Princípio:
   [[Ordene pela grandeza que decide, não pela que impressiona]].
+- [[Diff de catálogo externo carimba a versão do extrator]] — fonte que muda sem changelog
+  vira changelog automático comparando o snapshot com o download de agora; o snapshot
+  guarda o número da pipeline que o produziu, e lados de pipeline diferente não se
+  comparam.
 - [[Campo que a normalização não copia vira número errado, não erro]] — o normalizador é
   o contrato com a fonte: campo raro que ninguém listou some sem log e o motor passa a
   mentir. Varra as chaves do conjunto todo a cada ingestão. Princípio:

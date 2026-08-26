@@ -52,6 +52,7 @@ Independe de banco e de domínio (vale contábil, estoque, qualquer conferência
 - [[Balancete é movimento do período, saldo é consequência]] — compare movimento, não saldo.
 - [[Espelhar por balde esconde item no lugar errado]] — a granularidade do espelho decide o que a reconciliação enxerga.
 - [[Sobre fonte read-only, o editável mora no seu banco chaveado pela identidade dela]] — a fonte que você não pode escrever fica intacta; correção, inclusão e renomeação moram do seu lado, o merge é seu.
+- [[Diferença entre duas leituras só fala do mundo se o instrumento não mudou]] — o diff entre duas fotos soma o que mudou lá fora com o que mudou em quem fotografou; carimbe a versão do extrator no dado e recuse comparar através dela. Patch faltando é buraco, patch inventado é mentira.
 
 ## Sistemas vivos — estado, canal e processo
 
