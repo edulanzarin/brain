@@ -24,7 +24,7 @@ Quatro decisões que já têm resposta padrão — não reinventar a cada projet
    | Volume | `<slug>-db-data` |
 
 2. **Par de portas reservado** — próximo livre, registrado em
-   [[Uma faixa de portas por projeto]].
+   [[Uma faixa de portas por projeto]]. Terceiro serviço com porta, se houver, em `6xxx`.
 
 3. **Porta interna fixa** (3000 app, 5432 banco), externa por variável:
    [[Porta interna é constante, porta externa é configuração]].
@@ -58,9 +58,13 @@ template: `docker logs <slug>-app`, `docker exec -it <slug>-db psql`.
 | [[Vespéria]] | 4073 | 5073 |
 | [[piwdex2]] | 4071 | 5071 |
 | [[monofire]] | 4074 | 5074 |
+| Central Contábil | 4010 | 5010 |
 
-App `4xxx`, banco espelha trocando o `4` inicial por `5`. Regra e exceções (incluindo as
-portas *unsafe* que o navegador recusa, como a 4045) em [[Uma faixa de portas por projeto]].
+App `4xxx`, banco espelha trocando o `4` inicial por `5`, e um terceiro serviço que
+precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três dígitos:
+4010 · 5010 · 6010. A faixa é o papel, não a ordem — segundo processo web continua em
+`4xxx`. Regra e exceções (incluindo as portas *unsafe* que o navegador recusa, como a
+4045) em [[Uma faixa de portas por projeto]].
 
 ## Técnicas
 
@@ -73,6 +77,10 @@ portas *unsafe* que o navegador recusa, como a 4045) em [[Uma faixa de portas po
   quebrar o trace de arquivos.
 - [[App sob subcaminho fica na raiz e o proxy tira o prefixo]] — servir em
   `/imersao` sem remontar o app; base única no front, strip no proxy.
+- [[No Windows, duas coisas escutam a mesma porta e o cliente fala com a errada]] — o
+  Windows aceita dois LISTENING na mesma porta e o cliente fala com o errado; o idioma
+  da mensagem de erro denuncia qual servidor respondeu, e cada erro diz até que camada
+  a conexão chegou.
 - [[Volume de dev sobrevive entre versões do projeto e traz schema velho]] — rebuild
   no mesmo slug reencontra o banco antigo; recriar o volume, não forçar reset.
 - [[Agenda recorrente é um serviço do compose, não um crontab do host]] — o

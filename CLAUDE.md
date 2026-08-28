@@ -166,9 +166,12 @@ Já decididas, documentadas em `[[Infra]]`. Seguir sem perguntar:
   `ports: ["${APP_PORT:-40xx}:3000"]`.
 - **Um script `dev` só**: `"dev": "next dev -p ${PORT:-40xx}"`. Outra porta é
   `PORT=3000 npm run dev`. Nunca criar `dev:3000`, `dev:3001`.
-- **Par de portas reservado**: app em `4xxx` (4001–4999), banco espelha trocando o
-  `4` inicial por `5` (app `4004` → banco `5004`) — consultar e atualizar
-  `[[Uma faixa de portas por projeto]]`.
+- **Faixa reservada por projeto**: app em `4xxx` (4001–4999), banco espelha trocando o
+  `4` inicial por `5` (app `4004` → banco `5004`), e um terceiro serviço que precise de
+  porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três dígitos (`6004`). A
+  faixa é o papel, não a ordem: segundo processo web continua em `4xxx`. Antes de
+  reservar `6xxx`, confirme que o serviço precisa mesmo de porta publicada — agendador
+  normalmente não precisa. Consultar e atualizar `[[Uma faixa de portas por projeto]]`.
 - Dentro da rede do compose, serviços falam por **nome + porta interna**
   (`prospects-db:5432`), nunca pela porta publicada.
 

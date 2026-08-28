@@ -32,6 +32,7 @@ Mapa atual:
 | [[Vespéria]] | 4073 | 5073 |
 | [[piwdex2]] | 4071 · 4072 | 5071 |
 | [[monofire]] | 4074 | 5074 |
+| Central Contábil | 4010 | 5010 |
 
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte
 da verdade, não o `docker ps` da máquina que por acaso está ligada.
@@ -51,6 +52,28 @@ espelhado porque não há um segundo banco.
 
 Reservar 4072 tira esse número da fila de projetos novos. É o preço, e é barato:
 a faixa tem 999 números.
+
+## O terceiro serviço fica em 6xxx, com os mesmos três dígitos
+
+Quando o projeto precisa publicar um processo que não é o app nem o banco — um
+agendador, um worker, uma fila, um cache — ele vai pra faixa `6xxx` mantendo os três
+últimos dígitos: app `4010`, banco `5010`, terceiro `6010`. O número continua
+identificando o projeto sozinho, agora em três faixas em vez de duas.
+
+**A faixa é o papel, não a ordem de criação.** Quem o navegador alcança fica em `4xxx`,
+mesmo sendo o segundo processo web — é por isso que o [[piwdex2]] tem 4071 e 4072, e não
+4071 e 6071. Banco fica em `5xxx`. O `6xxx` é pra quem não é nenhum dos dois.
+
+**Antes de reservar, confirme que o terceiro serviço precisa mesmo de porta.** A maioria
+não precisa: um agendador sobe como serviço do compose sem publicar nada e fala com o
+banco pela rede interna — ver
+[[Agenda recorrente é um serviço do compose, não um crontab do host]]. Porta publicada é
+superfície exposta; reservar pra quem não vai usar é abrir buraco à toa. Hoje nenhum
+projeto ocupa a faixa `6xxx`, e isso é o esperado.
+
+No `6xxx` as portas recusadas pelo navegador são a 6000 (X11) e a 6665–6669 e 6697
+(IRC). Só mordem se o serviço for aberto no navegador, mas pule esses números mesmo
+assim — o espelho só serve se valer nas três faixas ao mesmo tempo.
 
 ## Uma porta livre ainda pode ser proibida pelo navegador
 
@@ -78,7 +101,10 @@ segue 5432 em todo projeto. O `5004` é só onde o host publica aquele container
 
 O erro que isso evita não é o conflito de porta (esse o Docker grita na hora). É o
 silencioso: dois projetos com o mesmo banco em 5432, eu abro o cliente SQL apontando
-pro que achei que era, e rodo query no banco errado. Com faixa reservada, a porta
+pro que achei que era, e rodo query no banco errado. Em ago/2026 isso quase aconteceu no
+Central Contábil, com um PostgreSQL instalado nativo no Windows disputando a 5432 com o
+container — ver
+[[No Windows, duas coisas escutam a mesma porta e o cliente fala com a errada]]. Com faixa reservada, a porta
 identifica o projeto sozinha.
 
 Cofre Digital e Navetech Hub seguem o espelho `4xxx`→`5xxx`. Os que vieram antes e ainda
