@@ -167,6 +167,15 @@ Home do módulo (`/contabil/painel`), a segunda aplicação do princípio [[A ho
 - **Fonte = a trilha de auditoria**, não uma tabela de métrica nova: `count(*) filter (where acao=...)` por período dá "quantas vezes rodou" e `sum((detalhe->>'linhas')::int)` dá o volume — [[A trilha de auditoria já é o placar de atividade, não crie tabela de métrica à parte]]. 100% banco do app (`auditoria`/`conf_*`), nenhuma consulta ao Questor: carrega rápido e não degrada. Escopo por empresa na trilha; base é contagem pura. Cada bloco independente (`allSettled`).
 - Diferente dos painéis do DP, este **rodou de verdade no dev** — as 4 queries validadas contra o app-db local (é tudo banco do app). Libs `painel-contabil.ts`/`painel-contabil-tipos.ts`. Branch `feat/painel-contabil`, merge ff na `main`.
 
+**Separado por cargo (ago/2026).** Nasceu como painel único, e todo o conteúdo era de gestão: atividade do time, série de 6 meses, feed com nome de quem fez — ou seja, quem não é gestor abria a home do módulo e via o trabalho dos colegas. Virou par, como no DP, mas com o recorte de [[Posse numa permissão binária é duas seções e recorte por linha]]: `/contabil/painel` traz os SEUS números (a mesma trilha filtrada por `usuario_id`, que já era indexado) mais a base configurada; `/contabil/painel-gestao` traz o time todo. Rotas, tipos e hooks separados — o colaborador não alcança o endpoint de gestão. Sem migration: os cargos que já tinham `contabil/painel` seguem com ele (agora pessoal), e `painel-gestao` é concessão explícita no admin.
+
+Dois detalhes que só apareceram fazendo:
+
+- **A ordem da lista virou roteamento** e o DP tinha o mesmo bug havia semanas: como `podeSecao` libera tudo para o admin, ele enxerga as DUAS seções, e `primeiraSecaoPath` entrega a primeira — com o painel simples escrito antes, o admin caía no painel do colaborador e via zeros. Gestão passou a vir primeiro nos dois módulos. Virou nota: [[A ordem da lista de seções é a rota padrão de quem enxerga todas]].
+- **O shell casava o painel por id exato** (`secao?.id === "painel"`), o que daria barra de filtro à seção de gestão — que é self-contained. Passou a casar por prefixo, como o shell do DP já fazia. Padrão do módulo com duas seções irmãs: o teste é prefixo, não igualdade.
+
+Verificado: tsc, eslint, 54 testes e `next build` (as 4 rotas no manifesto). Branch `feat/contabil-painel-gestao`, merge ff na `main`.
+
 ### Produtividade do Contábil (ago/2026)
 
 Seção `/contabil/produtividade`: o que o time contábil lançou no período, por pessoa, origem, empresa, dia e hora — fecha o par com as produtividades do Fiscal e do DP (o Contábil era o setor sem placar). Única tela do módulo que **não** é bancada de uma empresa: empresa vira filtro opcional (o catálogo de abas ganhou `empresaOpcional` e o shell repassa pro `ConfFilterBar`, que já sabia disso pela Folha).

@@ -73,6 +73,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Posse numa permissão binária é duas seções e recorte por linha]] — "dono vê os
   seus, gestor vê todos" não é view/edit: duas seções + recorte por `autor` no
   servidor. Princípio: [[Permissão se valida no servidor, não na interface]].
+- [[A ordem da lista de seções é a rota padrão de quem enxerga todas]] — o par por
+  posse quebra só para o admin, que enxerga as duas: a home entrega a primeira da
+  lista, então a de gestão vem antes. Princípio:
+  [[A home de um módulo é o resumo que carrega sozinho; automação não abre sozinha]].
 - [[Filtro transversal só é honesto se todo o funil o honra]] — dimensão de
   filtro nova (filial) precisa chegar a toda consulta; funil compartilhado
   propaga, query própria é buraco silencioso.
