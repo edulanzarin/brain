@@ -77,6 +77,13 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   posse quebra só para o admin, que enxerga as duas: a home entrega a primeira da
   lista, então a de gestão vem antes. Princípio:
   [[A home de um módulo é o resumo que carrega sozinho; automação não abre sozinha]].
+- [[Dado externo sem par no cadastro local não tem escopo]] — o que a integração
+  não casou não tem chave para recortar; `null` ali é "não sei de quem é", não
+  "de todos". Princípio: [[Permissão se valida no servidor, não na interface]].
+- [[Quando a API cobra uma chamada por item, filtrar não economiza]] — se o
+  recurso exige id no caminho, o custo é N chamadas com filtro ou sem; traga
+  tudo e recorte na leitura. Princípio:
+  [[Fator que domina o resultado não entra na conta por estimativa]].
 - [[Filtro transversal só é honesto se todo o funil o honra]] — dimensão de
   filtro nova (filial) precisa chegar a toda consulta; funil compartilhado
   propaga, query própria é buraco silencioso.

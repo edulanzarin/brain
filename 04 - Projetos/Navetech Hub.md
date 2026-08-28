@@ -622,6 +622,53 @@ O glass também virou **dois níveis explícitos**: `.glass-chrome` (arejada) e
 - [[A classe do chamador só vence a do primitivo com tailwind-merge]] — o helper `cn`.
 - [[Vidro flutuante precisa de superfície mais opaca que a chrome]] — chrome vs panel.
 
+## Módulo Obrigações (ago/2026)
+
+Primeira fonte do Nexo que **não é o Questor**: a API do [[API do Acessórias]],
+sistema onde o escritório controla o que se entrega ao cliente. O que se ganha
+não é replicar a tela de lá — é o cruzamento que lá não existe pronto: **quem
+está devendo o quê, por setor e por responsável**, no escritório inteiro. A tela
+do Acessórias é empresa a empresa.
+
+Quatro seções, uma por área (Visão geral, Contábil, Fiscal, DP). O recorte é o
+SETOR porque é assim que toda entrega nasce no Acessórias e é o que faz a
+permissão fechar — o time do Contábil recebe a seção dele e não vê a fila do
+Fiscal. As quatro batem na mesma rota e o handler confere a seção pedida; o gate
+de rota só sabe dizer "acessa alguma" (mesmo arranjo do Post Mortem do DP).
+
+Decisões que a fonte impôs, todas medidas contra a API real:
+
+- **Filtrar por setor não economiza nada.** O gargalo é uma chamada por empresa
+  (`deliveries` exige o CNPJ no caminho e não aceita `ListAll`), então recortar
+  reduz payload e não requisições. A varredura passou a trazer TODOS os
+  departamentos — Fiscal e DP entraram sem custo a mais. Virou nota:
+  [[Quando a API cobra uma chamada por item, filtrar não economiza]].
+- **A fila é materializada por job**, não consultada ao vivo: 1.200 empresas sob
+  teto de 100 req/min dão dezenas de minutos, o que não cabe num request. Entrou
+  no `scripts/scheduler.mjs` às 5h, aplicando
+  [[Agenda recorrente é um serviço do compose, não um crontab do host]] — a rota
+  nova só existe de fato porque entrou no agendador.
+- **`situation=pending` corta o payload em 9x** e devolve o acionável. Só o que é
+  fila entra na tabela; entregue e dispensado somem do recorte e por isso somem
+  da tabela.
+- **Par com o Questor por CNPJ contra `estab.inscrfederal`**, casando qualquer
+  estabelecimento (o Acessórias cadastra filial como empresa própria: só a matriz
+  casava 75%, com todos 90%). Os 10% sem par ficam visíveis apenas a quem vê
+  todas as empresas — [[Dado externo sem par no cadastro local não tem escopo]].
+
+`api-route.ts`: o módulo novo precisou entrar no regex de `moduloDaRota`. Fora
+dele a rota só exigiria login — falha que abre em silêncio, então ficou o
+comentário avisando.
+
+Migration `029_obrigacoes.sql` (`obr_entrega` + `obr_sync`). Verificado: tsc,
+eslint, 54 testes, `next build`, e as queries de leitura rodadas contra dado real
+no app-db. Branch `feat/modulo-obrigacoes`, merge ff na `main`.
+
+Primeira medição, 360 empresas e só setores contábeis: **697 na fila, 632
+vencidas**, 107 com multa, pior atraso acima de 80 dias. O topo do ranking por
+responsável é `Entrada Empresas` — um marcador do próprio Acessórias, não
+alguém a cobrar; separar marcador de gente ficou como decisão do Eduardo.
+
 ## Próximos passos
 
 - [x] Login e usuários (jul/2026) — feito. Autenticação por email/senha, sessão opaca no banco, 3 eixos (módulo/seção/empresa com grupos), área `/admin`. Ver "Arquitetura de módulos e permissão" acima.
