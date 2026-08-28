@@ -17,7 +17,7 @@ criado: 2026-07-18
 
 Uma linha por nota. Campos que mais importam:
 
-- `datalctofis` (date) — data de lançamento, usada nos filtros/relatórios.
+- `datalctofis` (date) — a data do **DOCUMENTO** (a competência), apesar do nome. Não é quando alguém digitou — ver o aviso abaixo.
 - `valorcontabil` — valor total da nota.
 - `especienf` — NFE, CTE, NFSE, NFCE, NF… (usar `upper(btrim(...))`).
 - `cdmodelo` — modelo fiscal (55 NFe, 57 CTe, 65 NFCe…).
@@ -27,11 +27,35 @@ Uma linha por nota. Campos que mais importam:
 - `numeronf`, `serienf`, `chavenfeent`/`chavenfesai` (chave de acesso 44 díg.).
 - `siglaestadoorigem`/`destino` — **mal preenchidas** (saídas só ~20%); pra UF usar `pessoa.siglaestado`.
 - `emitentenf` ('P' = a própria empresa emitiu; 'T' = terceiro).
-- `datahoralctofis` (timestamp) — carimbo completo; `datalctofis` é só a data.
+- `datahoralctofis` (timestamp) — o carimbo de **quando a linha foi gravada**. NÃO é `datalctofis` com hora.
 - Valores extras da nota: `vlrfrete`, `vlrseguro`, `vlrdesc` (desconto), `vlroutrdesp`, `vlrpedagio`, `modalidadefrete`, `indpagto`/`meiopagamento`, `finalidadeoperacao`.
 - `lctofissai` tem **66 colunas** no total; as acima são as úteis pra BI/listagem. `cdsituacao` observado: 0 normal, 2 cancelada, 8 outra (denegada/inutilizada?).
 - **Quem lançou**: `codigousuario` → tabela `usuario` (`nomeusuario`). `codigousuario = 0` = **ADMINISTRADOR** (conta do sistema; as importações automáticas caem nele). Demais códigos são pessoas.
 - **Origem do dado**: `origemdado` (smallint). Observado só `3` (domina — integração/e-Doc automático) e `2` (pouco — importado); `1` seria manual (não visto). Significado dos códigos não é documentado no banco — inferido.
+
+### `datalctofis` e `datahoralctofis` são datas DIFERENTES (verificado ago/2026)
+
+O nome engana e esta nota já afirmou o contrário: `datahoralctofis` **não** é
+`datalctofis` com hora. São o par fato × registro — a data do documento e o carimbo de
+quando o fiscal escriturou.
+
+Medido em `lctofissai`, documentos de jul/2026 (591.542 notas): **zero** tinham
+`datahoralctofis::date = datalctofis`. Todas foram gravadas DEPOIS, com defasagem
+mediana de 25 dias e massa entre 18 e 33 — o escritório fecha o mês anterior durante o
+mês seguinte. O mesmo vale para `origemdado` 2 e 3, então não é artefato de importação.
+
+Consequência prática, e é grande: **relatório de produtividade filtrado por
+`datalctofis` responde outra pergunta**. "Quanto o time lançou em julho" filtrado assim
+devolve as notas *de* julho, digitadas em agosto — ver [[Produtividade se mede pela hora
+do registro, não pela data do fato]]. Para medir gente, o recorte é `datahoralctofis`;
+para medir o negócio (faturamento, apuração), é `datalctofis`.
+
+O preço: só `datalctofis` tem índice (`(codigoempresa, codigoestab, datalctofis)`).
+Filtrar pelo carimbo é varredura sequencial — ~4 s para o escritório inteiro num mês nas
+duas tabelas, medido. Aceitável atrás de um botão, caro num autoload.
+
+A diferença entre as duas colunas também é, ela mesma, um indicador: é o **atraso de
+escrituração**, e responde em que competência o time está trabalhando.
 
 ### Contraparte é `codigopessoa` (verificado)
 
@@ -46,7 +70,7 @@ Uma linha por produto (`seq`): `codigoproduto`, `codigocfop`, `unidademedida`,
 [[Impostos no Questor - onde fica cada um]]. **Não têm `cancelada`** (juntar ao
 cabeçalho pra excluir canceladas). Tabelas enormes (saídas ~47M).
 
-**Auditoria é só no cabeçalho**: as tabelas de item têm apenas `datalctofis`, **não** têm `codigousuario` nem `datahoralctofis`. Quem lançou e quando (análise de produtividade por colaborador, ritmo horário) sai do cabeçalho: `codigousuario` → `usuario` e `datahoralctofis` (timestamp) dão hora/dia-da-semana. `codigousuario = 0` = ADMINISTRADOR/importação automática. Foi essa a base da seção Produtividade do [[Navetech Hub]].
+**Auditoria é só no cabeçalho**: as tabelas de item têm apenas `datalctofis` (a data do documento), **não** têm `codigousuario` nem `datahoralctofis`. Por isso qualquer corte de imposto POR PESSOA tem de partir do cabeçalho e juntar a filha pela chave da nota — nunca filtrar a filha pela própria data, que é a do documento. Quem lançou e quando (análise de produtividade por colaborador, ritmo horário) sai do cabeçalho: `codigousuario` → `usuario` e `datahoralctofis` (timestamp) dão hora/dia-da-semana. `codigousuario = 0` = ADMINISTRADOR/importação automática. Foi essa a base da seção Produtividade do [[Navetech Hub]].
 
 ## Tabelas de apoio
 

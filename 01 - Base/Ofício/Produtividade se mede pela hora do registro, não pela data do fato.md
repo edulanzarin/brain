@@ -29,6 +29,39 @@ O sinal de que a escolha está errada é esse: **produtividade de período fecha
 - Deixe explícito na interface qual data recorta o período. Quem olha assume competência por hábito.
 - O mesmo par aparece fora da contabilidade: chamado (aberto × resolvido), pedido (emitido × faturado), tarefa (vencimento × conclusão).
 
+## O nome da coluna não é prova; a consulta é
+
+O caso mais forte deste princípio veio de onde ninguém procurava: uma coluna chamada
+`datalctofis` ("data de lançamento fiscal"), que a documentação do schema — inclusive a
+minha própria nota — descrevia como a data em que a nota foi lançada. Era a data do
+DOCUMENTO. O carimbo de verdade morava ao lado, em `datahoralctofis`, e não era "a
+mesma data com hora".
+
+A pergunta que resolveu cabe numa linha e leva segundos:
+
+```sql
+select count(*) filter (where datahoralctofis::date = datalctofis) as iguais,
+       count(*) as total
+  from lctofissai
+ where datalctofis between '2026-07-01' and '2026-07-31';
+-- iguais: 0    total: 591.542
+```
+
+Zero em meio milhão. Não é "às vezes divergem": são grandezas diferentes com nomes
+parecidos, e o escritório inteiro estava sendo medido pela errada havia meses. A tela
+mostrava um placar plausível — que é exatamente como este erro sobrevive.
+
+**Antes de construir qualquer coisa em cima do par, conte quantas linhas têm as duas
+datas iguais.** Se a resposta for "todas", talvez sejam mesmo a mesma coluna em dois
+formatos. Se for "nenhuma", você achou o par — e provavelmente achou também um relatório
+antigo somando pelo lado errado. É o mesmo reflexo de
+[[Config declarada envelhece; quem diz a regra é o comportamento observado]]: o que
+descreve o dado envelhece, o dado não.
+
+Corolário para a interface: a tela tem de **dizer por qual data ela recorta**, porque
+quem lê assume competência por hábito. E, na mesma medida, quem escreve a consulta
+assume que o nome da coluna diz a verdade.
+
 ## O mesmo par quando a fonte é um sistema de fora
 
 Fora do transacional o par continua existindo, com outros nomes: `Last-Modified` do
@@ -48,6 +81,9 @@ a cadência da coleta, você está carimbando pelo observador.**
 - Irmã: [[Auditar o registro, não só o agregado]] ·
   [[Diferença entre duas leituras só fala do mundo se o instrumento não mudou]]
 - Irmã: [[Rendimento é vazão vezes tempo em pé, não vazão de pico]]
-- Técnica que aplica: [[Grão fino numa varredura só dispensa os count distinct]]
+- Irmã: [[Config declarada envelhece; quem diz a regra é o comportamento observado]] —
+  lá é a config que mente sobre a regra; aqui é o nome da coluna que mente sobre o dado.
+- Técnica que aplica: [[Grão fino numa varredura só dispensa os count distinct]] ·
+  [[Escada ordinal empresta a forma entre domínios, nunca os cortes]]
 - Visto em: [[Navetech Hub]]
 - Mapa: [[Base]]

@@ -37,6 +37,28 @@ if (escopo !== "todas") {
 A armadilha sutil é o caso vazio: um `if (lista.length) filtra` deixa "sem filtro =
 todas as linhas". Escopo restrito tem que forçar a condição **sempre**, mesmo vazia.
 
+## Filtro que é só outro NOME para um conjunto entra pelo funil
+
+Um filtro "por grupo de empresa" parece coisa de interface e não é: grupo é apenas outro
+jeito de escrever um conjunto de empresas, ou seja, é escopo. A tentação é expandir no
+cliente — o navegador já tem a lista do grupo, manda `?empresas=3,7,12,...`. Não:
+
+- a carteira do grupo vai parar na URL e no histórico, e ela é informação;
+- o cliente vira a autoridade sobre o que o grupo contém, e ele não é;
+- muda o grupo no cadastro, e o link salvo continua consultando a lista velha.
+
+O cliente manda **o id** (`?grupos=2`); o funil resolve o id em empresas e faz a união
+com o que foi marcado à mão, antes do clamp da sessão. Uma linha a mais no mesmo lugar
+onde o escopo já mora.
+
+A armadilha do vazio reaparece disfarçada: **grupo sem nenhuma empresa tem de restringir
+a nada**, nunca virar "sem filtro". Pedir um grupo vazio e receber o escritório inteiro é
+o mesmo bug do `if (lista.length)`, só que agora com cara de funcionalidade.
+
+Corolário de interface: se a lista de grupos é montada com a contagem de empresas, conte
+só as que **aquele usuário** alcança, e esconda o grupo que sobra vazio — oferecer um
+filtro que devolve nada não é filtro, é armadilha.
+
 ## Por que o funil único
 
 É a mesma lógica de [[Cravar o seam de permissão antes do login]]: derivar a

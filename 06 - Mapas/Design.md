@@ -83,6 +83,10 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
   "quão raro é isto?", respondem com os mesmos nomes, cores e ordem; o que se
   compartilha é o TIPO, não umas cores parecidas. Traz o contrapeso: espelhar é da
   forma e da escada, nunca da contagem.
+- [[Escada ordinal empresta a forma entre domínios, nunca os cortes]] — o contraponto
+  da anterior: quando a escada mede uma grandeza CONTÍNUA (dias, reais), o que atravessa
+  entre módulos é a forma — degraus, ordem, cores —, nunca os cortes. Unidade igual não
+  é distribuição igual, e o primeiro degrau tem de ser o ciclo normal daquele trabalho.
 - [[Invertida a fórmula, o arredondamento é meia-aberto e o meio da faixa não é a resposta]]
   — o intervalo é fechado embaixo e ABERTO em cima, e o ponto médio erra o inteiro quando a
   faixa mede exatamente 1. Com entrada inteira de faixa curta, enumerar é exato e mais barato

@@ -92,6 +92,10 @@ Princípios: [[Estado compartilhável mora na URL]] ·
 ## TypeScript
 
 - [[NoInfer faz o genérico sair da lista, não do valor padrão]]
+- [[Componente que serve dois donos recebe o catálogo, não o campo renomeado]] — o
+  segundo módulo não renomeia o campo dele pra caber no gráfico do primeiro: entram o
+  catálogo, o acessor e o rótulo por prop, com o dono original como default. Traz a
+  armadilha de tipo: só `type` ganha índice implícito, `interface` não.
 
 ## Assets e geração
 
