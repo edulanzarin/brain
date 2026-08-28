@@ -26,6 +26,10 @@ de sistema externo é referência e tem mapa próprio.
   valida. Princípio: [[A definição em dado dirige o comportamento, não um caso no código]].
 - [[Entidade núcleo cresce por tabela satélite, não por coluna]] — mantém a tabela central
   mínima; feature nova é tabela que referencia, não coluna adicionada. Escala por composição.
+- [[Registro que muda de casa leva junto o token já distribuído]] — na migration que
+  promove um modo escondido a entidade própria, o identificador que o mundo lá fora
+  segura (o link já enviado) vem junto; ele também é a ponte entre as duas tabelas.
+  Princípio: [[Migração de dados mantém o antigo como reserva até a virada]].
 - [[Campo que vira indicador é coluna, o resto do documento é jsonb]] — num documento de
   forma fixa, o que se agrega/filtra vira coluna; narrativa e listas variáveis vão em jsonb.
 - [[Grão fino numa varredura só dispensa os count distinct]] — painel que quebra o

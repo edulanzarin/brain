@@ -78,6 +78,7 @@ UI que mostra dado que muda sem o usuário pedir.
 - [[Migração de dados mantém o antigo como reserva até a virada]]
 - [[A definição em dado dirige o comportamento, não um caso no código]] — o que varia por um eixo conhecido vira dado que uma peça lê.
 - [[Um invariante se garante na estrutura, não no processo]] — "no máximo uma X" recusa-se no schema, não na expectativa do fluxo.
+- [[O que tem ciclo de vida próprio é entidade própria, não modo de outra]] — quantas vezes acontece, se repete e o que a fecha: divergiu da tabela hospedeira, é entidade própria, não flag dela.
 - [[Recorrência guarda a receita e o próximo disparo, não N ocorrências futuras]] — periódico é receita + ponteiro; o job materializa uma por vez.
 - [[Plataforma de IA hospedada prende o app pelo banco]]
 - [[Progresso idle é função pura do tempo semeada, não simulação tick a tick]] — o ganho de um período se resolve com uma função determinística sobre o Δt, não simulando o relógio; offline honesto e à prova de cliente.

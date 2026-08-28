@@ -369,14 +369,9 @@ diziam "as duas empresas". Reusa a casca inteira (uma linha em `modulos.ts`,
   formulário ativo para gestores (**todos ou alguns**) e/ou **e-mails avulsos**,
   **agora ou agendado**. Cada destinatário recebe token próprio, responde uma vez,
   e a RH acompanha as respostas. Job `/api/rh/cron/envios` (mesmo segredo) dispara
-  as agendadas. **Sobre um colaborador (jul/2026)**: além do broadcast, a campanha
-  pode ser uma avaliação SOBRE colaboradores específicos — a RH marca vários, cada
-  um vira uma avaliação enviada aos gestores do departamento dele (`classiforgan`)
-  e aceita UMA resposta (o primeiro gestor que responde fecha), igual à experiência.
-  Reusa `envio_destinatario` com colunas de colaborador + `email` nullable (os
-  destinatários reais saem no disparo, resolvidos do setor); colaborador sem gestor
-  no depto é ignorado e reportado; índice único evita repetir o mesmo colaborador; o
-  form público mostra o contexto do colaborador. Padrão em [[Uma resposta canônica de um grupo é um token compartilhado]].
+  as agendadas. Campanha é sempre **genérica**: a avaliação SOBRE um colaborador
+  morou aqui de jul a ago/2026 (como modo de `envio_destinatario`) e virou seção
+  própria — ver **Desempenho**, abaixo.
 - **Rotatividade** (`/rh/rotatividade`): o turnover das duas empresas, período +
   empresa, reusando a Folha inteira. A consulta-mãe saiu para
   `folha-turnover-query.ts` (turnover + movimentações + pessoas) e `construirBase`
@@ -421,7 +416,8 @@ Segunda leva do RH, deixando o envio de formulários **robusto e automatizável*
 - **Modal de envio com dois eixos**: o toggle "Para gestores / Sobre colaboradores"
   misturava *quem responde* com *sobre quem é o formulário*. Virou dois seletores —
   **Quem responde** (gestores / colaboradores / e-mails avulsos) e **Sobre quem**
-  (genérico / um colaborador), este só quando o gestor responde. Novo caminho: enviar
+  (genérico / um colaborador), este só quando o gestor responde. *(O eixo "sobre quem"
+  saiu em ago/2026, com a seção Desempenho; sobrou o de quem responde.)* Novo caminho: enviar
   **direto ao colaborador**. Como o Questor não tem e-mail, o campo passou a viver no
   **overlay do Diretório** (e no PJ) — aplicação de
   [[Sobre fonte read-only, o editável mora no seu banco chaveado pela identidade dela]];
@@ -504,6 +500,42 @@ Varredura de "o que mais dá pra melhorar" depois do rollout dos painéis. O có
 Fica pendente do Eduardo (precisa do Questor de produção, inalcançável do dev): validar as heurísticas "a validar" (`custo-folha`, `balancete-contabil`) contra o banco real.
 
 Na sequência, o Eduardo mandou **remover o stack parado do Contábil** (Contas de Controle, Provisões, Fechamento) em vez de reativar — código escondido que calculava número errado vira passivo; o git guarda. Removidas páginas/rotas/libs/hooks/tipos (`chore(contabil): remove o stack parado`, −1134 linhas). Ver a seção histórica acima.
+
+### Desempenho vira seção própria (ago/2026)
+
+A avaliação de desempenho existia como **modo escondido** da campanha: uma linha de
+`envio_destinatario` com colaborador anexado (migration 014). Herdou o ciclo errado —
+**uma** resposta, que fechava o link — e não tinha tela: aparecia no meio das campanhas,
+sem filtro e sem histórico por pessoa. Virou trilha própria em `033_rh_desempenho.sql`
+(`rh_desempenho_rodada` / `rh_desempenho` / `rh_desempenho_resposta`), com a seção
+**RH → Desempenho**. O caso concreto que gerou o princípio
+[[O que tem ciclo de vida próprio é entidade própria, não modo de outra]].
+
+- **Várias respostas por avaliação**: o mesmo link vai a todos os gestores do setor e
+  cada um responde a sua — resposta é tabela filha, não coluna sobrescrita. O nome de
+  quem responde (que o formulário público já exigia) é o que as distingue.
+- **Fecha por ato, não por sinal**: a avaliação segue aceitando resposta até a RH
+  **encerrar** (`encerrado_em`), e reabre. Aplicação de
+  [[Uma pendência de prazo fecha por ato explícito, não por sinal inferido]] — antes, a
+  primeira resposta fechava o link e as outras se perdiam.
+- **Histórico**: único por `(rodada, colaborador)`, nunca por colaborador — a mesma
+  pessoa é avaliada em quantas rodadas vierem, e é isso que forma a linha do tempo dela.
+- **Escritório inteiro**: uma rodada que resolve o Diretório de hoje (com recorte
+  opcional de empresa/setor) e abre uma avaliação por pessoa, cada uma indo para os
+  gestores do setor dela. O recorte é resolvido no disparo, não guardado como regra —
+  desempenho é manual por decisão (recorrência automática ficou fora).
+- **Filtro que faltava**: colaborador, empresa, setor, status, formulário, rodada e
+  período, ao vivo (a tela lê só o app-db). Quem não tem gestor no departamento fica de
+  fora do disparo e é avisado **antes**, na contagem do modal.
+- **Uma porta só**: o modo saiu do modal de Envios e das regras automáticas; a migration
+  leva as avaliações antigas com o **token preservado** (link já enviado continua
+  valendo) e desliga — sem apagar — a regra recorrente que só existia no modo antigo.
+  Método em [[Registro que muda de casa leva junto o token já distribuído]].
+- Verificado ponta a ponta: migration testada com dado semeado no formato antigo, dois
+  gestores respondendo o mesmo link pela rota pública, recusa da avaliação encerrada e
+  da submissão sem nome, e o fluxo criar/disparar/listar/encerrar com o mailer no driver
+  de log (SMTP do dev aponta para a conta real). O KPI "Formulários disparados" do painel
+  passou a somar rodada de desempenho, senão o número cairia calado.
 
 ## Filial (estabelecimento) no filtro — jul/2026
 

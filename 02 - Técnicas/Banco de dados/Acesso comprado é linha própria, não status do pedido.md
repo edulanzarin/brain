@@ -51,7 +51,8 @@ A ordem importa: pedido `PENDENTE` **antes** de chamar o provedor. Gravar depois
 cobrança é apostar que o processo não morre entre o dinheiro sair e a linha existir.
 
 ## Conexões
-- Princípio: [[Um invariante se garante na estrutura, não no processo]]
+- Princípio: [[Um invariante se garante na estrutura, não no processo]] ·
+  [[O que tem ciclo de vida próprio é entidade própria, não modo de outra]]
 - Irmã: [[Provedor de pagamento entra por interface, e o simulado é a primeira implementação]]
 - Visto em: [[monofire]]
 - Mapa: [[Dados]]
