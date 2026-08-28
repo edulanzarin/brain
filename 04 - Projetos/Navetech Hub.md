@@ -180,6 +180,21 @@ Seção `/contabil/produtividade`: o que o time contábil lançou no período, p
 - **Exportação (ago/2026)**: menu único "Exportar" no topo, com seis cortes — ranking de pessoas, **pessoa × origem** (cruzamento completo, pronto pra tabela dinâmica), origens, empresas, evolução e hora do dia. Cada corte sai com o recorte ativo aplicado (pessoa isolada), e o `montar` só roda no clique. O `ExportarMenu` é genérico, pra não espalhar "Exportar CSV" pelo cabeçalho de cada cartão. Duas correções que vieram junto: `decimalBR` no `csv.ts` (sem vírgula decimal a coluna de valor chega como texto no Excel pt-BR e não soma — [[CSV que abre no Excel pt-BR usa ponto e vírgula, BOM e vírgula decimal]]) e o teto de empresas no payload de 20 → 200 (o gráfico mostra 12, mas a planilha não pode sair truncada). A exportação já cai na trilha como `contabil.export`, então o Painel do Contábil conta as extrações sem nada novo.
 - **Preparada pra crescer**: a aba se chama **Lançamentos**, não "Produtividade" — a seção mede o trabalho do time e hoje só enxerga o `lctoctb`. A outra fonte natural (o que o time rodou NO APP: conciliações, laudos, implantações, triagens) já está na trilha `auditoria` e entra como aba irmã, com lib e rota próprias, sem tocar nesta. Com uma aba só, o shell não desenha a barra de abas.
 
+#### Cinco abas: a seção deixa de ser "quanto se lançou" (ago/2026)
+
+O Eduardo cobrou o que a própria nota previa: "não é só lançamento; cadê os gráficos; tudo o que dá pra pegar do contábil". A aba Lançamentos ficou intacta e entraram **quatro irmãs**, cada uma com lib, rota e botão Executar próprios — nenhuma dispara as outras. Antes de escolher os ângulos, varri o banco atrás de toda coluna com carimbo de usuário + data; o que sobreviveu ao teste de "isso mede trabalho do contábil?" virou aba.
+
+- **Exclusões** (`lctoctbexcluido`): quem apagou, de quem era e que **idade** o lançamento tinha. 113 mil exclusões em ago/2026, 43% de lançamento feito por outra pessoa. A régua de "regravação" é exclusões ÷ lançados no período; com uma pessoa isolada ela vira participação, porque a fórmula original passaria a dividir o numerador de uma pelo denominador de todos — [[Razão só afirma quando os dois lados vêm do mesmo trabalho]].
+- **Atraso** (competência × registro): mediana de **101 dias** e 53 competências abertas no mesmo mês. Gráfico de competências (volume por mês do fato, colorido pelo atraso daquele mês) é o resumo da aba: massa vermelha à esquerda é passivo sendo pago. Percentis exatos sem segunda varredura, por [[Percentil ponderado sai do grão agregado, sem segunda varredura]].
+- **Carteira**: a única que responde **quem não foi atendido** — 936 empresas ativas sem um lançamento no mês, 183 paradas de 3 a 12 meses. Denominador é a *carteira contábil* (ativa com lançamento nos últimos 12 meses, 997), não o cadastro cru (1.392), porque 197 ativas nunca tiveram lançamento nenhum — são clientes só de folha/fiscal. Doutrina em [[Ausência só aparece contra o universo, nunca contra a tabela de eventos]].
+- **Tempo** (`tempouso`): a única fonte do Questor que mede **esforço em hora** — 2.840 h de 42 pessoas do contábil em ago/2026, e horas por empresa (quanto de atenção cada cliente custa). As 1.875 h de 64 pessoas de outras áreas ficam numa nota de rodapé em vez de sumirem no recorte. "Lançamentos por hora" saiu dos KPIs: 690/h é lote de importação dividido por hora humana.
+
+Três módulos novos seguram as cinco: `contabil-prod-comum` (escopo da sessão num funil só, buckets densos, cadastros, percentil ponderado), `contabil-prod-escala` (a escada ordinal de cinco degraus que atraso, idade da exclusão e tempo parado compartilham — [[A mesma grandeza usa a mesma escada nas duas telas]]) e `contabil-prod-formato`. Componentes novos: `CtbRankingTabela` (colunas declaradas; a barra de fundo mede a coluna ORDENADA), `CtbEscada`, `CtbAtrasoSerie` (mediana e p90 sobre o volume em barras), `CtbCompetencias`, `CtbPareto`, `CtbDispersao`, `CtbSerieSimples`, `CtbCarteiraTabela`. O `CtbProdBarras` passou a receber o que mede — o tooltip dizia "Lançamentos: 137" para 137 dias de atraso.
+
+Custo por aba, escritório inteiro, mês de ago/2026: exclusões ~1,2 s, tempo ~1,0 s, carteira ~3,5 s, atraso ~4,3 s. Os quatro endpoints validados no build de produção com sessão real, e cada número conferido contra SQL rodado à parte. Branch `feat/produtividade-contabil-abas`, merge ff na `main` + push.
+
+**O que ficou de fora, de propósito**: a flag de conciliação do `lctoctb` (`lctoconcildeb`/`cred`) marca só 0,8% dos lançamentos do mês — viraria ruído, não eixo. E o plano de contas (`planoespec` tem `codigousuario` + `datahoracadast`, 45 a 150 mil contas criadas por mês) é quase todo criação automática de conta de contraparte na importação: mede a rotina, não a pessoa.
+
 ### Arquitetura de módulos e permissão
 
 O **seam de permissão** foi cravado antes do login (`src/lib/sessao.ts`) e em **jul/2026 o login real entrou** — exatamente como previsto, **só o stub de `getSessao()` mudou**, nada foi retrofitado (launcher, layouts e `apiRoute` já passavam por ele). Hoje `getSessao` lê o cookie opaco → linha `sessao` no banco do app → `usuario` + perfil. Padrão em [[Cravar o seam de permissão antes do login]] e [[Sessão opaca no banco separa autenticação de permissão]]; doutrina em [[Permissão se valida no servidor, não na interface]].
@@ -311,8 +326,7 @@ diziam "as duas empresas". Reusa a casca inteira (uma linha em `modulos.ts`,
   vivo. `config` jsonb por tipo guarda opções/escala/intervalo (o form evolui sem
   migration). Um campo `selecao_unica` pode ser marcado como **decisão** — vira o
   destaque nos painéis, no lugar da antiga "recomendação" fixa. Vários formulários,
-  status rascunho/ativo/arquivado. Padrão em [[Formulário montado pelo usuário — a
-  definição no banco dirige renderer e validação]].
+  status rascunho/ativo/arquivado. Padrão em [[Formulário montado pelo usuário — a definição no banco dirige renderer e validação]].
 - **Experiência** (`/rh/experiencia`): o coração. Contrato CLT = **45 + 45 dias**,
   dois marcos (45/90). A contagem **inclui o dia da admissão** (admissão é o dia
   1), então o marco vence em `admissão + (marco − 1)` — quem entra 01/09 fecha 45
@@ -343,8 +357,7 @@ diziam "as duas empresas". Reusa a casca inteira (uma linha em `modulos.ts`,
   Reusa `envio_destinatario` com colunas de colaborador + `email` nullable (os
   destinatários reais saem no disparo, resolvidos do setor); colaborador sem gestor
   no depto é ignorado e reportado; índice único evita repetir o mesmo colaborador; o
-  form público mostra o contexto do colaborador. Padrão em [[Uma resposta canônica
-  de um grupo é um token compartilhado]].
+  form público mostra o contexto do colaborador. Padrão em [[Uma resposta canônica de um grupo é um token compartilhado]].
 - **Rotatividade** (`/rh/rotatividade`): o turnover das duas empresas, período +
   empresa, reusando a Folha inteira. A consulta-mãe saiu para
   `folha-turnover-query.ts` (turnover + movimentações + pessoas) e `construirBase`
@@ -416,8 +429,7 @@ irregularidades, atende a Lei 14.457/2022) e uma **avaliação anônima da empre
   Forçar denúncia/clima no pipeline `/f/[token]` distorceria aquele fluxo, então
   ganharam **rotas públicas próprias** (`/denuncia`, `/denuncia/acompanhar`,
   `/clima/[slug]`) reusando só as peças finas (validação, hash, componentes) — de
-  novo a exceção cirúrgica de [[Formulário público por token opaco fica fora do
-  gate de sessão]]. **Pegadinha do proxy**: como as rotas eram novas e fora da
+  novo a exceção cirúrgica de [[Formulário público por token opaco fica fora do gate de sessão]]. **Pegadinha do proxy**: como as rotas eram novas e fora da
   lista de exceções do `src/proxy.ts`, o redirect otimista mandava o visitante
   anônimo pro `/login` — precisou liberar `denuncia`/`clima` no matcher (sem barra,
   então `/rh/denuncias` e `/rh/clima`, que começam com `rh`, seguem protegidos).
@@ -539,6 +551,9 @@ Gerais de dev (continuação):
 - [[Anonimato se perde na saída, não só na entrada]] (princípio)
 - [[Recorte pequeno em pesquisa anônima identifica, então o painel se recusa a mostrar]]
 - [[Produtividade se mede pela hora do registro, não pela data do fato]] (princípio)
+- [[Ausência só aparece contra o universo, nunca contra a tabela de eventos]] (princípio)
+- [[Razão só afirma quando os dois lados vêm do mesmo trabalho]] (princípio)
+- [[Percentil ponderado sai do grão agregado, sem segunda varredura]] (técnica)
 - [[Reduzir a cardinalidade vem antes de enriquecer]] (princípio)
 - [[Grão fino numa varredura só dispensa os count distinct]]
 - [[Ler extrato bancário em PDF]]

@@ -28,6 +28,10 @@ de sistema externo é referência e tem mapa próprio.
   mesmo fato por vários eixos: agrupe uma vez pelo grão mais fino da tela (2M de
   linhas viram 6 mil) e faça ranking, série, distintos e calendário em memória.
   Princípio: [[Reduzir a cardinalidade vem antes de enriquecer]].
+- [[Percentil ponderado sai do grão agregado, sem segunda varredura]] — se o grão já é
+  (valor, quantas vezes), mediana e p90 saem dele em memória, exatos e por todos os
+  eixos de uma vez; `percentile_disc` precisaria das linhas e de uma varredura por eixo.
+  Princípio: [[A régua sai da distribuição, não dos extremos]].
 - [[Numeric e bigint do Postgres chegam como string no driver pg]] — o `node-pg`
   entrega `numeric`/`bigint` como string; castar pra `float8` pra receber number.
 - [[Consumir recurso de uso único é UPDATE condicional, não checar antes]] —

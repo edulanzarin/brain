@@ -23,6 +23,23 @@ criado: 2026-07-18
 
 > Regra prática: para "dados cadastrais da empresa X", junte `empresa` (nome) **com** `estab` (CNPJ, endereço, regime). CNPJ = `estab.inscrfederal`.
 
+### `dataencerativ` nunca é nula: quem está de pé leva 2100-12-31 (verificado ago/2026)
+
+Armadilha ao listar a carteira ativa. `dataencerativ` está **preenchida nos 1.860
+estabelecimentos** — `where dataencerativ is null` devolve zero linhas e a consulta sai
+vazia sem erro nenhum. O Questor usa **data-sentinela**: 1.710 estabelecimentos têm
+`2100-12-31`, e as datas reais de encerramento são as outras 150.
+
+```sql
+-- carteira ativa: 1.392 empresas (ago/2026)
+select distinct codigoempresa from estab where dataencerativ > current_date
+```
+
+Mas **ativa não quer dizer que o escritório faça tudo para ela**: das 1.392, 197 nunca
+tiveram um lançamento em `lctoctb` (são clientes só de folha ou de fiscal). Não há campo
+de contrato por serviço no Questor — quem separa é o comportamento, ver
+[[Ausência só aparece contra o universo, nunca contra a tabela de eventos]].
+
 ## `pessoa` — a contraparte fiscal (7,2M)
 
 Fornecedores/clientes das notas fiscais. PK `codigopessoa`. `nomepessoa`, `inscrfederal` (CNPJ/CPF), `siglaestado`, `codigomunic`. Detalhada em [[Modelo de dados fiscais do Questor]]. **É o cadastro que importa** para análise fiscal.

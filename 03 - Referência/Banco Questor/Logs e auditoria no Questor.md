@@ -27,10 +27,49 @@ Para "quem lançou esta nota / este lançamento contábil", leia essas colunas d
 
 ## Rastros de exclusão/retificação
 
-- `lctoctbexcluido` (~10,5M) — lançamentos contábeis **excluídos**.
+- `lctoctbexcluido` (~10,7M) — lançamentos contábeis **excluídos**.
 - `lctofis*retif` / tabelas de retificação — histórico de retificações fiscais.
 
 Úteis para auditar o que foi apagado/alterado sem sumir do banco.
+
+### `lctoctbexcluido` é a linha inteira mais duas colunas (verificado ago/2026)
+
+O Questor não deleta: **copia a linha completa** de `lctoctb` (todas as 27 colunas,
+inclusive `codigousuario` e `datahoralctoctb` originais) e acrescenta `idlctoctbexcl`
+(PK própria), **`dataexclusao`** (date, sem hora) e **`usuarioexclusao`** (smallint).
+
+Isso responde as duas perguntas de uma vez: **quem apagou** e **de quem era**. E a
+diferença `dataexclusao - datahoralctoctb::date` dá a **idade** do lançamento no dia em
+que morreu — apagar no mesmo dia é conserto, apagar mês fechado de outra pessoa é outra
+conversa.
+
+- Volume real do escritório: 100 a 400 mil exclusões por mês, ~28 pessoas. Em ago/2026,
+  43% do que cada um apagou tinha sido lançado por outra pessoa. Em fev/2026 houve pico
+  de 1,68M (reimportação em massa) — exclusão em lote é rotina, não incidente.
+- **Não há índice em `dataexclusao`** (só em `datalctoctb`), então filtrar por período de
+  exclusão varre a tabela: ~1,3 s para um mês do escritório inteiro. Barato o bastante.
+- `dataexclusao` é DATE: `between $1 and $2` já pega o dia inteiro, sem o `+ 1 dia` que o
+  `datahoralctoctb` (timestamp) exige.
+
+## `tempouso` — a única fonte que mede ESFORÇO em hora
+
+Todo o resto do banco conta linhas produzidas. `tempouso` (~700 mil linhas, ~30 mil por
+mês) conta **tempo**: uma linha por `(datauso, codigoempresa, codigousuario,
+codigoatividade)` com `tempouso` em **segundos**.
+
+É o que permite perguntar quanto de atenção cada cliente custa, em vez de só quantos
+lançamentos gerou. Uma semana típica dá 25 a 40 h por pessoa — bate com jornada real.
+
+Três limites que a leitura precisa respeitar:
+
+- É do **Questor inteiro**, não do módulo: a mesma linha conta a hora de quem estava na
+  folha. Para recortar um setor, cruze com quem produziu no fato daquele setor no
+  período — e diga na tela quem ficou de fora.
+- **Não tem `codigoestab`** — filtro de filial não morde aqui.
+- `codigoatividade` existe e é inútil nesta base: só `0` e `9999` ("Não definido", da
+  tabela `atividade`, que tem duas linhas). Não dá para quebrar por atividade.
+- `horainicio`/`horafim`/`tiporegistro`/`descricao` vêm nulos; `usuario.custohora` está
+  preenchido em 41 de 437 usuários, então **não** dá para converter hora em dinheiro.
 
 ## Por que importa
 

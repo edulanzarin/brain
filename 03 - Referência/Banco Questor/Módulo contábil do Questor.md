@@ -22,7 +22,7 @@ Partida dobrada, uma linha por lançamento. PK `(codigoempresa, chavelctoctb)`.
 | `tipolancamento` (char 2) | `LN` normal, `LF` fiscal, `LS` societário (dupla escrituração) |
 | `codigoestab`, `codigousuario`, `datahoralctoctb`, `origemdado` | auditoria padrão |
 
-- `lctoctbexcluido` (~10,5M) guarda os lançamentos **excluídos** — rastro de auditoria.
+- `lctoctbexcluido` (~10,7M) guarda os lançamentos **excluídos** — a linha original inteira mais `dataexclusao` e `usuarioexclusao`, o que responde "quem apagou" e "de quem era" numa consulta só. Detalhe, volume e custo em [[Logs e auditoria no Questor]].
 - Filtrar **sempre** por `codigoempresa` + `datalctoctb`; é tabela enorme → [[Agregar antes de juntar em tabelas gigantes no Postgres]].
 
 ### Duas datas, dois relatórios (verificado ago/2026)
@@ -30,6 +30,10 @@ Partida dobrada, uma linha por lançamento. PK `(codigoempresa, chavelctoctb)`.
 `datalctoctb` é a data do FATO (competência) e `datahoralctoctb` é o carimbo de quando a linha foi gravada. As duas divergem muito: no escritório, lançamentos de maio seguiam sendo gravados em agosto. Relatório de movimento usa a primeira; produtividade de equipe usa a segunda — ver [[Produtividade se mede pela hora do registro, não pela data do fato]].
 
 Há índice dedicado no carimbo (`ixlctoctbdatahora`), então filtrar por período de trabalho não custa mais caro que por competência. Custo medido de uma varredura agregada do escritório inteiro, sem filtro de empresa: mês ~1,5s (≈2M lançamentos), trimestre ~10s, ano ~30s.
+
+**A distância entre as duas é enorme, e é um indicador em si** (medido em ago/2026, escritório inteiro, 1,96M de lançamentos): atraso **mediano de 101 dias**, p90 de 216, e só 2.180 lançamentos (0,1%) registrados até 5 dias do fato. No mesmo mês o time tocou **53 competências diferentes**, a mais velha de 2022-08. Ou seja: o mês de trabalho quase nunca é o mês de competência, e medir "produção do mês" sem olhar o atraso esconde se o escritório está em dia ou pagando passivo. Sempre por mediana, nunca por média — um lote de importação antigo leva a média embora ([[A régua sai da distribuição, não dos extremos]]).
+
+Outro atalho barato: **`max(datahoralctoctb)` por empresa sobre a tabela inteira** (35M de linhas) sai em ~2,3 s — o planner resolve pelo índice do carimbo. É o que permite dizer "empresa parada há 8 meses" sem varrer o período todo.
 
 - `codigolotectb` **vem sempre zerado** nesta base — não serve como agrupador de "rodada de trabalho". Para reconstruir a rodada, use a combinação `empresa × dia × origem` por usuário.
 - `tipolancamento` é `LN` em praticamente tudo; `LF`/`LS` aparecem em punhados de linhas.
@@ -104,4 +108,5 @@ Base de qualquer relatório contábil (balancete, DRE, razão, livro diário) e 
 - Plano de contas e balancete: [[Plano de contas padrão do Questor e leitura do balancete]]
 - Alimentado por: [[Modelo de dados fiscais do Questor]] · [[Módulo de folha e eSocial do Questor]] · [[Módulo financeiro do Questor]] · [[Módulo patrimonial do Questor]]
 - Contas por empresa: [[Cadastros centrais do Questor - empresa, estab, pessoa]]
+- Rastro de exclusão e tempo de uso: [[Logs e auditoria no Questor]]
 - Mapa: [[Banco Questor]]
