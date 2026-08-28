@@ -13,6 +13,8 @@ criado: 2026-07-18
 - **`funccontrato`** — o **vínculo empregatício** por empresa: PK `(codigoempresa, codigofunccontr)`; `codigofuncpessoa` (FK → pessoa), `dataadm`, `datadem`, `categoria`/`codigocateg`, `tipovinculo`, `codigosit` (situação). Uma pessoa = vários contratos.
 - ~19 mil pessoas / ~21 mil contratos na base.
 
+**Para IDENTIDADE, esse par basta e a view `funcionario` é cara demais.** Quando a pergunta é "quem é essa pessoa?" — casar um nome de extrato bancário, conferir se um favorecido é funcionário —, o que se quer é nome, CPF, admissão e demissão, e isso sai de `funccontrato` + `funcpessoa` com UM join. A view resolve as vigências com um join por tabela e só se paga quando a resposta precisa de salário, cargo ou lotação. E como a base inteira são ~21 mil vínculos, ela cabe em memória: dá para casar milhares de linhas contra ela sem um ILIKE por linha. Aplicação em [[Casar o favorecido do extrato com a folha - CPF prova, nome indicia]].
+
 ## Vigências ("último registro por data")
 
 Dados que mudam no tempo ficam em tabelas com `datainicial` (PK inclui a data); o **estado atual é o de maior `datainicial`**:

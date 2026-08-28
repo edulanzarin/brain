@@ -352,6 +352,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   pública é hostil; conferir o HMAC sobre o corpo cru com o segredo do app antes do parse.
 - [[Casar telefone brasileiro tolerando o nono dígito]] — o mesmo celular tem duas grafias
   (com/sem o 9); casar por classe de equivalência pra não duplicar contato na ingestão.
+- [[Casar o favorecido do extrato com a folha - CPF prova, nome indicia]] — o mascarado do
+  PIX esconde as pontas e mostra o miolo, que é o que discrimina; nome só casa acompanhado
+  de sobrenome, e quando casa acompanha a decisão em vez de tomá-la.
 - [[De-para determinístico com override que vira aprendizado]] — casar conta/código
   de dois sistemas por cascata (chave → estrutura → descrição restrita), sem IA; a
   correção do humano vira override salvo e o de-para melhora a cada uso. Princípio:

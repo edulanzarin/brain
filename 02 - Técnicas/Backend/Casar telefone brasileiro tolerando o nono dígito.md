@@ -34,9 +34,11 @@ Vale pra qualquer sistema que troque telefone com o mundo real no Brasil — men
 telefonia, cadastro que casa com base externa.
 
 ## Conexões
+- Princípio: [[Casar dado do mundo real é por classe de equivalência, não por igualdade]]
+- Irmã: [[Casar o favorecido do extrato com a folha - CPF prova, nome indicia]]
 - Visto em: [[navetalks]]
 - Mapa: [[Backend]]
 
-<!-- Folha: o princípio-mãe ("casar dado do mundo real por classe de equivalência, não por
-     igualdade literal") ainda não está na Base. Candidato quando aparecer um segundo caso
-     (ex.: normalizar CNPJ com/sem máscara, ou nome com/sem acento). Não inventar agora. -->
+<!-- O princípio-mãe ficou marcado aqui como candidato até aparecer um segundo caso. Ele
+     chegou em ago/2026 — nome de extrato bancário casado com a folha — e virou nota da
+     Base; esta técnica deixou de ser folha isolada. -->

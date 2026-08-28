@@ -98,6 +98,8 @@ Duas abas, `Importar` (a raiz, é o dia a dia) e `Regras` (cadastro).
 
 O **arquivo de saída** começou reusando o `.nli` da Implantação e depois virou CSV: a troca mexeu só na formatação (separador, data, decimal), porque o lançamento pronto já era o mesmo dado nos dois casos. A Implantação segue no `.nli` — [[Layouts de importação de lançamento contábil no Questor]].
 
+**O favorecido é funcionário? (ago/2026)** — pedido do contábil: empresa que paga comissão por fora da folha (a Ad3, entre outras) obriga o contador a caçar nome por nome se o favorecido do extrato é funcionário, porque a conta depende disso. Não era integração nenhuma: a folha do Questor mora no mesmo banco que o app já lê. Cada descrição passa por um casamento com a folha DEPOIS das regras (uma consulta para a prévia inteira; descrição repetida resolve uma vez) e a linha ganha um selo — funcionário desde tal data, ex-funcionário desligado em tal data, funcionário de OUTRA empresa da carteira, ou "talvez" quando o casamento é fraco. O filtro "Funcionários" só aparece quando há selo na prévia: empresa que não paga por fora não ganha ruído. O selo **não decide conta** de propósito — se a pessoa é funcionário, a comissão provavelmente deveria passar pela folha como rubrica (incide encargo), decisão contábil e não de casamento por nome. Método e armadilhas em [[Casar o favorecido do extrato com a folha - CPF prova, nome indicia]]. Reaplicar regras preserva os selos (mexer em conta não muda quem é o favorecido). Ressalva: o motor tem teste unitário, mas as duas consultas ao Questor **ainda não rodaram contra a base** — a rede do escritório não estava alcançável na sessão em que foi escrito.
+
 Ressalva registrada: o extrato do **Bradesco** (conta escrow) lê todas as linhas com os sinais certos, mas o "SALDO" do rodapé não reconcilia com saldo inicial + lançamentos — parece ser posição de títulos, não caixa. Confirmar com o setor antes de usar em produção.
 
 **Bradesco "Extrato Mensal / Por Período" (ago/2026)**: o layout do Net Empresa não cabia no motor tabular — a data só aparece na 1ª linha do dia e o lançamento ocupa 2–3 linhas — então lia **um lançamento por dia**, e ainda casava por engano no config genérico por causa de "BRADESCO SEGUROS" numa descrição. Leitor de layout próprio `bradescoMensal` (âncora na linha de valor, valor pela diferença de saldo, tem precedência sobre o config genérico), validado contra um extrato real: **195 lançamentos, créditos/débitos batendo exatamente com os totais impressos**. Método em [[Ler extrato bancário em PDF]].
@@ -203,6 +205,14 @@ Três módulos novos seguram as cinco: `contabil-prod-comum` (escopo da sessão 
 Custo por aba, escritório inteiro, mês de ago/2026: exclusões ~1,2 s, tempo ~1,0 s, carteira ~3,5 s, atraso ~4,3 s. Os quatro endpoints validados no build de produção com sessão real, e cada número conferido contra SQL rodado à parte. Branch `feat/produtividade-contabil-abas`, merge ff na `main` + push.
 
 **O que ficou de fora, de propósito**: a flag de conciliação do `lctoctb` (`lctoconcildeb`/`cred`) marca só 0,8% dos lançamentos do mês — viraria ruído, não eixo. E o plano de contas (`planoespec` tem `codigousuario` + `datahoracadast`, 45 a 150 mil contas criadas por mês) é quase todo criação automática de conta de contraparte na importação: mede a rotina, não a pessoa.
+
+### Funcionários (ago/2026)
+
+Seção própria na sidebar do Contábil (`/contabil/funcionarios`), irmã do selo da Conciliação e nascida do mesmo pedido: o contador precisa saber quem é funcionário da empresa sem depender do DP. Quadro da empresa lido da folha do Questor — vínculo (ativo × desligado com a data), cargo, setor, estabelecimento, admissão e tempo de casa —, com busca por nome, CPF, cargo ou setor e alternância "Ativos × Com desligados".
+
+**Sem remuneração, de propósito**: para decidir a conta basta saber quem é a pessoa, e salário é assunto de quem tem o módulo DP e a permissão dele. Pelo mesmo motivo o CPF sai mascarado (`***.456.789-**`) — e a máscara escolhida é justamente a que o PIX usa no extrato, então o miolo visível é o que dá para conferir contra a descrição bancária.
+
+Seção nova = entrada no catálogo (`contabil-secoes`) + registro no mapa endpoint→seção (`api-secoes`), e a permissão aparece sozinha na tela de cargos. A busca cruza empresas mas nunca sai do escopo da sessão: quem enxerga três empresas só descobre gente dessas três.
 
 ### Arquitetura de módulos e permissão
 
