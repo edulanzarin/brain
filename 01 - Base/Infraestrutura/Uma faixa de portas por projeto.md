@@ -31,6 +31,7 @@ Mapa atual:
 | [[piwdex]] | 4070 | 5070 |
 | [[Vespéria]] | 4073 | 5073 |
 | [[piwdex2]] | 4071 · 4072 | 5071 |
+| [[monofire]] | 4074 | 5074 |
 
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte
 da verdade, não o `docker ps` da máquina que por acaso está ligada.

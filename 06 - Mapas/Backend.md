@@ -148,6 +148,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Integrações
 
+- [[Provedor de pagamento entra por interface, e o simulado é a primeira implementação]] —
+  o sistema fala com um contrato de três campos, não com o SDK do gateway; o provedor
+  simulado deixa o fluxo de venda existir inteiro antes de existir credencial. Princípio:
+  [[Chamada externa tem timeout e erro tratado]].
 - [[Recusa não é falha: contra o não do servidor, insistir é ruído]] — retry serve pra
   falha passageira; contra recusa (banido, sem permissão, cota) insistir só gasta
   tentativa e esconde o motivo. Classifique 403/401/429 antes de decidir o retry, guarde

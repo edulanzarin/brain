@@ -12,6 +12,10 @@ de sistema externo é referência e tem mapa próprio.
 
 `02 - Técnicas/Banco de dados`
 
+- [[Acesso comprado é linha própria, não status do pedido]] — "pagou" e "tem acesso"
+  parecem a mesma pergunta e não são; matrícula em tabela separada, com ponteiro
+  opcional pro pedido, aguenta reembolso, cortesia e curso gratuito. Princípio:
+  [[Um invariante se garante na estrutura, não no processo]].
 - [[Agregar antes de juntar em tabelas gigantes no Postgres]] — reduzir antes de
   juntar; o padrão que salvou consulta em tabela de 47M linhas.
 - [[Estoque e fluxo numa série a partir de datas de início e fim]] — de datas de

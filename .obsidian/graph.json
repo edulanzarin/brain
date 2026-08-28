@@ -76,6 +76,13 @@
         "a": 1,
         "rgb": 15767112
       }
+    },
+    {
+      "query": "tag:#projeto/monofire",
+      "color": {
+        "a": 1,
+        "rgb": 16735529
+      }
     }
   ],
   "collapse-display": true,

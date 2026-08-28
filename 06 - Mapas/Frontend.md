@@ -41,6 +41,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 
 ## Estado e renderização
 
+- [[A regra que a server action executa mora fora dela]] — action fica com sessão,
+  revalidate e redirect; a regra vira função comum que um script roda contra o banco,
+  sem navegador. Folha isolada por enquanto: falta o princípio que a cubra.
 - [[Cache do React Query não é lugar de estado de interface]]
 - [[Portal condicional dispensa o flag de montagem]]
 - [[Foto sem storage vira thumbnail data URL gerado no cliente]] — avatar/foto
