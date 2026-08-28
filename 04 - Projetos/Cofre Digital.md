@@ -233,8 +233,7 @@ duplicados).
 Ferramentas em `scripts/` (`exportar-sistema-antigo.mjs`, `importar-certificados.mjs`,
 `README-migracao.md`): exporta o mapa, e importa uma pasta local de `.pfx`/`.p12`
 mandando cada um pelo endpoint de cadastro — herda validação, cria empresa pelo
-CNPJ e anexa o grupo, idempotente. Virou [[Importação em massa passa pela API, não
-pelo banco]]. As senhas exportadas ficam fora do repositório (`~/cofre-migracao`).
+CNPJ e anexa o grupo, idempotente. Virou [[Importação em massa passa pela API, não pelo banco]]. As senhas exportadas ficam fora do repositório (`~/cofre-migracao`).
 
 ## Próximos passos possíveis
 

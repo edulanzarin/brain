@@ -29,8 +29,7 @@ Foi assim duas vezes no mesmo produto:
 
 **Suba a conta pro pai e distribua o array pronto.** O resumo vira uma redução
 sobre o mesmo array que as telas de baixo listam; discordar deixa de ser possível
-porque não existem dois arrays ([[Um invariante se garante na estrutura, não no
-processo]]).
+porque não existem dois arrays ([[Um invariante se garante na estrutura, não no processo]]).
 
 O ganho de custo — parar de rodar o mesmo cálculo caro três vezes — é real e é o
 segundo motivo, não o primeiro. Uma conta duplicada que sempre concorda só custa

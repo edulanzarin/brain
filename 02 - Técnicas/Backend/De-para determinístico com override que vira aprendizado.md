@@ -34,8 +34,7 @@ Resolver por **cascata**, do mais confiável ao menos, e deixar o resultado ser
 
 O que não casou fica visível pro humano; a escolha dele **grava um override** e
 alimenta o passo 1 da próxima vez. O de-para é uma tabela de DADOS que dirige o
-comportamento — [[A definição em dado dirige o comportamento, não um caso no
-código]] —, então evolui sem deploy.
+comportamento — [[A definição em dado dirige o comportamento, não um caso no código]] —, então evolui sem deploy.
 
 Aparece duas vezes no mesmo sistema, em features diferentes: a contabilização por
 CFOP (plano do Questor + override manual + aprendido do histórico) e a implantação

@@ -29,8 +29,7 @@ mentir na comparação). Se todo estouro der o mesmo número, é este.
 ## O corte vai na raiz, e não no ancestral mais próximo
 
 O instinto é `overflow-x` no pai da faixa. **Isso mata o efeito**: o pai é
-exatamente o container de largura máxima ([[Container tem largura máxima e respiro
-constante]]) do qual a faixa precisa escapar — cortar ali devolve a seção pro
+exatamente o container de largura máxima ([[Container tem largura máxima e respiro constante]]) do qual a faixa precisa escapar — cortar ali devolve a seção pro
 container. O único ancestral largo o bastante é o elemento raiz.
 
 E o valor é `clip`, não `hidden`:

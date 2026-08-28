@@ -16,8 +16,7 @@ O Eduardo constrói de baixo pra cima: primeiro o **primitivo** (botão, campo, 
 token, uma função pura), depois compõe as telas a partir dele. A pergunta ao escrever
 qualquer coisa é "isto vira uma peça reaproveitável?" antes de "isto resolve esta
 tela?". Quando um conceito reutilizável aparece no meio da construção, ele extrai **na
-hora** — o mesmo reflexo que aplica ao próprio cérebro ([[Manter o tooling enxuto e o
-conhecimento no cérebro]]): puxar pro nível mais primitivo em que ainda é verdade.
+hora** — o mesmo reflexo que aplica ao próprio cérebro ([[Manter o tooling enxuto e o conhecimento no cérebro]]): puxar pro nível mais primitivo em que ainda é verdade.
 
 Modularidade é o par disso: cada parte com uma responsabilidade, trocável sem mexer no
 resto — um token muda o app inteiro, um catálogo em dado dirige a navegação

@@ -32,8 +32,7 @@ verdade no ponto de autoridade (servidor), senão dado ruim vira comportamento r
   lugares para editar e um para esquecer.
 - **Formulário montado pelo usuário**: a definição em `formulario_campo` (tipo +
   `config` jsonb) dirige o renderer, o preview e a validação — a RH cria formulário
-  sem tocar em código nem em migration. Ver [[Formulário montado pelo usuário — a
-  definição no banco dirige renderer e validação]].
+  sem tocar em código nem em migration. Ver [[Formulário montado pelo usuário — a definição no banco dirige renderer e validação]].
 
 ## Conexões
 - Depende de: [[Configuração vem do ambiente, não do código]]

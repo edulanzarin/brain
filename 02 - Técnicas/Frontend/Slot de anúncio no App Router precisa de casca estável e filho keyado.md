@@ -81,8 +81,7 @@ em análise, ou você ligando um slot de cada vez —, o placeholder de dentro s
 casca fica: o `min-height` e o rótulo "Publicidade" continuam desenhando. O site
 vai ao ar com uma caixa vazia rotulada.
 
-E rótulo é obrigatório por política ([[Anúncio em feed não pode vestir a roupa do
-conteúdo]]), então o buraco vem legendado — que é pior. Caixa que diz
+E rótulo é obrigatório por política ([[Anúncio em feed não pode vestir a roupa do conteúdo]]), então o buraco vem legendado — que é pior. Caixa que diz
 "Publicidade" e não mostra nada promete conteúdo que não vem, e aparece
 exatamente durante a revisão do AdSense.
 

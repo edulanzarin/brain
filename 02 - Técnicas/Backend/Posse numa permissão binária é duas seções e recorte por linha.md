@@ -13,8 +13,7 @@ criado: 2026-08-12
 ## O problema
 
 A tentação é dar à seção dois níveis — "ver" (os meus) e "editar/gerir" (todos).
-Mas quando a doutrina do sistema é permissão **binária** ([[Permissão composta
-por papéis somados, não exceção por usuário]]: acessa ou não), esse "meio acesso"
+Mas quando a doutrina do sistema é permissão **binária** ([[Permissão composta por papéis somados, não exceção por usuário]]: acessa ou não), esse "meio acesso"
 não existe. Forçar um view/edit ali reintroduz o grau que o modelo removeu de
 propósito.
 

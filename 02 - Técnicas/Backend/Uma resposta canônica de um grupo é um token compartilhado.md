@@ -23,8 +23,7 @@ Modelar a avaliação como **um recurso** (uma linha, um token), não como uma l
 de pessoas. Os destinatários reais só aparecem no **disparo**: resolve os e-mails
 dos gestores do setor na hora e manda o mesmo link a todos. A submissão fecha o
 recurso (`status = respondido`), então o segundo gestor que abrir o link vê "já
-respondido". É o mesmo mecanismo do token opaco ([[Formulário público por token
-opaco fica fora do gate de sessão]]), só que a credencial pertence ao GRUPO.
+respondido". É o mesmo mecanismo do token opaco ([[Formulário público por token opaco fica fora do gate de sessão]]), só que a credencial pertence ao GRUPO.
 
 ```
 -- uma linha por avaliação; email pode ser null (o alvo é o setor, não uma pessoa)
@@ -43,8 +42,7 @@ await enviarEmail({ para, assunto, html: linkUnico });
   colunas de contrato preenchidas; o disparo escolhe o caminho por elas. Um caso
   especial vira uma variação de dado, não um schema paralelo.
 - O "primeiro fecha" é o invariante — garanta-o na estrutura, não na expectativa
-  de que só um gestor vá responder: [[Um invariante se garante na estrutura, não
-  no processo]].
+  de que só um gestor vá responder: [[Um invariante se garante na estrutura, não no processo]].
 - Índice único parcial evita o mesmo alvo duas vezes no mesmo envio.
 - É a generalização de um fluxo já existente (a avaliação de experiência já
   mandava um token a todos os gestores do setor); o padrão nasceu ali e virou

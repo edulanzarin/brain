@@ -19,8 +19,7 @@ entidade. No Cofre Digital, grupo era só de `Company`; um certificado e-CPF
 avulso (sem empresa) não tinha onde guardar o grupo. O formulário mostrava o
 seletor de grupo e, ao salvar sem empresa, **descartava o valor em silêncio** —
 a pessoa escolhia o grupo e ele não colava. Controle que descarta valor sem
-avisar é desonesto, primo de [[Filtro transversal só é honesto se todo o funil o
-honra]] ("um filtro que mente é pior que filtro nenhum").
+avisar é desonesto, primo de [[Filtro transversal só é honesto se todo o funil o honra]] ("um filtro que mente é pior que filtro nenhum").
 
 ## O padrão
 
@@ -32,8 +31,7 @@ próprio filho, usado como fallback.
   coluna e contagem passam a ler esse efetivo, não o do dono direto.
 - **Escrita** — com dono, atribui no dono e **zera o local** (`groupId = null`);
   sem dono, grava no local. Zerar o local quando há dono mantém **uma fonte só**:
-  nunca há dúvida de qual vence — [[Um invariante se garante na estrutura, não no
-  processo]].
+  nunca há dúvida de qual vence — [[Um invariante se garante na estrutura, não no processo]].
 - **Vazio não mexe** — seletor em branco/oculto preserva o que já havia (não
   desvincula), igual à atribuição no dono.
 

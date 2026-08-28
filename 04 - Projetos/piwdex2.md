@@ -1526,8 +1526,7 @@ Duas decisões que valem lembrar:
   com o símbolo de onde a pessoa acabou de sair.
 
 Duas artes voltaram pra prancheta depois de rasterizadas (a caçada lia como riscos
-soltos, a loja lia como balde) — o teste de [[Arte de ícone se julga no tamanho de
-uso, e o acento é a massa]] pagando de novo. E o par ilustração/glifo virou
+soltos, a loja lia como balde) — o teste de [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]] pagando de novo. E o par ilustração/glifo virou
 [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]].
 
 ## Conexões

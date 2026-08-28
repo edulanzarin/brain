@@ -49,8 +49,7 @@ cada rota — [[Um invariante se garante na estrutura, não no processo]].
 
 ## O que mais vale lembrar
 
-É o lado da escrita do mesmo raciocínio de [[Filtro transversal só é honesto se
-todo o funil o honra]]: lá toda CONSULTA precisa honrar o filtro compartilhado;
+É o lado da escrita do mesmo raciocínio de [[Filtro transversal só é honesto se todo o funil o honra]]: lá toda CONSULTA precisa honrar o filtro compartilhado;
 aqui toda ESCRITA precisa passar pelo mesmo resolvedor. Query própria e rota de
 edição própria são o mesmo tipo de buraco — o que escapa do funil escapa da
 regra. Ao adicionar uma regra ao cadastro, a pergunta seguinte é sempre "a edição

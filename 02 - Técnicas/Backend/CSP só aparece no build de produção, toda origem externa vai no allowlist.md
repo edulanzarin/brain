@@ -31,8 +31,7 @@ genérica.
 
 Fonte externa custa duas diretivas (a folha e o arquivo). Mapa, script de
 terceiro, imagem remota — cada um na sua (`img-src`, `connect-src`,
-`worker-src`, `script-src`). O jeito de não esquecer é [[Verificar no build de
-produção, não só em dev]]: suba o servidor de prod, abra o console e olhe os
+`worker-src`, `script-src`). O jeito de não esquecer é [[Verificar no build de produção, não só em dev]]: suba o servidor de prod, abra o console e olhe os
 erros de CSP; o dev server nunca vai te avisar.
 
 ## O que mais vale lembrar

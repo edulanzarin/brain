@@ -37,15 +37,13 @@ gentileza:
 Vale para o invariante de **existência/unicidade**. É primo de
 [[Permissão se valida no servidor, não na interface]]: as duas dizem "não confie
 no processo/na UI, garanta no lugar estrutural" — lá o lugar é o servidor, aqui é
-o schema. E é o outro lado de [[A definição em dado dirige o comportamento, não um
-caso no código]]: se o comportamento mora no dado, a regra dura também.
+o schema. E é o outro lado de [[A definição em dado dirige o comportamento, não um caso no código]]: se o comportamento mora no dado, a regra dura também.
 
 ## Onde já apareceu (dois casos, mesma lição)
 
 - **Idempotência da submissão pública** do Nexo: o formulário respondido uma vez
   recusa o resto por `unique(experiencia_id)` + `on conflict do nothing`, não por
-  a tela esconder o botão. Ver [[Formulário público por token opaco fica fora do
-  gate de sessão]].
+  a tela esconder o botão. Ver [[Formulário público por token opaco fica fora do gate de sessão]].
 - **Avaliação sobre colaborador**: os gestores de um setor dividem UM token; o
   primeiro que responde fecha (os outros veem "já respondido"), e um índice único
   impede o mesmo colaborador duas vezes no envio — nada disso depende de o

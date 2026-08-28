@@ -43,8 +43,7 @@ A saída é resolver cada uma sem reintroduzir identidade:
 - Deixar a gestão ver o recorte cru "porque é interno": o interno é justamente
   quem tem meio de retaliar.
 
-O canal em si segue [[Formulário público por token opaco fica fora do gate de
-sessão]] (aberto, sem login, fora do gate) — a diferença é que aqui, além de não
+O canal em si segue [[Formulário público por token opaco fica fora do gate de sessão]] (aberto, sem login, fora do gate) — a diferença é que aqui, além de não
 exigir login, o sistema **deliberadamente não sabe** e não pode saber quem falou.
 
 ## Conexões

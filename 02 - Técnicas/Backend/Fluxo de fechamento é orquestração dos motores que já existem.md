@@ -25,8 +25,7 @@ O fluxo de fechamento **chama os motores que já existem** e só decide a cor:
 
 - Cada checagem reusa a função que a tela dona já usa (o mesmo coletor, a mesma
   conferência). Se o núcleo está preso numa rota, **extrai pra um lib na hora** —
-  a rota e o fechamento passam a compartilhar (ver [[O que dois módulos
-  compartilham é a query, não a rota]]).
+  a rota e o fechamento passam a compartilhar (ver [[O que dois módulos compartilham é a query, não a rota]]).
 - O orquestrador só mapeia resultado → status (verde/amarelo/vermelho) e agrega o
   veredito geral (o pior). Nenhuma regra de negócio nova mora nele.
 - Cada item do veredito **linka a tela onde a pendência se resolve**, já filtrada

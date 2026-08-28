@@ -34,8 +34,7 @@ Dois casos do mesmo jogo, com um mês de diferença:
 
 - No [[piwdex]], o normalizador deixou de copiar três campos da fonte, e o app inteiro
   passou a calcular com o vazio no lugar deles. Ninguém viu, porque campo opcional
-  ausente é o normal. Virou [[Campo que a normalização não copia vira número errado,
-  não erro]].
+  ausente é o normal. Virou [[Campo que a normalização não copia vira número errado, não erro]].
 - No [[piwdex2]], o diff entre dois snapshots de catálogo acusou **481 das 482 espécies
   "mudando de golpe"**. O jogo não tinha tocado em golpe nenhum: era um campo novo
   nascendo na minha ingestão entre uma foto e outra. Publicado, teria virado a manchete

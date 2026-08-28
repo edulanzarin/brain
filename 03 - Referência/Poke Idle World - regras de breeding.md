@@ -5,8 +5,7 @@ criado: 2026-08-15
 
 # Poke Idle World - regras de breeding
 
-> O breeding do jogo NAO tem endpoint (ver [[Poke Idle World - endpoints publicos de
-> dados]]): as regras da especie sao curadas, nao vem no JSON. Aqui ficam as regras
+> O breeding do jogo NAO tem endpoint (ver [[Poke Idle World - endpoints publicos de dados]]): as regras da especie sao curadas, nao vem no JSON. Aqui ficam as regras
 > confirmadas do jogo, o que ainda e provisorio e o que nao se sabe — pra qualquer
 > ferramenta simular sem redescobrir nem inventar numero.
 
