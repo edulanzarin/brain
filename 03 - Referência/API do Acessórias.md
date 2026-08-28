@@ -23,8 +23,9 @@ diverge da doc.
 - **A latência domina o ritmo.** Cada chamada de `deliveries` leva ~1,4s
   independentemente do tamanho da janela de datas (medido com 3, 8 e 18 meses),
   o que é MAIOR que o intervalo de 45/min. Na prática o espaçamento vira
-  irrelevante e a varredura anda no passo da rede: ~3,4s por empresa, ~90 min
-  para a carteira.
+  irrelevante e a varredura anda no passo da rede. **Medido ponta a ponta em
+  ago/2026: 1.575 empresas ativas em 46 min, 7.331 entregas pendentes, zero
+  falhas.**
 - **Não há webhook.** Nada avisa mudança; quem quer o dado fresco varre de novo.
   Existe sincronização incremental por `DtLastDH` em `companies` e `deliveries`.
 
