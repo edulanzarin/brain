@@ -84,6 +84,14 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   recurso exige id no caminho, o custo é N chamadas com filtro ou sem; traga
   tudo e recorte na leitura. Princípio:
   [[Fator que domina o resultado não entra na conta por estimativa]].
+- [[Parâmetro de presença perde o efeito se você der um valor a ele]] — `?config`
+  e `?config=1` não são a mesma coisa; o construtor de query sempre escreve
+  `chave=valor` e a resposta volta vazia sem erro. Princípio:
+  [[Contador que conta sucesso de promessa afirma que deu certo]].
+- [[Processo longo prova que está vivo batendo, não deixando a linha aberta]] —
+  linha sem fim também é o que o processo morto deixa; presença se prova por
+  carimbo recente, e deploy deixa de travar o módulo. Princípio:
+  [[Contador que conta sucesso de promessa afirma que deu certo]].
 - [[Filtro transversal só é honesto se todo o funil o honra]] — dimensão de
   filtro nova (filial) precisa chegar a toda consulta; funil compartilhado
   propaga, query própria é buraco silencioso.

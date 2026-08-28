@@ -16,7 +16,15 @@ diverge da doc.
 - O token é de **escritório**, não de empresa — alcança a carteira inteira — mas
   herda as permissões do USUÁRIO que o criou. Integração séria pede um usuário
   administrativo dedicado; token preso a conta pessoal cai quando a pessoa sai.
-- **Teto de 100 req/min**, sliding window, HTTP 429 ao estourar.
+- **Teto real ~45 req/min**, não os 100 da doc. Calibrado com 20 chamadas por
+  taxa em ago/2026: a 80/min, 12 de 20 voltaram 429; a 60/min, 10 de 20; a
+  45/min, zero. Não há header `Retry-After` nem `X-RateLimit-*` — nada diz
+  quanto esperar.
+- **A latência domina o ritmo.** Cada chamada de `deliveries` leva ~1,4s
+  independentemente do tamanho da janela de datas (medido com 3, 8 e 18 meses),
+  o que é MAIOR que o intervalo de 45/min. Na prática o espaçamento vira
+  irrelevante e a varredura anda no passo da rede: ~3,4s por empresa, ~90 min
+  para a carteira.
 - **Não há webhook.** Nada avisa mudança; quem quer o dado fresco varre de novo.
   Existe sincronização incremental por `DtLastDH` em `companies` e `deliveries`.
 
@@ -33,6 +41,11 @@ diverge da doc.
 - **`ListAll` não vale para tudo.** `deliveries` e `invoices` devolvem 204 com
   ele; `deliveries` exige o identificador (CNPJ/CPF) no caminho, e o id numérico
   da empresa também não serve. A barra do CNPJ vai crua na URL — encodar quebra.
+- **Parâmetro de presença não aceita valor.** `?config` traz o bloco Config em
+  cada entrega; `?config=1` devolve **HTTP 204, corpo vazio**. Como todo
+  construtor de query escreve `chave=valor`, é fácil implementar a forma errada
+  depois de testar a certa na mão — ver
+  [[Parâmetro de presença perde o efeito se você der um valor a ele]].
 - **Filtro por setor só existe em `deliveries`.** Em `requests` e `processes` o
   parâmetro é aceito e **ignorado em silêncio** (testadas quatro grafias): volta
   o conjunto misturado, sem erro. O setor vem no corpo; o recorte é no cliente.
