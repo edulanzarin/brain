@@ -32,6 +32,7 @@ Mapa atual:
 | [[Vespéria]] | 4073 | 5073 |
 | [[piwdex2]] | 4071 · 4072 | 5071 |
 | [[monofire]] | 4074 | 5074 |
+| [[Privello]] | 4075 | 5075 |
 | Central Contábil | 4010 | 5010 |
 
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte

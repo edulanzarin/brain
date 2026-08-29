@@ -58,6 +58,7 @@ template: `docker logs <slug>-app`, `docker exec -it <slug>-db psql`.
 | [[Vespéria]] | 4073 | 5073 |
 | [[piwdex2]] | 4071 | 5071 |
 | [[monofire]] | 4074 | 5074 |
+| [[Privello]] | 4075 | 5075 |
 | Central Contábil | 4010 | 5010 |
 
 App `4xxx`, banco espelha trocando o `4` inicial por `5`, e um terceiro serviço que
@@ -107,6 +108,10 @@ precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três d�
   sobe duas vezes e uma variável decide qual host cada processo atende, sem duplicar o
   sistema de design. Roteie por lista explícita de rotas, nunca por prefixo — prefixo
   arrasta favicon e imagem social pra um 404 silencioso.
+- [[Página que consulta o banco não pode nascer no build]] — o build roda dentro
+  do Docker, sem banco, e derruba qualquer rota que o Next resolva pré-renderizar
+  com uma query dentro. `revalidate` não salva; `force-dynamic` sim, e ainda
+  impede o conteúdo de congelar na data do deploy.
 - [[Ponte pro endereço novo só se levanta quando o outro lado responde]] — redirect é
   código, mas o destino é fato de infraestrutura. A variável de ambiente é a declaração
   de que o outro lado existe; sem ela, o comportamento anterior continua valendo.

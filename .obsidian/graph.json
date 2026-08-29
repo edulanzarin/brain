@@ -83,6 +83,13 @@
         "a": 1,
         "rgb": 16735529
       }
+    },
+    {
+      "query": "tag:#projeto/privello",
+      "color": {
+        "a": 1,
+        "rgb": 14239471
+      }
     }
   ],
   "collapse-display": true,

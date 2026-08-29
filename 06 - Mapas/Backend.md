@@ -21,6 +21,12 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Ler extrato bancário em PDF]] — extrair dado estruturado de PDF.
 - [[Servir anexo por rota com checagem de permissão]] — arquivo protegido não é
   arquivo estático. Princípio: [[Permissão se valida no servidor, não na interface]].
+- [[Linha no banco não garante o arquivo no disco]] — a referência entre banco e
+  armazenamento é afirmação, não invariante; sem conferir antes do stream, a
+  resposta sai VAZIA (curl 52), que não é erro em tela nenhuma.
+- [[A superfície indexável sai da mesma consulta que o conteúdo]] — em site de
+  diretório, cidade no cadastro não é cidade com página. Rota, índice e sitemap
+  saem da mesma consulta, senão o domínio nasce com dezenas de páginas vazias.
 - [[Trocar o backend de armazenamento sem downtime]] — mover binário do banco pra
   uma pasta com ponteiro, leitura de reserva e migração sob demanda. Princípio:
   [[Migração de dados mantém o antigo como reserva até a virada]].

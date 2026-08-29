@@ -39,6 +39,11 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
   react-draggable usam `findDOMNode`, removido no React 19; arraste/resize à mão,
   comitando no soltar.
 
+- [[Portão de conteúdo cobre a tela, não o HTML]] — confirmação de maioridade,
+  aviso de cookie, aceite de termos: se o portão decidir o que o servidor manda,
+  toda URL do domínio devolve a mesma tela e o buscador lê um site vazio. Ele é
+  overlay por cima de página inteira.
+
 ## Estado e renderização
 
 - [[A regra que a server action executa mora fora dela]] — action fica com sessão,
