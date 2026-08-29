@@ -77,6 +77,7 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Página que consulta o banco não pode nascer no build]]
 - [[Portão de conteúdo cobre a tela, não o HTML]]
 - [[Linha no banco não garante o arquivo no disco]]
+- [[Propriedade com prefixo escrita à mão pode perder a versão padrão no build]]
 
 ## Próximos passos
 

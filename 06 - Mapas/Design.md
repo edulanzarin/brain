@@ -35,6 +35,10 @@ Projeto novo herda os princípios sempre; puxa este dialeto só se for da mesma 
   último; checagens objetivas antes de fechar a paleta.
 - [[Cor de marca precisa de variante acessível por tema]] — a cor crua do cliente
   reprova contraste como texto; derive uma variante por tema e compute.
+- [[Propriedade com prefixo escrita à mão pode perder a versão padrão no build]] —
+  `backdrop-filter` escrito cru em `@layer components` sai do build só com
+  `-webkit-`, e o computado vira `none`. O vidro continua translúcido e parece
+  certo; some só o desfoque, que é o que faz parecer vidro.
 - [[Acento da interface é um token separado da cor de dado]] — quando a cor tem
   significado de dado (azul=entrada), o acento de UI vira outro token; senão
   retematizar a interface contamina os gráficos.
