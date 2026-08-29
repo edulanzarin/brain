@@ -157,7 +157,8 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
   fita com dois marcos vira osso. Pergunte "o que mais isso parece?" antes de
   "está bonito?", e cuide também da colisão interna, com os ícones do próprio set.
 
-Princípios: [[O primitivo só padroniza o que passa por dentro dele]] ·
+Princípios: [[Catálogo de componentes é contrato vivo, não documentação]] ·
+[[O primitivo só padroniza o que passa por dentro dele]] ·
 [[A variante de um controle muda a intenção, não o tamanho]] ·
 [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] ·
 [[Texto de interface soa a IA pelo ritmo, não pelo assunto]]
