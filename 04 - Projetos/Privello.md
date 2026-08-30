@@ -27,6 +27,12 @@ story com prazo de 24 h, compra de plano e de VIP (provedor simulado),
 avaliação, denúncia e suspensão. `npm run verificar` cobre 27 regras contra o
 banco de dev.
 
+**Ponta a ponta fechado (30/08/2026).** O anúncio agora nasce, se monta e vai
+ao ar sem passo manual: cadastro em cinco passos, mídia com upload de verdade,
+expediente, etiquetas, documento com selfie, fila de conferência em `/admin` e
+plano com pagamento simulado. Falta a fila de denúncias no admin, e o
+adquirente de verdade.
+
 **Identidade do perfil (30/08/2026).** O endereço deixou de sair do nome e virou
 um @ escolhido por quem anuncia, com trava de 30 dias entre trocas; entrou o
 recado do dia, com prazo de 24 h; e o expediente saiu da ficha para um modal.
@@ -112,6 +118,16 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   navegador desenha o seu, então a mesma tela tinha três caras. O nosso é feito
   para o polegar: a área toda toca e pausa, a barra some enquanto toca, e o
   primeiro toque só acorda em vez de pausar.
+- **A moderação é a única porta para PUBLICADO.** Nem o cadastro nem a compra
+  de plano movem um anúncio para lá: a transição só existe em
+  `server/moderacao.ts`, depois de alguém olhar documento e selfie lado a
+  lado. É assim que a trava dos 18 anos é estrutural e não combinada.
+- **Documento não divide pasta com a mídia pública.** `publico/` tem rota
+  aberta; `documento/` não tem rota nenhuma além da de admin, que confere
+  sessão E prefixo de pasta. Conferido: a própria dona do anúncio recebe 404
+  ao pedir o próprio documento.
+- **Assinar não publica, e a tela diz isso antes do clique.** Pagar e
+  continuar fora do ar é a decepção mais cara que este produto pode entregar.
 - **Sem anúncio, o painel É o formulário de criação.** E é lá que o @ se
   escolhe — primeiro campo, sozinho no cartão, com a trava de 30 dias dita
   antes e a disponibilidade conferida enquanto digita
@@ -154,10 +170,9 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 
 ## Próximos passos
 
-- [ ] Moderação (`/admin`): a fila de verificação que publica o anúncio. Sem
-      ela o documento não tem para onde ir.
-- [ ] Envio de documento com selfie — é o que falta para o anúncio criado sair
-      do rascunho, e hoje o painel só sabe dizer que falta.
+- [ ] Fila de denúncias no `/admin`. A de conferência existe; a de denúncia
+      ainda não tem tela, e o modelo já guarda tudo que ela precisa.
+- [ ] Suspender e despublicar pelo admin, com o evento de moderação junto.
 - [ ] **Gateway real.** É o bloqueio comercial, não técnico: precisa de PIX
       direto por PSP que aceite o segmento, ou adquirente high-risk. A interface
       `ProvedorPagamento` já está pronta para receber.
