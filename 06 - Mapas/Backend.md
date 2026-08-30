@@ -58,6 +58,12 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   usuário pediu" não é confiável; a restrição real mora num funil único.
 - [[Drill-down por id foge do funil de escopo e precisa de gate próprio]] — a rota
   de detalhe por `?empresa=` não passa pelo funil; re-checar o dono do registro.
+- [[Instrumentar o gesto no funil, e um teste cobra a classe de cada verbo]] — o
+  mesmo funil único, agora para a trilha: o evento que precisa valer em toda tela
+  nasce onde todas passam (o `executar`), e um teste varre o `src` cobrando classe
+  de cada verbo gravado — senão a tela nova nasce sem registro e o verbo novo cai
+  calado em "Outros".
+  Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[O que dois módulos compartilham é a query, não a rota]] — reuso de dado entre
   módulos sem furar o gate por módulo.
 - [[Formulário público por token opaco fica fora do gate de sessão]] — quem não
@@ -343,6 +349,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   (um item inválido = 400 no lote) sem como filtrar antes: bissecção isola os recusados,
   processa o resto e os bloqueia por sessão. Só pra erro determinístico, nunca 5xx.
   Princípio: [[Chamada externa tem timeout e erro tratado]].
+- [[Dependência cosmética não empresta sua disponibilidade à resposta]] — a tela cuja
+  verdade mora no seu banco toca o externo só pelo NOME da coisa; isolar essa chamada
+  num `try` com fallback legível (e um sinal na resposta pra tela avisar) é o que
+  impede a única tela que sobreviveria à queda de cair junto, por um rótulo.
+  Princípio: [[Ausência de leitura cai no valor que dispara a ação]].
 - [[Adapter de canal isola o app do provider de mensageria]] — provider externo trocável
   (WhatsApp: Baileys ou Cloud API) fica atrás de uma interface; o app não vê o fornecedor.
 - [[Persistir a mensagem não espera a entrega, a entrega é status]] — gravar (durável,

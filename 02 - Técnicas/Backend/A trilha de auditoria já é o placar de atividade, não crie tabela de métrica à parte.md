@@ -32,6 +32,30 @@ o mesmo evento serve investigação (a tela de auditoria) e placar (o painel).
 Casa com [[A definição em dado dirige o comportamento, não um caso no código]]:
 o número no painel é derivado do log, não mantido à mão.
 
+## Ao ranquear GENTE, separe produzir de consultar
+
+Contar ação por período é uma coisa; ordenar **pessoas** pela trilha é outra, e a
+segunda tem uma armadilha própria. A trilha mistura, no mesmo `count(*)`, o gesto
+que **deixou algo pronto** (gerou o arquivo, gravou a regra, resolveu a
+pendência) com o gesto que só **puxou dado** (consultou, abriu o detalhe,
+exportou). Somados, quem mais exportou planilha sobe no ranking como se tivesse
+produzido mais que quem conciliou o mês inteiro.
+
+A correção é o catálogo de verbos carregar um `tipo` (`producao` | `leitura`), e
+o painel:
+
+- **ordenar por produção**, com o total só como desempate;
+- **contar as duas** em cartões separados, porque consulta também é informação
+  (é adoção, é custo de varredura) — só não é produção;
+- **comparar produção com produção** no delta do período anterior: um `count(*)
+  filter (where acao = any($verbosDeProducao))`, não o total de antes contra a
+  produção de agora.
+
+Corolário honesto: num módulo **somente leitura**, onde nenhum gesto grava nada,
+a produção é zero e o painel tem de dizer isso — o cartão sempre zerado sai da
+tela, e a frase explica que o trabalho daquele time está em outra aba. Vender
+consulta como produção é o mesmo erro, só que na direção do marketing.
+
 ## Na prática
 
 - Ao somar uma métrica do `detalhe`, **case só a ação certa** para não castar
@@ -46,5 +70,7 @@ o número no painel é derivado do log, não mantido à mão.
 
 ## Conexões
 - Serve a home-placar de: [[A home de um módulo é o resumo que carrega sozinho; automação não abre sozinha]]
-- Visto em: [[Navetech Hub]] (Contábil → Painel)
+- Completa: [[Instrumentar o gesto no funil, e um teste cobra a classe de cada verbo]] — a trilha só é placar do que foi instrumentado
+- Irmã: [[Ordene pela grandeza que decide, não pela que impressiona]] — produção decide, volume total impressiona
+- Visto em: [[Navetech Hub]] (Contábil → Painel; e a aba No Nexo das Produtividades, onde a trilha vira ranking por pessoa)
 - Mapa: [[Backend]]
