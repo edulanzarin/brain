@@ -46,6 +46,23 @@ sobe, o erro do quinto não joga fora os quatro que entraram, e o servidor nunca
 segura cinco vídeos na memória ao mesmo tempo. Depois do laço, `router.refresh()`
 — a grade é do servidor e sem isso a foto só apareceria na próxima visita.
 
+## A armadilha que vem junto: `input.files` é referência viva
+
+Para permitir reescolher o MESMO arquivo depois de um erro, é preciso zerar o
+`value` do campo — sem isso o `change` não dispara de novo. Só que zerar o
+`value` **esvazia `input.files`**, e quem guardou a lista guardou uma referência
+para ela, não uma cópia:
+
+```ts
+const escolhidos = e.currentTarget.files;  // referência viva
+e.currentTarget.value = "";                // esvaziou a lista acima também
+if (escolhidos.length) enviar(escolhidos); // nunca entra
+```
+
+O envio some sem erro, sem log e sem requisição na aba de rede — não há nada
+para procurar, porque nada aconteceu. Copiar antes resolve:
+`const escolhidos = [...(e.currentTarget.files ?? [])]`.
+
 ## A regra que fica
 
 A função que faz o trabalho mora **fora** do módulo `"use server"`. Com a
