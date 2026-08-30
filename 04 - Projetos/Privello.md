@@ -33,6 +33,11 @@ expediente, etiquetas, documento com selfie, fila de conferência em `/admin` e
 plano com pagamento simulado. Falta a fila de denúncias no admin, e o
 adquirente de verdade.
 
+**Vídeo de comparação (30/08/2026).** A coluna `midiaDeComparacao` existia sem
+nenhum caminho que a preenchesse. Agora tem: a casa sorteia um código, ela
+escreve num papel e grava segurando, a moderação confere numa fila própria e o
+anúncio ganha o selo de vídeo verificado. Opcional e fora da régua de passos.
+
 **O caminho fechou (30/08/2026).** A revisão deixou de ser um beco: o nono passo
 carrega o desfecho no rodapé — resolver o que trava, concluir, ou abrir o perfil
 no ar —, e a recusa da moderação voltou a travar a publicação em vez de passar
@@ -142,6 +147,23 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - **A dona vê o próprio anúncio antes do ar.** Prévia com faixa, e 404 para
   qualquer outra pessoa. Sem isso o primeiro a ver como o perfil ficou era o
   público.
+- **O vídeo de comparação é desafio, não upload.** Um vídeo qualquer prova que
+  existe um vídeo daquela pessoa em algum lugar; o código sorteado, com prazo de
+  48 h, é o que prova que a gravação é de depois do pedido
+  ([[Artefato prova existência; só um desafio prova o momento]]). Model próprio
+  e não coluna em `Verificacao`: o documento é obrigatório e privado para
+  sempre, o vídeo é opcional e vira conteúdo público, e só o vídeo tem a fase
+  entre pedir o código e mandar a gravação.
+- **Dois selos, e nunca um.** "Documento conferido" a casa viu e ninguém mais
+  vê; "Vídeo verificado" está logo abaixo no perfil e qualquer um confere
+  sozinho. Um selo só para os dois faria quem procura achar que viu o que não
+  viu — e é o segundo que sustenta a decisão de chamar, porque é o único que ela
+  pode auditar.
+- **Vídeo aprovado MUDA de pasta.** Enquanto está na fila mora em `documento/`,
+  sem rota aberta; aprovar move para `publico/`. Gravar o caminho no anúncio sem
+  mover deixaria o perfil apontando para uma rota que recusa por prefixo
+  ([[Se quem decide o acesso é a pasta, aprovar é mover o arquivo]]). Recusado
+  sai do disco.
 - **A moderação é a única porta para PUBLICADO.** Nem o cadastro nem a compra
   de plano movem um anúncio para lá: a transição só existe em
   `server/moderacao.ts`, depois de alguém olhar documento e selfie lado a
@@ -197,6 +219,10 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Último passo sem desfecho transforma a régua em beco]]
 - [[Registro com estado não se confere pela existência]]
 - [[Peça de grade mostrada sozinha vai centrada num palco]]
+- [[Artefato prova existência; só um desafio prova o momento]]
+- [[Se quem decide o acesso é a pasta, aprovar é mover o arquivo]]
+- [[Código que a pessoa copia à mão não pode ter caractere ambíguo]]
+- [[Tela que manda comparar duas coisas mostra as duas]]
 
 ## Próximos passos
 

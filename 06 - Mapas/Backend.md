@@ -130,6 +130,13 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Composição e honestidade do resultado
 
+- [[Artefato prova existência; só um desafio prova o momento]] — "mande um vídeo
+  seu" não verifica nada: o arquivo pode ser de três anos atrás ou de outra
+  pessoa. O que vira prova é a casa sortear algo antes, com prazo, e exigir que
+  apareça dentro do artefato. Mesma forma do TXT de DNS.
+- [[Se quem decide o acesso é a pasta, aprovar é mover o arquivo]] — com a
+  separação privado/público feita por pasta, gravar "aprovado" no banco não
+  muda o acesso: a linha diz aprovado e o endereço devolve 404.
 - [[Registro com estado não se confere pela existência]] — pedido que passa por fila
   (verificação, aprovação, pagamento) continua existindo depois de recusado, então
   `if (registro)` responde "ela mandou", não "está resolvido". Sintoma: o `select`

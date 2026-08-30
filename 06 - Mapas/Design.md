@@ -97,6 +97,13 @@ decide se vale abrir.
   endereço" era exato e virou "onde você mora" num classificado de acompanhantes; e
   "nome" em dois campos vira "isto substitui aquilo?". Fale da coisa, não da categoria
   dela, e troque no produto inteiro.
+- [[Tela que manda comparar duas coisas mostra as duas]] — a fila mandava
+  comparar com as fotos do anúncio e não mostrava as fotos do anúncio; quem
+  modera fez a metade possível e aprovou. Instrução que a interface não deixa
+  cumprir é pior que instrução nenhuma.
+- [[Código que a pessoa copia à mão não pode ter caractere ambíguo]] — sem 0/O
+  e 1/I/L no alfabeto, e em tamanho de título: o ambíguo não gera erro, gera
+  recusa de quem fez tudo certo, e nenhum log registra isso.
 - [[Último passo sem desfecho transforma a régua em beco]] — "Passo 9 de 9" promete
   um fim; o rodapé do último passo tem que entregá-lo, no mesmo canto onde os outros
   põem o avançar. Quando o fim é uma espera de terceiro, o desfecho é "Concluir".
