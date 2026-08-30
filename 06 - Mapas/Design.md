@@ -86,6 +86,9 @@ decide se vale abrir.
 
 - [[Sidebar em acordeão e layout de módulo]] — a estrutura fixa da tela.
 - [[Controles de filtro do dashboard]] — toggle segmentado e dropdown de filtro.
+- [[Escolha única e múltipla não usam o mesmo controle]] — caixa em tudo deixa marcar
+  cabelo loiro E ruivo. Eixo vira chip, acumulável fica caixa, e a trava mora numa
+  coluna do cadastro para eixo novo não custar deploy.
 - [[Palavra da interface é lida com o dicionário do usuário, não com o seu]] — "seu
   endereço" era exato e virou "onde você mora" num classificado de acompanhantes; e
   "nome" em dois campos vira "isto substitui aquilo?". Fale da coisa, não da categoria

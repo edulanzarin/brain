@@ -149,12 +149,14 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Ponto em preço brasileiro é ambíguo, e quem desempata é a contagem de casas]]
 - [[Campo que trava depois de escolhido não vai no meio do formulário]]
 - [[Palavra da interface é lida com o dicionário do usuário, não com o seu]]
+- [[Escolha única e múltipla não usam o mesmo controle]]
 
 ## Próximos passos
 
+- [ ] Moderação (`/admin`): a fila de verificação que publica o anúncio. Sem
+      ela o documento não tem para onde ir.
 - [ ] Envio de documento com selfie — é o que falta para o anúncio criado sair
       do rascunho, e hoje o painel só sabe dizer que falta.
-- [ ] Upload de mídia, expediente e etiquetas pelo painel.
 - [ ] **Gateway real.** É o bloqueio comercial, não técnico: precisa de PIX
       direto por PSP que aceite o segmento, ou adquirente high-risk. A interface
       `ProvedorPagamento` já está pronta para receber.
