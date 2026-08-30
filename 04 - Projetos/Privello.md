@@ -118,6 +118,13 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   navegador desenha o seu, então a mesma tela tinha três caras. O nosso é feito
   para o polegar: a área toda toca e pausa, a barra some enquanto toca, e o
   primeiro toque só acorda em vez de pausar.
+- **Um passo a passo só, do plano ao ar.** Nove passos: os cinco primeiros
+  antes de o anúncio existir (rascunho no navegador, preso à conta) e os
+  quatro últimos depois. O anúncio nasce entre o quinto e o sexto, calado.
+  Duas réguas para o mesmo trabalho era o mesmo que régua nenhuma.
+- **O plano é o primeiro passo.** É ele que decide quantas fotos e se cabe
+  vídeo; perguntado no fim, a pessoa monta tudo com um teto que ninguém
+  ofereceu. Trocar depois é tela do painel, não passo do caminho.
 - **O painel é a continuação do cadastro, não uma parede.** Cada assunto tem
   página própria e a home responde uma pergunta: o que falta agora. A tela de
   revisão fecha o caminho — mostra o que trava, o que só recomenda, e o cartão
@@ -175,6 +182,7 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Escolha única e múltipla não usam o mesmo controle]]
 - [[Arquivo não sobe por server action, o corpo dela tem 1 MB]]
 - [[Consulta sem ordem não é determinística, e semente que usa o índice muda sozinha]]
+- [[Rascunho no navegador leva o dono na chave]]
 
 ## Próximos passos
 

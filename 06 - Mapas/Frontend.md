@@ -70,6 +70,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[A regra que a server action executa mora fora dela]] — action fica com sessão,
   revalidate e redirect; a regra vira função comum que um script roda contra o banco,
   sem navegador. Folha isolada por enquanto: falta o princípio que a cubra.
+- [[Rascunho no navegador leva o dono na chave]] — `localStorage` é do navegador e
+  conta é de pessoa: sem o dono na chave, trocar de login abre o formulário com os
+  dados de quem estava antes. E o cache do `useSyncExternalStore` vai junto.
 - [[Cache do React Query não é lugar de estado de interface]]
 - [[Portal condicional dispensa o flag de montagem]]
 - [[Foto sem storage vira thumbnail data URL gerado no cliente]] — avatar/foto
