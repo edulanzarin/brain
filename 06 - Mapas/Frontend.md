@@ -73,6 +73,10 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Rascunho no navegador leva o dono na chave]] — `localStorage` é do navegador e
   conta é de pessoa: sem o dono na chave, trocar de login abre o formulário com os
   dados de quem estava antes. E o cache do `useSyncExternalStore` vai junto.
+- [[Ajustar estado no render é legítimo, empurrar rota não é]] — o padrão oficial
+  de se reajustar no render vale para o estado do próprio componente; `router.push`
+  no meio dele marca outra parte da árvore e rende o aviso de setState-in-render.
+  A pergunta é de quem é a coisa que está sendo mexida.
 - [[Cache do React Query não é lugar de estado de interface]]
 - [[Portal condicional dispensa o flag de montagem]]
 - [[Foto sem storage vira thumbnail data URL gerado no cliente]] — avatar/foto

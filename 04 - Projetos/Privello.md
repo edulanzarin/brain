@@ -33,6 +33,11 @@ expediente, etiquetas, documento com selfie, fila de conferência em `/admin` e
 plano com pagamento simulado. Falta a fila de denúncias no admin, e o
 adquirente de verdade.
 
+**O caminho fechou (30/08/2026).** A revisão deixou de ser um beco: o nono passo
+carrega o desfecho no rodapé — resolver o que trava, concluir, ou abrir o perfil
+no ar —, e a recusa da moderação voltou a travar a publicação em vez de passar
+por documento entregue.
+
 **Identidade do perfil (30/08/2026).** O endereço deixou de sair do nome e virou
 um @ escolhido por quem anuncia, com trava de 30 dias entre trocas; entrou o
 recado do dia, com prazo de 24 h; e o expediente saiu da ficha para um modal.
@@ -129,6 +134,11 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   página própria e a home responde uma pergunta: o que falta agora. A tela de
   revisão fecha o caminho — mostra o que trava, o que só recomenda, e o cartão
   REAL da vitrine com os dados dela.
+- **A revisão fecha o caminho, e o desfecho depende de onde o anúncio está.** São
+  três, e o rodapé mostra um: resolver a primeira falta, concluir (quando o que
+  falta é a moderação olhar), ou ver o perfil no ar. Nove passos terminando em
+  rodapé vazio faziam a pessoa percorrer a régua inteira sem descobrir se acabou
+  ([[Último passo sem desfecho transforma a régua em beco]]).
 - **A dona vê o próprio anúncio antes do ar.** Prévia com faixa, e 404 para
   qualquer outra pessoa. Sem isso o primeiro a ver como o perfil ficou era o
   público.
@@ -183,6 +193,10 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Arquivo não sobe por server action, o corpo dela tem 1 MB]]
 - [[Consulta sem ordem não é determinística, e semente que usa o índice muda sozinha]]
 - [[Rascunho no navegador leva o dono na chave]]
+- [[Ajustar estado no render é legítimo, empurrar rota não é]]
+- [[Último passo sem desfecho transforma a régua em beco]]
+- [[Registro com estado não se confere pela existência]]
+- [[Peça de grade mostrada sozinha vai centrada num palco]]
 
 ## Próximos passos
 

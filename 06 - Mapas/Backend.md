@@ -130,6 +130,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Composição e honestidade do resultado
 
+- [[Registro com estado não se confere pela existência]] — pedido que passa por fila
+  (verificação, aprovação, pagamento) continua existindo depois de recusado, então
+  `if (registro)` responde "ela mandou", não "está resolvido". Sintoma: o `select`
+  não pediu a coluna de estado.
 - [[Tier é nota com régua fixa, não posição na fila]] — faixa cortada por percentil de
   posição mede fila, não mérito: o corte sai de score calibrado no histograma e escrito
   como constante, senão um patch que melhora trinta itens não promove nenhum. Princípio:

@@ -72,6 +72,10 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   pela espessura da barra. O corte é `overflow-x: clip` na raiz: no ancestral mais
   próximo ele mataria o próprio sangramento, e `hidden` soltaria todo sticky.
 
+- [[Peça de grade mostrada sozinha vai centrada num palco]] — cartão fora da grade
+  deixa meia linha vazia ao lado, e a sobra é lida como defeito da prévia. Centrar
+  num palco de fundo diferente resolve a sobra e ainda diz que aquilo é amostra.
+
 Princípios: [[Escala fechada em vez de valor solto]] ·
 [[Container tem largura máxima e respiro constante]]
 
@@ -93,6 +97,9 @@ decide se vale abrir.
   endereço" era exato e virou "onde você mora" num classificado de acompanhantes; e
   "nome" em dois campos vira "isto substitui aquilo?". Fale da coisa, não da categoria
   dela, e troque no produto inteiro.
+- [[Último passo sem desfecho transforma a régua em beco]] — "Passo 9 de 9" promete
+  um fim; o rodapé do último passo tem que entregá-lo, no mesmo canto onde os outros
+  põem o avançar. Quando o fim é uma espera de terceiro, o desfecho é "Concluir".
 - [[Campo que trava depois de escolhido não vai no meio do formulário]] — escolha que
   não se desfaz sai da fila e vira o primeiro bloco, sozinha, com o custo dito antes,
   prévia do resultado e conferência enquanto digita. No meio de quinze campos, quem
