@@ -42,6 +42,10 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
   reserva vale no endereço. A arroba é da tela, o endereço vai sem ela — e aí `/duda`
   e `/rs` convivem na raiz, porque sigla de estado tem duas letras e @ tem três.
 - [[React reseta o formulário ao fim de uma Server Action]]
+- [[Ponto em preço brasileiro é ambíguo, e quem desempata é a contagem de casas]] —
+  "1.200" são mil e duzentos, "250.50" são duzentos e cinquenta e cinquenta. O parser
+  ingênuo grava R$ 1,20 sem erro nenhum; três dígitos depois do ponto só podem ser
+  milhar.
 - [[A segunda ação do formulário se marca no botão, não no estado]] — apagar e salvar
   no mesmo formulário: `name`/`value` no botão clicado. Limpar o campo no `onClick`
   manda o valor antigo, porque o envio lê o campo de agora e o `setState` só chega no

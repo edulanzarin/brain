@@ -112,6 +112,14 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   navegador desenha o seu, então a mesma tela tinha três caras. O nosso é feito
   para o polegar: a área toda toca e pausa, a barra some enquanto toca, e o
   primeiro toque só acorda em vez de pausar.
+- **Sem anúncio, o painel É o formulário de criação.** E é lá que o @ se
+  escolhe — primeiro campo, sozinho no cartão, com a trava de 30 dias dita
+  antes e a disponibilidade conferida enquanto digita
+  ([[Campo que trava depois de escolhido não vai no meio do formulário]]). O
+  anúncio nasce em RASCUNHO: não existe caminho do formulário para PUBLICADO.
+- **A conta é da conta, o painel é do anúncio.** E-mail, senha e favoritos
+  ficam em `/conta`; nome, @, recado, valores e números ficam no painel. Dois
+  lugares para editar o mesmo @ é onde um deles envelhece.
 - **Nome, @ e recado editam no mesmo cartão.** É a vizinhança que ensina os três
   prazos — muda quando quiser, trava 30 dias, some em 24 h. Espalhados por três
   telas, cada prazo vira surpresa na hora do erro.
@@ -131,9 +139,14 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Renomear coluna é migration à mão; a gerada derruba e recria]]
 - [[Nome de migration do Prisma é UTC, e é o nome que ordena]]
 - [[Margem negativa em item de flex centralizado vale metade]]
+- [[Ponto em preço brasileiro é ambíguo, e quem desempata é a contagem de casas]]
+- [[Campo que trava depois de escolhido não vai no meio do formulário]]
 
 ## Próximos passos
 
+- [ ] Envio de documento com selfie — é o que falta para o anúncio criado sair
+      do rascunho, e hoje o painel só sabe dizer que falta.
+- [ ] Upload de mídia, expediente e etiquetas pelo painel.
 - [ ] **Gateway real.** É o bloqueio comercial, não técnico: precisa de PIX
       direto por PSP que aceite o segmento, ou adquirente high-risk. A interface
       `ProvedorPagamento` já está pronta para receber.
@@ -145,8 +158,6 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
       dados da LGPD.
 - [ ] Redimensionar imagem no upload; hoje o arquivo original é servido como veio.
 - [ ] Busca por nome e filtro de faixa de preço na listagem da cidade.
-- [ ] Escolha do @ no fluxo de criação do anúncio: hoje ele nasce gerado e só se
-      troca depois, em `/conta`.
 - [ ] Redirecionar o endereço antigo do @ depois de uma troca. Hoje a troca é
       permanente e o link velho morre — a trava de 30 dias segura a frequência,
       não o estrago.

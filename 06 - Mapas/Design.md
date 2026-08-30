@@ -86,6 +86,10 @@ decide se vale abrir.
 
 - [[Sidebar em acordeão e layout de módulo]] — a estrutura fixa da tela.
 - [[Controles de filtro do dashboard]] — toggle segmentado e dropdown de filtro.
+- [[Campo que trava depois de escolhido não vai no meio do formulário]] — escolha que
+  não se desfaz sai da fila e vira o primeiro bloco, sozinha, com o custo dito antes,
+  prévia do resultado e conferência enquanto digita. No meio de quinze campos, quem
+  preenche está em modo de despachar.
 - [[Seletor cria e gerencia os próprios itens]] — combobox que cria ao digitar e
   renomeia/exclui no painel, dispensando tela de CRUD do auxiliar.
 - [[Blocos de dado - card, KPI e gráfico]] — card, stat tile, gráfico e tabela.
