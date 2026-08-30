@@ -86,6 +86,10 @@ decide se vale abrir.
 
 - [[Sidebar em acordeão e layout de módulo]] — a estrutura fixa da tela.
 - [[Controles de filtro do dashboard]] — toggle segmentado e dropdown de filtro.
+- [[Palavra da interface é lida com o dicionário do usuário, não com o seu]] — "seu
+  endereço" era exato e virou "onde você mora" num classificado de acompanhantes; e
+  "nome" em dois campos vira "isto substitui aquilo?". Fale da coisa, não da categoria
+  dela, e troque no produto inteiro.
 - [[Campo que trava depois de escolhido não vai no meio do formulário]] — escolha que
   não se desfaz sai da fila e vira o primeiro bloco, sozinha, com o custo dito antes,
   prévia do resultado e conferência enquanto digita. No meio de quinze campos, quem

@@ -41,7 +41,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
   404 antes de a página rodar, codificado também; o `@` é marca de rota paralela e a
   reserva vale no endereço. A arroba é da tela, o endereço vai sem ela — e aí `/duda`
   e `/rs` convivem na raiz, porque sigla de estado tem duas letras e @ tem três.
-- [[React reseta o formulário ao fim de uma Server Action]]
+- [[React reseta o formulário ao fim de uma Server Action]] — aconteceu duas vezes,
+  em projetos diferentes: controle TODOS os campos num objeto de estado só, e marque
+  o campo que a ação recusou.
 - [[Ponto em preço brasileiro é ambíguo, e quem desempata é a contagem de casas]] —
   "1.200" são mil e duzentos, "250.50" são duzentos e cinquenta e cinquenta. O parser
   ingênuo grava R$ 1,20 sem erro nenhum; três dígitos depois do ponto só podem ser

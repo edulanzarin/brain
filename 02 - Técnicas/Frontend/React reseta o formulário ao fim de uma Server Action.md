@@ -54,8 +54,24 @@ num navegador de verdade** e conferindo o `inputValue` depois do erro. É o
 mesmo espírito de [[Verificar no build de produção, não só em dev]]: alguns
 defeitos só existem no comportamento real.
 
+## Aconteceu de novo (ago/2026, React 19.2)
+
+No formulário de criação de anúncio do [[Privello]], um "escreva ao menos 40
+caracteres" devolvia a mensagem e limpava os outros onze campos — nome, cidade,
+bairro, três valores, telefone. O remédio desta nota resolveu inteiro, inclusive
+a parte do `<select>`, que continua precisando do empurrão explícito.
+
+Duas coisas que valem como regra a partir da segunda vez:
+
+- **Controlar campo a campo não escala.** Um objeto de estado só e um
+  `muda("nome")` que devolve o handler cabem em três linhas e cobrem o
+  formulário inteiro. Escolher quais campos "doem" é o que deixa dois de fora.
+- **O campo recusado precisa aparecer.** A ação devolve QUAL campo falhou, e a
+  tela marca aquele controle. Sem isso, a mensagem no fim da página manda a
+  pessoa procurar sozinha em cinco cartões.
+
 ## Conexões
 - Princípio: [[Todo estado da tela tem visual]]
 - Ver também: [[Verificar no build de produção, não só em dev]]
-- Visto em: [[Navedesk]]
+- Visto em: [[Navedesk]] · [[Privello]]
 - Mapa: [[Frontend]]

@@ -117,6 +117,13 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   antes e a disponibilidade conferida enquanto digita
   ([[Campo que trava depois de escolhido não vai no meio do formulário]]). O
   anúncio nasce em RASCUNHO: não existe caminho do formulário para PUBLICADO.
+- **"Endereço" não aparece em texto que quem anuncia lê.** A palavra já tem
+  dono neste domínio — é onde ela mora, o único dado que não pode ser
+  publicado. Fala-se do @ e do link
+  ([[Palavra da interface é lida com o dicionário do usuário, não com o seu]]).
+- **O nome da conta e o nome do anúncio são duas pessoas.** A conta tem o nome
+  de registro, o anúncio tem o público, e o campo do anúncio NÃO vem preenchido
+  com o da conta: o padrão aceito sem pensar publicaria o nome de registro dela.
 - **A conta é da conta, o painel é do anúncio.** E-mail, senha e favoritos
   ficam em `/conta`; nome, @, recado, valores e números ficam no painel. Dois
   lugares para editar o mesmo @ é onde um deles envelhece.
@@ -141,6 +148,7 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Margem negativa em item de flex centralizado vale metade]]
 - [[Ponto em preço brasileiro é ambíguo, e quem desempata é a contagem de casas]]
 - [[Campo que trava depois de escolhido não vai no meio do formulário]]
+- [[Palavra da interface é lida com o dicionário do usuário, não com o seu]]
 
 ## Próximos passos
 

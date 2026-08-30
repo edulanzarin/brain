@@ -60,6 +60,25 @@ if (e.key === "Escape") {
 Contador e não booleano: flutuante empilha (combobox dentro de popover de filtro), e "tem
 algum aberto" precisa continuar verdadeiro até o último fechar.
 
+## A terceira causa: o ancestral que corta
+
+Antes de brigar por camada, confira se alguém acima **cortou**. Cartão, carrossel
+e qualquer caixa arredondada costumam levar `overflow: hidden` — é ele que
+arredonda a foto e segura o zoom dela no hover —, e um `z-index` de mil não
+atravessa isso: a lista aparece decepada na borda do ancestral e parece defeito
+de renderização.
+
+O conserto é modificador, nunca padrão: uma classe que desliga o corte só no
+cartão que hospeda flutuante. Desligar em todos devolve o problema pro outro
+lado, com a foto da vitrine perdendo os cantos.
+
+```css
+.pv-cartao-transborda { overflow: visible; }
+```
+
+Três perguntas, nesta ordem, quando o flutuante não aparece: **alguém me corta?
+alguém me cobre? quem responde ao Escape primeiro?**
+
 ## O que mais vale lembrar
 
 - **Duas modais empilhadas não são solução de navegação.** Abrir a segunda fecha a
@@ -76,5 +95,5 @@ algum aberto" precisa continuar verdadeiro até o último fechar.
 - Princípio: [[Todo estado da tela tem visual]]
 - Irmã: [[Modal com conteúdo que cresce tem teto de altura e área que rola]] ·
   [[Portal condicional dispensa o flag de montagem]]
-- Visto em: [[piwdex2]]
+- Visto em: [[piwdex2]] · [[Privello]]
 - Mapa: [[Frontend]]
