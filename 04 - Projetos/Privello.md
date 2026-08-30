@@ -27,6 +27,11 @@ story com prazo de 24 h, compra de plano e de VIP (provedor simulado),
 avaliação, denúncia e suspensão. `npm run verificar` cobre 27 regras contra o
 banco de dev.
 
+**Identidade do perfil (30/08/2026).** O endereço deixou de sair do nome e virou
+um @ escolhido por quem anuncia, com trava de 30 dias entre trocas; entrou o
+recado do dia, com prazo de 24 h; e o expediente saiu da ficha para um modal.
+Detalhe abaixo, em Decisões.
+
 ## Infra
 
 Slug `privello` · app `privello-app` na `4075` · banco `privello-db` na `5075`.
@@ -36,7 +41,10 @@ em volume próprio. Chassi e mapa de portas em [[Infra]].
 ## Stack
 
 Next.js 16 (App Router, Server Components, Server Actions) · React 19 ·
-TypeScript · Postgres 16 com Prisma 7 · Auth.js v5 (credenciais, JWT) ·
+TypeScript · Postgres 16 com Prisma 7 · sessão em cookie assinado com HMAC,
+escrita à mão em `server/sessao.ts` (sem Auth.js: o que o produto precisa é
+guardar um id de um jeito que o navegador não forje, e isso é dez linhas —
+[[Sessão de painel interno é um cookie assinado, não uma tabela de sessões]]) ·
 Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 
 ## Decisões importantes
@@ -70,6 +78,37 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   operador — [[Estética é por projeto, princípio de design é que se reusa]].
 - **Expiração de assinatura se apura na leitura** do painel e do admin, sem
   agendador — [[Rotação por período se apura na leitura, e dispensa agendador]].
+- **Nome e @ são duas identidades com prazos diferentes.** O nome é como ela se
+  apresenta hoje e muda quantas vezes quiser; o @ é o endereço, trava 30 dias
+  entre trocas e é o que a busca e o link seguram. Antes o endereço saía do nome,
+  então cada troca de nome matava calada todo link já mandado —
+  [[Identificador que já circulou não é mais seu para mudar]]. O cartão da
+  vitrine continua mostrando o NOME: quem identifica é o @, quem se lê é o nome.
+- **O @ mora no anúncio, não no usuário.** Quem só procura não tem endereço
+  público para alguém abrir, e a garantia é a ausência da coluna, não uma tela
+  escondida — [[Um invariante se garante na estrutura, não no processo]].
+- **A arroba não entra no endereço**, como no Instagram: mostra `@duda`, endereça
+  `/duda`. Não é gosto — o App Router recusa segmento que começa com `@` e
+  devolve 404 antes de a página rodar
+  ([[Segmento de URL que começa com @ não chega ao App Router]]). Em compensação
+  o atalho `/duda` convive com `/rs` na raiz, porque sigla de estado tem duas
+  letras e @ tem no mínimo três.
+- **A trava de 30 dias é do servidor.** O botão desabilitado é conveniência; quem
+  recusa é a ação, que compara `arrobaTrocadaEm` com agora —
+  [[Permissão se valida no servidor, não na interface]].
+- **Recado do dia vale 24 h**, como o story e pelo mesmo mecanismo: o texto fica
+  na linha e a leitura pergunta se ainda vale, sem agendador. Reescrever renova o
+  prazo; herdar as duas horas que sobraram derrubaria o recado novo antes de
+  alguém ler.
+- **O expediente é modal, não bloco da ficha.** Sete linhas de horário no meio do
+  perfil cobram uma tela de rolagem de todo mundo para responder a pergunta de
+  poucos; o selo "em expediente" ao lado do nome já responde a pergunta comum —
+  [[O que responde pergunta rara não ocupa a rolagem de todo mundo]]. O quadro
+  mostra os sete dias, inclusive os fechados, porque o que sobra é "atende
+  terça?".
+- **Nome, @ e recado editam no mesmo cartão.** É a vizinhança que ensina os três
+  prazos — muda quando quiser, trava 30 dias, some em 24 h. Espalhados por três
+  telas, cada prazo vira surpresa na hora do erro.
 
 ## Aprendizados (viraram notas)
 
@@ -78,6 +117,13 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Portão de conteúdo cobre a tela, não o HTML]]
 - [[Linha no banco não garante o arquivo no disco]]
 - [[Propriedade com prefixo escrita à mão pode perder a versão padrão no build]]
+- [[Identificador que já circulou não é mais seu para mudar]] — o princípio que
+  saiu daqui, com o segundo caso vindo do [[Navetech Hub]].
+- [[O que responde pergunta rara não ocupa a rolagem de todo mundo]]
+- [[Segmento de URL que começa com @ não chega ao App Router]]
+- [[A segunda ação do formulário se marca no botão, não no estado]]
+- [[Renomear coluna é migration à mão; a gerada derruba e recria]]
+- [[Nome de migration do Prisma é UTC, e é o nome que ordena]]
 
 ## Próximos passos
 
@@ -92,6 +138,11 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
       dados da LGPD.
 - [ ] Redimensionar imagem no upload; hoje o arquivo original é servido como veio.
 - [ ] Busca por nome e filtro de faixa de preço na listagem da cidade.
+- [ ] Escolha do @ no fluxo de criação do anúncio: hoje ele nasce gerado e só se
+      troca depois, em `/conta`.
+- [ ] Redirecionar o endereço antigo do @ depois de uma troca. Hoje a troca é
+      permanente e o link velho morre — a trava de 30 dias segura a frequência,
+      não o estrago.
 
 ## Conexões
 - Usa: [[Design]] · [[Infra]]

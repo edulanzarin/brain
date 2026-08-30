@@ -56,8 +56,15 @@ de sistema externo é referência e tem mapa próprio.
 Migration é infra, não banco: [[Migrations em container próprio no Docker Compose]],
 mapa [[Infra]].
 
+- [[Renomear coluna é migration à mão; a gerada derruba e recria]] — o diff do ORM não
+  lê intenção, e o dado da coluna renomeada é justamente o que o mundo lá fora segura.
+- [[Registro que muda de casa leva junto o token já distribuído]] — mesma família: o
+  identificador atravessa a migration junto com a linha.
+
 ## Princípios que mandam aqui
 
+- [[Identificador que já circulou não é mais seu para mudar]] — chave que virou link,
+  protocolo ou endereço na mão de terceiro não é mais detalhe de implementação.
 - [[Reduzir a cardinalidade vem antes de enriquecer]] — a ordem das duas metades de
   toda consulta sobre tabela enorme: reduzir e só depois enriquecer.
 - [[Plataforma de IA hospedada prende o app pelo banco]] — o banco é o que realmente

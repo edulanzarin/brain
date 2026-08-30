@@ -84,6 +84,13 @@ precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três d�
   a conexão chegou.
 - [[Volume de dev sobrevive entre versões do projeto e traz schema velho]] — rebuild
   no mesmo slug reencontra o banco antigo; recriar o volume, não forçar reset.
+- [[Renomear coluna é migration à mão; a gerada derruba e recria]] — o ORM compara
+  schemas e não lê intenção: coluna que troca de nome vira uma que sumiu e outra que
+  nasceu, e o conteúdo vai junto. `RENAME` no SQL escrito à mão, com o índice único
+  renomeado junto e a transformação de conteúdo dentro da mesma migration.
+- [[Nome de migration do Prisma é UTC, e é o nome que ordena]] — pasta carimbada com
+  a hora local ordena antes das que já existem. Aplica sem reclamar no banco de dev e
+  quebra na primeira subida de um ambiente limpo, que é o que a produção faz.
 - [[Agenda recorrente é um serviço do compose, não um crontab do host]] — o
   agendador dos jobs sobe junto no deploy, não é config manual do servidor.
 - [[Railway não roda compose, cada serviço vira uma peça da plataforma]] — o mapa

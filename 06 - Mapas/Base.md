@@ -24,6 +24,7 @@ Independe de CSS, de Tailwind e de React. Técnicas concretas em [[Design]].
 - [[Todo estado da tela tem visual]] — carregando, vazio, erro e sucesso são design.
 - [[Catálogo de componentes é contrato vivo, não documentação]] — a peça entra no catálogo no commit em que nasce, com o porquê junto; o que fica escondido atrás de um clique se mostra também parado.
 - [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] — catálogo se explica de olhar; ferramenta pede número que mora fora dela e precisa de manual.
+- [[O que responde pergunta rara não ocupa a rolagem de todo mundo]] — a altura da página é orçamento pago por toda visita; bloco que interessa a poucos vai pro modal, com o gatilho carregando o estado que decide se vale abrir.
 - [[Nota carrega só o que a pessoa não sabe]] — legenda diz de onde o número saiu e o que ele não conta; repetir o campo é ruído com cara de ajuda.
 - [[Texto de interface soa a IA pelo ritmo, não pelo assunto]] — travessão emendando, "não é X, é Y" e a explicação que ninguém pediu: quem lê não aponta o erro, só diz que parece gerado, e a desconfiança passa do texto pro número ao lado.
 - [[Custo de processo aleatório se orça pela cauda, não pela média]] — estimativa de quantas tentativas mostra melhor caso, típico e azarado; média sozinha é armadilha de orçamento.
@@ -99,6 +100,7 @@ UI que mostra dado que muda sem o usuário pedir.
 - [[Razão só afirma quando os dois lados vêm do mesmo trabalho]] — dividir dois números que a tela tem à mão é aritmética válida afirmando fato falso; volume de máquina sobre hora de gente mede a máquina e cobra da gente, e recorte que muda um lado só troca de indicador, não de fórmula.
 - [[Reduzir a cardinalidade vem antes de enriquecer]] — sobre fato grande, corte o volume primeiro e só então junte nome, conte distinto e fatie; trabalho caro antes do corte é trabalho feito milhões de vezes à toa.
 - [[Índice só é identidade enquanto a coleção não muda]] — posição só identifica enquanto o array é o mesmo; filtrou, compactou ou reordenou, o índice guardado aponta pra outra coisa e a leitura continua válida, então nada avisa.
+- [[Identificador que já circulou não é mais seu para mudar]] — endereço que nasce de campo editável publica um novo e mata o antigo a cada edição, e quem paga é quem tinha o link. Separe o que se lê do que se endereça; se a troca precisa existir, ela tem trava e redirecionamento.
 - [[Fator que domina o resultado não entra na conta por estimativa]] — termo desconhecido grande o bastante pra mandar sozinho no resultado fica FORA da conta e DENTRO da tela; chutado, o número deixa de falar do modelo e passa a falar do chute.
 - [[Tirar o dado errado não põe a verdade no lugar]] — apagar um valor falso não deixa a tela em silêncio, deixa ela no caminho PADRÃO, e o padrão também afirma; metade das vezes ele afirma o oposto, que é igualmente mentira e agora sem nada errado no código pra procurar.
 ## Cérebro — como este vault funciona

@@ -79,7 +79,8 @@ repete o rótulo do campo que ele descreve.
 
 ## Conexões
 - Princípio: [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] ·
-  [[Nota carrega só o que a pessoa não sabe]]
+  [[Nota carrega só o que a pessoa não sabe]] ·
+  [[O que responde pergunta rara não ocupa a rolagem de todo mundo]]
 - Irmã: [[Modal com conteúdo que cresce tem teto de altura e área que rola]] ·
   [[Padrões de componentes de dashboard]] ·
   [[Faixa de topo de ferramenta é chegada, não rótulo]]

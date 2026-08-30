@@ -414,6 +414,7 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Ambiente de dev sobe igual ao de produção]]
 - [[Um invariante se garante na estrutura, não no processo]]
 - [[Índice só é identidade enquanto a coleção não muda]]
+- [[Identificador que já circulou não é mais seu para mudar]]
 
 - [[Multiplicador de contexto entra depois da razão, não dentro dela]] — o que entra
   numa razão `a/(a+b)` é a grandeza crua dos DOIS lados; bônus de contexto multiplica o

@@ -62,7 +62,8 @@ seria preciso carregar o id gerado linha a linha para reencontrar a origem.
   rode, e confira os dois lados — o que veio e o que ficou intacto.
 
 ## Conexões
-- Princípio: [[Migração de dados mantém o antigo como reserva até a virada]] ·
+- Princípio: [[Identificador que já circulou não é mais seu para mudar]] ·
+  [[Migração de dados mantém o antigo como reserva até a virada]] ·
   [[O que tem ciclo de vida próprio é entidade própria, não modo de outra]]
 - Irmã: [[Formulário público por token opaco fica fora do gate de sessão]]
 - Visto em: [[Navetech Hub]]

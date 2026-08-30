@@ -75,6 +75,11 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 
 `02 - Técnicas/Design/Componentes` — índice: [[Padrões de componentes de dashboard]]
 
+Antes de decidir o que fica aberto na tela:
+[[O que responde pergunta rara não ocupa a rolagem de todo mundo]] — a altura é
+orçamento pago por toda visita, e o gatilho do que se esconde carrega o estado que
+decide se vale abrir.
+
 - [[Sidebar em acordeão e layout de módulo]] — a estrutura fixa da tela.
 - [[Controles de filtro do dashboard]] — toggle segmentado e dropdown de filtro.
 - [[Seletor cria e gerencia os próprios itens]] — combobox que cria ao digitar e

@@ -34,7 +34,15 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Altura 100% em item de grid de linha automática volta ao tamanho intrínseco]] — a
   linha depende do item e o item da linha; o navegador desiste do 100% e o conteúdo
   vaza da caixa de tamanho fixo. Só aparece com conteúdo não-quadrado.
+- [[Segmento de URL que começa com @ não chega ao App Router]] — `/@duda` devolve
+  404 antes de a página rodar, codificado também; o `@` é marca de rota paralela e a
+  reserva vale no endereço. A arroba é da tela, o endereço vai sem ela — e aí `/duda`
+  e `/rs` convivem na raiz, porque sigla de estado tem duas letras e @ tem três.
 - [[React reseta o formulário ao fim de uma Server Action]]
+- [[A segunda ação do formulário se marca no botão, não no estado]] — apagar e salvar
+  no mesmo formulário: `name`/`value` no botão clicado. Limpar o campo no `onClick`
+  manda o valor antigo, porque o envio lê o campo de agora e o `setState` só chega no
+  render seguinte.
 - [[Janela arrastável no React 19 se faz à mão, não com react-rnd]] — react-rnd/
   react-draggable usam `findDOMNode`, removido no React 19; arraste/resize à mão,
   comitando no soltar.
