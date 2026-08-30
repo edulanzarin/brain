@@ -150,6 +150,7 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Campo que trava depois de escolhido não vai no meio do formulário]]
 - [[Palavra da interface é lida com o dicionário do usuário, não com o seu]]
 - [[Escolha única e múltipla não usam o mesmo controle]]
+- [[Arquivo não sobe por server action, o corpo dela tem 1 MB]]
 
 ## Próximos passos
 
