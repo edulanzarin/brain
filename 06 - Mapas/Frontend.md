@@ -31,6 +31,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Token de cor que não existe vira cor herdada, sem erro]] — ao portar módulo entre
   projetos os tokens são fronteira: `var(--green)` sem o token cai pro valor herdado,
   fica legível e errado, e nada no console avisa.
+- [[Margem negativa em item de flex centralizado vale metade]] — a caixa centralizada
+  é a DE MARGEM, então `-64px` sobe 32, e o resto da conta é a altura do vizinho mais
+  alto da linha: mudar o nome ao lado move o retrato.
 - [[Altura 100% em item de grid de linha automática volta ao tamanho intrínseco]] — a
   linha depende do item e o item da linha; o navegador desiste do 100% e o conteúdo
   vaza da caixa de tamanho fixo. Só aparece com conteúdo não-quadrado.

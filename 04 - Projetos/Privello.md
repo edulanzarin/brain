@@ -106,6 +106,12 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   [[O que responde pergunta rara não ocupa a rolagem de todo mundo]]. O quadro
   mostra os sete dias, inclusive os fechados, porque o que sobra é "atende
   terça?".
+- **O player de vídeo é nosso, não o nativo.** O do navegador traz barra cinza
+  de altura fixa, tipografia do sistema e um menu com "baixar vídeo" — num
+  perfil de acompanhante, um convite que a casa não quis fazer —, e cada
+  navegador desenha o seu, então a mesma tela tinha três caras. O nosso é feito
+  para o polegar: a área toda toca e pausa, a barra some enquanto toca, e o
+  primeiro toque só acorda em vez de pausar.
 - **Nome, @ e recado editam no mesmo cartão.** É a vizinhança que ensina os três
   prazos — muda quando quiser, trava 30 dias, some em 24 h. Espalhados por três
   telas, cada prazo vira surpresa na hora do erro.
@@ -124,6 +130,7 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[A segunda ação do formulário se marca no botão, não no estado]]
 - [[Renomear coluna é migration à mão; a gerada derruba e recria]]
 - [[Nome de migration do Prisma é UTC, e é o nome que ordena]]
+- [[Margem negativa em item de flex centralizado vale metade]]
 
 ## Próximos passos
 

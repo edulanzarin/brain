@@ -56,6 +56,10 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   default do primitivo é utilitário, concatenar não basta: precisa de merge.
 - [[Trocar a fonte muda a largura, não só o desenho da letra]] — a família nova
   reescreve os slots fixos, a base em rem e os pesos disponíveis.
+- [[Margem negativa em item de flex centralizado vale metade]] — `align-items: center`
+  centraliza a caixa de margem, então `-64px` sobe 32 e o resto depende da altura do
+  vizinho mais alto. Retrato sobre capa pede `align-self: flex-start`, o tamanho num
+  token e nenhum gap entre as duas peças.
 - [[Alvo de toque pergunta pelo apontador, não pela largura da janela]] — `pointer:
   coarse` e não breakpoint: janela estreita no desktop continua com mouse. Traz os
   dois pisos (24 da WCAG, 44 da Apple) e como medir a área sensível de verdade.
