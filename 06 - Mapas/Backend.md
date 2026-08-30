@@ -417,6 +417,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   vários candidatos, ordene pelo quanto ele MUDA cada um e não pelo estado em que cada um
   fica: quem termina no topo costuma ser quem já estava perto dele.
 
+- [[Consulta sem ordem não é determinística, e semente que usa o índice muda sozinha]] —
+  `SELECT` sem `ORDER BY` devolve qualquer ordem, e se o índice alimenta uma semente
+  o conteúdo gerado muda junto: o seed parou de reencontrar as próprias linhas e
+  duplicou o banco em silêncio.
+
 ## Princípios que mandam aqui
 
 - [[Ordene pela grandeza que decide, não pela que impressiona]]

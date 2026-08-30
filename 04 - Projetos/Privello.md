@@ -118,6 +118,13 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   navegador desenha o seu, então a mesma tela tinha três caras. O nosso é feito
   para o polegar: a área toda toca e pausa, a barra some enquanto toca, e o
   primeiro toque só acorda em vez de pausar.
+- **O painel é a continuação do cadastro, não uma parede.** Cada assunto tem
+  página própria e a home responde uma pergunta: o que falta agora. A tela de
+  revisão fecha o caminho — mostra o que trava, o que só recomenda, e o cartão
+  REAL da vitrine com os dados dela.
+- **A dona vê o próprio anúncio antes do ar.** Prévia com faixa, e 404 para
+  qualquer outra pessoa. Sem isso o primeiro a ver como o perfil ficou era o
+  público.
 - **A moderação é a única porta para PUBLICADO.** Nem o cadastro nem a compra
   de plano movem um anúncio para lá: a transição só existe em
   `server/moderacao.ts`, depois de alguém olhar documento e selfie lado a
@@ -167,6 +174,7 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Palavra da interface é lida com o dicionário do usuário, não com o seu]]
 - [[Escolha única e múltipla não usam o mesmo controle]]
 - [[Arquivo não sobe por server action, o corpo dela tem 1 MB]]
+- [[Consulta sem ordem não é determinística, e semente que usa o índice muda sozinha]]
 
 ## Próximos passos
 
