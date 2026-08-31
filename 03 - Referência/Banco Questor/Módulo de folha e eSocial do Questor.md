@@ -127,3 +127,37 @@ Base para relatórios de folha/RH (custo de pessoal, headcount, admissões/demis
 - Integra em: [[Módulo contábil do Questor]] (origem FP)
 - Padrão de vigência também citado em: [[Cadastros centrais do Questor - empresa, estab, pessoa]]
 - Mapa: [[Banco Questor]]
+
+## Onde mora o trabalho do DP, além do ciclo do contrato (ago/2026)
+
+Varredura atrás de toda tabela com `codigousuario` + `datahoralcto`. Todas
+abaixo têm também `codigoempresa` (o funil de escopo morde) e **zero linhas do
+usuário 0** — é trabalho humano, não rotina:
+
+| tabela | o que é | volume/mês | pessoas | linhas por ato |
+|---|---|---|---|---|
+| `funcpercalculo` | **a folha calculada** (funcionário × período) | 7,2 mil | 24 | 12× (`codigoempresa, codigopercalculo`) |
+| `calculoencargos` | encargos sobre a folha | 18,5 mil | 18 | **135×** (mesma chave) |
+| `calculoesocial` | base do eSocial, antes de transmitir | 8,2 mil | 19 | 57× (mesma chave) |
+| `provisao13` | provisão de 13º | 9,8 mil | 33 | 12× (`codigoempresa, compet`) |
+| `afastamento` | afastamento registrado | 2,3 mil | 23 | 1× |
+| `funcsalario` | reajuste de salário | 1,7 mil | 25 | 1× |
+| `funccargo` | mudança de cargo | 0,7 mil | 24 | 1× |
+| `esocialtransacao` | evento transmitido | 34,7 mil | 40-48 | 4,4× (ver abaixo) |
+
+**A coluna que mais importa é a última.** As quatro primeiras gravam uma linha
+por FUNCIONÁRIO: calcular os encargos de uma empresa são 18.504 linhas para 137
+atos. Contar linha inverte a leitura do mês inteiro —
+[[A unidade de contagem é o ato, não a linha que ele deixou]].
+
+`esocialtransacao` é lote sem coluna de lote. Medido em ago/2026: 34.732 linhas,
+14.562 pares (empresa, evento, minuto), **7.972 (empresa, evento, dia)** e 4.826
+(empresa, evento). O dia é o corte que corresponde a "mandei o evento X da
+empresa Y hoje"; o minuto conta retentativa, e sem data o mês vira um ato só.
+Também é a única da lista **sem `codigofunccontr`** — o evento é da empresa, e
+quem listar não consegue nomear o funcionário. E ~30% das linhas caem no usuário
+0 (rotina automática), então precisa da mesma separação "a dedo × automático"
+que o Fiscal usa.
+
+`calculoevento` (5,3M) é o detalhe rubrica a rubrica dentro do cálculo — grão
+fino demais para medir gente; o cabeçalho é `funcpercalculo`.

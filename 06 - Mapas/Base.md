@@ -56,6 +56,7 @@ Independe de banco e de domínio (vale contábil, estoque, qualquer conferência
 - [[Sobre fonte read-only, o editável mora no seu banco chaveado pela identidade dela]] — a fonte que você não pode escrever fica intacta; correção, inclusão e renomeação moram do seu lado, o merge é seu.
 - [[Config declarada envelhece; quem diz a regra é o comportamento observado]] — config é afirmação feita uma vez, comportamento é afirmação feita a cada lançamento; quando todas as ocorrências da mesma chave desviam pro mesmo lugar, quem está errado é a régua, e o conferidor passa a cobrar o hábito (com dominância, não maioria simples).
 - [[Onde não há regra, espelhar é mais honesto que arbitrar]] — item sem regra copia o real pro esperado e fecha em zero; esperado inventado gera diferença que fala do conferidor, não do mundo. A classificação é por item, nunca por balde.
+- [[A unidade de contagem é o ato, não a linha que ele deixou]] — um gesto grava as linhas que o modelo exigir (uma por funcionário, uma por imposto, uma por recarga), e contar linha mede o formato da tabela, não o trabalho. Medido: 18.504 linhas para 137 atos. A distorção REORDENA o ranking, não só infla o total; contagem idêntica entre categorias é a assinatura do lote.
 - [[Diferença entre duas leituras só fala do mundo se o instrumento não mudou]] — o diff entre duas fotos soma o que mudou lá fora com o que mudou em quem fotografou; carimbe a versão do extrator no dado e recuse comparar através dela. Patch faltando é buraco, patch inventado é mentira.
 
 ## Sistemas vivos — estado, canal e processo

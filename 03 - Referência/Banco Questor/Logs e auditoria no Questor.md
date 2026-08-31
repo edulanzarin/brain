@@ -15,6 +15,22 @@ criado: 2026-07-18
 
 Serve para trilha de auditoria detalhada (quem rodou qual rotina, quando, de onde). Caro; não é para relatório de rotina.
 
+### O `loggeral` está DESLIGADO nesta base (verificado ago/2026)
+
+Parecia a mina de ouro para medir trabalho: tem módulo, operação, **duração**
+(`datahorafim - datahorainicio`), resultado, estação — e, ao contrário de
+`lctofis`/`lctoctb`, **tem índice em `datahorainicio`**, o que tornaria o
+recorte por período barato.
+
+Não serve, porque parou de ser escrito: **330 operações em jun/2026, 10 em
+julho, ZERO em agosto**, com um único usuário e um único módulo. Os 11,5 milhões
+de linhas são histórico acumulado até algum ponto do passado. Antes de desenhar
+qualquer coisa em cima dele, confira o volume do mês corrente.
+
+Dois detalhes de higiene do dado, se um dia voltar: há 3 linhas com
+`datahorainicio` no FUTURO (a máxima é 2049) e 23 mil antes de 2015, então
+`max()`/`min()` não servem para descobrir o alcance real.
+
 ## Auditoria embutida (o caminho barato)
 
 Quase toda tabela transacional já carrega, por linha:

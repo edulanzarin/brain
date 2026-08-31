@@ -63,6 +63,9 @@ mapa [[Infra]].
 
 ## Princípios que mandam aqui
 
+- [[A unidade de contagem é o ato, não a linha que ele deixou]] — antes de contar,
+  pergunte quantas linhas um ato gera; se não for uma, agrupe pela chave do lote e
+  deixe a contagem de linhas como número secundário.
 - [[Identificador que já circulou não é mais seu para mudar]] — chave que virou link,
   protocolo ou endereço na mão de terceiro não é mais detalhe de implementação.
 - [[Reduzir a cardinalidade vem antes de enriquecer]] — a ordem das duas metades de
