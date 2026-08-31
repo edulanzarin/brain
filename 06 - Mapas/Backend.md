@@ -360,6 +360,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   (um item inválido = 400 no lote) sem como filtrar antes: bissecção isola os recusados,
   processa o resto e os bloqueia por sessão. Só pra erro determinístico, nunca 5xx.
   Princípio: [[Chamada externa tem timeout e erro tratado]].
+- [[Rótulo feito de chave técnica aponta para o registro errado quando os dois ids se parecem]] —
+  o registro tem a chave interna e o número do mundo, e quando os dois têm a mesma forma
+  o rótulo montado da chave vira referência válida a OUTRO registro. Qualifique o id
+  ("Chave 18675", não "Nota 18675"); só aparece rodando contra dado real.
+  Princípio: [[Tirar o dado errado não põe a verdade no lugar]].
 - [[Dependência cosmética não empresta sua disponibilidade à resposta]] — a tela cuja
   verdade mora no seu banco toca o externo só pelo NOME da coisa; isolar essa chamada
   num `try` com fallback legível (e um sinal na resposta pra tela avisar) é o que
