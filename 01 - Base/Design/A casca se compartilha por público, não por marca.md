@@ -60,6 +60,29 @@ níveis dentro dela —
 - **Casca própria não é tema próprio.** Os tokens, os componentes e a tipografia
   continuam os mesmos: o que muda é a navegação e o que ela oferece.
 
+## O preço de sair: a volta deixa de ser de graça
+
+Casca compartilhada dá a volta sem ninguém pensar nela — a navegação de sempre
+está lá, e quem entrou numa seção sai por onde entrou. Casca própria tira isso, e
+o buraco não aparece para quem construiu: quem constrói chega pela URL e sai
+fechando a aba.
+
+No [[Privello]] a saída do feed existia, e mesmo assim não existia. Era uma lupa
+rotulada "Procurar", e no celular sobrava só a lupa. Ninguém lê aquilo como
+saída: lê como busca. A pessoa concluía, com razão, que tinha ficado presa.
+
+Três coisas que a casca própria passa a dever:
+
+- **A saída é nomeada pelo DESTINO**, não pelo gesto. "Voltar" sozinho é o botão
+  do navegador; quem procura a saída quer saber para onde ela vai. Se o espaço
+  aperta no celular, encurte o verbo e mantenha o destino.
+- **Ela não some em nenhuma largura.** Rótulo escondido atrás de `sm:` é a saída
+  desaparecendo exatamente na tela onde a barra do navegador também some.
+- **Guia nova ajuda e não resolve.** Abrir a travessia numa aba nova deixa o
+  produto anterior de pé e transforma "voltar" em trocar de aba — mas só para
+  quem veio de lá. Quem chega por um link mandado em conversa não tem aba
+  anterior nenhuma, e é justamente essa pessoa que a casca precisa atender.
+
 ## Conexões
 - Irmã: [[O que responde pergunta rara não ocupa a rolagem de todo mundo]] — lá
   o corte é dentro da página; aqui é entre produtos.
