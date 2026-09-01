@@ -25,6 +25,15 @@ No [[Cofre Digital]] a senha de um acesso nem chega ao navegador dos setores de 
 só o endpoint dedicado de cópia a entrega, depois de checar o perfil. Campo oculto por
 CSS é campo visível no DevTools.
 
+**O selo é a versão disfarçada do campo oculto.** No [[Privello]] o story
+marcado como exclusivo desenhava um selo "Exclusivo" por cima da foto — que era
+enviada ao navegador como qualquer outra. Não havia o que desfocar nem o que
+esconder, porque não havia portão: havia adesivo. A forma certa é o servidor não
+mandar o caminho do arquivo, e a tela desenhar o portão justamente porque não
+recebeu nada. Vale a pergunta como teste: **o que exatamente deixa de sair do
+servidor quando a pessoa não tem direito?** Se a resposta for "nada, só muda o
+que a tela desenha", não é trava.
+
 ## Por que
 
 A interface é território do usuário — ele tem o código-fonte, o DevTools e a rede. Toda

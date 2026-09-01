@@ -18,15 +18,38 @@ Código em: `~/Dev/privello`
 ## Estado atual
 
 **Primeiro corte fechado (ago/2026).** Vitrine pública, painel de quem anuncia e
-moderação, rodando no compose e com build de produção passando. Sete commits na
-`main`, sem remote ainda.
+moderação, rodando no compose e com build de produção passando. Histórico
+linear na `main`, sem remote ainda.
 
 Ponta a ponta exercitado: cadastro, criação do anúncio, envio de documento,
 aprovação na moderação, publicação, upload de mídia dentro do teto do plano,
-story com prazo de 24 h, compra de plano e de VIP (provedor simulado),
-avaliação, denúncia e suspensão. `npm run verificar` cobre 33 regras de
-moderação contra o banco de dev (o script nasceu de verdade em 30/08/2026 —
-antes disso esta linha afirmava um comando que não existia).
+denúncia e suspensão. `npm run verificar` cobre 88 regras contra o banco de dev.
+
+**O lado de quem procura fechou em 01/09/2026.** Até aqui a nota afirmava story,
+compra de VIP e avaliação como exercitados, e os três eram leitura sem escrita:
+o trilho de story desenhava sem haver como enviar um, `assinarPlano` só aceitava
+plano de anúncio, e nada criava uma `Avaliacao` — os números do perfil vinham da
+semente. Favoritar era o caso mais nu: o botão não tinha ação e `/favoritas` lia
+uma tabela que ninguém escrevia. Virou princípio:
+[[Recurso sem escrita parece pronto quando a semente preenche a leitura]].
+
+**Editar o anúncio (01/09/2026).** `valorHoraCentavos` só era escrito na
+criação: errar o preço no cadastro obrigava a refazer o anúncio inteiro, e é o
+dado que muda toda semana. Entram três telas no painel — valores e contato, onde
+atende, sobre mim —, com o mesmo vocabulário dos passos do cadastro. A regra de
+cada campo saiu para `anuncioCore` e o cadastro passou a usar os mesmos leitores:
+[[Dado escrito por dois caminhos precisa de uma regra só, fora dos dois]].
+
+**Favoritar, passe e avaliação (01/09/2026).** As três escritas que faltavam do
+lado de quem procura, mais a página `/passe` com endereço próprio — o perfil
+mandava "assinar o passe" para `/anunciar`, que é a tela do outro público. Duas
+das três coisas que o passe vende não valiam nada: o telefone de contato fechado
+não saía nem para quem assinasse, e o story exclusivo era um selo por cima da
+foto verdadeira.
+
+**Story ganhou porta (01/09/2026).** O visor, o trilho e o prazo já existiam;
+faltava o envio. Sobe por `/api/story` pelo mesmo motivo da mídia, e o teto do
+plano conta os que estão NO AR em vez dos do dia de calendário.
 
 **Ponta a ponta fechado (30/08/2026).** O anúncio agora nasce, se monta e vai
 ao ar sem passo manual: cadastro em cinco passos, mídia com upload de verdade,
@@ -213,6 +236,37 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - **Nome, @ e recado editam no mesmo cartão.** É a vizinhança que ensina os três
   prazos — muda quando quiser, trava 30 dias, some em 24 h. Espalhados por três
   telas, cada prazo vira surpresa na hora do erro.
+- **Preço se corrige sem passar pela moderação.** O documento prova que ela é
+  maior de idade, e preço não é afirmação sobre isso: mandar cada correção de
+  tabela para a fila faria a fila crescer com o que ninguém precisa conferir. O
+  que a edição CONTINUA travando é o nascimento: `lerSobre` recusa data de menor
+  de 18, porque depois da conferência a data segue editável e o perfil poderia
+  passar a anunciar 16 anos com o selo de conferido ao lado.
+- **Um teto de preço, e ele existe contra o engano de digitação.** R$ 99.999 numa
+  hora é quem digitou centavos achando que digitava reais; o erro entra no `Int`
+  sem reclamar e some do fim de toda ordenação por preço.
+- **Favoritar é uma ação, não duas** —
+  [[Alternar é uma ação só, porque quem sabe o estado é o banco]]. E sem login não
+  é recusa, é `precisaEntrar`: favoritar é a única coisa no site que dá motivo
+  para quem só procura criar conta, e gastar esse momento com "faça login" é
+  perdê-lo.
+- **O passe tem tela própria e argumento próprio.** `EscolhaDePasse` não é
+  `EscolhaDePlano` com um interruptor: o que cada uma vende é a frase antes do
+  clique, e são frases opostas — lá é "assinar não publica", aqui é "isto abre
+  agora".
+- **Avaliação é uma por pessoa por anúncio, e escrever de novo troca.** A
+  alternativa é nota errada por engano de clique virando permanente, e quem quer
+  corrigir sem poder cria outra conta. A data NÃO se move na troca: `criadoEm` é
+  quando o atendimento foi relatado, e é por ela que a lista ordena — renovada a
+  cada edição, bastaria trocar uma vírgula para voltar ao topo do perfil.
+- **Apagar a própria avaliação não pede passe.** O que ela escreveu continua
+  sendo dela depois de a assinatura vencer; prender o texto no perfil de outra
+  pessoa por falta de pagamento é cobrança, não portão.
+- **A marca de exclusivo do story se escolhe ANTES do arquivo.** Story dura 24 h:
+  uma foto que entra aberta e vira exclusiva dez minutos depois já foi vista por
+  quem não assina, e a marca passa a mentir sobre o que aconteceu.
+- **Story é foto, e a recusa é dita.** O visor desenha `<img>`, e vídeo apareceria
+  como quadro em branco correndo sozinho.
 
 ## Aprendizados (viraram notas)
 
@@ -248,6 +302,11 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   primeiro caso vindo do [[monofire]].
 - [[Peça de mentira que não se anuncia vira fundação de coisa real]]
 - [[Fila de decisão agrupa pelo alvo, não pelo aviso]]
+- [[Recurso sem escrita parece pronto quando a semente preenche a leitura]] — o
+  princípio que saiu daqui, com quatro casos no mesmo projeto.
+- [[Dado escrito por dois caminhos precisa de uma regra só, fora dos dois]]
+- [[Alternar é uma ação só, porque quem sabe o estado é o banco]]
+- [[Estado bloqueado aponta para a chave]]
 
 ## Próximos passos
 
@@ -259,7 +318,8 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
       direto por PSP que aceite o segmento, ou adquirente high-risk. A interface
       `ProvedorPagamento` já está pronta para receber.
 - [ ] Assinatura por perfil (a metade "Privacy"): feed pago da acompanhante, com
-      repasse. É o segundo corte combinado.
+      repasse. É o segundo corte combinado, e não começou — o catálogo em
+      `/design/privacy` é a fundação dele.
 - [ ] Mídia em armazenamento de objeto (R2 ou Backblaze) implementando
       `Armazenamento` — disco local não passa de uma máquina.
 - [ ] Revisão jurídica de termos e privacidade, e definição do encarregado de

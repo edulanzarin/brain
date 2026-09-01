@@ -57,6 +57,18 @@ que já pertenceu a outro mandato.
 **A poda mora aqui.** Apagar registro velho junto da apuração roda uma vez por
 período, e não a cada leitura — então não precisa de rotina própria também.
 
+## O teto também se conta pelo que está vivo
+
+Quando o plano diz um número — "5 stories" —, a tentação é contar por data de
+calendário: quantos entraram hoje. Isso reintroduz pela porta dos fundos o que a
+expiração na leitura tinha resolvido, porque agora é preciso decidir que hora a
+casa chama de meia-noite, e a resposta muda com o fuso do servidor.
+
+Conte **quantos estão vivos agora**. Com prazo de 24 h, "no ar neste instante" e
+"entraram no último dia" são a mesma pergunta, e a primeira sai da mesma consulta
+que já filtra por `expiraEm > agora`. A oferta muda de redação junto: não é "5
+por dia", é "5 no ar".
+
 ## Conexões
 - Princípio: [[Estado mutável se lê da fonte no uso, não de cópia guardada]]
 - Irmã: [[Contador de popularidade conta votante, não evento]]

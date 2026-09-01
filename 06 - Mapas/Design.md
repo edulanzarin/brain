@@ -112,6 +112,7 @@ decide se vale abrir.
   e 1/I/L no alfabeto, e em tamanho de título: o ambíguo não gera erro, gera
   recusa de quem fez tudo certo, e nenhum log registra isso.
 - [[Último passo sem desfecho transforma a régua em beco]] — "Passo 9 de 9" promete
+- [[Estado bloqueado aponta para a chave]] — cadeado que não diz onde fica a chave é indistinguível de botão quebrado, e quem chegou ali é quem mais queria pagar; três estados, não dois, porque sem conta e sem o benefício levam a lugares diferentes.
   um fim; o rodapé do último passo tem que entregá-lo, no mesmo canto onde os outros
   põem o avançar. Quando o fim é uma espera de terceiro, o desfecho é "Concluir".
 - [[Campo que trava depois de escolhido não vai no meio do formulário]] — escolha que
