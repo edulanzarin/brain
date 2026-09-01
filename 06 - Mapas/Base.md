@@ -22,6 +22,7 @@ Independe de CSS, de Tailwind e de React. Técnicas concretas em [[Design]].
 - [[Container tem largura máxima e respiro constante]] — as três medidas de todo container.
 - [[Hierarquia por superfície, não por borda]] — profundidade por fundo; borda é último recurso.
 - [[Todo estado da tela tem visual]] — carregando, vazio, erro e sucesso são design.
+- [[A casca se compartilha por público, não por marca]] — mesma empresa e mesmo logo não fazem uma casca só; o que faz é o mesmo público no mesmo ritmo de volta. Duas coisas lidas em ritmos diferentes, empilhadas na mesma página, ensinam qual é a principal — e ensinam errado.
 - [[Catálogo de componentes é contrato vivo, não documentação]] — a peça entra no catálogo no commit em que nasce, com o porquê junto; o que fica escondido atrás de um clique se mostra também parado.
 - [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] — catálogo se explica de olhar; ferramenta pede número que mora fora dela e precisa de manual.
 - [[O que responde pergunta rara não ocupa a rolagem de todo mundo]] — a altura da página é orçamento pago por toda visita; bloco que interessa a poucos vai pro modal, com o gatilho carregando o estado que decide se vale abrir.

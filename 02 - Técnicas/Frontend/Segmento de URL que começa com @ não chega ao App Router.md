@@ -57,6 +57,32 @@ com o cliente Prisma velho na memória e devolvia 500 antes de chegar no
 roteador, o que escondeu o 404 — o diagnóstico veio de subir a build numa porta
 separada e bater nas duas formas do endereço lado a lado.
 
+## Identificador na raiz: toda página nova rouba um nome
+
+Decidido o atalho curto (`/duda`), o identificador passa a dividir o primeiro
+segmento com TODA página de raiz do site. E o roubo é silencioso nos dois
+sentidos: a rota literal ganha do segmento dinâmico, então quem já tem aquele @
+perde o atalho sem nenhum erro aparecer em lugar nenhum.
+
+No [[Privello]] a lista de reservados existia desde o começo, mas com a
+justificativa errada escrita em cima dela — "não é conflito de rota, é contra
+alguém se chamar @suporte". Meses depois nasceram `/passe` e `/feed`, e nenhum
+dos dois entrou na lista, porque a lista dizia não ser sobre isso.
+
+Duas coisas resolvem:
+
+- **A lista de reservados tem duas seções**, identidade e rotas de raiz, e o
+  comentário diz que a segunda existe por causa do sombreamento. Justificativa
+  errada envelhece pior que justificativa nenhuma: ela ativamente ensina o
+  contrário.
+- **Página nova na raiz entra na lista no mesmo commit.** É a mesma disciplina
+  do catálogo de componentes, e falha do mesmo jeito quando vira "depois eu
+  ponho".
+
+O alívio é que o endereço COMPLETO (`/uf/cidade/@`) não sofre nada disso, e é
+ele que a busca indexa. O atalho é conveniência de conversa, então o estrago de
+um sombreamento é um link quebrado em mensagem — chato, e não fatal.
+
 ## Conexões
 - Folha isolada por enquanto: falta o princípio que cubra "vocabulário reservado
   da ferramenta não é reutilizável no seu domínio".

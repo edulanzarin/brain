@@ -39,6 +39,13 @@ post aberto ou exclusivo, e o que entra vira saldo com extrato e saque; a casa
 fica com 20% por padrão, e o percentual mora no anúncio porque o acordo é por
 pessoa. Modelo, portão e carteira nas Decisões abaixo.
 
+**O feed virou área própria (01/09/2026).** Ele nasceu como bloco dentro do
+perfil e saiu de lá: `/feed` é a timeline de quem a pessoa assina, `/feed/@duda`
+é o de uma pessoa, e o anúncio ficou só com a chamada. Casca própria, fora do
+grupo `(site)` — [[A casca se compartilha por público, não por marca]]. Junto
+entraram curtir e comentar, com uma regra só: você interage com o post que você
+consegue ver.
+
 **A fronteira de pagamento (01/09/2026).** Esta nota afirmava que a interface
 `ProvedorPagamento` estava pronta para receber um adquirente. Não estava: eram
 quatro `provedor: "simulado"` escritos à mão, e a assinatura nascia já valendo
@@ -323,9 +330,24 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - **Marcar saque como pago não move dinheiro**: o Pix sai por fora enquanto não
   houver adquirente. A tela registra que saiu, para quem pediu saber e para a
   próxima pessoa da casa não pagar duas vezes.
-- **Curtir e comentar ficaram de fora, e a barra de ação some quando não há
-  contador.** Botão que não grava nada é pior que botão ausente —
-  [[Recurso sem escrita parece pronto quando a semente preenche a leitura]].
+- **O feed não mora no anúncio.** O classificado se lê uma vez para decidir
+  chamar; o feed se volta a abrir toda semana. Empilhados, o segundo vira rodapé
+  do primeiro, e quem assina passaria a entrar pela parte que já leu. No anúncio
+  fica a chamada; o feed tem área e casca próprias.
+- **A timeline é o que faz a assinatura durar.** Sem ela, quem assina três
+  pessoas abre três endereços e acaba não abrindo nenhum — a renovação deixa de
+  acontecer por esquecimento, não por decisão.
+- **Uma regra decide curtir e comentar**, e é a mesma do portão: `podeLer`.
+  Duas checagens separadas é como uma passa a aceitar o que a outra recusa.
+- **Post fechado não manda contador.** Quantas curtidas tem o que a pessoa não vê
+  não conta nada a ela, e conta para quem quer medir o feed de outra sem pagar.
+- **Comentário apaga quem escreveu E a dona do feed**, que senão hospeda no
+  próprio post o que não pode tirar.
+- **Os comentários chegam no primeiro clique**, não com a leva do feed: doze
+  posts com trinta comentários cada é meio mega de resposta para o que ninguém
+  abriu.
+- **Peça sem ação não desenha ação.** `Post` virou burra — `curtido` chega pronto
+  e curtir vem de fora — e `Midia` parou de desenhar um menu que não abria nada.
   como quadro em branco correndo sozinho.
 
 ## Aprendizados (viraram notas)
@@ -368,6 +390,7 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Alternar é uma ação só, porque quem sabe o estado é o banco]]
 - [[Estado bloqueado aponta para a chave]]
 - [[O acordo congela na linha, a política vale do próximo em diante]]
+- [[A casca se compartilha por público, não por marca]]
 
 ## Próximos passos
 
@@ -380,12 +403,12 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
       interface existe mesmo (01/09/2026), e o que falta do lado do código é uma
       implementação de `ProvedorPagamento` e a rota de webhook que chama
       `confirmarPagamento` — que já roda hoje, pela boca do simulado.
-- [ ] Curtir e comentar no feed. A peça de post tem a barra pronta e ela só é
-      desenhada quando há contador, justamente para não nascer botão morto.
 - [ ] Saque automático por Pix. Hoje a casa marca "paguei" e manda por fora, e
       automatizar depende do mesmo adquirente que ainda não existe.
 - [ ] Direto (mensagem) entre quem assina e quem publica. A peça `Conversa` já
-      está no catálogo servindo os dois lados.
+      está no catálogo servindo os dois lados, e não tem escrita do outro lado.
+- [ ] Rolagem infinita na timeline. Hoje ela traz a primeira leva e para; a
+      consulta já devolve `temMais`.
 - [ ] Mídia em armazenamento de objeto (R2 ou Backblaze) implementando
       `Armazenamento` — disco local não passa de uma máquina.
 - [ ] Revisão jurídica de termos e privacidade, e definição do encarregado de

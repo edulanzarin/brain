@@ -83,6 +83,11 @@ Princípios: [[Escala fechada em vez de valor solto]] ·
 
 `02 - Técnicas/Design/Componentes` — índice: [[Padrões de componentes de dashboard]]
 
+Antes de decidir se a coisa cabe nesta casca:
+[[A casca se compartilha por público, não por marca]] — mesma empresa e mesmo
+logo não fazem uma casca só. O que faz é o mesmo público no mesmo ritmo de
+volta; quando muda, a ponte é um cartão que convida, não um bloco embutido.
+
 Antes de decidir o que fica aberto na tela:
 [[O que responde pergunta rara não ocupa a rolagem de todo mundo]] — a altura é
 orçamento pago por toda visita, e o gatilho do que se esconde carrega o estado que

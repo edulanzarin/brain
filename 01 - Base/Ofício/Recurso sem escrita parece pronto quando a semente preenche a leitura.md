@@ -52,6 +52,24 @@ a tela dizia "enviada" e ninguém tinha como perceber.
   exercida do lado de quem paga é uma trava que não abre —
   [[Permissão se valida no servidor, não na interface]].
 
+## A versão da biblioteca: o padrão que finge
+
+A mesma doença aparece um nível abaixo, e ali ela se espalha sozinha. No
+[[Privello]] a peça de mídia desenhava, **por padrão**, um botão de reticências
+com o rótulo "Ações da mídia". Ele não abria nada. No painel passava por menu
+ainda não construído; quando a peça foi reusada no feed, apareceu em cima de
+toda foto de todo post.
+
+É pior que um botão morto escrito à mão, porque ninguém decidiu pô-lo ali: ele
+veio junto. E o mesmo valia para a barra de curtir e comentar, que guardava o
+coração num estado local — acendia no clique e não gravava nada, que é a forma
+mais convincente de botão morto, porque ele responde.
+
+A regra: **peça sem ação não desenha ação.** O que faz a peça agir chega por
+propriedade, e sem ele o controle não existe — não fica cinza, não fica inerte,
+não fica. Um `?? <BotaoPadrão />` é a promessa de um recurso feita pela
+biblioteca em nome de quem nem sabia que estava prometendo.
+
 ## Conexões
 - Irmã: [[Contador que conta sucesso de promessa afirma que deu certo]] — lá a
   métrica mente sobre o que aconteceu; aqui a tela mente sobre o que existe.
