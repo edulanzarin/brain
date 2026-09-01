@@ -29,6 +29,29 @@ Apareceu duas vezes, no mesmo sistema e por caminhos diferentes: no canal de den
 - Vale para qualquer agregado sobre gente: ranking de equipe pequena, média salarial por cargo com um ocupante, comentário aberto num recorte estreito.
 - Erro de leitura também vaza: mensagens diferentes para "recorte vazio" e "recorte suprimido" revelam se existe alguém ali.
 
+## Contar sem identificar
+
+Um canal aberto de propósito — denúncia sem login, formulário público, voto — não
+pode exigir cadastro sem deixar de ser o que é. Mas sem nenhuma chave, nada
+distingue vinte avisos de vinte pessoas de vinte avisos da mesma, e a fila de
+decisão passa a ordenar por quem insistiu mais.
+
+A saída é uma chave que serve para **contar** e não para **descobrir**: o resumo
+do IP com o segredo da casa. Ela responde "já vi esta origem" e não responde
+"quem é". Guardar o endereço cru seria coletar dado pessoal para resolver um
+problema de contagem — e o dado coletado é o que vaza, não o que se calculou.
+
+Duas ressalvas que a implementação precisa carregar:
+
+- **Sem chave, sem limite.** Quando o cabeçalho não vem, contar agruparia todo
+  mundo junto e o teto passaria a recusar a denúncia de estranhos entre si.
+- **Quem tem conta não passa pelo limite.** Ali existe identidade, e quem modera
+  julga a pessoa em vez do volume.
+
+E os limites medem coisas diferentes: um por ALVO (o segundo aviso não acrescenta
+nada à mesma decisão) e um por JANELA (o que segura quem sai avisando sobre a
+cidade inteira). Um só dos dois deixa passar metade do problema.
+
 ## Conexões
 - Depende de: [[Um invariante se garante na estrutura, não no processo]]
 - Técnica que aplica: [[Recorte pequeno em pesquisa anônima identifica, então o painel se recusa a mostrar]]

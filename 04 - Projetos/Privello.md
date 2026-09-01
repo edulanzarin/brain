@@ -39,6 +39,13 @@ post aberto ou exclusivo, e o que entra vira saldo com extrato e saque; a casa
 fica com 20% por padrão, e o percentual mora no anúncio porque o acordo é por
 pessoa. Modelo, portão e carteira nas Decisões abaixo.
 
+**Direto, e o que faltava (01/09/2026).** O `Conversa` estava no catálogo
+servindo os dois lados e não tinha escrita atrás — era a última peça que parecia
+pronta e não existia. Agora quem assina fala e quem publica responde, com a
+assinatura abrindo o canal. Junto fecharam a rolagem infinita da timeline (o
+`temMais` era calculado e ninguém lia), o redirecionamento do @ antigo e o limite
+de denúncia por origem.
+
 **O feed virou área própria (01/09/2026).** Ele nasceu como bloco dentro do
 perfil e saiu de lá: `/feed` é a timeline de quem a pessoa assina, `/feed/@duda`
 é o de uma pessoa, e o anúncio ficou só com a chamada. Casca própria, fora do
@@ -330,6 +337,19 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - **Marcar saque como pago não move dinheiro**: o Pix sai por fora enquanto não
   houver adquirente. A tela registra que saiu, para quem pediu saber e para a
   próxima pessoa da casa não pagar duas vezes.
+- **A assinatura é que abre o direto.** Sem ela não existe conversa, e é isso que
+  separa este canal de uma caixa de entrada que qualquer um enche. Quem publica
+  não ABRE conversa: senão o direto vira o caminho de ela abordar quem nunca
+  falou com ela.
+- **Vencida a assinatura, para de mandar e continua lendo**, e quem publica
+  responde sempre — fechar a resposta seria bater a porta na cara de alguém que
+  estava falando.
+- **O @ velho redireciona e fica reservado.** Liberado, outra pessoa poderia
+  tomá-lo, e o link antigo passaria a abrir o perfil de um estranho —
+  [[Identificador que já circulou não é mais seu para mudar]].
+- **A denúncia conta a origem sem identificá-la**, com o resumo do IP e não o IP
+  — [[Anonimato se perde na saída, não só na entrada]]. Quem tem conta não passa
+  pelo limite: ali existe identidade.
 - **O feed não mora no anúncio.** O classificado se lê uma vez para decidir
   chamar; o feed se volta a abrir toda semana. Empilhados, o segundo vira rodapé
   do primeiro, e quem assina passaria a entrar pela parte que já leu. No anúncio
@@ -421,10 +441,6 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 
 ## Próximos passos
 
-- [ ] Limite de denúncia por origem. Denunciar funciona sem login, e sem login
-      não há identidade: hoje nada impede vinte avisos do mesmo navegador. É
-      escolha consciente — o aviso de menor de idade não pode custar cadastro —,
-      mas a fila fica exposta a enxame.
 - [ ] **Gateway real.** É o bloqueio comercial, não técnico: precisa de PIX
       direto por PSP que aceite o segmento, ou adquirente high-risk. Agora a
       interface existe mesmo (01/09/2026), e o que falta do lado do código é uma
@@ -432,19 +448,12 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
       `confirmarPagamento` — que já roda hoje, pela boca do simulado.
 - [ ] Saque automático por Pix. Hoje a casa marca "paguei" e manda por fora, e
       automatizar depende do mesmo adquirente que ainda não existe.
-- [ ] Direto (mensagem) entre quem assina e quem publica. A peça `Conversa` já
-      está no catálogo servindo os dois lados, e não tem escrita do outro lado.
-- [ ] Rolagem infinita na timeline. Hoje ela traz a primeira leva e para; a
-      consulta já devolve `temMais`.
 - [ ] Mídia em armazenamento de objeto (R2 ou Backblaze) implementando
       `Armazenamento` — disco local não passa de uma máquina.
 - [ ] Revisão jurídica de termos e privacidade, e definição do encarregado de
       dados da LGPD.
 - [ ] Redimensionar imagem no upload; hoje o arquivo original é servido como veio.
 - [ ] Busca por nome e filtro de faixa de preço na listagem da cidade.
-- [ ] Redirecionar o endereço antigo do @ depois de uma troca. Hoje a troca é
-      permanente e o link velho morre — a trava de 30 dias segura a frequência,
-      não o estrago.
 
 ## Conexões
 - Usa: [[Design]] · [[Infra]]

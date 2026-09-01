@@ -59,6 +59,29 @@ O primeiro é sobre o campo de onde a identidade nasce; o segundo, sobre ela
 sobreviver a um refactor. A pergunta por trás dos dois é a mesma: **quem, fora
 daqui, já está segurando isto?**
 
+## Quando a troca precisa existir: o velho redireciona E fica reservado
+
+A trava de prazo segura a frequência, não o estrago. Trocado o identificador, o
+endereço antigo vira 404 e quem o guardou não fica sabendo — e ninguém volta
+para avisar. Duas linhas resolvem, e a segunda quase sempre falta:
+
+- **O velho redireciona para o novo**, gravado na MESMA transação da troca.
+  Escrito depois, uma falha no meio deixa o endereço morto — que é exatamente o
+  estrago que a linha existe para evitar.
+- **O velho NÃO volta para o mercado.** Liberado, outra pessoa pode tomá-lo, e
+  aí o link antigo deixa de dar 404 para passar a abrir o perfil de um estranho.
+  Numa vitrine de pessoas isso é pior que morrer: quem clicou acha que chegou.
+
+Daí sai uma consequência que surpreende: **a conferência de disponibilidade
+passa a olhar duas tabelas**, a dos vivos e a dos aposentados. E ela precisa ser
+uma função só — no [[Privello]] são três telas perguntando a mesma coisa (o
+cadastro, a troca, e a checagem que roda enquanto a pessoa digita), e três
+cópias é como uma passa a oferecer o que a outra recusa.
+
+O vivo sempre ganha do aposentado na hora de resolver o endereço. Se alguém está
+usando aquele identificador agora, é para ele que o link leva — a ordem das duas
+consultas é a regra, não estilo.
+
 ## Conexões
 - Irmã: [[Índice só é identidade enquanto a coleção não muda]]
 - Depende de: [[Um invariante se garante na estrutura, não no processo]]
