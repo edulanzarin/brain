@@ -57,6 +57,25 @@ conclui que a peça não existe e reescreve —
 [[Catálogo de componentes é contrato vivo, não documentação]]. E o que o
 buscador precisa ler não pode nascer dentro de um modal que só o clique monta.
 
+## O mesmo orçamento no eixo horizontal, e quem ganha a disputa
+
+A barra de topo do celular é o caso mais apertado do mesmo princípio: cabe uma
+coisa, e todo mundo quer estar nela. O argumento comum contra repetir navegação é
+que confunde — e não é esse o custo. **O custo de dois caminhos para o mesmo
+lugar é a largura que eles tiram de quem não tem segundo caminho.**
+
+Daí sai um teste que resolve a disputa sem gosto pessoal: **o que tem outra rota
+sai; o que não tem, fica.** No [[Privello]] a barra de baixo já levava a
+Favoritas, Conta e Anunciar; a busca de cidade não tinha segunda porta em lugar
+nenhum. Mesmo assim era ela que estava escondida no telefone, com os botões
+duplicados ocupando a linha.
+
+E o motivo pelo qual ela estava escondida se contradizia sozinho: o topo é
+grudado porque subir até o começo para trocar de cidade custa a rolagem inteira —
+que é exatamente o que se paga no celular. O elemento sumia na tela onde mais
+servia. Vale reler a justificativa de todo `hidden` de largura: ela costuma ter
+sido escrita pensando no desktop, onde o problema que ela resolve não existe.
+
 ## Conexões
 - Irmã: [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] ·
   [[Nota carrega só o que a pessoa não sabe]]

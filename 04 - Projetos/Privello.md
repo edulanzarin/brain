@@ -334,6 +334,11 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   chamar; o feed se volta a abrir toda semana. Empilhados, o segundo vira rodapé
   do primeiro, e quem assina passaria a entrar pela parte que já leu. No anúncio
   fica a chamada; o feed tem área e casca próprias.
+- **No celular o topo cabe uma coisa, e ela é a busca de cidade.** Favoritas,
+  Conta e Anunciar têm a barra de baixo; a busca não tem segunda porta nenhuma —
+  e mesmo assim era ela que estava escondida no telefone. O custo de repetir
+  navegação não é a confusão, é a largura que ela tira de quem não tem
+  alternativa.
 - **A saída do feed é nomeada.** Ela existia como uma lupa rotulada "Procurar",
   que no celular virava só a lupa: casca própria tira a volta que a casca
   compartilhada dava de graça, e quem entrava concluía que tinha ficado preso.

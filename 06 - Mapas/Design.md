@@ -91,7 +91,7 @@ volta; quando muda, a ponte é um cartão que convida, não um bloco embutido.
 Antes de decidir o que fica aberto na tela:
 [[O que responde pergunta rara não ocupa a rolagem de todo mundo]] — a altura é
 orçamento pago por toda visita, e o gatilho do que se esconde carrega o estado que
-decide se vale abrir.
+decide se vale abrir. Vale no eixo horizontal também: na barra do celular, o que tem segunda rota sai e o que não tem fica.
 
 - [[Sidebar em acordeão e layout de módulo]] — a estrutura fixa da tela.
 - [[Controles de filtro do dashboard]] — toggle segmentado e dropdown de filtro.
