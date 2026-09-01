@@ -58,5 +58,5 @@ refazendo o pareamento — ver
 ## Conexões
 - Princípio: [[Configuração vem do ambiente, não do código]]
 - Irmã: [[Estado desejado persistido religa o robô depois do restart]] · [[Numeric e bigint do Postgres chegam como string no driver pg]]
-- Visto em: [[CRM Contábil]]
+- Visto em: [[navecrm]]
 - Mapa: [[Backend]]

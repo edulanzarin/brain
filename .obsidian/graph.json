@@ -92,10 +92,10 @@
       }
     },
     {
-      "query": "tag:#projeto/contabil-crm",
+      "query": "tag:#projeto/navecrm",
       "color": {
         "a": 1,
-        "rgb": 1548962
+        "rgb": 3108845
       }
     }
   ],

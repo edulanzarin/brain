@@ -1,7 +1,7 @@
 ---
 tags: [tipo/projeto, projeto/contabil-crm]
 criado: 2026-09-01
-status: ativo
+status: arquivado
 codigo_em: ~/Dev/contabil-crm
 ---
 
@@ -14,7 +14,18 @@ codigo_em: ~/Dev/contabil-crm
 
 Código em: `~/Dev/contabil-crm` · sem remote ainda (commit local em dia).
 
-## A sobreposição, e a decisão
+## Encerrado em set/2026
+
+Substituído pelo [[navecrm]], escrito do zero no mesmo dia a pedido do Eduardo. A
+decisão de "seguir nesta base" durou horas: o que ele queria era um sistema novo, e o
+que eu fiz em vez disso foi portar o modelo de permissão do Navehub para cá — ou seja,
+reaproveitar, que era exatamente o que ele não tinha pedido.
+
+O código continua em `~/Dev/contabil-crm` até ele mandar apagar. O conhecimento não
+vem junto: as notas atômicas que saíram daqui continuam valendo por si, e apontam para
+o [[navecrm]] como evidência viva.
+
+## A sobreposição que deu origem a isto
 
 Este sistema nasceu em cima de um espaço que já estava ocupado — havia uma base de
 agosto/2026 mais adiantada em produto e sem conector de WhatsApp nenhum, e uma

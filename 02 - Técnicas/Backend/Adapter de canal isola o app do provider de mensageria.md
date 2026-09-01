@@ -67,7 +67,7 @@ worker o provider ainda pode estar atrás de uma interface.
 
 ## Conexões
 - Irmã: [[Polling substitui webhook quando não há IP público]] · [[Em canal humano automatizado, o ritmo denuncia antes do volume]]
-- Visto em: [[navetalks]] · [[CRM Contábil]]
+- Visto em: [[navetalks]] · [[navecrm]]
 - Mapa: [[Backend]]
 
 <!-- Folha por ora: o princípio-mãe ("recurso externo trocável fica atrás de uma costura")

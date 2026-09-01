@@ -94,7 +94,7 @@ layout fica com o trilho e a área de conteúdo. Some o provider, some o portal,
 some o contexto — e o cabeçalho passa a vir no HTML. O custo é o cabeçalho ficar
 fora da área que rola, o que obriga a decidir quem rola: se o container do layout
 rolar também, a tela com rolagem própria (uma inbox de dois painéis) ganha duas
-barras de rolagem. Visto em [[CRM Contábil]] (set/2026).
+barras de rolagem. Visto em [[navecrm]] (set/2026), que já nasceu com o cabeçalho no servidor.
 
 ## A busca do topo é um componente, não markup solto
 
@@ -112,5 +112,5 @@ debounce nem escrita de query a cada tela. O estado continua na URL
 - Parente: [[Filtro de lista mora na URL]] — o estado da busca continua na URL;
   o portal só muda **onde** o controle aparece, não onde o estado vive.
 - Irmã: [[Conteúdo do servidor não pode nascer invisível esperando o cliente]]
-- Visto em: [[navetalks]] · [[CRM Contábil]]
+- Visto em: [[navetalks]] · [[navecrm]]
 - Mapa: [[Design]]

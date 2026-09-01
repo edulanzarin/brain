@@ -66,5 +66,5 @@ e o sistema aceita gravar uma linha no cliente vizinho.
 ## Conexões
 - Princípio: [[Permissão se valida no servidor, não na interface]]
 - Irmã: [[Escopo de dado se clampa no servidor, num funil só]] · [[Contexto de tenant tem que morrer no commit, senão o pool o carrega adiante]]
-- Visto em: [[CRM Contábil]]
+- Visto em: [[navecrm]]
 - Mapa: [[Dados]] · [[Backend]]

@@ -47,5 +47,5 @@ uma consulta só que devolva tudo, não várias conexões.
 ## Conexões
 - Princípio: [[Ambiente de dev sobe igual ao de produção]]
 - Irmã: [[Numeric e bigint do Postgres chegam como string no driver pg]] · [[Contexto de tenant tem que morrer no commit, senão o pool o carrega adiante]]
-- Visto em: [[CRM Contábil]]
+- Visto em: [[navecrm]]
 - Mapa: [[Dados]]

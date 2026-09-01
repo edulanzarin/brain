@@ -34,7 +34,8 @@ Mapa atual:
 | [[monofire]] | 4074 | 5074 |
 | [[Privello]] | 4075 | 5075 |
 | privello2 | 4076 | 5076 |
-| [[CRM Contábil]] | 4077 | 5077 |
+| CRM Contábil (arquivado) | 4077 | 5077 |
+| [[navecrm]] | 4078 | 5078 |
 | Central Contábil | 4010 | 5010 |
 
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte

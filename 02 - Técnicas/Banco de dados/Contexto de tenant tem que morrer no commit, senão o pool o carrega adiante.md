@@ -56,5 +56,5 @@ quarta passa despercebida em revisão.
 - Princípio: [[Permissão se valida no servidor, não na interface]]
 - Irmã: [[Isolamento entre clientes é política do banco, não filtro na query]] · [[Uma conexão do pg não atende duas consultas ao mesmo tempo]]
 - Depende de: [[Configuração vem do ambiente, não do código]]
-- Visto em: [[CRM Contábil]]
+- Visto em: [[navecrm]]
 - Mapa: [[Dados]]

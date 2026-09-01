@@ -70,5 +70,5 @@ supervisionar já inclui atender —, então é escolha única, não caixa acumu
 ## Conexões
 - Princípio: [[Permissão se valida no servidor, não na interface]]
 - Irmã: [[Escopo de dado se clampa no servidor, num funil só]] · [[Permissão composta por papéis somados, não exceção por usuário]] · [[Isolamento entre clientes é política do banco, não filtro na query]]
-- Visto em: [[Navehub]] · [[CRM Contábil]]
+- Visto em: [[Navehub]]
 - Mapa: [[Backend]]
