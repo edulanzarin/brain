@@ -178,6 +178,10 @@ decide se vale abrir.
   container só, é o COMPRIMENTO DO TÍTULO que decide quantos selos sobem para a linha
   dele, e isso muda a cada registro. Quebra só dentro do grupo; e antes de mexer no
   visual, some as larguras e conte as fileiras — é aritmética, não gosto.
+- [[Fato vai em selo, estado vivo vai no retrato]] — a pergunta que separa é "isso ainda
+  vale amanhã?". Presença junto da identidade, não na lista de atributos; e o "não" é
+  CINZA, porque vermelho já é perigo, em retrato quer dizer ocupada, e verde/vermelho é o
+  pior par para daltonismo. Sem dado, a bolinha some — ausência não é o estado "não".
 - [[Barra de topo contextual - o módulo injeta suas ferramentas via portal]] — o
   topo muda por tela: cada módulo manda busca/ações via slot, sem busca duplicada.
 - [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]]

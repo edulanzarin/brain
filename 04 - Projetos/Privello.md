@@ -350,6 +350,12 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   isso, o retrato dividia a linha com a ficha mesmo no celular, deixando-a com
   ~290 px. Empilhados abaixo de `sm`, os mesmos quatro selos fecham em duas
   fileiras cheias — [[Título e metadados no mesmo flex-wrap deixam o dado decidir a quebra]].
+- **Presença é bolinha no retrato, não selo.** "Documento conferido" vale
+  amanhã, "em expediente" muda no meio da tarde — juntos na mesma fileira, ela
+  inteira parecia volátil. Verde/cinza (não vermelho: aqui vermelho já é
+  `perigo`), com `title` e texto de leitor de tela, e sumindo quando não há
+  horário declarado. A marca do story cedeu o canto de baixo porque o anel já
+  reforça o que ela reforçava — [[Fato vai em selo, estado vivo vai no retrato]].
 - **A timeline é o que faz a assinatura durar.** Sem ela, quem assina três
   pessoas abre três endereços e acaba não abrindo nenhum — a renovação deixa de
   acontecer por esquecimento, não por decisão.
