@@ -77,7 +77,8 @@ UI que mostra dado que muda sem o usuário pedir.
 ## Ofício — como eu trabalho
 
 - [[Verificar no build de produção, não só em dev]]
-- [[Semear teste cria linha nova, não muta linha real]]
+- [[Semear teste cria linha nova, não muta linha real]] — e a limpeza vai no `finally`, senão o teste que quebra no meio deixa lixo que o próximo encontra e não entende.
+- [[A regra mora fora da porta que a chama]] — regra escrita dentro do formulário/rota só existe quando a porta existe, e só se confere atravessando a porta. Quando o teste morre em `cookies` ou `revalidatePath`, a resposta não é simular o framework: é tirar a regra de dentro dele.
 - [[Migração de dados mantém o antigo como reserva até a virada]]
 - [[A definição em dado dirige o comportamento, não um caso no código]] — o que varia por um eixo conhecido vira dado que uma peça lê.
 - [[Um invariante se garante na estrutura, não no processo]] — "no máximo uma X" recusa-se no schema, não na expectativa do fluxo.

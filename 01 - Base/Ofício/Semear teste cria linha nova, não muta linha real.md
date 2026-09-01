@@ -36,6 +36,20 @@ Caso concreto: verificando a coluna de grupo do [[Cofre Digital]], pus empresas 
 num grupo de teste e depois apaguei o grupo; o `SetNull` deixou as empresas sem grupo,
 apagando a vinculação "2RXD → Teste" que o Eduardo tinha feito à mão.
 
+## A limpeza roda mesmo quando o teste quebra
+
+O corolário, aprendido no [[Privello]]: a limpeza vai num `finally`, não no fim
+do caminho feliz. A primeira versão de um teste de moderação morreu no meio — em
+`revalidatePath` chamado fora de escopo de requisição — e deixou um usuário
+órfão no banco de dev. Ninguém percebe na hora; percebe-se depois, quando o
+teste seguinte encontra dado que não entende e passa (ou falha) pelo motivo
+errado.
+
+Ajuda marcar tudo o que o teste cria com um prefixo comum e apagar por ele
+(`email: { startsWith: MARCA }`): a limpeza acha o que semeou sem precisar ter
+guardado os ids, o que é justamente o que se perde quando a execução morre no
+meio.
+
 ## Conexões
 - Irmã: [[Verificar no build de produção, não só em dev]]
 - Visto em: [[Cofre Digital]]

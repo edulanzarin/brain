@@ -97,6 +97,13 @@ decide se vale abrir.
   endereço" era exato e virou "onde você mora" num classificado de acompanhantes; e
   "nome" em dois campos vira "isto substitui aquilo?". Fale da coisa, não da categoria
   dela, e troque no produto inteiro.
+- [[Peça de mentira que não se anuncia vira fundação de coisa real]] — o botão
+  de denunciar fechava o modal e dizia "enviada" sem escrever linha nenhuma;
+  peça faltando se vê, peça de mentira passa em toda inspeção e vira base do
+  que se constrói depois.
+- [[Fila de decisão agrupa pelo alvo, não pelo aviso]] — sete denúncias do mesmo
+  perfil são uma decisão, não sete. E a fila de decisão ordena por gravidade,
+  ao contrário da fila de conferência, que ordena pela mais antiga.
 - [[Tela que manda comparar duas coisas mostra as duas]] — a fila mandava
   comparar com as fotos do anúncio e não mostrava as fotos do anúncio; quem
   modera fez a metade possível e aprovou. Instrução que a interface não deixa

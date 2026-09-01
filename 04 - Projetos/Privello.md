@@ -24,14 +24,21 @@ moderação, rodando no compose e com build de produção passando. Sete commits
 Ponta a ponta exercitado: cadastro, criação do anúncio, envio de documento,
 aprovação na moderação, publicação, upload de mídia dentro do teto do plano,
 story com prazo de 24 h, compra de plano e de VIP (provedor simulado),
-avaliação, denúncia e suspensão. `npm run verificar` cobre 27 regras contra o
-banco de dev.
+avaliação, denúncia e suspensão. `npm run verificar` cobre 33 regras de
+moderação contra o banco de dev (o script nasceu de verdade em 30/08/2026 —
+antes disso esta linha afirmava um comando que não existia).
 
 **Ponta a ponta fechado (30/08/2026).** O anúncio agora nasce, se monta e vai
 ao ar sem passo manual: cadastro em cinco passos, mídia com upload de verdade,
 expediente, etiquetas, documento com selfie, fila de conferência em `/admin` e
 plano com pagamento simulado. Falta a fila de denúncias no admin, e o
 adquirente de verdade.
+
+**Denúncia e suspensão (30/08/2026).** O botão de denunciar era fachada — fechava
+o modal e mostrava torrada de sucesso sem escrever linha nenhuma. Agora grava, e
+existe fila em `/admin/denuncias` agrupada por anúncio, com tirar do ar, voltar
+ao ar e descartar, todos escrevendo evento de moderação. Junto nasceu o
+`npm run verificar`: 33 regras exercitadas contra o banco de dev.
 
 **Vídeo de comparação (30/08/2026).** A coluna `midiaDeComparacao` existia sem
 nenhum caminho que a preenchesse. Agora tem: a casa sorteia um código, ela
@@ -164,6 +171,20 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   mover deixaria o perfil apontando para uma rota que recusa por prefixo
   ([[Se quem decide o acesso é a pasta, aprovar é mover o arquivo]]). Recusado
   sai do disco.
+- **A fila de denúncias agrupa por ANÚNCIO e ordena por quantidade.** Sete
+  denúncias do mesmo perfil são uma decisão, não sete
+  ([[Fila de decisão agrupa pelo alvo, não pelo aviso]]). É o inverso da fila de
+  conferência, que ordena pela mais antiga — lá cada item é alguém esperando
+  resposta, aqui é gravidade. As duas moram no mesmo painel e ordenam ao
+  contrário de propósito.
+- **Suspender não apaga nada, e por isso pode ser rápido.** Fotos, expediente e
+  avaliações ficam; muda o estado, que é o que a vitrine consulta. Voltar ao ar
+  é um clique, e é por isso que os suspensos ficam na mesma tela da fila. A
+  decisão difícil seria apagar, e ela não existe no admin.
+- **Restaurar não é porta dos fundos para PUBLICADO.** Anúncio suspenso que
+  nunca teve documento aprovado volta para a fila de conferência, não para o ar.
+  É a mesma trava dos 18 anos aplicada à transição que parece só desfazer o que
+  a própria moderação fez — e é a regra que o `npm run verificar` mais protege.
 - **A moderação é a única porta para PUBLICADO.** Nem o cadastro nem a compra
   de plano movem um anúncio para lá: a transição só existe em
   `server/moderacao.ts`, depois de alguém olhar documento e selfie lado a
@@ -223,12 +244,17 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Se quem decide o acesso é a pasta, aprovar é mover o arquivo]]
 - [[Código que a pessoa copia à mão não pode ter caractere ambíguo]]
 - [[Tela que manda comparar duas coisas mostra as duas]]
+- [[A regra mora fora da porta que a chama]] — o princípio que saiu daqui, com o
+  primeiro caso vindo do [[monofire]].
+- [[Peça de mentira que não se anuncia vira fundação de coisa real]]
+- [[Fila de decisão agrupa pelo alvo, não pelo aviso]]
 
 ## Próximos passos
 
-- [ ] Fila de denúncias no `/admin`. A de conferência existe; a de denúncia
-      ainda não tem tela, e o modelo já guarda tudo que ela precisa.
-- [ ] Suspender e despublicar pelo admin, com o evento de moderação junto.
+- [ ] Limite de denúncia por origem. Denunciar funciona sem login, e sem login
+      não há identidade: hoje nada impede vinte avisos do mesmo navegador. É
+      escolha consciente — o aviso de menor de idade não pode custar cadastro —,
+      mas a fila fica exposta a enxame.
 - [ ] **Gateway real.** É o bloqueio comercial, não técnico: precisa de PIX
       direto por PSP que aceite o segmento, ou adquirente high-risk. A interface
       `ProvedorPagamento` já está pronta para receber.

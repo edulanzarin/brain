@@ -50,10 +50,22 @@ unicidade — e apaga o usuário no fim.
 - O mesmo corte serve à segunda tela que precisar da regra: uma rota de webhook do
   provedor real chama `efetivarCompra` sem passar por formulário nenhum.
 
+## O segundo caso, e a promoção
+
+No [[Privello]] o mesmo aprendizado chegou pelo outro lado: a regra já estava
+escrita dentro da ação, e foi **escrever o teste que forçou a separação**. Ele
+morreu primeiro em `cookies` chamado fora de escopo de requisição; movida a
+leitura da sessão para a ação, morreu de novo em `revalidatePath`. Duas mortes,
+a mesma causa — a regra estava misturada com a porta.
+
+Vale reparar que `revalidatePath` é da porta e não da regra, ainda que pareça
+consequência da escrita: quem invalida cache é a requisição que respondeu.
+
+Com dois sistemas e dois caminhos diferentes até a mesma conclusão, virou
+princípio: [[A regra mora fora da porta que a chama]].
+
 ## Conexões
-- Princípio: folha isolada — a Base ainda não tem um princípio que cubra "regra
-  alcançável só pela interface só se verifica clicando". Se o mesmo aprendizado
-  aparecer num segundo sistema, vira princípio.
+- Princípio: [[A regra mora fora da porta que a chama]]
 - Irmã: [[React reseta o formulário ao fim de uma Server Action]]
-- Visto em: [[monofire]]
+- Visto em: [[monofire]] · [[Privello]]
 - Mapa: [[Frontend]]
