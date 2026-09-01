@@ -45,9 +45,29 @@ função de ingestão única — então o resto do app nunca vê Baileys nem Clo
   e polling), então a idempotência mora nela, não em cada provider. Mesma família de
   [[Polling substitui webhook quando não há IP público]].
 
+## A costura também pode ser uma fila, e não uma interface
+
+Num segundo caso (set/2026) o app nunca chama o Baileys porque o **provider mora em
+outro processo**: a aplicação grava a mensagem como pendente numa tabela de fila, e um
+worker à parte é quem conecta e envia. O efeito é o mesmo — nenhuma linha do app conhece
+o fornecedor — mas o limite não é uma interface de TypeScript, é a fila mais uma rota
+HTTP interna.
+
+Vale a comparação, porque as duas formas resolvem coisas diferentes:
+
+- **Interface** troca o provider dentro do mesmo processo, e permite dois ao mesmo tempo
+  com pouco código.
+- **Fila** faz isso e ainda separa a **cadência**: quem decide o instante do envio deixa
+  de ser quem pediu, o que é a condição para haver portão de ritmo
+  ([[Em canal humano automatizado, o ritmo denuncia antes do volume]]). Também isola o
+  ciclo de deploy, que é o que sessão viva exige.
+
+Não são alternativas excludentes: a fila entrega o trabalho a um worker, e dentro do
+worker o provider ainda pode estar atrás de uma interface.
+
 ## Conexões
-- Irmã: [[Polling substitui webhook quando não há IP público]]
-- Visto em: [[navetalks]]
+- Irmã: [[Polling substitui webhook quando não há IP público]] · [[Em canal humano automatizado, o ritmo denuncia antes do volume]]
+- Visto em: [[navetalks]] · [[CRM Contábil]]
 - Mapa: [[Backend]]
 
 <!-- Folha por ora: o princípio-mãe ("recurso externo trocável fica atrás de uma costura")

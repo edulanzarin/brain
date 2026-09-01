@@ -33,6 +33,8 @@ Mapa atual:
 | [[piwdex2]] | 4071 · 4072 | 5071 |
 | [[monofire]] | 4074 | 5074 |
 | [[Privello]] | 4075 | 5075 |
+| privello2 | 4076 | 5076 |
+| [[CRM Contábil]] | 4077 | 5077 |
 | Central Contábil | 4010 | 5010 |
 
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte
@@ -87,6 +89,23 @@ lockd, X11, IRC…) e recusam conectar nelas; o Next inclusive se recusa a subir
 A regra do espelho `4xxx`→`5xxx` continua, mas ao reservar o par, pule qualquer porta da
 lista unsafe do navegador — no range `4xxx` a que morde é a **4045**. Visto em
 [[Navecon CRM]] (ago/2026).
+
+## A tabela só é fonte da verdade se o projeto novo se registrar nela
+
+A regra diz para consultar aqui e não o `docker ps`, e ela continua certa — mas ela
+supõe que quem cria projeto **escreve nesta tabela na hora**. Em set/2026 o par
+4076/5076 estava livre segundo a nota e ocupado de fato pelo privello2, que nunca foi
+registrado. O conflito só apareceu no `docker compose up`, depois de o slug, o `.env`,
+o compose e o `package.json` já estarem escritos com o número errado.
+
+O custo foi baixo (um `sed`), e é baixo justamente enquanto o projeto é novo. Duas
+consequências práticas:
+
+- **Reservar é escrever aqui, não escolher mentalmente.** Projeto que ainda não tem
+  nota entra na tabela mesmo assim, pelo nome da pasta.
+- **Confira o par contra a máquina antes de cravar**, mesmo confiando na tabela. Um
+  `docker ps` custa segundos e cobre o caso de alguém — inclusive você — ter pulado o
+  registro. A tabela manda; a máquina desempata quando as duas discordam.
 
 ## O par são duas portas, não uma
 

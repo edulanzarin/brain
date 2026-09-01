@@ -90,6 +90,13 @@
         "a": 1,
         "rgb": 14239471
       }
+    },
+    {
+      "query": "tag:#projeto/contabil-crm",
+      "color": {
+        "a": 1,
+        "rgb": 1548962
+      }
     }
   ],
   "collapse-display": true,

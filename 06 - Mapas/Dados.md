@@ -12,6 +12,15 @@ de sistema externo é referência e tem mapa próprio.
 
 `02 - Técnicas/Banco de dados`
 
+- [[Isolamento entre clientes é política do banco, não filtro na query]] — multi-tenant
+  por RLS: a consulta que esquecer o filtro devolve zero linhas em vez das do vizinho,
+  porque vazamento de tenant não tem sintoma. Princípio:
+  [[Permissão se valida no servidor, não na interface]].
+- [[Contexto de tenant tem que morrer no commit, senão o pool o carrega adiante]] — o
+  `SET` sem `LOCAL` deixa a conexão carimbada e o próximo pedido lê o cliente anterior;
+  intermitente por construção, e a política de isolamento não pega.
+- [[Uma conexão do pg não atende duas consultas ao mesmo tempo]] — `Promise.all` dentro
+  da transação promete concorrência e entrega fila; some numa atualização de dependência.
 - [[Acesso comprado é linha própria, não status do pedido]] — "pagou" e "tem acesso"
   parecem a mesma pergunta e não são; matrícula em tabela separada, com ponteiro
   opcional pro pedido, aguenta reembolso, cortesia e curso gratuito. Princípio:

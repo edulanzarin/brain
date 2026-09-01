@@ -190,6 +190,13 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Integrações
 
+- [[Em canal humano automatizado, o ritmo denuncia antes do volume]] — o que identifica
+  automação num canal feito para pessoas é o padrão, não o total: um sistema toma
+  bloqueio ABAIXO do limite que julgava respeitar. As cinco travas do portão, e por que
+  responder é mais seguro que iniciar.
+- [[Binário guardado em JSON volta como objeto de números]] — chave criptográfica em
+  `jsonb` sem serialização explícita grava algo que parece salvo; o defeito aparece na
+  subida seguinte, sem erro no log.
 - [[Provedor de pagamento entra por interface, e o simulado é a primeira implementação]] — a interface é a metade fácil: o teste é se o caminho do simulado passa pelos MESMOS estados que o do provedor real, e ativar é porta própria, idempotente, que o webhook chama sem mudar nada.
   o sistema fala com um contrato de três campos, não com o SDK do gateway; o provedor
   simulado deixa o fluxo de venda existir inteiro antes de existir credencial. Princípio:

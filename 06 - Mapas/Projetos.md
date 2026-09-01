@@ -21,6 +21,7 @@ mora aqui: mora em [[Base]] (princípios) e em [[Design]], [[Frontend]], [[Backe
 - [[Vespéria]] — idle de Pokémon em cidade caminhável; a rota é população viva e a captura tem piso garantido.
 - [[monofire]] — marketplace de cursos de jogos competitivos; criador publica, aluno compra e assiste.
 - [[piwdex2]] — reescrita da dex do Poke Idle World como ferramenta de consulta (17 filtros, estado na URL).
+- [[CRM Contábil]] — CRM de atendimento por WhatsApp para contabilidade, multi-tenant com isolamento por RLS e conector Baileys com portão anti-ban. **Sobrepõe o [[Navehub]] em escopo; o destino das duas bases é decisão em aberto.**
 - [[Privello]] — classificado de acompanhantes por cidade, com verificação de documento antes da publicação; planos para quem anuncia e passe VIP para quem procura.
 
 ## Substituídos
