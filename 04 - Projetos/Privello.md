@@ -8,10 +8,10 @@ codigo_em: ~/Dev/privello
 # Privello
 
 > Classificado de acompanhantes por cidade, com verificação de documento antes
-> da publicação. Planos para quem anuncia (teto de mídia, story e destaque) e um
-> passe VIP para quem procura. Domínio já registrado; a referência de mercado é
-> o FatalModel, e a segunda metade — venda de conteúdo por assinatura de perfil,
-> tipo Privacy — fica para o corte seguinte.
+> da publicação. Planos para quem anuncia (teto de mídia, story e destaque), um
+> passe para quem procura, e a assinatura de perfil — o feed pago da própria
+> acompanhante, com repasse. Domínio já registrado; a referência de mercado é o
+> FatalModel na primeira metade e o Privacy na segunda.
 
 Código em: `~/Dev/privello`
 
@@ -32,6 +32,12 @@ plano de anúncio, e nada criava uma `Avaliacao` — os números do perfil vinha
 semente. Favoritar era o caso mais nu: o botão não tinha ação e `/favoritas` lia
 uma tabela que ninguém escrevia. Virou princípio:
 [[Recurso sem escrita parece pronto quando a semente preenche a leitura]].
+
+**O Privacy entrou (01/09/2026).** O segundo corte combinado deixou de ser só o
+catálogo em `/design/privacy`. Quem publica põe preço no próprio feed, escreve
+post aberto ou exclusivo, e o que entra vira saldo com extrato e saque; a casa
+fica com 20% por padrão, e o percentual mora no anúncio porque o acordo é por
+pessoa. Modelo, portão e carteira nas Decisões abaixo.
 
 **A fronteira de pagamento (01/09/2026).** Esta nota afirmava que a interface
 `ProvedorPagamento` estava pronta para receber um adquirente. Não estava: eram
@@ -285,6 +291,41 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - **O que é consequência de ativar mora na confirmação**, e não em quem vendeu —
   acender o destaque, no caso. Deixado do lado da venda, o webhook ativaria a
   assinatura e esqueceria a bandeira.
+
+- **A assinatura de perfil é model próprio, não mais uma linha em `Assinatura`.**
+  Lá o que se compra é um plano do cadastro, com preço da casa e sem repasse;
+  aqui o preço é de quem publica e parte volta para ela. A mesma coluna
+  significando "assinatura PARA este anúncio" e "assinatura DESTE anúncio" seria
+  a divergência mais cara que este schema poderia ter.
+- **Mídia de post é tabela própria** pelo mesmo tipo de razão: a do anúncio
+  carrega papéis que só existem na vitrine, e pendurar post na mesma obrigaria
+  toda consulta da vitrine a lembrar de excluir o que é do feed — a primeira que
+  esquecesse publicaria conteúdo pago na busca da cidade.
+- **Preço e repasse congelam na compra** —
+  [[O acordo congela na linha, a política vale do próximo em diante]]. Baixar a
+  taxa faria o saldo de todo mundo subir sozinho, inclusive o de quem já sacou.
+- **Não existe tabela de saldo.** Ele é a soma dos repasses liberados menos a
+  dos saques não recusados, então recusar um saque devolve o valor sozinho e
+  não há estorno a escrever. Saque pedido já sai do disponível, senão a pessoa
+  pede duas vezes o mesmo dinheiro —
+  [[Balancete é movimento do período, saldo é consequência]].
+- **Sete dias até liberar**, porque estorno e contestação chegam depois do
+  pagamento: repassar na hora é a casa pagar do próprio bolso quando o dinheiro
+  volta.
+- **O feed se desliga pela ausência do preço**, não por uma bandeira a mais
+  dizendo a mesma coisa. Tirar o preço para de vender e não cancela o que já foi
+  vendido: quem assinou continua até o prazo acabar.
+- **O primeiro post é a amostra.** Feed inteiramente trancado não tem o que
+  vender, porque quem não assina não vê nem que existe conteúdo. O portão manda
+  QUANTAS mídias existem e não manda o caminho de nenhuma.
+- **A marca de exclusivo é do compositor, não da grade.** Post que entra aberto
+  e fecha dez minutos depois já foi visto por quem não assina.
+- **Marcar saque como pago não move dinheiro**: o Pix sai por fora enquanto não
+  houver adquirente. A tela registra que saiu, para quem pediu saber e para a
+  próxima pessoa da casa não pagar duas vezes.
+- **Curtir e comentar ficaram de fora, e a barra de ação some quando não há
+  contador.** Botão que não grava nada é pior que botão ausente —
+  [[Recurso sem escrita parece pronto quando a semente preenche a leitura]].
   como quadro em branco correndo sozinho.
 
 ## Aprendizados (viraram notas)
@@ -326,6 +367,7 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Dado escrito por dois caminhos precisa de uma regra só, fora dos dois]]
 - [[Alternar é uma ação só, porque quem sabe o estado é o banco]]
 - [[Estado bloqueado aponta para a chave]]
+- [[O acordo congela na linha, a política vale do próximo em diante]]
 
 ## Próximos passos
 
@@ -338,9 +380,12 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
       interface existe mesmo (01/09/2026), e o que falta do lado do código é uma
       implementação de `ProvedorPagamento` e a rota de webhook que chama
       `confirmarPagamento` — que já roda hoje, pela boca do simulado.
-- [ ] Assinatura por perfil (a metade "Privacy"): feed pago da acompanhante, com
-      repasse. É o segundo corte combinado, e não começou — o catálogo em
-      `/design/privacy` é a fundação dele.
+- [ ] Curtir e comentar no feed. A peça de post tem a barra pronta e ela só é
+      desenhada quando há contador, justamente para não nascer botão morto.
+- [ ] Saque automático por Pix. Hoje a casa marca "paguei" e manda por fora, e
+      automatizar depende do mesmo adquirente que ainda não existe.
+- [ ] Direto (mensagem) entre quem assina e quem publica. A peça `Conversa` já
+      está no catálogo servindo os dois lados.
 - [ ] Mídia em armazenamento de objeto (R2 ou Backblaze) implementando
       `Armazenamento` — disco local não passa de uma máquina.
 - [ ] Revisão jurídica de termos e privacidade, e definição do encarregado de

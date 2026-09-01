@@ -252,7 +252,8 @@ Princípios: [[Todo estado da tela tem visual]] · [[Nota carrega só o que a pe
 [[Estado compartilhável mora na URL]] ·
 [[Dado que chega preenche espaço reservado, não empurra a tela]] ·
 [[A régua sai da distribuição, não dos extremos]] ·
-[[A tela não afirma mais precisão do que a fonte tem]]
+[[A tela não afirma mais precisão do que a fonte tem]] — e o inverso também
+mente: cortar o centavo faz o botão cobrar R$ 29,90 e mostrar R$ 30.
 
 ## Checklist de tela nova
 

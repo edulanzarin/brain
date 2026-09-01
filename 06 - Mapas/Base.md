@@ -82,6 +82,7 @@ UI que mostra dado que muda sem o usuário pedir.
 - [[Dado escrito por dois caminhos precisa de uma regra só, fora dos dois]] — o cadastro cria e a tela corrige; com a regra copiada nos dois, o lado escrito depois passa a aceitar o que o outro recusa, e nada dá erro. A duplicação nasce na hora da segunda tela.
 - [[Recurso sem escrita parece pronto quando a semente preenche a leitura]] — a metade que mostra é a que se vê e a que a semente satisfaz sozinha; a conferência de que algo existe é apontar a função que cria a linha, nunca a tela que a lê.
 - [[Alternar é uma ação só, porque quem sabe o estado é o banco]] — guardar e tirar não são duas funções: quem escolhe o sentido é o que estava gravado, e a decisão sai de uma escrita atômica, não de um ler-e-depois-escrever.
+- [[O acordo congela na linha, a política vale do próximo em diante]] — preço, percentual e alíquota moram no cadastro porque precisam mudar, e é por isso que o que já foi combinado não pode continuar apontando para eles. O teste: mudar o número muda algum relatório do mês passado?
 - [[Migração de dados mantém o antigo como reserva até a virada]]
 - [[A definição em dado dirige o comportamento, não um caso no código]] — o que varia por um eixo conhecido vira dado que uma peça lê.
 - [[Um invariante se garante na estrutura, não no processo]] — "no máximo uma X" recusa-se no schema, não na expectativa do fluxo.

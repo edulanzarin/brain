@@ -56,6 +56,20 @@ Precisão honesta custa mais espaço na tela: `<0,0001%` é mais largo que `0%`,
 é mais largo que `28,5`. É o preço, e é barato perto de uma tela que mente com cara de
 exatidão.
 
+## E o inverso, que é pior quando é dinheiro
+
+Arredondar para MENOS casas do que o dado tem não é modéstia: é a tela dizendo
+outro número. No [[Privello]], o formatador de moeda cortava os centavos porque
+os preços de anúncio são redondos — e aí uma assinatura de R$ 29,90 aparecia
+como "R$ 30" no botão que cobrava R$ 29,90, e um repasse de R$ 23,92 virava
+"R$ 24" num extrato cuja soma tinha que bater com o saldo.
+
+A saída não é ligar duas casas em tudo, que enche a vitrine de ",00": é mostrar
+o centavo **quando ele existe**. Dois formatadores, e a escolha por
+`centavos % 100`. Com o arredondamento para centavo ANTES da pergunta — 29,9
+vindo de uma divisão por 100 chega como 29.900000000000002, e "tem resto" seria
+sim por ponto flutuante, não por preço.
+
 ## Conexões
 - Irmã: [[Todo estado da tela tem visual]] · [[A régua sai da distribuição, não dos extremos]]
 - Técnica que aplica: [[Zero na tela é afirmação, não valor de conforto]] ·

@@ -49,6 +49,27 @@ o schema. E é o outro lado de [[A definição em dado dirige o comportamento, n
   impede o mesmo colaborador duas vezes no envio — nada disso depende de o
   processo se comportar.
 
+## "Exatamente uma destas duas colunas"
+
+O ORM costuma não saber dizer isso, e a saída fácil é deixar a garantia na
+disciplina de quem escreve. No [[Privello]], um pagamento pertence a uma
+assinatura de plano OU a uma assinatura de perfil, nunca às duas e nunca a
+nenhuma. Duas tabelas de pagamento resolveriam sem CHECK e duplicariam a
+fronteira do provedor — que é justamente o que não pode ter duas versões.
+
+A resposta é escrever o CHECK à mão na migration:
+
+```sql
+ALTER TABLE "pagamentos"
+  ADD CONSTRAINT "pagamento_pertence_a_uma_compra"
+  CHECK (("assinaturaId" IS NULL) <> ("assinaturaDePerfilId" IS NULL));
+```
+
+O `<>` entre dois booleanos é o XOR, e ele recusa as duas pontas de uma vez: o
+pagamento órfão e o pagamento de duas compras deixam de ser representáveis. A
+migration gerada não traz isso — editá-la é parte do trabalho, não um desvio
+dele.
+
 ## Conexões
 - Irmã: [[Permissão se valida no servidor, não na interface]]
 - Depende de: [[A definição em dado dirige o comportamento, não um caso no código]]
