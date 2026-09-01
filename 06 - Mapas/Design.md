@@ -174,6 +174,10 @@ decide se vale abrir.
   controle veste a mesma casca e a célula reserva a linha do rótulo mesmo sem
   rótulo; `items-end` só disfarça altura diferente. Traz junto a armadilha de
   truncar, que esconde nos dois eixos e come o acento.
+- [[Título e metadados no mesmo flex-wrap deixam o dado decidir a quebra]] — juntos num
+  container só, é o COMPRIMENTO DO TÍTULO que decide quantos selos sobem para a linha
+  dele, e isso muda a cada registro. Quebra só dentro do grupo; e antes de mexer no
+  visual, some as larguras e conte as fileiras — é aritmética, não gosto.
 - [[Barra de topo contextual - o módulo injeta suas ferramentas via portal]] — o
   topo muda por tela: cada módulo manda busca/ações via slot, sem busca duplicada.
 - [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]]

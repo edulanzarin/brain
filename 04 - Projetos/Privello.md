@@ -344,6 +344,12 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   nomeada, não a guia nova: quem chega por link de conversa não passa pela
   chamada do anúncio. Sem argumento, sobra o custo —
   [[Guia nova é decisão tomada no lugar de quem clicou]].
+- **No cabeçalho do perfil, o nome tem a linha dele.** Nome e selos estavam no
+  mesmo `flex-wrap`, e aí era o comprimento do nome que decidia quantos selos
+  subiam — no telefone sobrava espaço para um, e o resto caía solto. Somado a
+  isso, o retrato dividia a linha com a ficha mesmo no celular, deixando-a com
+  ~290 px. Empilhados abaixo de `sm`, os mesmos quatro selos fecham em duas
+  fileiras cheias — [[Título e metadados no mesmo flex-wrap deixam o dado decidir a quebra]].
 - **A timeline é o que faz a assinatura durar.** Sem ela, quem assina três
   pessoas abre três endereços e acaba não abrindo nenhum — a renovação deixa de
   acontecer por esquecimento, não por decisão.
