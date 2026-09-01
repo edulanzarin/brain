@@ -42,6 +42,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   [[Permissão se valida no servidor, não na interface]].
 - [[Sessão opaca no banco separa autenticação de permissão]] — cookie só carrega o
   token; permissão vem do banco a cada request (revogável, sempre atual).
+- [[Supervisão é papel do setor, não cargo global]] — "quem manda" é marca na
+  associação pessoa↔setor, não coluna no cadastro; quem configura o sistema não
+  enxerga por isso o atendimento de todo setor. Princípio:
+  [[Permissão se valida no servidor, não na interface]].
 - [[Sessão de painel interno é um cookie assinado, não uma tabela de sessões]] — o
   outro extremo: painel de 1-2 pessoas, sessão stateless num cookie HMAC, sem store.
   Princípio: [[A assinatura autentica o dado, não quem o trouxe]].

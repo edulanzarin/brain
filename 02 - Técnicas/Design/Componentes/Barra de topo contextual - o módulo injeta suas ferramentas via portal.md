@@ -55,11 +55,46 @@ Detalhes que evitam dor:
 
 - **Ref-callback como setState** (`ref={setNode}`) registra o nó quando ele monta
   e re-renderiza — o portal só dispara quando o alvo existe.
-- **SSR/hidratação limpos**: no server e no 1º render client o `node` é null e o
-  portal rende `null` (topo vazio); o ref anexa depois do commit → 2º render
-  preenche. Server e 1º client batem, sem mismatch.
+- **Sem mismatch de hidratação**: no server e no 1º render client o `node` é null
+  e o portal rende `null` (topo vazio); o ref anexa depois do commit → 2º render
+  preenche. Server e 1º client batem. **Mas "sem mismatch" não é "renderizado no
+  servidor"** — ver a seção abaixo, que é o preço.
 - **Trocar de tela** desmonta o portal do módulo antigo e monta o do novo; o alvo
   (no Topbar) é estável e não pisca.
+
+## O preço: o topo inteiro fica fora do HTML do servidor
+
+Descoberto em set/2026, contra o que a seção acima sugeria. Portal existe depois
+que o JavaScript roda, então **nada que o módulo injeta chega no HTML que o
+servidor manda**: título da tela, abas, busca. Curl na página devolve a lista de
+conversas pronta e o cabeçalho dela vazio.
+
+As três consequências, em ordem de gravidade:
+
+- **Sem JavaScript, o topo não existe nunca.** Não é degradação, é ausência: a
+  pessoa vê a lista e nenhuma forma de filtrar ou trocar de aba.
+- **O título aparece de repente.** O servidor pinta a página sem cabeçalho e ele
+  entra na hidratação — o mesmo defeito de
+  [[Conteúdo do servidor não pode nascer invisível esperando o cliente]], só que
+  causado pelo mecanismo em vez de por uma classe.
+- **Não dá para verificar por fora.** Conferir "esta pessoa vê a aba Equipe?" com
+  uma requisição simples deixa de funcionar, porque a resposta não contém a aba.
+  Some a checagem mais barata que existe sobre permissão na interface.
+
+**Quando o portal ainda paga**: painel atrás de login onde o JavaScript é
+pré-requisito e o topo carrega ação, não informação — um botão "novo", um filtro
+de conforto.
+
+**Quando não paga**: quando o topo carrega o QUE a tela está mostrando (título,
+aba selecionada, termo buscado). Aí ele é conteúdo, e conteúdo sai do servidor.
+
+O remédio é mais simples que o portal: **a barra de topo é do módulo, não do
+layout**. Cada página renderiza o próprio cabeçalho como primeiro filho, e o
+layout fica com o trilho e a área de conteúdo. Some o provider, some o portal,
+some o contexto — e o cabeçalho passa a vir no HTML. O custo é o cabeçalho ficar
+fora da área que rola, o que obriga a decidir quem rola: se o container do layout
+rolar também, a tela com rolagem própria (uma inbox de dois painéis) ganha duas
+barras de rolagem. Visto em [[CRM Contábil]] (set/2026).
 
 ## A busca do topo é um componente, não markup solto
 
@@ -76,5 +111,6 @@ debounce nem escrita de query a cada tela. O estado continua na URL
   — onde mora a navegação; esta nota é onde moram as *ferramentas da tela*.
 - Parente: [[Filtro de lista mora na URL]] — o estado da busca continua na URL;
   o portal só muda **onde** o controle aparece, não onde o estado vive.
-- Visto em: [[navetalks]]
+- Irmã: [[Conteúdo do servidor não pode nascer invisível esperando o cliente]]
+- Visto em: [[navetalks]] · [[CRM Contábil]]
 - Mapa: [[Design]]

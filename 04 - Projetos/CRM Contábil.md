@@ -14,21 +14,16 @@ codigo_em: ~/Dev/contabil-crm
 
 Código em: `~/Dev/contabil-crm` · sem remote ainda (commit local em dia).
 
-## A pendência que precisa ser resolvida antes de seguir
+## A sobreposição, e a decisão
 
-Este sistema nasceu **em cima de um espaço que já estava ocupado**, e a decisão de
-recomeçar do zero foi tomada sem essa informação na mesa. Existem hoje três bases no
-mesmo problema: uma de agosto/2026, multi-tenant e bem mais adiantada em produto
-(permissão escopada por fila, diretório de contatos, painel operacional, modais), que
-**não tem conector de WhatsApp nenhum**; uma anterior, monotenant, cravada num
-escritório só; e esta, que tem o conector e o isolamento no banco e é mais rasa no
-resto.
+Este sistema nasceu em cima de um espaço que já estava ocupado — havia uma base de
+agosto/2026 mais adiantada em produto e sem conector de WhatsApp nenhum, e uma
+anterior, monotenant. Em set/2026 o Eduardo decidiu: **esta é a base**, e o que valer
+a pena das outras vem para cá. O primeiro transplante já aconteceu (a supervisão
+escopada ao setor).
 
-O caminho provável não é manter as três: é levar daqui o que é difícil e o outro lado
-não tem — o worker do Baileys com sessão persistida, o portão, e a política de RLS — e
-descartar o resto. **Isso é decisão do Eduardo, não está tomada**, e por isso não há
-link de substituição aqui: a regra "projeto não linka projeto" só abre quando a relação
-é real, e ainda não é.
+Não há link de substituição porque nada foi substituído ainda: a regra "projeto não
+linka projeto" só abre quando a relação é real.
 
 ## Estado atual
 
@@ -69,6 +64,10 @@ puro com `pg` · Tailwind v4 · Baileys 6.7 num processo à parte, rodado por `t
   `jsonb` da entidade. Escritório novo não pede deploy. Mesma família de
   [[Formulário montado pelo usuário — a definição no banco dirige renderer e validação]].
 - **Módulo desligado responde 404**, não some só do menu.
+- **Dois funis, um dentro do outro.** A política de RLS responde de qual escritório é a
+  linha; dentro do escritório, um funil na aplicação responde quais departamentos a
+  pessoa alcança. Perguntas diferentes, camadas diferentes —
+  [[Supervisão é papel do setor, não cargo global]].
 - **O worker é processo separado** porque a conexão do WhatsApp é estado vivo e morreria
   a cada deploy dentro do Next — [[Processo que segura sessão viva não morre em exceção não tratada]].
 - **A fila é a costura** entre o app e o WhatsApp: o app grava pendente e enfileira,
@@ -91,14 +90,18 @@ Só links; o texto mora na nota atômica.
   estar na tabela, e o que isso custa.
 - [[Verificar no build de produção, não só em dev]] — dois defeitos que passaram em dev:
   handler de clique em componente de servidor, e `Promise.all` sobre a mesma conexão.
+- [[Supervisão é papel do setor, não cargo global]]
+- [[Barra de topo contextual - o módulo injeta suas ferramentas via portal]] — ganhou o
+  preço do padrão: o topo injetado por portal não existe no HTML do servidor, então
+  título, abas e busca só aparecem depois do JavaScript. O remédio foi tirar a barra do
+  layout e devolvê-la ao módulo.
 
 ## Próximos passos
 
-- [ ] **Decidir o destino deste código** ante a base de agosto/2026 (ver acima). Tudo
-      abaixo depende disso.
+- [x] **Destino decidido** (set/2026): esta é a base; o resto vem para cá.
+- [x] Permissão escopada ao departamento, com supervisão por setor e prova das
+      travessias — [[Supervisão é papel do setor, não cargo global]].
 - [ ] Ler o QR com um número de teste e trocar mensagem de verdade ponta a ponta.
-- [ ] Permissão escopada ao departamento (hoje o recorte é por escritório; o papel
-      existe mas só separa quem configura) — [[Escopo de dado se clampa no servidor, num funil só]].
 - [ ] CRUD de empresa, contato e tarefa (as telas leem; os botões de criar não existem).
 - [ ] Recebimento de mídia (o worker ignora anexo; a tabela de documentos já espera).
 - [ ] Tempo real na fila (hoje a tela recarrega).
