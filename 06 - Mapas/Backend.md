@@ -190,7 +190,7 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Integrações
 
-- [[Provedor de pagamento entra por interface, e o simulado é a primeira implementação]] —. A interface é a metade fácil: o teste é se o caminho do simulado passa pelos MESMOS estados que o do provedor real, e ativar é porta própria, idempotente, que o webhook chama sem mudar nada.
+- [[Provedor de pagamento entra por interface, e o simulado é a primeira implementação]] — a interface é a metade fácil: o teste é se o caminho do simulado passa pelos MESMOS estados que o do provedor real, e ativar é porta própria, idempotente, que o webhook chama sem mudar nada.
   o sistema fala com um contrato de três campos, não com o SDK do gateway; o provedor
   simulado deixa o fluxo de venda existir inteiro antes de existir credencial. Princípio:
   [[Chamada externa tem timeout e erro tratado]].
