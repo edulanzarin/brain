@@ -334,11 +334,16 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   chamar; o feed se volta a abrir toda semana. Empilhados, o segundo vira rodapé
   do primeiro, e quem assina passaria a entrar pela parte que já leu. No anúncio
   fica a chamada; o feed tem área e casca próprias.
-- **A saída do feed é nomeada, e a travessia abre em guia nova.** A saída existia
-  como uma lupa rotulada "Procurar", que no celular virava só a lupa: casca
-  própria tira a volta que a casca compartilhada dava de graça, e quem entrava
-  concluía que tinha ficado preso. A guia nova ajuda quem veio do anúncio e não
-  substitui a saída — quem chega por link de conversa não tem aba anterior.
+- **A saída do feed é nomeada.** Ela existia como uma lupa rotulada "Procurar",
+  que no celular virava só a lupa: casca própria tira a volta que a casca
+  compartilhada dava de graça, e quem entrava concluía que tinha ficado preso.
+  Agora é "Voltar ao Privello", em qualquer largura.
+  A travessia do anúncio chegou a abrir em **guia nova** e voltou para a mesma
+  guia (set/2026), a pedido do Eduardo. O argumento que eu usara para defendê-la
+  — "quem chega por link de conversa não tem aba anterior" — sustentava a saída
+  nomeada, não a guia nova: quem chega por link de conversa não passa pela
+  chamada do anúncio. Sem argumento, sobra o custo —
+  [[Guia nova é decisão tomada no lugar de quem clicou]].
 - **A timeline é o que faz a assinatura durar.** Sem ela, quem assina três
   pessoas abre três endereços e acaba não abrindo nenhum — a renovação deixa de
   acontecer por esquecimento, não por decisão.

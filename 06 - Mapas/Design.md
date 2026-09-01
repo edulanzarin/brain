@@ -166,6 +166,10 @@ decide se vale abrir.
 - [[Anúncio em feed não pode vestir a roupa do conteúdo]] — pode caber no layout, não
   pode passar por conteúdo: rótulo de palavra fechada, densidade mínima, sinal visual
   próprio e altura reservada.
+- [[Guia nova é decisão tomada no lugar de quem clicou]] — só se paga quando a volta não
+  recupera o contexto (a bancada do moderador); na travessia de leitura o botão de voltar
+  devolve mais do que a guia nova entrega. Se a peça precisa de aviso de leitor de tela e
+  de uma seta para se explicar, é comportamento se desculpando.
 - [[Fila de campos alinha por altura fixa de controle, não por items-end]] — todo
   controle veste a mesma casca e a célula reserva a linha do rótulo mesmo sem
   rótulo; `items-end` só disfarça altura diferente. Traz junto a armadilha de
