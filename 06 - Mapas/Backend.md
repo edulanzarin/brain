@@ -199,6 +199,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   tentativa e esconde o motivo. Classifique 403/401/429 antes de decidir o retry, guarde
   a frase crua do outro lado e desligue a INTENÇÃO, não só a conexão. Princípio:
   [[Chamada externa tem timeout e erro tratado]].
+- [[Fim de lista se prova com intervalo, não com repetição]] — API que responde VAZIO sob
+  pressão faz "acabou" e "não te respondo agora" chegarem iguais; repetir não desempata
+  (as tentativas caem na mesma janela), espaçar sim. Medido: 865/660/0 sem intervalo,
+  865/865 com 1,4 s. E o critério de página curta vale por ENDPOINT, não pela API.
+  Princípio: [[Ausência de leitura cai no valor que dispara a ação]].
 - [[Duas listas parecidas respondem perguntas diferentes, e a errada some com o item]] —
   catálogo e posse trazem os mesmos campos e divergem só na ausência; usar um pelo outro
   faz o item exclusivo de uma das listas sumir sem erro nenhum.
