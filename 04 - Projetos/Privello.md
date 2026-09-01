@@ -33,6 +33,16 @@ semente. Favoritar era o caso mais nu: o botão não tinha ação e `/favoritas`
 uma tabela que ninguém escrevia. Virou princípio:
 [[Recurso sem escrita parece pronto quando a semente preenche a leitura]].
 
+**A fronteira de pagamento (01/09/2026).** Esta nota afirmava que a interface
+`ProvedorPagamento` estava pronta para receber um adquirente. Não estava: eram
+quatro `provedor: "simulado"` escritos à mão, e a assinatura nascia já valendo
+com o pagamento gravado `PAGO` na mesma transação — o `PENDENTE` existia no enum
+e nada o escrevia. Agora a venda tem duas metades e as duas rodam: `vender` cria
+a compra sem valer e chama o provedor, `confirmarPagamento` é a única porta que
+faz uma assinatura passar a valer, e é ela que o webhook vai chamar sem mudar uma
+linha. Detalhe em
+[[Provedor de pagamento entra por interface, e o simulado é a primeira implementação]].
+
 **Editar o anúncio (01/09/2026).** `valorHoraCentavos` só era escrito na
 criação: errar o preço no cadastro obrigava a refazer o anúncio inteiro, e é o
 dado que muda toda semana. Entram três telas no painel — valores e contato, onde
@@ -266,6 +276,15 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   uma foto que entra aberta e vira exclusiva dez minutos depois já foi vista por
   quem não assina, e a marca passa a mentir sobre o que aconteceu.
 - **Story é foto, e a recusa é dita.** O visor desenha `<img>`, e vídeo apareceria
+- **A assinatura nasce com o intervalo vazio, e é isso que a faz não valer.** Não
+  existe coluna dizendo "confirmada": quem responde se uma assinatura está de pé é
+  `fimEm > agora`, e sempre foi. Uma bandeira a mais seriam duas verdades sobre a
+  mesma pergunta.
+- **O prazo se conta na confirmação, não na venda.** Entre pedir e pagar pode
+  passar um dia, e é isso que mantém honesta a soma de quem renova antes de vencer.
+- **O que é consequência de ativar mora na confirmação**, e não em quem vendeu —
+  acender o destaque, no caso. Deixado do lado da venda, o webhook ativaria a
+  assinatura e esqueceria a bandeira.
   como quadro em branco correndo sozinho.
 
 ## Aprendizados (viraram notas)
@@ -315,8 +334,10 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
       escolha consciente — o aviso de menor de idade não pode custar cadastro —,
       mas a fila fica exposta a enxame.
 - [ ] **Gateway real.** É o bloqueio comercial, não técnico: precisa de PIX
-      direto por PSP que aceite o segmento, ou adquirente high-risk. A interface
-      `ProvedorPagamento` já está pronta para receber.
+      direto por PSP que aceite o segmento, ou adquirente high-risk. Agora a
+      interface existe mesmo (01/09/2026), e o que falta do lado do código é uma
+      implementação de `ProvedorPagamento` e a rota de webhook que chama
+      `confirmarPagamento` — que já roda hoje, pela boca do simulado.
 - [ ] Assinatura por perfil (a metade "Privacy"): feed pago da acompanhante, com
       repasse. É o segundo corte combinado, e não começou — o catálogo em
       `/design/privacy` é a fundação dele.
