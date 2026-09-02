@@ -77,6 +77,12 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   pela espessura da barra. O corte é `overflow-x: clip` na raiz: no ancestral mais
   próximo ele mataria o próprio sangramento, e `hidden` soltaria todo sticky.
 
+- [[A lista do select nativo não aceita estilo, então ele não serve de dropdown padrão]] —
+  fechado ele engana; aberto, quem desenha é o navegador. Numa barra de ferramentas o
+  nativo denuncia que veio de outro lugar, então o combo do sistema é o padrão.
+- [[Cor de identidade não pode ocupar o lugar da cor de estado]] — cabeçalho tingido com a
+  cor do módulo vira alarme quando o tom é coral, e colorir por sinal faz a coluna de
+  divergência dizer "está certo" em verde ao lado do ícone de alerta.
 - [[Barra de filtro é grade, não fila]] — na fila, controle que nasce (o intervalo do
   período personalizado) empurra o vizinho debaixo do cursor. Grade de trilha fixa com
   `auto-fill`, e o controle para de carregar largura própria.
