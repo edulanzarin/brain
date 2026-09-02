@@ -11,7 +11,68 @@ codigo_em: ~/Dev/nexo
 
 Código em: `~/Dev/nexo` (pasta local renomeada junto com o projeto; o nome do projeto não depende dela). Remote `git@github.com:edulanzarin/nexo.git`. Slug `nexo`, containers `nexo-app`/`nexo-db`, imagem `nexo-app`, banco/role/volume/rede `nexo`, par de portas **4022 app / 5022 banco**. O sistema externo lido segue sendo o **Questor** (banco `Navecon`), intocado.
 
-## Estado atual
+## A reconstrução (set/2026) — o Nexo atual
+
+**O código em `~/Dev/nexo` é a REESCRITA.** A versão descrita no resto desta nota
+foi movida para `~/Dev/nexo2` e serve de fonte para portar a camada de domínio.
+Os dois têm o mesmo slug, então **não podem subir juntos**: disputam
+`nexo-app`, `nexo-db`, a rede e o volume.
+
+O motivo do recomeço: o nexo2 cresceu sem planejamento — nasceu dashboard fiscal
+e virou plataforma de seis módulos, com a interface acompanhando o crescimento
+em vez de guiá-lo. A pasta `components/` misturava primitivo e domínio, o tema
+era um dialeto de vidro e halo que não sustentava densidade de relatório, e cada
+tela resolvia os próprios estados à mão. Aqui a ordem se inverte: **o sistema de
+design vem primeiro, o catálogo nasce com ele, e a tela é montagem** — ver
+[[Catálogo de componentes é contrato vivo, não documentação]].
+
+O que se porta e o que se refaz:
+
+- **A camada de domínio vem quase intacta** (`nexo2/src/lib/*.ts`): o SQL do
+  Questor e os motores são meses de conhecimento validado contra o banco real,
+  e cada armadilha deles está registrada aqui. Ajusta-se import e tipo, não o SQL.
+- **A interface se refaz inteira**, montada sobre os primitivos novos.
+
+### Módulo Contábil portado (set/2026)
+
+Quatro seções de pé, com as migrations do que o Questor não diz direito
+(override manual, CFOP que contabiliza, conta efetiva de serviço, regras de
+extrato):
+
+| Seção | O que faz |
+|---|---|
+| Conciliação bancária | lê o extrato (OFX/PDF), casa com as regras da conta e gera o CSV de importação |
+| Conferência fiscal | cada nota contra o plano de contabilização: pendente, conta errada, duplicada, em bloco |
+| Notas fiscais | o explorador bruto do período, com detalhe de itens e exportação auditada |
+| Balancete fiscal | esperado pelas regras × lançado, com drill-down por conta e as notas culpadas |
+
+Decisões da interface nova que valem para as próximas seções:
+
+- **Uma barra de recorte só.** Empresa, período, filial e os filtros da própria
+  tela dividem a mesma barra, numa grade — ver
+  [[Barra de filtro é grade, não fila]].
+- **Rascunho separado de aplicado.** Ler o Questor custa segundos, então a
+  consulta executa por botão e a barra diz que os números são do filtro
+  anterior.
+- **O apontamento mostra a prova.** Conferência e balancete abrem o lançamento
+  por trás do número; balancete que só afirma um total manda refazer o filtro no
+  Questor, e número que só se confere fora do sistema é número em que ninguém
+  confia.
+- **O que não foi conferido é dito.** Componentes fora do motor, NFSE sem
+  lançamento, período truncado: silêncio sobre o que ficou de fora lê-se como
+  "conferido".
+
+Duas armadilhas achadas na reconstrução viraram nota:
+[[Vidro cria contexto de empilhamento, e nenhum z-index atravessa isso]] e
+[[Barra de filtro é grade, não fila]].
+
+**Falta portar** do Contábil: painel, conferência de contas, balancete contábil,
+pendências, implantação, plano de contabilização, auditoria e produtividade —
+mais os módulos Fiscal, DP, RH, Obrigações e Configurações. Todos aparecem na
+navegação marcados como "a portar": peça que falta se vê, peça de mentira passa
+em toda inspeção.
+
+## Estado atual (do nexo2, a versão anterior — fonte do porte)
 
 Módulo **Fiscal** funcionando com dados reais, com 6 seções: Painel, Análises, Tributos, Produtividade, Conformidade, Dados. Entra-se nele pelo **launcher** (a raiz `/`), e dentro do módulo a sidebar mostra **só as seções dele** (ver "Arquitetura de módulos e permissão" abaixo).
 

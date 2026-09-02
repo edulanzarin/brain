@@ -77,12 +77,20 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   pela espessura da barra. O corte é `overflow-x: clip` na raiz: no ancestral mais
   próximo ele mataria o próprio sangramento, e `hidden` soltaria todo sticky.
 
+- [[Barra de filtro é grade, não fila]] — na fila, controle que nasce (o intervalo do
+  período personalizado) empurra o vizinho debaixo do cursor. Grade de trilha fixa com
+  `auto-fill`, e o controle para de carregar largura própria.
+- [[Vidro cria contexto de empilhamento, e nenhum z-index atravessa isso]] —
+  `backdrop-filter` faz de cada painel uma raiz de empilhamento, e a lista do combo
+  abre atrás do painel de baixo. Não há número que resolva: o conserto é o portal.
+
 - [[Peça de grade mostrada sozinha vai centrada num palco]] — cartão fora da grade
   deixa meia linha vazia ao lado, e a sobra é lida como defeito da prévia. Centrar
   num palco de fundo diferente resolve a sobra e ainda diz que aquilo é amostra.
 
 Princípios: [[Escala fechada em vez de valor solto]] ·
-[[Container tem largura máxima e respiro constante]]
+[[Container tem largura máxima e respiro constante]] ·
+[[Propriedade escolhida pelo visual redefine a estrutura por baixo]]
 
 ## Componentes
 

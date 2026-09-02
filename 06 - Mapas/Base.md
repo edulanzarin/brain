@@ -21,6 +21,10 @@ Independe de CSS, de Tailwind e de React. Técnicas concretas em [[Design]].
 - [[Escala fechada em vez de valor solto]] — espaço, texto e raio saem de conjunto fixo.
 - [[Container tem largura máxima e respiro constante]] — as três medidas de todo container.
 - [[Hierarquia por superfície, não por borda]] — profundidade por fundo; borda é último recurso.
+- [[Propriedade escolhida pelo visual redefine a estrutura por baixo]] — desfocar, cortar,
+  animar: o efeito pedido pela aparência muda quem é o ancestral de rolagem, o bloco que
+  contém e a raiz do empilhamento. O defeito aparece longe, sem erro, e aumentar o número
+  não resolve porque o número foi reinterpretado.
 - [[Todo estado da tela tem visual]] — carregando, vazio, erro e sucesso são design.
 - [[A casca se compartilha por público, não por marca]] — mesma empresa e mesmo logo não fazem uma casca só; o que faz é o mesmo público no mesmo ritmo de volta. Duas coisas lidas em ritmos diferentes, empilhadas na mesma página, ensinam qual é a principal — e ensinam errado. O preço de separar é que a volta deixa de ser de graça: a saída passa a ser nomeada pelo destino e não pode sumir no celular.
 - [[Catálogo de componentes é contrato vivo, não documentação]] — a peça entra no catálogo no commit em que nasce, com o porquê junto; o que fica escondido atrás de um clique se mostra também parado.
