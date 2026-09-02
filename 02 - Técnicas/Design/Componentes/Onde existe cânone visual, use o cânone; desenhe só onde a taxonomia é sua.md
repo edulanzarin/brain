@@ -59,5 +59,5 @@ num README que ninguém abre ao mover o código.
 - Princípio: [[Nota carrega só o que a pessoa não sabe]]
 - Irmã: [[Mais resolução não compra qualidade em ícone; trocar de meio compra]] ·
   [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]]
-- Visto em: [[piwdex2]]
+- Visto em: [[piwdex2]] · [[Navetech Hub]]
 - Mapa: [[Design]]

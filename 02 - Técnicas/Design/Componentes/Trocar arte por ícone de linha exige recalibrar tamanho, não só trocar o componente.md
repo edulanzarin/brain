@@ -124,5 +124,5 @@ em metade das telas.
 - Princípio: [[A variante de um controle muda a intenção, não o tamanho]]
 - Irmã: [[Trocar a fonte muda a largura, não só o desenho da letra]] ·
   [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]]
-- Visto em: [[piwdex]] · [[piwdex2]]
+- Visto em: [[piwdex]] · [[piwdex2]] · [[Navetech Hub]]
 - Mapa: [[Design]]

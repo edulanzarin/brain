@@ -69,5 +69,5 @@ máscara) falha calado, porque a peça continua desenhando.
 ## Conexões
 - Princípio: [[Verificar no build de produção, não só em dev]]
 - Irmã: [[Classes de componente vão em @layer components no Tailwind]]
-- Visto em: [[Privello]]
+- Visto em: [[Privello]] · [[Navetech Hub]]
 - Mapa: [[Design]]

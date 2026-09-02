@@ -796,12 +796,30 @@ só. O Eduardo reprovou na hora ("tá feio"), e com razão: a foto era referênc
 ESTRUTURA (faixa, ficha, status), não de pele. A estrutura ficou; a pele foi
 refeita.
 
-A linguagem que ficou: **institucional com profundidade e cor por módulo**.
-Cantos macios em escada por tamanho da peça, elevação em três níveis (duas
-sombras por nível), halos amplíssimos no fundo para a página não ler como folha
-plana, e cada módulo com **cor de identidade** tingindo ícone, chip, faixa e item
-ativo da barra lateral. O ícone passou a viver em **chip tingido** — é o que dá
-área ao glifo e carrega cor sem pintar texto.
+Houve ainda uma terceira volta: com a pele endurecida corrigida, o Eduardo pediu
+**vidro** (que ele já tinha recusado na primeira rodada) e **arte desenhada** no
+lugar dos ícones emprestados, lembrando dos ícones do [[piwdex2]].
+
+A linguagem que ficou: **vidro sobre fundo de aurora, com cor de identidade por
+módulo e arte própria**. Cantos macios em escada por tamanho da peça, elevação em
+três níveis, três halos amplos no fundo (o vidro só existe se houver o que
+refratar), e cada módulo tingindo ícone, chip, faixa e item ativo da barra
+lateral. O ícone vive em **chip tingido** — é o que dá área à figura e carrega
+cor sem pintar texto.
+
+**Vidro em dois níveis**, seguindo [[Vidro flutuante precisa de superfície mais opaca que a chrome]]:
+`.vidro-chrome` (arejado, barra lateral e topo), `.vidro-superficie` (painel e
+cartão) e `.vidro-painel` (menu, modal, dica — quase opaco, porque ali o que
+passa por baixo é conteúdo). O desfoque sai por utilitária do Tailwind, nunca à
+mão: conferido no computado, `blur(24px)` na chrome e `blur(16px)` na superfície,
+não `none`.
+
+**Arte de módulo desenhada em SVG** (`arte-modulo.tsx`): recibo serrilhado, livro
+aberto, crachá, duas pessoas, calendário marcado — e engrenagem, que é cânone e
+não se reinventa. Seis silhuetas que não viram a mesma mancha. O Contábil nasceu
+livro FECHADO e a folha de contato o reprovou: pintado de preto era um retângulo,
+a mancha mais genérica que existe numa interface. Nenhuma arte entrou sem passar
+pela folha de contato nos tamanhos reais e nos dois temas.
 
 As 12 combinações de cor de módulo sobre chip e sobre superfície passam AA nos
 dois temas. A cor de módulo NÃO é validada como paleta categórica de dado, e o

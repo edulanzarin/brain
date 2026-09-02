@@ -61,5 +61,5 @@ numa tela de erro, onde seria a segunda falha em cima da primeira.
 - Princípio: [[Estética é por projeto, princípio de design é que se reusa]]
 - Irmã: [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]] ·
   [[Glifo miúdo é lido como o símbolo mais próximo que a pessoa já conhece]]
-- Visto em: [[piwdex2]]
+- Visto em: [[piwdex2]] · [[Navetech Hub]]
 - Mapa: [[Design]]
