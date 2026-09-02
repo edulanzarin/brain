@@ -790,11 +790,27 @@ reintroduzir armadilha já resolvida. O que se refaz é só a interface.
 
 ### O que mudou de linguagem visual
 
-De "Aurora Glass" para **institucional**: superfície chapada, hierarquia por
-degrau de superfície e tipografia, um acento só (azul-marinho) reservado a
-navegação/foco/link/ação primária, e a **faixa de seção** com código e estado
-como assinatura — a peça que dá leitura de relatório. A referência veio de uma
-foto de relatório impresso que o Eduardo mandou, não de um dashboard.
+A primeira versão levou a foto de relatório impresso ao pé da letra e endureceu
+a pele inteira — canto quadrado, superfície chapada, ícone cinza miúdo, um acento
+só. O Eduardo reprovou na hora ("tá feio"), e com razão: a foto era referência de
+ESTRUTURA (faixa, ficha, status), não de pele. A estrutura ficou; a pele foi
+refeita.
+
+A linguagem que ficou: **institucional com profundidade e cor por módulo**.
+Cantos macios em escada por tamanho da peça, elevação em três níveis (duas
+sombras por nível), halos amplíssimos no fundo para a página não ler como folha
+plana, e cada módulo com **cor de identidade** tingindo ícone, chip, faixa e item
+ativo da barra lateral. O ícone passou a viver em **chip tingido** — é o que dá
+área ao glifo e carrega cor sem pintar texto.
+
+As 12 combinações de cor de módulo sobre chip e sobre superfície passam AA nos
+dois temas. A cor de módulo NÃO é validada como paleta categórica de dado, e o
+motivo está registrado em [[Cor de identidade não se drena por estado de disponibilidade]]:
+nome e ícone próprio andam sempre junto, então a cor é reforço, nunca o único
+portador da identidade.
+
+A faixa de seção deixou de ser barra sólida escura: repetida oito vezes numa tela
+ela virava cerca, com todo bloco gritando no mesmo peso.
 
 Cor de dado seguiu token separado ([[Acento da interface é um token separado da cor de dado]]),
 e a paleta de série foi validada nos dois temas antes de fechar
@@ -825,6 +841,11 @@ Seção ainda não portada aparece na navegação marcada "a portar", não escon
   segunda implementação.
 - [[A unidade se diz uma vez, não em cada rótulo do eixo]] — "R$ 8,0 mi"
   quebrando em duas linhas sobre o gráfico.
+- [[Cor de identidade não se drena por estado de disponibilidade]] — o launcher
+  inteiro nasceu cinza porque nenhum módulo estava portado, e o sistema de cor
+  ficou invisível justo quando seria julgado.
+- [[Padrão embutido para endereço de banco mente sobre a causa]] — sem `.env`, o
+  app acusava senha recusada de um usuário que ninguém tinha configurado.
 
 ## Próximos passos
 

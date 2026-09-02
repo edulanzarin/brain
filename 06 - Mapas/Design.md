@@ -42,6 +42,11 @@ Projeto novo herda os princípios sempre; puxa este dialeto só se for da mesma 
 - [[Acento da interface é um token separado da cor de dado]] — quando a cor tem
   significado de dado (azul=entrada), o acento de UI vira outro token; senão
   retematizar a interface contamina os gráficos.
+- [[Cor de identidade não se drena por estado de disponibilidade]] — o cartão do
+  módulo ficava cinza enquanto as telas não existissem, e como nada estava pronto o
+  launcher inteiro nasceu cinza: o sistema de cor era invisível justo quando seria
+  julgado. Identidade e disponibilidade são eixos diferentes; só "sem acesso" apaga a
+  cor, porque ali o recado é outro.
 
 Princípios: [[Token semântico em vez de valor literal]] ·
 [[Hierarquia por superfície, não por borda]]
