@@ -47,8 +47,28 @@ Quando o componente precisa mesmo ser client e receber um ícone, passe uma
 sidebar faz: a config de navegação guarda `icone: "Ticket"`, que é
 serializável.
 
+
+## Aconteceu de novo, e não era ícone
+
+No [[Navetech Hub]] a armadilha voltou com outra roupa: a barra lateral (cliente)
+passou a receber a ARTE do módulo como prop, vinda do layout (servidor) —
+`arte={ArteAdmin}`. Mesmo erro, mesma mensagem, e a tela inteira da Administração
+abriu em "This page couldn't load".
+
+Dois aprendizados que a segunda vez deixou claros:
+
+- **Não é sobre ícone, é sobre COMPONENTE.** Qualquer função cruzando a fronteira
+  quebra — ícone, arte, renderizador, formatador passado como prop.
+- **O build não avisa.** `next build` compilou e passou no type check; o defeito
+  só existe em runtime, e só na rota que monta aquele componente. Rota que ninguém
+  abriu no teste é rota que ninguém sabe que está quebrada.
+
+O remédio é sempre o mesmo: **atravesse com uma CHAVE e resolva do lado do
+cliente.** O registro por nome que já existe para o ícone serve igual para a arte
+— `ARTE_POR_CHAVE[chave]` dentro do componente de cliente, e a prop vira string.
+
 ## Conexões
 - Princípio: [[Verificar no build de produção, não só em dev]]
 - Ver também: [[Padrões de componentes de dashboard]]
-- Visto em: [[Navedesk]]
+- Visto em: [[Navedesk]] · [[Navetech Hub]]
 - Mapa: [[Frontend]]
