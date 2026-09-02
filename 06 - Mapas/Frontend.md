@@ -82,6 +82,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
   `localStorage` e oferecia "usar tema escuro" com a tela já escura, porque na primeira
   visita quem decidiu foi o `prefers-color-scheme`. Quem escreve não é quem sabe: leia
   do ponto onde o estado é APLICADO, com `useSyncExternalStore` sobre o DOM.
+- [[Dois setters de URL no mesmo gesto, e o segundo desfaz o primeiro]] — um hook por
+  parâmetro parece limpo até o gesto que mexe em dois: os dois leem a URL velha e o
+  último vence. O sintoma é "o clique não funcionou", e a causa está no handler.
 - [[Ajustar estado no render é legítimo, empurrar rota não é]] — o padrão oficial
   de se reajustar no render vale para o estado do próprio componente; `router.push`
   no meio dele marca outra parte da árvore e rende o aviso de setState-in-render.

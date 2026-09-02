@@ -35,16 +35,18 @@ O que se porta e o que se refaz:
 
 ### Módulo Contábil portado (set/2026)
 
-Quatro seções de pé, com as migrations do que o Questor não diz direito
-(override manual, CFOP que contabiliza, conta efetiva de serviço, regras de
-extrato):
+Seis seções de pé, com as migrations do que o Questor não diz direito (override
+manual, CFOP que contabiliza, conta efetiva de serviço, regras de extrato,
+de-para de implantação):
 
 | Seção | O que faz |
 |---|---|
+| Painel | placar do mês: o que já se rodou e o tamanho da base configurada |
 | Conciliação bancária | lê o extrato (OFX/PDF), casa com as regras da conta e gera o CSV de importação |
 | Conferência fiscal | cada nota contra o plano de contabilização: pendente, conta errada, duplicada, em bloco |
 | Notas fiscais | o explorador bruto do período, com detalhe de itens e exportação auditada |
 | Balancete fiscal | esperado pelas regras × lançado, com drill-down por conta e as notas culpadas |
+| Implantação de saldos | balancete de abertura em PDF, casado com o plano, virando arquivo de importação |
 
 Decisões da interface nova que valem para as próximas seções:
 
@@ -62,12 +64,20 @@ Decisões da interface nova que valem para as próximas seções:
   lançamento, período truncado: silêncio sobre o que ficou de fora lê-se como
   "conferido".
 
-Duas armadilhas achadas na reconstrução viraram nota:
-[[Vidro cria contexto de empilhamento, e nenhum z-index atravessa isso]] e
-[[Barra de filtro é grade, não fila]].
+A **home do módulo não dispara nada**: o Contábil é bancada, e as telas dele
+precisam de empresa e período que só quem trabalha sabe escolher. O painel é
+placar (o que se rodou, pela trilha) e mostra a base configurada como atalho —
+cada número ali é trabalho que não se repete.
 
-**Falta portar** do Contábil: painel, conferência de contas, balancete contábil,
-pendências, implantação, plano de contabilização, auditoria e produtividade —
+Armadilhas achadas na reconstrução, todas viradas em nota:
+[[Vidro cria contexto de empilhamento, e nenhum z-index atravessa isso]],
+[[Barra de filtro é grade, não fila]],
+[[Cor de identidade não pode ocupar o lugar da cor de estado]],
+[[A lista do select nativo não aceita estilo, então ele não serve de dropdown padrão]] e
+[[Dois setters de URL no mesmo gesto, e o segundo desfaz o primeiro]].
+
+**Falta portar** do Contábil: conferência de contas, balancete contábil,
+pendências, plano de contabilização, auditoria e produtividade —
 mais os módulos Fiscal, DP, RH, Obrigações e Configurações. Todos aparecem na
 navegação marcados como "a portar": peça que falta se vê, peça de mentira passa
 em toda inspeção.
