@@ -28,6 +28,34 @@ Corolário de gosto: **fundo fica neutro** (brilho colorido ambiente é rejeitad
 feio, tem que ser mais clean") e **fill grande atrapalha a leitura** — balão de mensagem
 vira tint claro com texto escuro, não bloco saturado com texto claro.
 
+
+## O eixo que manda é o PAPEL, não o tema
+
+O título fala em "por tema", mas o tema é só um dos eixos — e o menos essencial.
+Num sistema de **tema único**, a divisão continua obrigatória, porque quem obriga
+é o papel que a cor cumpre. No [[Navetech Hub]], cada módulo virou **quatro
+tokens**:
+
+| token | papel | piso |
+|---|---|---|
+| `vivo` | a cor de verdade: preenchimento de área grande, aresta | — |
+| `tinta` | a variante escurecida, para TEXTO e ícone sobre a superfície | 4.5:1 |
+| `chip` | o fundo tingido em que o ícone vive | ~1.05:1 vs superfície |
+| `sobre` | o que se lê EM CIMA da cor viva | 4.5:1 |
+
+Quem obrigou foi o **amarelo**. Com um token só, há duas saídas e as duas são
+ruins: ou o amarelo é escurecido até passar como texto — e aí ele deixa de ser
+amarelo em toda parte, virando marrom —, ou fica cru e a sigla branca em cima
+dele reprova. Com os quatro, o cubo é amarelo de verdade e a sigla nele é quase
+preta, enquanto o texto do menu usa a variante escura.
+
+O `sobre` é o token que costuma faltar. Um "branco para todos" funciona em cinco
+cores de seis e quebra exatamente na clara — e quebra em silêncio, porque a peça
+continua desenhando.
+
+E vale a conta em bloco: com sete identidades e quatro papéis, são 28
+combinações. Nenhuma delas se confere de cabeça.
+
 ## Por que importa
 
 "Não avalie contraste de cabeça — compute." É o mesmo hábito de
@@ -38,5 +66,5 @@ O token semântico faz a troca sair em dois lugares (claro e escuro) sem tocar c
 ## Conexões
 - Princípio: [[Token semântico em vez de valor literal]]
 - Irmã: [[Validar paleta de gráficos antes de escolher cores]] · [[Sistema de cores e tema do dashboard]]
-- Visto em: [[Navehub]]
+- Visto em: [[Navehub]] · [[Navetech Hub]]
 - Mapa: [[Design]]

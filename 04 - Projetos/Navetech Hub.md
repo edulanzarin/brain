@@ -814,6 +814,17 @@ passa por baixo é conteúdo). O desfoque sai por utilitária do Tailwind, nunca
 mão: conferido no computado, `blur(24px)` na chrome e `blur(16px)` na superfície,
 não `none`.
 
+**A paleta de módulo é do Eduardo**, definida por ele: Fiscal amarelo, Contábil
+vermelho, DP azul, RH rosa, Obrigações laranja, Configurações cinza,
+Administração preta. O amarelo obrigou a quebrar a cor em QUATRO tokens por
+identidade (`vivo`, `tinta`, `chip`, `sobre`) — detalhe e a conta das 28
+combinações em [[Cor de marca precisa de variante acessível por tema]].
+
+A **Administração** entrou no launcher, sempre por último, mas NÃO no registro de
+módulos: ela não tem seções, não entra no gate por seção nem tem prefixo de API.
+Participa da paleta sem participar do modelo — por isso a peça do launcher passou
+a receber uma `chave` de cor em vez de um `Modulo`.
+
 **Um tema só.** Modo noturno foi descartado a pedido do Eduardo: manter dois
 significa validar contraste, calibrar vidro e revisar arte em dobro, e nenhuma
 tela do escritório é usada no escuro. Saíram o alternador, o script de tema, o
