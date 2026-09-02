@@ -161,6 +161,14 @@ decide se vale abrir. Vale no eixo horizontal também: na barra do celular, o qu
   fonte se cala.
 - [[Modal com conteúdo que cresce tem teto de altura e área que rola]] — overlay não
   pode crescer sem fim: teto no painel, scroll na parte que cresce.
+- [[Peça que só existe aberta se mostra pelo painel extraído, não por réplica]] — o
+  catálogo precisa mostrar o modal ABERTO, mas remontar a moldura à mão cria uma
+  segunda implementação, e é ela que envelhece calada. Extraia o PAINEL e monte-o de
+  dois jeitos: aparência se extrai, comportamento (portal, trava, foco) fica.
+- [[A unidade se diz uma vez, não em cada rótulo do eixo]] — reusar o formatador de
+  dinheiro no eixo faz "R$ 8,0 mi" quebrar em duas linhas sobre o dado, repetindo cinco
+  vezes o que o subtítulo já disse. Dois formatadores: identificado na dica, terso no
+  eixo — e rótulo de categoria se corta, porque o gráfico enrola em vez de truncar.
 - [[Primitiva de botão fecha o tamanho e abre só a variante]] — o botão vira
   componente que expõe cor, não tamanho; o `!h-7` por instância deixa de existir.
 - [[Anúncio em feed não pode vestir a roupa do conteúdo]] — pode caber no layout, não

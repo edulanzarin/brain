@@ -42,6 +42,21 @@ a ferramenta existe pra informar.
 E o erro escala com o valor: quanto mais casas decimais, mais convincente fica o número
 errado.
 
+
+## O compacto tem que copiar o espaço do Intl, não inventar o seu
+
+Quando o formatador ganha um irmão compacto para eixo e cartão (`R$ 4,3 mi`), é
+natural escrevê-lo com template: `` `R$ ${num(v/1e6,1)} mi` ``. Aí ele passa a
+divergir do formatador principal num detalhe invisível: o `Intl` separa `R$` do
+número com **espaço inseparável** (`\u00a0`), e o template usa espaço comum.
+
+Não é preciosismo tipográfico — é o que impede a quebra de linha de deixar `R$`
+pendurado no fim de uma linha e o valor na seguinte, dentro de um card estreito.
+E a divergência é traiçoeira no teste: os dois lados saem **visualmente
+idênticos** na mensagem de falha, e se perde um tempo absurdo procurando o que
+não está lá. Declare a constante no teste (`const NB = "\u00a0"`) para a
+expectativa dizer o que espera.
+
 ## Exceção, e ela é estreita
 
 Campo que **copia o formato de um sistema externo** (a Quality que o jogo mostra com
@@ -53,5 +68,5 @@ código; qualquer outro número passa pelo formatador.
 - Princípio: [[A tela não afirma mais precisão do que a fonte tem]]
 - Irmã: [[Traduza o vocabulário do sistema, não o nome próprio]] ·
   [[Zero na tela é afirmação, não valor de conforto]]
-- Visto em: [[piwdex2]]
+- Visto em: [[piwdex2]] · [[Navetech Hub]]
 - Mapa: [[Design]]

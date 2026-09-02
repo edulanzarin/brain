@@ -769,8 +769,66 @@ vencidas**, 107 com multa, pior atraso acima de 80 dias. O topo do ranking por
 responsável é `Entrada Empresas` — um marcador do próprio Acessórias, não
 alguém a cobrar; separar marcador de gente ficou como decisão do Eduardo.
 
+## Reconstrução da interface — o Nexo refeito do zero (set/2026)
+
+O sistema cresceu sem planejamento: nasceu dashboard fiscal e virou plataforma de
+seis módulos. A interface acompanhou esse crescimento em vez de guiá-lo, e o
+diagnóstico do Eduardo foi direto — não tinha cara profissional. Três causas
+concretas: `components/` misturava primitivo e domínio na mesma pasta, o dialeto
+visual era vidro/índigo com halo (bom para vitrine, ruim para densidade de
+relatório), e cada tela resolvia os próprios estados à mão.
+
+A decisão foi **refazer a interface do zero**, não refatorar. O código antigo
+virou arquivo em `~/Dev/nexo2`; a reconstrução ocupa `~/Dev/nexo` e herda o slug,
+os containers e o par de portas 4022/5022 — é o mesmo produto, então não se
+queima um par novo. Os dois não sobem juntos.
+
+**A camada de domínio é portada quase intacta.** As libs com o SQL do Questor e
+os motores de balancete/conferência são meses de conhecimento validado contra o
+banco real, e cada armadilha delas está registrada neste vault. Refazê-las seria
+reintroduzir armadilha já resolvida. O que se refaz é só a interface.
+
+### O que mudou de linguagem visual
+
+De "Aurora Glass" para **institucional**: superfície chapada, hierarquia por
+degrau de superfície e tipografia, um acento só (azul-marinho) reservado a
+navegação/foco/link/ação primária, e a **faixa de seção** com código e estado
+como assinatura — a peça que dá leitura de relatório. A referência veio de uma
+foto de relatório impresso que o Eduardo mandou, não de um dashboard.
+
+Cor de dado seguiu token separado ([[Acento da interface é um token separado da cor de dado]]),
+e a paleta de série foi validada nos dois temas antes de fechar
+([[Validar paleta de gráficos antes de escolher cores]]). Como parte dela fica
+abaixo de 3:1 no tema claro, a casca de gráfico **embute a visão em tabela** —
+o relevo que torna isso legítimo, e que serve também a quem imprime.
+
+### O que veio primeiro
+
+Ordem invertida em relação ao nexo2: sistema de design primeiro, catálogo junto,
+tela depois. O chassi entregue tem infra (Docker, compose, migrations com guarda
+contra o volume da versão anterior), tema, ~30 primitivos, casca (launcher, barra
+lateral em acordeão, topo contextual por portal), autenticação e permissão por
+cargo — e o catálogo em `/sistema`, por família, com tela de prévia.
+
+Seção ainda não portada aparece na navegação marcada "a portar", não escondida:
+[[Peça de mentira que não se anuncia vira fundação de coisa real]].
+
+### Aprendizados que viraram nota
+
+- [[Utilitária arbitrária com sintaxe densa não atravessa o parser, e some calada]] —
+  o visto da caixa de marcação como data-URI nunca virou CSS; a caixa marcava,
+  ficava azul e não tinha visto.
+- [[A preferência gravada não é o estado em vigor]] — o botão de tema oferecia
+  "usar tema escuro" com a tela já escura.
+- [[Peça que só existe aberta se mostra pelo painel extraído, não por réplica]] —
+  como o catálogo mostra modal, gaveta, menu e dica abertos sem criar uma
+  segunda implementação.
+- [[A unidade se diz uma vez, não em cada rótulo do eixo]] — "R$ 8,0 mi"
+  quebrando em duas linhas sobre o gráfico.
+
 ## Próximos passos
 
+- [ ] **Portar os módulos para o Nexo reconstruído**, um a um: a interface se remonta sobre os primitivos, a camada de domínio vem quase intacta, e a seção sai de "a portar" ao entrar. Ordem sugerida: Fiscal (o mais maduro), Contábil, DP, RH, Obrigações.
 - [x] Login e usuários (jul/2026) — feito. Autenticação por email/senha, sessão opaca no banco, 3 eixos (módulo/seção/empresa com grupos), área `/admin`. Ver "Arquitetura de módulos e permissão" acima.
 - [ ] Folha: recorte por categoria de vínculo na Rotatividade (só CLT), quando o banco estiver acessível e os `codigocateg` confirmados; outras telas de folha (custo de pessoal, headcount, provisões).
 - [ ] Índice em `datahoralctofis` (`lctofisent`/`lctofissai`) resolveria o teto da aba Impostos, que hoje não fecha um ano. Mas o Questor é **produção e somente leitura** — não se cria índice lá. Alternativa dentro da nossa alçada: pré-agregar o tributo por (usuário, empresa, mês) no banco do app, alimentado por um job, e a aba ler o agregado quando o período for longo.

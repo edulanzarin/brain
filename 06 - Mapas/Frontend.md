@@ -31,6 +31,10 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Token de cor que não existe vira cor herdada, sem erro]] — ao portar módulo entre
   projetos os tokens são fronteira: `var(--green)` sem o token cai pro valor herdado,
   fica legível e errado, e nada no console avisa.
+- [[Utilitária arbitrária com sintaxe densa não atravessa o parser, e some calada]] —
+  `bg-[url('data:image/svg+xml,<svg …>')]` não vira regra nenhuma: a caixa marca, fica
+  azul e nunca tem visto. Valor com aspas, espaço e `<` vira classe de componente em
+  CSS de verdade; a verificação é `grep` na folha compilada, não olhar a tela.
 - [[Margem negativa em item de flex centralizado vale metade]] — a caixa centralizada
   é a DE MARGEM, então `-64px` sobe 32, e o resto da conta é a altura do vizinho mais
   alto da linha: mudar o nome ao lado move o retrato.
@@ -74,6 +78,10 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Rascunho no navegador leva o dono na chave]] — `localStorage` é do navegador e
   conta é de pessoa: sem o dono na chave, trocar de login abre o formulário com os
   dados de quem estava antes. E o cache do `useSyncExternalStore` vai junto.
+- [[A preferência gravada não é o estado em vigor]] — o botão de tema lia o
+  `localStorage` e oferecia "usar tema escuro" com a tela já escura, porque na primeira
+  visita quem decidiu foi o `prefers-color-scheme`. Quem escreve não é quem sabe: leia
+  do ponto onde o estado é APLICADO, com `useSyncExternalStore` sobre o DOM.
 - [[Ajustar estado no render é legítimo, empurrar rota não é]] — o padrão oficial
   de se reajustar no render vale para o estado do próprio componente; `router.push`
   no meio dele marca outra parte da árvore e rende o aviso de setState-in-render.
