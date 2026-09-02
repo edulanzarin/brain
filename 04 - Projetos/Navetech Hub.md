@@ -35,7 +35,7 @@ O que se porta e o que se refaz:
 
 ### Módulo Contábil portado (set/2026)
 
-Sete seções de pé, com as migrations do que o Questor não diz direito (override
+Oito seções de pé, com as migrations do que o Questor não diz direito (override
 manual, CFOP que contabiliza, conta efetiva de serviço, regras de extrato,
 de-para de implantação):
 
@@ -47,6 +47,7 @@ de-para de implantação):
 | Notas fiscais | o explorador bruto do período, com detalhe de itens e exportação auditada |
 | Balancete fiscal | esperado pelas regras × lançado, com drill-down por conta e as notas culpadas |
 | Implantação de saldos | balancete de abertura em PDF, casado com o plano, virando arquivo de importação |
+| Auditoria | varredura linha a linha do razão, com amostra por tipo de achado |
 | Produtividade | seis abas: lançamentos, atraso, carteira, exclusões, tempo e uso do Nexo |
 
 Decisões da interface nova que valem para as próximas seções:
@@ -78,7 +79,7 @@ Armadilhas achadas na reconstrução, todas viradas em nota:
 [[Dois setters de URL no mesmo gesto, e o segundo desfaz o primeiro]].
 
 **Falta portar** do Contábil: conferência de contas, balancete contábil,
-pendências, plano de contabilização e auditoria —
+pendências e plano de contabilização —
 mais os módulos Fiscal, DP, RH, Obrigações e Configurações. Todos aparecem na
 navegação marcados como "a portar": peça que falta se vê, peça de mentira passa
 em toda inspeção.
