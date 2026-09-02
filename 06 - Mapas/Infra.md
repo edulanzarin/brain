@@ -108,6 +108,10 @@ precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três d�
 - [[Retry que reusa o cliente queimado esconde o erro da primeira tentativa]] — laço de
   espera pelo banco que reusa o mesmo `pg.Client` reporta o próprio defeito, e a causa
   real (senha errada) some na primeira volta.
+- [[Padrão embutido para endereço de banco mente sobre a causa]] — `?? "postgres://…"`
+  não evita a falha, troca uma exata por uma plausível: sem `.env`, o app conecta com
+  senha adivinhada e acusa credencial. Ajuste numérico tem padrão; endereço, credencial
+  e segredo não têm — e o pool nasce preguiçoso para o erro sair na consulta.
 - [[Processo que guarda conexão viva não tolera deploy frequente, e o log não denuncia]] —
   serviço com WebSocket/sessão em memória morre inteiro a cada deploy, e com auto-deploy
   cada push derruba todo mundo. O log escreve "Ready" igual nos dois casos; quem denuncia
