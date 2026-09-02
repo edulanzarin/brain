@@ -57,6 +57,35 @@ a forma; o acabamento vem de graça e igual pra todos.
 E toda arte tem reserva: peça que não carregou não pode virar caixa vazia — ainda mais
 numa tela de erro, onde seria a segunda falha em cima da primeira.
 
+
+## Uma identidade, uma marca — e o detalhe que se esconde sozinho
+
+O [[Navetech Hub]] chegou a ter DUAS marcas para o mesmo módulo: um cubo
+isométrico no launcher e uma figura plana (recibo, livro, crachá) na barra
+lateral e nos chips. Parecia divisão de trabalho — "a peça grande e a pequena" —
+e era problema: quem lê precisa aprender as duas, e a que aparece menos envelhece
+sem ninguém notar.
+
+A folha de contato desfez o falso dilema. Renderizado de 16 a 64px, o cubo lia
+limpo em TODOS os tamanhos. Quem não sobrevivia era a **sigla** na face dele, que
+abaixo de ~32px virava uma mancha suja — e mancha suja não é "detalhe pequeno",
+é o que faz a peça inteira parecer defeituosa.
+
+A saída não é ter duas artes: é a arte **esconder o próprio detalhe** quando ele
+não cabe.
+
+```tsx
+const mostrarSigla = tamanho >= 32;   // dentro do desenho, não em quem chama
+```
+
+**O limiar mora no DESENHO.** Exposto como prop, a primeira tela nova esqueceria
+dele — e ninguém repara numa sigla borrada num canto. Dentro da peça, ela é
+correta por construção em todo lugar onde for usada.
+
+O teste que revela isso é barato e é sempre o mesmo: rendere a peça na escada
+inteira de tamanhos de uso, lado a lado. Não dá para deduzir em qual tamanho um
+detalhe morre.
+
 ## Conexões
 - Princípio: [[Estética é por projeto, princípio de design é que se reusa]]
 - Irmã: [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]] ·
