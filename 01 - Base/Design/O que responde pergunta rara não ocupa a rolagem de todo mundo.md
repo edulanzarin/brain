@@ -81,5 +81,5 @@ sido escrita pensando no desktop, onde o problema que ela resolve não existe.
   [[Nota carrega só o que a pessoa não sabe]]
 - Técnica que aplica: [[Manual de ferramenta é resumo visível com passo a passo sob demanda]] ·
   [[Modal com conteúdo que cresce tem teto de altura e área que rola]]
-- Visto em: [[Privello]] · [[piwdex2]]
+- Visto em: [[Privello]] · [[piwdex2]] · [[Navetech Hub]]
 - Mapa: [[Base]] · [[Design]]

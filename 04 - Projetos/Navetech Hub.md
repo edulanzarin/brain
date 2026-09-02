@@ -814,6 +814,28 @@ passa por baixo é conteúdo). O desfoque sai por utilitária do Tailwind, nunca
 mão: conferido no computado, `blur(24px)` na chrome e `blur(16px)` na superfície,
 não `none`.
 
+**Um tema só.** Modo noturno foi descartado a pedido do Eduardo: manter dois
+significa validar contraste, calibrar vidro e revisar arte em dobro, e nenhuma
+tela do escritório é usada no escuro. Saíram o alternador, o script de tema, o
+bloco de token escuro e toda afirmação de "validado nos dois temas" — que
+passaria a ser mentira no texto do catálogo.
+
+**O launcher voltou à forma do sistema anterior**, e a lição é de layout, não de
+estética: a peça era um cartão de TEXTO com o ícone de ornamento no canto. O
+ícone é que é o conteúdo — cubo grande, nome embaixo, grade compacta e centrada.
+A descrição saiu da tela e foi para o `title`, aplicando
+[[O que responde pergunta rara não ocupa a rolagem de todo mundo]]: ela responde
+"o que é este módulo?", pergunta que quem usa o sistema faz uma vez, e cobrava
+altura em toda visita.
+
+O **cubo isométrico** herdou a forma dos PNGs do nexo2 (meio megabyte por módulo,
+cor cozida no arquivo) e virou vetor tingido pelo token. O volume sai de uma cor
+só, com dois véus ABSOLUTOS por cima — branco no topo, preto na face direita.
+Absolutos porque sombrear com opacidade da própria cor deixaria o desenho
+dependente do fundo. A sigla é ancorada no CENTRO da face e inclinada no plano
+dela: ancorada num canto, crescia para fora do quadro conforme o número de
+letras, e "OBR" saía pela aresta enquanto "DP" cabia.
+
 **Arte de módulo desenhada em SVG** (`arte-modulo.tsx`): recibo serrilhado, livro
 aberto, crachá, duas pessoas, calendário marcado — e engrenagem, que é cânone e
 não se reinventa. Seis silhuetas que não viram a mesma mancha. O Contábil nasceu
