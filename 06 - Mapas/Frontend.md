@@ -166,6 +166,13 @@ Tailwind por outro CSS, é Design; se depende do React, é Frontend.
   sistema EN, conceito traduz e nome próprio não; e a tradução mexe no índice de busca.
 
 - [[Efeito que roda duas vezes destrói o que ainda não terminou de nascer]] — recurso
+- [[Eixo de folha de sprite se confere sprite a sprite, não se supõe]] — folha de
+  64×64 com 4 direções e 4 quadros é ambígua nos dois eixos, e chutar errado só
+  aparece como personagem virado pro lado errado. Quem decide é uma marca
+  assimétrica do desenho (o pixel do olho), não a diferença numérica entre linhas.
+- [[Slug de asset ganha tipo derivado do manifesto gerado]] — `arte: string` deixa
+  passar o asset da forma errada até a tela morrer. O manifesto já é JSON gerado:
+  dá pra derivar a união de slugs por forma no tipo, sem arquivo novo.
   criado com `await` dentro de efeito só se publica depois do init; a limpeza da
   primeira passada do React 19 em dev chega com a criação no ar e destrói pela metade.
 

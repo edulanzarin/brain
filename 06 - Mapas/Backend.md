@@ -465,6 +465,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Identificador que já circulou não é mais seu para mudar]]
 
 - [[Multiplicador de contexto entra depois da razão, não dentro dela]] — o que entra
+- [[Número que depende de outros números se declara em intenção e se deriva por comando]]
+  — número que é consequência de outros envelhece calado: escreve-se a intenção e um
+  comando resolve o valor, num arquivo gerado E commitado, que é o que o torna
+  revisável no diff. Traz o botão legível (declare o efeito, derive o parâmetro) e o
+  teste de ponto fixo que decide se uma passada basta.
   numa razão `a/(a+b)` é a grandeza crua dos DOIS lados; bônus de contexto multiplica o
   resultado. Inflar um prato faz a razão saturar e apagar a diferença que ela media.
 

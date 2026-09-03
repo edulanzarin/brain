@@ -31,6 +31,8 @@ mora aqui: mora em [[Base]] (princípios) e em [[Design]], [[Frontend]], [[Backe
 - [[piwdex]] — dex e ferramentas para Poke Idle World; substituído pelo [[piwdex2]] (ago/2026). O robô server-side ficou parqueado, aguardando decisão.
 
 - [[navetalks]] — atendimento multicanal no WhatsApp; substituído pelo [[Navehub]] (ago/2026).
+- [[naruto-idle]] — RPG idle de navegador em pixel art top-down: sobe de Estudante a
+  Kage, com caçada idle, natureza de chakra e balanceamento derivado de intenção.
 
 ## Regra: projeto não linka projeto
 

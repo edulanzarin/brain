@@ -97,6 +97,13 @@
         "a": 1,
         "rgb": 3108845
       }
+    },
+    {
+      "query": "tag:#projeto/naruto-idle",
+      "color": {
+        "a": 1,
+        "rgb": 16743424
+      }
     }
   ],
   "collapse-display": true,

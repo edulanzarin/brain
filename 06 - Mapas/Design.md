@@ -72,6 +72,15 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   frase não pode engordar sem empurrar o parágrafo; cresce a área, não o elemento.
 - [[Sticky gruda no container que rola, não na janela]] — `overflow-x-auto` promove o
   outro eixo pra `auto` e vira o ancestral rolável; o `top` passa a medir de dentro.
+- [[Jogo ocupa a tela inteira e o HUD flutua sobre o mundo]] — painel ao lado do
+  mundo não faz um jogo com painéis, faz um painel de controle com um jogo dentro. O
+  que denuncia é a moldura: cenário com borda é ilustração, sem borda é lugar. Traz o
+  mapa de cantos do HUD e por que aqui o painel é quase opaco em vez de vidro.
+- [[Terreno de tile se desenha em duas camadas, base cobrindo e sobreposição com borda]]
+  — tileset de terreno não é mosaico: o blob 3×3 tem o canto externo transparente,
+  porque foi desenhado pra ficar em cima de outro terreno. Usado solto, a trilha ganha
+  contorno preto. Traz junto a variante de preenchimento (sem ela o chão vira grade
+  visível) e a âncora do objeto alto, que é o tile de baixo.
 - [[Faixa que sangra estoura pela barra de rolagem, e o corte é na raiz]] — `100vw`
   mede a janela com a canaleta junto, então toda seção de borda a borda nasce larga
   pela espessura da barra. O corte é `overflow-x: clip` na raiz: no ancestral mais
