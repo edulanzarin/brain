@@ -51,6 +51,10 @@ de sistema externo é referência e tem mapa próprio.
   Princípio: [[A régua sai da distribuição, não dos extremos]].
 - [[Numeric e bigint do Postgres chegam como string no driver pg]] — o `node-pg`
   entrega `numeric`/`bigint` como string; castar pra `float8` pra receber number.
+- [[O agrupamento útil sai do campo que o operador preenche]] — quando o schema tem o
+  campo normalizado e o campo livre para a mesma dimensão, quem agrupa é o livre: é lá
+  que quem opera escreve a taxonomia real. Reserva no `coalesce`, e cardinalidade que
+  cresce com as linhas é o sinal de que se escolheu o campo errado.
 - [[Consumir recurso de uso único é UPDATE condicional, não checar antes]] —
   cupom/vaga/estoque de um: o `WHERE estado_livre` no UPDATE decide a corrida pelo
   `rowCount`, sem lock. Princípio: [[Um invariante se garante na estrutura, não no processo]].

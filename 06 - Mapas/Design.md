@@ -33,6 +33,9 @@ Projeto novo herda os princípios sempre; puxa este dialeto só se for da mesma 
   tenta lê-la, geometria não.
 - [[Validar paleta de gráficos antes de escolher cores]] — forma primeiro, cor por
   último; checagens objetivas antes de fechar a paleta.
+- [[Papel não herda o tema nem a moldura da tela]] — impressão é um quarto tema: sem
+  redefinir os tokens no `@media print`, o app escuro sai branco no branco; e o
+  relatório precisa carregar empresa, período e filtros, que ficaram na chrome.
 - [[Cor de marca precisa de variante acessível por tema]] — a cor crua do cliente
   reprova contraste como texto; derive uma variante por tema e compute.
 - [[Propriedade com prefixo escrita à mão pode perder a versão padrão no build]] —

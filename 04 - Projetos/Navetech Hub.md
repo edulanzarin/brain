@@ -376,6 +376,38 @@ Terceiro módulo, primeiro sobre o **RH/folha** do Questor (tabelas `func*` — 
 - **Quebras demográficas** (escolaridade por `grauinstr`, estado civil) drilláveis como as demais; **comparativo com o período anterior** (mesma duração, via `periodoAnterior` na própria consulta-mãe) com delta nos KPIs (turnover subiu 5,9%→14,5% no semestre); **exportação CSV** das movimentações (sep `;` + BOM p/ Excel pt-BR). Insight: Solteiro gira ~2× o Casado; Superior incompleto (estagiário) gira mais.
 - **Pendente possível**: quebra por raça/cor (códigos RAIS, dado sensível — avaliar), exportação dos agregados, e o rótulo do vínculo fora do CLT ainda é cru.
 
+### Turnover por turno, e a Rotatividade inteira em PDF (set/2026)
+
+Dois pedidos do **DP** (Eduardo Moraes), por print no chat, **feitos no `nexo2`** —
+a versão que está no ar enquanto a reconstrução corre.
+
+1. **A quebra "por horário" mudou de fonte.** Agrupava `escala.descrescala`, o
+   horário cru, e cada empresa escreve do seu jeito ("13:30 às 17:30 - 18:00 às
+   22:00/sab 09:00 às 13:00", "07:30 12:00/13:00 17:18"): quase toda linha tinha
+   uma pessoa. O DP escreve o turno noutro campo — `descrtipojornada` do
+   `funcescala`, que a view `funcionario` já resolve pela vigência —, e é de lá
+   que sai "1º turno", "2º turno". Agora `horario` é
+   `coalesce(descrtipojornada, descrescala, '(sem horário)')`: onde a jornada não
+   foi preenchida, o horário cru continua aparecendo. Como a expressão mora numa
+   linha só da CTE base, a troca valeu de uma vez para a quebra, o filtro
+   "Horário" e o drill. Ver [[O agrupamento útil sai do campo que o operador preenche]].
+2. **Imprimir / PDF da Rotatividade inteira**, pelo diálogo do navegador (mesmo
+   `imprimirPDF` do painel fiscal, que registra a exportação na trilha antes de
+   abrir o diálogo): KPIs, tendência, movimentações nominais, motivos, tempo de
+   casa e todas as quebras. Duas correções que valiam para o app todo e por isso
+   foram pro `globals.css`: o tema padrão é o **escuro**, e sem forçar a paleta
+   clara no `@media print` o relatório saía branco no branco; e tabela rolável
+   (`max-h` + `overflow`) exportava só o que coubera na tela. O cabeçalho de papel
+   (empresa, período, filtros aplicados) só existe na impressão — a moldura ficava
+   na chrome, que não vai junto. Ver [[Papel não herda o tema nem a moldura da tela]].
+
+**Falta conferir contra o banco**: o ajuste foi escrito fora da rede da Navecon,
+então `descrtipojornada` na view `funcionario` está apoiado na nota de referência,
+não numa consulta. Primeira coisa a rodar na rede.
+
+**Quando o DP for portado para o Nexo reconstruído, esta expressão vai junto** — a
+lib `folha-turnover.ts` é justamente o que se porta quase intacto.
+
 ### Produtividade do DP (jul/2026)
 
 Segunda seção da Folha (`/folha/produtividade`), pedida pelo Eduardo como "o que tem no Fiscal, porém com coisas do DP": mede **o que cada pessoa do DP fez no período**, por `codigousuario` + `datahoralcto` (a auditoria embutida — mesmo padrão da Produtividade do Fiscal). Quatro trabalhos, cada um numa tabela do Questor: avisos prévios (`funcavisoprevio`), rescisões calculadas (`rescisao`), admissões (`funccontrato`), férias calculadas (`reciboferias`) — mapeamento e armadilhas em [[Módulo de folha e eSocial do Questor]]. Tela: **KPIs** (contagem dos quatro + total, com delta vs. período anterior), **ranking clicável** por colaborador (clicar filtra os detalhes por aquela pessoa), e **quatro abas** de listagem detalhada com as colunas que o DP pediu. A admissão mostra o **status eSocial do S-2200** (transmitida/pendente/não enviada) — derivado de `esocialtransacao` via `esocialdadoss2200`, `recibo` preenchido = aceito; a `xml2200evtadmissao` está vazia (staging), ver a nota de referência. Diferente da Rotatividade (uma empresa), aqui **empresa é filtro opcional** e por padrão varre todo o escopo (é o retrato do escritório) — daí a prop `empresaOpcional` nova na `ConfFilterBar`. Libs `dp-produtividade.ts`/`dp-tipos.ts`, endpoints `/api/folha/dp-produtividade` (ranking+resumo) e `/api/folha/dp-lista?tipo=` (detalhe). Validado contra o banco: julho/2026 → 55 avisos, 356 rescisões, 595 admissões (401 com recibo eSocial), 1187 férias. **Virou dashboard completo por trabalho (jul/2026)**: a pedido do Eduardo ("por colaborador, com gráficos, bem completo, tipo menus"), a tela deixou de ser um painel único com abas de lista no rodapé e passou a ter **menus no topo** (estilo das abas do módulo: `Visão geral` + uma aba por trabalho). Cada aba de trabalho é um mini-dashboard: KPIs próprios (total+delta, colaboradores, empresas atendidas, média/pessoa), gráfico **Por colaborador** (eixo principal, barra clicável isola a pessoa), gráfico **Por empresa**, **série** de evolução (diária até 92 dias, mensal acima — `generate_series` densifica os buckets vazios) e a lista detalhada agrupada por colaborador em **menu recolhível** (accordion, resolve a "altura infinita" de quem tem 500+ registros). Selecionar um colaborador (no ranking ou clicando numa barra) recorta série+empresa+lista dele em todas as abas; o ranking e o "por colaborador" ficam de fora do recorte (são a comparação entre pessoas). Duas decisões de dado que valem além daqui: a **quebra por colaborador sai do ranking já carregado** (derivar no cliente em vez de bater no banco de novo por um dado que já está na mão), e cada aba **carrega sua quebra sob demanda** (`/api/folha/dp-quebra?tipo=`, `montarQuebraDp`) em vez de um payload gigante no load. A quebra por empresa e a série respeitam o mesmo escopo/usuário das outras consultas. **Foco no funcionário da Navecon (jul/2026)**: o Eduardo reforçou que "por funcionário" aqui é o **nosso pessoal** (o operador do Questor = `codigousuario`), não o empregado da empresa-cliente cujo registro foi processado — é um painel da produtividade interna. O eixo (ranking, "por colaborador") já era esse; o ajuste tirou **de vez** o empregado do cliente da lista detalhada (as linhas mostram só empresa + datas + status) e adicionou um **seletor/busca de funcionário da Navecon** no topo que recorta o dashboard inteiro (série, por-empresa, lista) — a lista de nomes sai do ranking já carregado, sem query nova. **Abas de trabalho = só dashboard; lista numa aba só (jul/2026)**: o Eduardo achou o "registro a registro" no rodapé de cada trabalho inútil ("o Questor já tem isso"). Então a lista saiu das abas de Avisos/Rescisões/Admissões/Férias — elas ficaram **só painel** (KPIs + por colaborador + por empresa + série) — e virou **uma aba "Registros"** única, com seletor de tipo em cima (herda funcionário e período dos filtros globais). É o padrão "dashboard resume, a lista é só pra conferir quando precisa". A Visão geral ganhou mais gráfico no lugar: **donut de composição** dos quatro trabalhos e **barra empilhada** dos top colaboradores por tipo — ambos derivados do ranking/totais já carregados, sem query nova.
@@ -725,6 +757,7 @@ Banco Questor (pasta `03 - Recursos/Banco Questor`):
 - [[Vínculo nota fiscal e lançamento contábil no Questor]]
 - [[Plano de contabilização por CFOP no Questor]]
 - [[Contas bancárias e layout de contabilização no Questor]]
+- [[O agrupamento útil sai do campo que o operador preenche]] (técnica)
 
 Gerais de dev (continuação):
 - [[Anonimato se perde na saída, não só na entrada]] (princípio)
@@ -756,6 +789,7 @@ Gerais de dev:
 - [[O cálculo puro sai do módulo server-only para poder ser testado]]
 
 Design (reutilizável em outros projetos — ver [[Design]]):
+- [[Papel não herda o tema nem a moldura da tela]]
 - [[Sistema de cores e tema do dashboard]]
 - [[Padrões de componentes de dashboard]]
 - [[Acento da interface é um token separado da cor de dado]]
@@ -975,6 +1009,7 @@ Seção ainda não portada aparece na navegação marcada "a portar", não escon
 
 - [ ] **Portar os módulos para o Nexo reconstruído**, um a um: a interface se remonta sobre os primitivos, a camada de domínio vem quase intacta, e a seção sai de "a portar" ao entrar. Ordem sugerida: Fiscal (o mais maduro), Contábil, DP, RH, Obrigações.
 - [x] Login e usuários (jul/2026) — feito. Autenticação por email/senha, sessão opaca no banco, 3 eixos (módulo/seção/empresa com grupos), área `/admin`. Ver "Arquitetura de módulos e permissão" acima.
+- [ ] Confirmar `descrtipojornada` na view `funcionario` (e como cada empresa preenche) assim que houver rede: a quebra por horário da Rotatividade passou a depender dele em set/2026, escrito no escuro.
 - [ ] Folha: recorte por categoria de vínculo na Rotatividade (só CLT), quando o banco estiver acessível e os `codigocateg` confirmados; outras telas de folha (custo de pessoal, headcount, provisões).
 - [ ] Índice em `datahoralctofis` (`lctofisent`/`lctofissai`) resolveria o teto da aba Impostos, que hoje não fecha um ano. Mas o Questor é **produção e somente leitura** — não se cria índice lá. Alternativa dentro da nossa alçada: pré-agregar o tributo por (usuário, empresa, mês) no banco do app, alimentado por um job, e a aba ler o agregado quando o período for longo.
 - [ ] Nomear os `tipoimposto` da Apuração: 12 dos 14 aparecem pelo código porque o banco não guarda rótulo (só ICMS e ISS foram provados). É uma conversa com o time fiscal e uma linha no catálogo por resposta.
