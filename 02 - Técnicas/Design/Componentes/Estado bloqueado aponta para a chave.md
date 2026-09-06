@@ -36,6 +36,10 @@ O erro tem duas variações piores:
   adesivo — e o que ele bloqueava de verdade era só a boa consciência de quem o
   desenhou. Portão é do servidor:
   [[Permissão se valida no servidor, não na interface]].
+- **O botão desligado.** Pior que o `<span>`, porque o `disabled` é uma
+  afirmação: diz que o controle existe e que agora não serve. Não recebe foco,
+  não recebe toque, e leitor de tela anuncia "indisponível" — a pessoa nem
+  descobre que havia o que comprar.
 
 ## A forma
 
@@ -55,6 +59,18 @@ if (fechado) {
 
 O destino chega por propriedade e não fica cravado na peça: quem sabe onde a
 chave se vende é a tela, não o botão.
+
+## Consertar num lugar não conserta nos outros
+
+No Privello o botão do perfil já era um link para o passe, com o motivo escrito
+no comentário. O cartão da vitrine, escrito depois, repetiu o erro inteiro em
+outra forma — `disabled` com "Só assinante" —, e ficou meses assim ao lado da
+versão certa.
+
+O que faz a regra viajar não é o comentário no componente vizinho: é a peça
+aparecer no catálogo com o estado bloqueado montado, onde quem vai escrever o
+próximo tropeça nela antes de inventar o seu.
+[[Catálogo de componentes é contrato vivo, não documentação]].
 
 ## O que mais vale lembrar
 

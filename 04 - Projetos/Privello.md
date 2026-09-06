@@ -108,6 +108,24 @@ um @ escolhido por quem anuncia, com trava de 30 dias entre trocas; entrou o
 recado do dia, com prazo de 24 h; e o expediente saiu da ficha para um modal.
 Detalhe abaixo, em Decisões.
 
+**A passada de celular (05/09/2026).** Sete cortes vindos de comparar o produto
+com as telas do Bellacia no telefone, todos no mesmo lugar do funil — perto do
+contato. No perfil, o rodapé deixa de ser destino e vira a barra de contato, e a
+nav do celular sai daquela rota; a faixa do topo passa a carregar o CORPO (idade,
+altura, peso) no lugar do placar do site, que já vinha repetido no menu de seções
+logo abaixo; a galeria cai para duas colunas no telefone. Na vitrine, a linha de
+Filtros/Ordenar gruda abaixo do topo, e o cartão ganha coração para guardar sem
+abrir o perfil. Além disso: o contato fechado do cartão era um botão DESLIGADO
+escrito "só assinante" — o mesmo erro que o perfil já tinha consertado, repetido
+num componente escrito depois —, e o grupo de pagamento passa a mostrar riscado
+o que ela não aceita, porque responder por ausência não distingue "não aceito"
+de "não preenchi".
+
+O que NÃO veio da referência: o Bellacia borra a idade com "entre grátis para
+ver". Ali é restrição nova inventada para forçar cadastro; no Privello a idade é
+pública no cartão e na ficha, e fechá-la seria tirar da vitrine uma informação
+que hoje ajuda a decidir. Copiar a forma sem copiar a cobrança.
+
 ## Infra
 
 Slug `privello` · app `privello-app` na `4075` · banco `privello-db` na `5075`.
@@ -435,7 +453,11 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
   princípio que saiu daqui, com quatro casos no mesmo projeto.
 - [[Dado escrito por dois caminhos precisa de uma regra só, fora dos dois]]
 - [[Alternar é uma ação só, porque quem sabe o estado é o banco]]
-- [[Estado bloqueado aponta para a chave]]
+- [[Estado bloqueado aponta para a chave]] — dois casos aqui, e o segundo é o
+  próprio projeto repetindo o erro num componente escrito depois do conserto.
+- [[Na ponta do funil o rodapé troca destino por ação]]
+- [[Sticky só anda dentro do pai, e o pai precisa ser a coluna que rola]]
+- [[Pergunta fechada se responde com a lista inteira, não com o que sobrou]]
 - [[O acordo congela na linha, a política vale do próximo em diante]]
 - [[A casca se compartilha por público, não por marca]]
 
@@ -454,6 +476,9 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
       dados da LGPD.
 - [ ] Redimensionar imagem no upload; hoje o arquivo original é servido como veio.
 - [ ] Busca por nome e filtro de faixa de preço na listagem da cidade.
+- [ ] Rever o resto do site no telefone com a mesma régua da passada de 05/09: a
+      varredura cobriu vitrine e perfil, e o painel de quem anuncia não passou
+      por ela.
 
 ## Conexões
 - Usa: [[Design]] · [[Infra]]

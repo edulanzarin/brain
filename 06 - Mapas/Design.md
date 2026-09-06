@@ -75,6 +75,14 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   frase não pode engordar sem empurrar o parágrafo; cresce a área, não o elemento.
 - [[Sticky gruda no container que rola, não na janela]] — `overflow-x-auto` promove o
   outro eixo pra `auto` e vira o ancestral rolável; o `top` passa a medir de dentro.
+- [[Sticky só anda dentro do pai, e o pai precisa ser a coluna que rola]] — a outra
+  metade da armadilha: o ancestral de rolagem decide ONDE cola, o pai imediato decide
+  POR QUANTO TEMPO. Numa caixa da altura do próprio conteúdo o elemento gruda por
+  alguns pixels e some junto; a saída é `display: contents` na raiz do componente.
+- [[Na ponta do funil o rodapé troca destino por ação]] — os 56px que o polegar
+  alcança são o lugar mais caro da tela do celular. Na lista valem como navegação; na
+  tela que existe para produzir uma decisão, a nav sai e a ação entra — com a saída
+  garantida por caminho, menu de seções e gesto de voltar.
 - [[Jogo ocupa a tela inteira e o HUD flutua sobre o mundo]] — painel ao lado do
   mundo não faz um jogo com painéis, faz um painel de controle com um jogo dentro. O
   que denuncia é a moldura: cenário com borda é ilustração, sem borda é lugar. Traz o
@@ -148,7 +156,11 @@ decide se vale abrir. Vale no eixo horizontal também: na barra do celular, o qu
   e 1/I/L no alfabeto, e em tamanho de título: o ambíguo não gera erro, gera
   recusa de quem fez tudo certo, e nenhum log registra isso.
 - [[Último passo sem desfecho transforma a régua em beco]] — "Passo 9 de 9" promete
-- [[Estado bloqueado aponta para a chave]] — cadeado que não diz onde fica a chave é indistinguível de botão quebrado, e quem chegou ali é quem mais queria pagar; três estados, não dois, porque sem conta e sem o benefício levam a lugares diferentes.
+- [[Estado bloqueado aponta para a chave]] — cadeado que não diz onde fica a chave é indistinguível de botão quebrado, e quem chegou ali é quem mais queria pagar; três estados, não dois, porque sem conta e sem o benefício levam a lugares diferentes. O botão `disabled` é a versão pior, e o mesmo projeto o repetiu num componente escrito depois do conserto: quem faz a regra viajar é o catálogo, não o comentário no vizinho.
+- [[Pergunta fechada se responde com a lista inteira, não com o que sobrou]] — grupo de
+  etiquetas que só desenha o marcado responde por ausência, e ausência não separa "não
+  aceito" de "não preenchi". Vale só onde a pergunta de quem lê é de sim ou não, e só
+  se ela marcou alguma — senão riscar tudo afirma a recusa que ninguém fez.
   um fim; o rodapé do último passo tem que entregá-lo, no mesmo canto onde os outros
   põem o avançar. Quando o fim é uma espera de terceiro, o desfecho é "Concluir".
 - [[Campo que trava depois de escolhido não vai no meio do formulário]] — escolha que
