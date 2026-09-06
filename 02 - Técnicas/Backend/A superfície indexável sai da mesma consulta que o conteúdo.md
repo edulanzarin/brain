@@ -49,7 +49,9 @@ dia em que alguém publica nela, e sai sozinha quando o último anúncio sai.
   filtro não casa com nenhum, ali é estado vazio com o filtro na tela, não 404.
   A pergunta do 404 é sobre o lugar, não sobre a seleção.
 - **Ordenação e paginação não geram URL canônica nova**: é o mesmo conteúdo
-  remexido. O canonical aponta para o endereço sem eles.
+  remexido. O canonical aponta para o endereço sem eles. Mas nem todo parâmetro
+  é remexida — alguns são conteúdo diferente, e aí a variação É uma página:
+  [[Filtro é ferramenta, recorte é página]].
 - **Registro fora do ar sai do índice mas mantém o link seguido**
   (`noindex, follow`): o robô continua encontrando a listagem por ele.
 - Isto vale além de SEO. É a mesma ideia de não oferecer um filtro que não

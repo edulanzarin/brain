@@ -27,6 +27,17 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[A superfície indexável sai da mesma consulta que o conteúdo]] — em site de
   diretório, cidade no cadastro não é cidade com página. Rota, índice e sitemap
   saem da mesma consulta, senão o domínio nasce com dezenas de páginas vazias.
+- [[Filtro é ferramenta, recorte é página]] — parte do que está na URL é um
+  pedaço do mercado e merece endereço no índice ("acompanhantes trans em
+  Blumenau"); o resto é ferramenta de quem já chegou e sai com `noindex,
+  follow`. O teste é de vocabulário: existe uma frase que alguém falaria em voz
+  alta para descrever esse subconjunto? E recorte indexável precisa de H1
+  próprio e de um LINK até ele — aba com `onClick` não é caminho.
+- [[O que a página afirma sai do mesmo dado que ela desenha]] — o parágrafo que
+  tira a página do raso se MEDE (faixa de preço, contagens, bairros), não se
+  escreve sobre a cidade; e no JSON-LD cada campo tem par visível na tela, com
+  a nota saindo só quando há avaliação de verdade. Frase sem dado que a
+  sustente some em vez de sair zerada.
 - [[Trocar o backend de armazenamento sem downtime]] — mover binário do banco pra
   uma pasta com ponteiro, leitura de reserva e migração sob demanda. Princípio:
   [[Migração de dados mantém o antigo como reserva até a virada]].

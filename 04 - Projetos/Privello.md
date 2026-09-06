@@ -126,6 +126,29 @@ ver". Ali é restrição nova inventada para forçar cadastro; no Privello a ida
 pública no cartão e na ficha, e fechá-la seria tirar da vitrine uma informação
 que hoje ajuda a decidir. Copiar a forma sem copiar a cobrança.
 
+**A camada de busca (05/09/2026).** Todo o tráfego deste produto entra por
+cidade, e a camada de busca estava pela metade: sem `metadataBase`, sem Open
+Graph — link colado no WhatsApp aparecia como texto azul, num produto em que o
+contato acontece no WhatsApp —, sem dado estruturado, e com o buraco caro: a
+rota é dinâmica, então cada combinação de filtro respondia 200 com canônico
+apontando para si mesma.
+
+A regra que organizou o resto: gênero é recorte de mercado e ganha endereço,
+título, H1, canônico e sitemap próprios; o resto do filtro é ferramenta e sai
+com `noindex, follow`. Isso obrigou as abas de gênero a virarem link de verdade
+— botão com `onClick` não é caminho, e o robô nunca via os outros dois
+recortes. Virou [[Filtro é ferramenta, recorte é página]].
+
+Também entrou: JSON-LD com migalha, `ItemList` nas vitrines e
+`ProfilePage` + `Person` + `Service` no perfil, com cada campo tendo par
+visível na tela; o parágrafo da cidade medido do banco em vez de escrito sobre
+a cidade; cidade linkando cidade do mesmo estado, que antes não existia; alt de
+foto deixando de ser vazio; e um cartão de compartilhamento desenhado em código.
+
+O `og:image` faltando só apareceu com `curl` na página, depois de TypeScript,
+lint e build passarem os três — está em
+[[Metadata do Next não funde o aninhado, e o que herda vaza]].
+
 ## Infra
 
 Slug `privello` · app `privello-app` na `4075` · banco `privello-db` na `5075`.
@@ -458,6 +481,9 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
 - [[Na ponta do funil o rodapé troca destino por ação]]
 - [[Sticky só anda dentro do pai, e o pai precisa ser a coluna que rola]]
 - [[Pergunta fechada se responde com a lista inteira, não com o que sobrou]]
+- [[Filtro é ferramenta, recorte é página]]
+- [[Metadata do Next não funde o aninhado, e o que herda vaza]]
+- [[O que a página afirma sai do mesmo dado que ela desenha]]
 - [[O acordo congela na linha, a política vale do próximo em diante]]
 - [[A casca se compartilha por público, não por marca]]
 
@@ -476,6 +502,9 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
       dados da LGPD.
 - [ ] Redimensionar imagem no upload; hoje o arquivo original é servido como veio.
 - [ ] Busca por nome e filtro de faixa de preço na listagem da cidade.
+- [ ] Trocar o ícone de aba provisório (quadrado rosa com a inicial) por marca
+      de verdade, e conferir os cartões no validador do WhatsApp e no Rich
+      Results Test quando o domínio estiver no ar.
 - [ ] Rever o resto do site no telefone com a mesma régua da passada de 05/09: a
       varredura cobriu vitrine e perfil, e o painel de quem anuncia não passou
       por ela.

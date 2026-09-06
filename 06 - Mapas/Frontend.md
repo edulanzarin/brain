@@ -68,6 +68,11 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
   aviso de cookie, aceite de termos: se o portão decidir o que o servidor manda,
   toda URL do domínio devolve a mesma tela e o buscador lê um site vazio. Ele é
   overlay por cima de página inteira.
+- [[Metadata do Next não funde o aninhado, e o que herda vaza]] — declarar
+  `openGraph` na página apaga o do layout inteiro, `alternates` desce por
+  herança (um canônico "/" na raiz tira o site do índice), e declarar o campo
+  desliga a convenção de arquivo do `opengraph-image`. Nada disso dá erro: se
+  confere com `curl`, não com o build.
 
 ## Estado e renderização
 
