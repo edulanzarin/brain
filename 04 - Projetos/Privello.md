@@ -149,6 +149,18 @@ O `og:image` faltando só apareceu com `curl` na página, depois de TypeScript,
 lint e build passarem os três — está em
 [[Metadata do Next não funde o aninhado, e o que herda vaza]].
 
+**Domínio e marca (05/09/2026).** O endereço é `privello.com.br`, e a variável
+que o carrega deixou de ter o prefixo `NEXT_PUBLIC_`: com ele, o valor é
+embutido no build, o Dockerfile constrói sem a variável, e a imagem sairia com
+`localhost` gravado dentro — canônico, sitemap e cartão apontando para uma
+máquina que não existe, sem erro em lugar nenhum. Virou
+[[Variável pública é embutida no build; endereço de produção é de execução]].
+
+A marca é uma fechadura branca sobre chapa rosa, no corte do sistema. Não é a
+inicial: o nome já está escrito ao lado dela onde quer que o ícone apareça, e a
+fechadura diz discrição, que é o que o produto vende junto com o anúncio. Foi
+julgada a 16px, que é onde ela vive.
+
 ## Infra
 
 Slug `privello` · app `privello-app` na `4075` · banco `privello-db` na `5075`.
@@ -502,9 +514,10 @@ Tailwind v4 (tokens em `@theme`, classes em `@layer components`).
       dados da LGPD.
 - [ ] Redimensionar imagem no upload; hoje o arquivo original é servido como veio.
 - [ ] Busca por nome e filtro de faixa de preço na listagem da cidade.
-- [ ] Trocar o ícone de aba provisório (quadrado rosa com a inicial) por marca
-      de verdade, e conferir os cartões no validador do WhatsApp e no Rich
-      Results Test quando o domínio estiver no ar.
+- [ ] Conferir os cartões no validador do WhatsApp e no Rich Results Test
+      quando o domínio estiver no ar.
+- [ ] Decidir se a marca entra no topo do site ao lado da palavra "privello",
+      que hoje é só texto. O desenho existe desde 05/09/2026 e vive só na aba.
 - [ ] Rever o resto do site no telefone com a mesma régua da passada de 05/09: a
       varredura cobriu vitrine e perfil, e o painel de quem anuncia não passou
       por ela.

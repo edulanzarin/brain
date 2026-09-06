@@ -86,9 +86,21 @@ O teste que revela isso é barato e é sempre o mesmo: rendere a peça na escada
 inteira de tamanhos de uso, lado a lado. Não dá para deduzir em qual tamanho um
 detalhe morre.
 
+## Metáfora combinada precisa de espaço que o ícone não tem
+
+No Privello a ideia era a inicial e uma fechadura ao mesmo tempo, com a
+fechadura ocupando o contador do P. A 256px lia; a 16px virava mancha, porque o
+contador de uma letra nesse tamanho tem uns três pixels. A marca ficou só a
+fechadura, e a letra saiu.
+
+Vale como regra: **duas metáforas empilhadas custam resolução que o tamanho de
+uso não tem**. Se a peça precisa das duas para dizer o que quer dizer, o que
+está errado é o querer, não o desenho.
+
 ## Conexões
 - Princípio: [[Estética é por projeto, princípio de design é que se reusa]]
 - Irmã: [[Trocar arte por ícone de linha exige recalibrar tamanho, não só trocar o componente]] ·
   [[Glifo miúdo é lido como o símbolo mais próximo que a pessoa já conhece]]
-- Visto em: [[piwdex2]] · [[Navetech Hub]]
+- Irmã: [[Marca não repete o nome que está escrito ao lado dela]]
+- Visto em: [[piwdex2]] · [[Privello]] · [[Navetech Hub]]
 - Mapa: [[Design]]

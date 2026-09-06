@@ -262,6 +262,11 @@ decide se vale abrir. Vale no eixo horizontal também: na barra do celular, o qu
 - [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]] — folha de
   contato no fundo real, silhueta antes de cor, e a fronteira entre arte de figura
   (24px pra cima) e ícone de traço no chrome miúdo.
+- [[Marca não repete o nome que está escrito ao lado dela]] — a inicial num
+  quadrado é a saída automática e não diz nada, porque o nome já está escrito a
+  três centímetros do ícone em toda superfície onde ele aparece. Livre disso, a
+  marca carrega a promessa do produto — e UMA afirmação só: metáfora combinada
+  custa resolução que o tamanho de aba não tem.
 - [[Glifo miúdo é lido como o símbolo mais próximo que a pessoa já conhece]] — em
   14px o olho fecha a figura no repertório dele: trilha pontilhada vira colcheia,
   fita com dois marcos vira osso. Pergunte "o que mais isso parece?" antes de

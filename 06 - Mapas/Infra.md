@@ -114,6 +114,11 @@ precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três d�
   não evita a falha, troca uma exata por uma plausível: sem `.env`, o app conecta com
   senha adivinhada e acusa credencial. Ajuste numérico tem padrão; endereço, credencial
   e segredo não têm — e o pool nasce preguiçoso para o erro sair na consulta.
+- [[Variável pública é embutida no build; endereço de produção é de execução]] — o
+  prefixo `NEXT_PUBLIC_`/`VITE_` não quer dizer "lida em execução", quer dizer "vai
+  para o pacote": o empacotador troca a expressão pelo literal, e num Dockerfile
+  multi-etapa o build roda sem a variável. A imagem sai com localhost gravado e o
+  `environment:` do compose não muda nada — sem erro em lugar nenhum.
 - [[Processo que guarda conexão viva não tolera deploy frequente, e o log não denuncia]] —
   serviço com WebSocket/sessão em memória morre inteiro a cada deploy, e com auto-deploy
   cada push derruba todo mundo. O log escreve "Ready" igual nos dois casos; quem denuncia
