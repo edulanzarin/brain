@@ -45,6 +45,15 @@ de sistema externo é referência e tem mapa próprio.
   mesmo fato por vários eixos: agrupe uma vez pelo grão mais fino da tela (2M de
   linhas viram 6 mil) e faça ranking, série, distintos e calendário em memória.
   Princípio: [[Reduzir a cardinalidade vem antes de enriquecer]].
+- [[Predicado redundante é o que faz o índice entrar quando o join casa colunas pareadas]]
+  — quando o que restringe está no join (coluna contra coluna), o planner não tem
+  valor para buscar e varre; repetir a restrição no `where` como lista de literais
+  levou 58 s a menos de 1 s no razão de 32M linhas. Princípio:
+  [[Reduzir a cardinalidade vem antes de enriquecer]].
+- [[Tabela agregada não distingue origem, então não serve de prova de trabalho]] —
+  saldo, total e contador respondem quanto, não quem; se a coluna do relatório é uma
+  pessoa, a fonte precisa ter autoria. Princípio:
+  [[Uma pendência de prazo fecha por ato explícito, não por sinal inferido]].
 - [[Percentil ponderado sai do grão agregado, sem segunda varredura]] — se o grão já é
   (valor, quantas vezes), mediana e p90 saem dele em memória, exatos e por todos os
   eixos de uma vez; `percentile_disc` precisaria das linhas e de uma varredura por eixo.

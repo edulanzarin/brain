@@ -81,6 +81,29 @@ diverge da doc.
 **`situation=pending`** devolve exatamente o acionável (`Atrasada!` + `Pendente`)
 e corta o payload em ~9x — numa empresa medida, 2 linhas contra 18.
 
+## A carteira com responsável por setor (medido set/2026)
+
+`GET /companies/ListAll?Pagina=N&departments` devolve, junto de cada empresa, a
+lista de setores com **`RespNome` e `RespEmail`**. É a única fonte de "de quem é
+esta empresa" — o Questor não tem esse dado.
+
+- **Custo: 111 páginas, 2.146 empresas (1.624 ativas), ~2,5 min.** Página de 20
+  empresas. Não cabe em request de tela: materializar.
+- `departments` é **parâmetro de presença** — com valor (`departments=1,3`) vira
+  filtro e muda a resposta. Ver
+  [[Parâmetro de presença perde o efeito se você der um valor a ele]].
+- **Setores contábeis**: `1` "Contábil - Balanço Balancetes" e `27` "Lançamentos"
+  vêm preenchidos em **100% das ativas**; `50` "Célula Contábil" está vazio em
+  todas. Quem nomeia o responsável pelo balanço/balancete é o **1**.
+- **Marcador de fluxo não se distingue de pessoa por e-mail.** Entre os
+  "responsáveis" do setor 1 aparecem `Entrada Empresas` (223 empresas) e
+  `Saída de Empresa` (130) — 22% da carteira. Os dois TÊM e-mail (`fiscal@`,
+  `fiscal24@`), então não há teste robusto para separá-los de gente; o jeito
+  honesto é mostrar como vem e dizer isso na tela, em vez de inventar um de-para.
+- A carteira do Acessórias não é a do Questor: ~10% dos clientes de lá não têm par
+  aqui, e filial é empresa própria — casar por `estab.inscrfederal` de QUALQUER
+  estabelecimento, não só a matriz.
+
 ## Varredura incremental global (medido set/2026)
 
 `GET /deliveries/ListAll?DtInitial=…&DtFinal=…&DtLastDH=…&config` devolve **a
@@ -172,5 +195,6 @@ eles é [[Dado externo sem par no cadastro local não tem escopo]].
 - Depende de: [[Quando a API cobra uma chamada por item, filtrar não economiza]]
 - Como varrer sem truncar: [[Fim de lista se prova com intervalo, não com repetição]]
 - Irmã: [[Dado externo sem par no cadastro local não tem escopo]]
+- Usado por: [[Fechamento mensal no Questor - a conta de Encerramento do Exercício]] (o responsável que o Questor não tem)
 - Visto em: [[Navetech Hub]]
 - Mapa: [[Backend]]

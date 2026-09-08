@@ -48,7 +48,32 @@ de-para de implantação):
 | Balancete fiscal | esperado pelas regras × lançado, com drill-down por conta e as notas culpadas |
 | Implantação de saldos | balancete de abertura em PDF, casado com o plano, virando arquivo de importação |
 | Auditoria | varredura linha a linha do razão, com amostra por tipo de achado |
-| Produtividade | seis abas: lançamentos, atraso, carteira, exclusões, tempo e uso do Nexo |
+| Produtividade | sete abas: lançamentos, fechamento, atraso, carteira, exclusões, tempo e uso do Nexo |
+
+#### Fechamento (set/2026) — a primeira tela que cruza duas fontes
+
+Aba da Produtividade que responde "quais empresas tiveram o mês apurado, e de
+quem elas são". O marcador vem do Questor
+([[Fechamento mensal no Questor - a conta de Encerramento do Exercício]]); o
+analista responsável vem da **API do Acessórias**, que o Nexo passa a consumir
+aqui pela primeira vez nesta reconstrução — o Questor não sabe de quem é a
+empresa. A carteira é materializada no banco do app (`acess_empresa`,
+`acess_empresa_setor`) por uma varredura de ~2,5 min que a própria tela dispara,
+com batida por página para o progresso aparecer.
+
+Três coisas que a construção ensinou e viraram nota:
+[[Predicado redundante é o que faz o índice entrar quando o join casa colunas pareadas]]
+(58 s → menos de 1 s no razão),
+[[Tabela agregada não distingue origem, então não serve de prova de trabalho]] (o
+saldo mensal marcaria como fechada uma empresa que só teve saldo implantado) e a
+medição do `?departments` em [[API do Acessórias]].
+
+Decisões da tela: a competência de referência é a mais recente do período, com
+aviso quando ela ainda está em curso (abrir no dia 3 mostraria o escritório
+inteiro "em aberto"); "sem movimento" é neutro, não pendência; e os nomes de
+responsável saem como o Acessórias os escreve, marcadores de fluxo inclusive —
+22% da carteira responde por "Entrada Empresas"/"Saída de Empresa", e esconder
+isso num de-para inventado apagaria quantas empresas estão sem dono de verdade.
 
 Decisões da interface nova que valem para as próximas seções:
 
