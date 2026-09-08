@@ -68,6 +68,14 @@ Três coisas que a construção ensinou e viraram nota:
 saldo mensal marcaria como fechada uma empresa que só teve saldo implantado) e a
 medição do `?departments` em [[API do Acessórias]].
 
+**Também em produção (nexo2, set/2026).** A reescrita ainda não está no ar — quem
+roda no servidor é o nexo2 —, então a mesma aba foi portada para lá: motor e SQL
+idênticos, interface montada nos componentes de lá, e a carteira ganhando o
+responsável por setor na `obr_empresa_setor` (migration 035). O job noturno de
+obrigações já lista a carteira inteira no primeiro passo, e a listagem agora vem
+com a flag `departments` — o responsável fica fresco todo dia sem uma requisição
+a mais; o botão da tela existe para não depender da madrugada.
+
 Decisões da tela: a competência de referência é a mais recente do período, com
 aviso quando ela ainda está em curso (abrir no dia 3 mostraria o escritório
 inteiro "em aberto"); "sem movimento" é neutro, não pendência; e os nomes de
