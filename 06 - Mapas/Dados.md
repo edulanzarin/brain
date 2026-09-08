@@ -38,6 +38,12 @@ de sistema externo é referência e tem mapa próprio.
 - [[Registro que muda de casa leva junto o token já distribuído]] — na migration que
   promove um modo escondido a entidade própria, o identificador que o mundo lá fora
   segura (o link já enviado) vem junto; ele também é a ponte entre as duas tabelas.
+- [[Número cravado no nome do campo não se atualiza quando a regra muda]] — a coluna
+  `penalty20Percent` valia 10% em 1.215 contratos e zero em 151; vinte por cento,
+  nenhuma vez. Antes de somar um campo cujo nome afirma um número, teste a afirmação
+  contra a coluna inteira — senão o nome vira cabeçalho de relatório e a mentira é
+  promovida a conclusão. Princípio:
+  [[Config declarada envelhece; quem diz a regra é o comportamento observado]].
   Princípio: [[Migração de dados mantém o antigo como reserva até a virada]].
 - [[Campo que vira indicador é coluna, o resto do documento é jsonb]] — num documento de
   forma fixa, o que se agrega/filtra vira coluna; narrativa e listas variáveis vão em jsonb.
