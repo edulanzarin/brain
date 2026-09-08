@@ -443,6 +443,8 @@ O analista logado preenche de forma web; o nº do relatório é **sequencial**, 
 
 Verificado: tsc/eslint/build e round-trip do SQL contra o banco (rascunho → salvar jsonb → enviar/sequence → ler com joins). **Pendente (v2)**: extração + IA (reuso [[Coleta determinística, LLM só interpreta]] + [[Censurar a identificação antes de mandar pro LLM externo]]) + indicadores na tela de Gestão.
 
+**Saiu da Folha em set/2026**: virou módulo do escritório inteiro — ver [[#Módulo Post Mortem — o relatório vira do escritório (set 2026)]].
+
 ### Rescisões a pagar (ago/2026)
 
 Sétima seção da Folha (`/folha/rescisoes`), a segunda **operacional** do DP: a **fila das rescisões a pagar** com o prazo legal (CLT art. 477 §6: verbas em até 10 dias do fim do contrato, configurável). Pega os desligamentos do período (`funccontrato.datadem`, só CLT `categoria='01'`, ignorando transferências), cruza com a rescisão calculada (`rescisao`, causa via `causademissao`) e a folha de rescisão do Questor, e classifica cada uma por urgência contra o prazo: **vencida**, **vence em breve** (dentro da antecedência), **no prazo**, **paga**. KPIs (pendentes, vencidas, a vencer, pagas), toggle "só pendentes", ação "marcar paga". Empresa **opcional** (retrato do escritório, como a Produtividade do DP — reusa `empresaOpcional` na `ConfFilterBar`), escopo pela sessão.
@@ -468,6 +470,64 @@ Decisões que valem além daqui:
 - **Semântica do card de eSocial**: lidera pelo **rejeitado** (status 13, erro a corrigir), não pelo "pendente de recibo" — pendente inflava (dezenas de milhares) sem ser acionável. Lição geral: numa pendência, o número grande é o **acionável**, não o volume bruto.
 
 Verificado: tsc/eslint/`next build`; os agregados office-wide rodaram no ambiente do Eduardo (Questor real). Branches `feat/painel-dp` e `feat/painel-dp-duplo`, merge ff na `main`.
+
+## Módulo Post Mortem — o relatório vira do escritório (set/2026)
+
+Pedido do **Eduardo Moraes (DP)**: "o relatório post mortem agora vai ser um plano
+pra todo o escritório, cada setor terá o seu módulo lá, e depois um módulo GERAL
+onde só os coordenadores têm acesso". Feito no `nexo2`, a versão no ar. Branch
+`feat/post-mortem-escritorio`, migration 034.
+
+O relatório **sai da Folha e vira módulo próprio** (`postmortem`), com **uma seção
+por setor** (DP, Fiscal, Contábil, Societário) mais a **Visão geral**. O recorte é
+o mesmo do [[#Módulo Obrigações (ago/2026)]] e pelo mesmo motivo: o trabalho do
+escritório se divide por setor, e uma seção por área é o que faz a permissão
+significar alguma coisa. Dentro da seção do setor a **posse continua por linha**
+(o autor vê os seus); a Visão geral é a leitura de coordenação — todos os
+relatórios, de todos os setores, com filtro por setor, contagem por setor e
+exportação CSV.
+
+- **Coordenar não é preencher.** Quem só tem a Geral lê tudo e não abre relatório
+  em nome de setor nenhum. As três regras (preencher, ler o setor, ler o alheio)
+  moram num arquivo só, `postmortem-acesso.ts` — fronteira de permissão espalhada
+  é fronteira que a próxima tela esquece.
+- **A variação por setor é catálogo, não `if` na tela.** O tronco do formulário é
+  igual para todo mundo (identificação, descrição, impactos, causa raiz, ações,
+  lições): o que um post mortem faz não muda com o setor. O que muda são poucos
+  campos, e `postmortem-setores.ts` declara quais — terceiro caso da mesma lição
+  de [[A definição em dado dirige o comportamento, não um caso no código]]. O
+  catálogo ficou **em código, não em tabela**: quem muda é o dev, a variação é
+  rara, e usar o builder de formulários do RH aqui seria carregar um motor
+  inteiro para cinco campos.
+- **Pedido do Societário (via Mariana Lopes)**: entram *nota de gravidade* (1
+  baixo … 5 gravíssimo — nome só nas duas pontas, que foi o que se combinou; 2, 3
+  e 4 ficam sem rótulo em vez de virar régua inventada) e *responsável por passar
+  a informação do erro*; saem nº de funcionários afetados, impacto trabalhista e
+  impacto ao funcionário. Os outros setores seguem com o formulário que já
+  existia. A nota é **coluna** (vira indicador) com `check between 1 and 5`, e o
+  saneador do servidor devolve nulo para o que estiver fora da faixa.
+- **A mudança de casa levou a permissão junto e o redirect por fora do gate** —
+  virou nota: [[Feature que muda de módulo leva a permissão junto, e o redirect fica fora do gate]].
+  A migration converte `folha/post-mortem` → `postmortem/dp` e
+  `folha/post-mortem-gestao` → `postmortem/geral` (quem via todos do DP passa a
+  ver o escritório), carimba como DP os relatórios que já existiam e renomeia
+  tabela, índices, sequências e trigger juntos.
+- **Furo achado de tabela**: a trilha de auditoria valida o módulo contra uma
+  lista escrita à mão (`MODULOS_VALIDOS`) que não tinha o módulo novo — o CSV
+  baixaria sem registrar quem exportou, que é justamente o que a trilha existe
+  para responder.
+
+**Verificação**: build, eslint e os 80 testes passam; a migration foi rodada de
+ponta a ponta num Postgres descartável, com dado semeado no formato antigo, e
+conferida linha a linha (setor carimbado, número preservado, permissão
+convertida, default removido, check da gravidade mordendo, trigger vivo). **O app
+não foi clicado**: a máquina do Eduardo travou com o servidor de dev no ar e o
+teste foi abortado — subir e passar pelas telas é a primeira coisa a fazer.
+
+**Antes de considerar entregue**: as seções novas de Fiscal, Contábil e Societário
+**não caem em ninguém sozinhas** — só a permissão do DP foi convertida. O admin
+precisa dar `postmortem/<setor>` aos cargos de cada área e `postmortem/geral` a
+quem coordena, em Administração → Cargos.
 
 ## Módulo RH (interno da Navecon — jul/2026)
 

@@ -100,6 +100,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Posse numa permissão binária é duas seções e recorte por linha]] — "dono vê os
   seus, gestor vê todos" não é view/edit: duas seções + recorte por `autor` no
   servidor. Princípio: [[Permissão se valida no servidor, não na interface]].
+- [[Feature que muda de módulo leva a permissão junto, e o redirect fica fora do gate]]
+  — mover uma tela de casa desliga o acesso de quem só entrava por ela; a
+  migration converte o par `modulo/secao` e o redirect do endereço antigo vai
+  para o middleware, que roda antes do gate. Princípio:
+  [[Identificador que já circulou não é mais seu para mudar]].
 - [[A ordem da lista de seções é a rota padrão de quem enxerga todas]] — o par por
   posse quebra só para o admin, que enxerga as duas: a home entrega a primeira da
   lista, então a de gestão vem antes. Princípio:
