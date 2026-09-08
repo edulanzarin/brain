@@ -451,6 +451,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   saiu daí: onde há botão desligado, há requisito publicado. Peça o print.
 - [[Tirar o dado errado não põe a verdade no lugar]] — o outro lado do mesmo trabalho:
   achado o dado falso e cortado, confira o que a AUSÊNCIA dele passa a afirmar.
+- [[Relatório de sistema logado sai do endpoint que a tela chama, não do DOM]] — o
+  navegador serve pra conseguir a SESSÃO, não pra ler o dado: escute a rede, ache a
+  resposta que vem com um megabyte no meio das de 40 bytes, e repita o `fetch` de dentro
+  da página — cookie e CSRF vão junto de graça. A tela do CRM mostrava 8 colunas; o
+  registro tinha 27, e os que faltavam eram os do relatório.
 
 ## Referência de sistema externo
 
