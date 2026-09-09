@@ -152,13 +152,47 @@ Com isso o Acessórias deixa de ser só uma fila de pendências e vira fonte de
 |---|---|---|
 | `requests/ListAll` | **865 solicitações em ago/2026** (45 páginas, ~8 s) | `SolDHAbertura`, `SolDHFinalizacao`, **`SolUsuarioFinalizador`+ID**, `SolOfficeResp[]`, `DptoID/Nome`, prazo, prioridade, status (`Finalizada`/`Nova`/`Resolvendo`). 61% finalizadas com carimbo, por 34 pessoas |
 | `processes/ListAll` | ≥800 em 2026 | `ProcGestor`, `ProcInicio`, `ProcConclusao`, `ProcPorcentagem`, `ProcDepartamento`, `ProcStatus`. 54 pessoas |
-| `company_groups/ListAll` | **435 grupos** | id, nome, status. Cadastro de grupo de empresas que já existe lá — o Nexo mantém o dele à parte |
+| `company_groups/ListAll` | **438 grupos (425 ativos)** | id, nome, status, numa chamada só. As empresas de cada um saem em `/{id}?companies=1` — ver a seção do grupo |
 | `users/ListAll` | pagina de 20 | id → nome → e-mail → status. É o que resolve `RespEntregaID` em gente, e diz quem já saiu |
 | `tags/ListAll` | 20+ | marcadores de empresa |
 
 Armadilha do grupo: `company_groups/ListAll&companies=1` devolve **erro dentro
 de um 200** ("Para listar empresas, informe o ID do grupo"). A flag só vale com
-um id no caminho; para listar os grupos, vai sem ela.
+um id no caminho; para listar os grupos, vai sem ela. E, com o id, ela exige
+valor — detalhe na seção do grupo, abaixo.
+
+## O grupo de empresa (medido set/2026)
+
+O grupo existe no cadastro do Acessórias e **não vem junto da empresa**.
+
+- `GET /company_groups/ListAll` devolve **438 grupos (425 ativos) em ~22 KB, numa
+  chamada só** — é o único recurso desta API que entrega a lista inteira sem
+  paginar. Campos em minúsculas (`id`, `nome`, `status`), ao contrário do resto
+  da API. **34 dos 438 nomes vêm com espaço nas pontas**: apare na entrada.
+- `GET /company_groups/{id}?companies=1` devolve as empresas do grupo
+  (`id`, `razao_social`, `cnpj` — o CNPJ **formatado**, mesma chave de
+  `Identificador`). **Exige o valor**: `?companies` nu devolve o grupo sem
+  empresa nenhuma, sem erro. É o INVERSO de `config` e `departments`
+  ([[Parâmetro de presença perde o efeito se você der um valor a ele]]).
+- `GET /company_groups/ListAll/{id}` e `/company_groups/{id}/companies` devolvem
+  `{"Erro":"Identificador inválido..."}` dentro de um 200. O id vai no caminho
+  logo após o recurso, e só ali.
+- **`/companies/ListAll` NÃO traz o grupo.** Campos medidos: `ID`,
+  `Identificador`, `Razao`, `Fantasia`, `Status`, `Telefone`, `UF`,
+  `ClienteDesde`, `ClienteAte`, `DataDoCadastro`, `Honorario`, `DtLastDH` (mais
+  `Departamentos` com a flag). A flag `groups` é **aceita e ignorada**: resposta
+  byte a byte igual à sem flag (6.383 bytes nas duas).
+
+**Custo: ~1,8 s por grupo, ~13 min para os 425 ativos.** É uma chamada por
+grupo, e não há atalho: vale aqui inteiro o
+[[Quando a API cobra uma chamada por item, filtrar não economiza]].
+Materializa-se em varredura noturna própria, não
+pendurada na da carteira (~2,5 min): são ordens de grandeza diferentes, e juntar
+faz um botão de dois minutos virar de quinze sem que a tela saiba explicar.
+
+Amostra de 12 grupos: 70 empresas, **70 CNPJs distintos** — nenhuma empresa em
+dois grupos, e um grupo ativo vazio. Não é garantia: o modelo de lá é
+grupo -> empresas, então o vínculo se guarda muitos-para-muitos.
 
 ## Página curta NÃO significa fim de lista — e depende do endpoint
 

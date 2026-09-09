@@ -212,6 +212,10 @@ decide se vale abrir. Vale no eixo horizontal também: na barra do celular, o qu
   dinheiro no eixo faz "R$ 8,0 mi" quebrar em duas linhas sobre o dado, repetindo cinco
   vezes o que o subtítulo já disse. Dois formatadores: identificado na dica, terso no
   eixo — e rótulo de categoria se corta, porque o gráfico enrola em vez de truncar.
+- [[Fita de cor mostra o padrão, não nomeia o item]] — sequência de quadrados
+  (competências, sparkline, mapa de calor) responde "como está indo" e não "qual":
+  para nomear, quem lê conta quadrados da ponta. Rótulo escrito na fita e marca na
+  referência; o teste é a frase que a pessoa diria ao ver a tela.
 - [[Primitiva de botão fecha o tamanho e abre só a variante]] — o botão vira
   componente que expõe cor, não tamanho; o `!h-7` por instância deixa de existir.
 - [[Anúncio em feed não pode vestir a roupa do conteúdo]] — pode caber no layout, não

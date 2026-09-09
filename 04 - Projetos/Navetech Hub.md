@@ -83,6 +83,42 @@ responsável saem como o Acessórias os escreve, marcadores de fluxo inclusive �
 22% da carteira responde por "Entrada Empresas"/"Saída de Empresa", e esconder
 isso num de-para inventado apagaria quantas empresas estão sem dono de verdade.
 
+**Primeiro retorno de quem usa (Renato, set/2026).** Duas coisas, e as duas
+tinham a mesma raiz — a tela respondia a pergunta do autor, não a de quem chega:
+
+- *"Queria saber quais meses estão fechados."* A fita de competências existia,
+  com legenda e tooltip, e só aparecia quando o período tinha mais de um mês. Ela
+  mostrava o PADRÃO e obrigava a contar quadrados da ponta para nomear o mês.
+  Passou a ser sempre visível, com o mês escrito debaixo de cada barra e a
+  referência marcada — virou nota:
+  [[Fita de cor mostra o padrão, não nomeia o item]].
+- *"Adicionar uma aba de grupo para filtrar por grupo de empresa, igual está
+  estabelecido dentro do acessoria."* O grupo do Acessórias virou filtro e coluna
+  da aba, recortando a aba INTEIRA (cartões e ranking junto, não só a tabela).
+
+O grupo custou uma varredura nova: medido, a empresa não carrega o grupo dela
+(`/companies/ListAll` não traz o campo, e a flag `groups` é aceita e ignorada,
+resposta byte a byte idêntica). O vínculo sai grupo a grupo — 425 ativos, ~1,8 s
+cada, **~13 min** — e virou `obr_grupo`/`obr_empresa_grupo` (migration 037) com
+varredura PRÓPRIA, no fim do job noturno e só quando ele foi completo. Pendurá-la
+na varredura de carteira (~2,5 min) faria o botão de lá ficar seis vezes mais
+lento sem a tela saber dizer por quê — a mesma razão que separou carteira de
+entregas na 035. Medições em [[API do Acessórias]]; a forma do parâmetro
+(`?companies=1`, ao contrário de `config` e `departments`) fechou o par em
+[[Parâmetro de presença perde o efeito se você der um valor a ele]].
+
+**Dois "Grupo" na mesma tela, e é decisão, não descuido.** O Nexo já tem o grupo
+de Configurações (mantido à mão, filtro de escopo na barra); o do Acessórias é
+outro cadastro, mantido por quem cuida do cliente. O Eduardo optou por deixar os
+dois conviverem com o nome dizendo de onde vêm — "Grupo do Nexo" na barra,
+"Grupo do Acessórias" na aba. Dropdown escrito só "Grupo" numa tela onde há dois
+faz filtrar pelo errado e culpar o sistema.
+
+E um defeito que só aparece quando a aba tem filtro próprio: a barra de filtros
+montava a URL do zero ao aplicar, apagando qualquer parâmetro que não fosse dela.
+O filtro de grupo sumiria a cada clique em Executar. Agora ela reescreve só as
+chaves que são suas.
+
 Decisões da interface nova que valem para as próximas seções:
 
 - **Uma barra de recorte só.** Empresa, período, filial e os filtros da própria
