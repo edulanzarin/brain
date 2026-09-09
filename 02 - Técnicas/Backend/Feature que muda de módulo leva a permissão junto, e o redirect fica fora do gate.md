@@ -57,6 +57,34 @@ function mudouDeCasa(pathname: string): string | null {
 Vale o mesmo para o link antigo de um registro: o id não muda, só o caminho, e
 mandar o `/(\d+)/` junto é o que evita transformar "abre o relatório 12" em 404.
 
+## A mudança que volta atrás paga o mesmo pedágio
+
+A mesma tela desse exemplo voltou para dentro dos setores duas semanas depois —
+o módulo do assunto tinha inventado um leitor de escritório inteiro e deixado o
+gestor de cada área sem a leitura da sua.
+Ver [[O recorte é a área que responde, não o assunto que a tela trata]].
+O desfazer não é mais barato que o fazer: outra
+migration de permissão, outro redirecionamento no middleware (agora o do
+caminho que existiu por duas semanas), e o mesmo cuidado com a lista fixa.
+
+O que muda é uma regra a mais na conversão: **migração de permissão não tira
+acesso.** Quem lia tudo pela visão global passa a ler a gestão de cada área — o
+`insert ... select` de uma linha para quatro —, e a decisão de quem fica com o
+quê é da tela de cargos, não do SQL:
+
+```sql
+insert into cargo_secao (cargo_id, modulo, secao)
+select cs.cargo_id, m.modulo, 'post-mortem-gestao'
+  from cargo_secao cs
+ cross join (values ('folha'), ('fiscal'), ('contabil'), ('societario')) as m (modulo)
+ where cs.modulo = 'postmortem' and cs.secao = 'geral'
+    on conflict do nothing;
+```
+
+E, no fim, **apagar o que sobrou do módulo que não existe mais**: linha órfã em
+tabela de permissão não quebra nada e reaparece como fantasma na primeira
+auditoria de acesso.
+
 ## O que mais vale lembrar
 
 - **O teste que revela é o de quem tem pouco acesso.** Conferir a mudança com o
@@ -73,9 +101,12 @@ mandar o `/(\d+)/` junto é o que evita transformar "abre o relatório 12" em 40
 - **A lista fixa que ninguém lembra de atualizar.** Um módulo novo costuma
   esbarrar em algum allowlist escrito à mão — no caso, o da trilha de auditoria,
   que recusava o registro da exportação e deixava o CSV sair sem rastro.
+- **A trilha de auditoria não se reescreve junto.** Os registros antigos citam o
+  módulo que deixou de existir, e a tentação é atualizá-los para o nome novo.
+  Trilha é o que aconteceu: o filtro perde uma opção, e tudo bem.
 
 ## Conexões
 - Princípio: [[Identificador que já circulou não é mais seu para mudar]]
-- Irmã: [[Posse numa permissão binária é duas seções e recorte por linha]]
+- Irmã: [[Posse numa permissão binária é duas seções e recorte por linha]] · [[O que dois módulos compartilham é a query, não a rota]]
 - Visto em: [[Navetech Hub]]
 - Mapa: [[Backend]]

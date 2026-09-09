@@ -68,7 +68,7 @@ supervisionar já inclui atender —, então é escolha única, não caixa acumu
   lista vazia de [[Escopo de dado se clampa no servidor, num funil só]].
 
 ## Conexões
-- Princípio: [[Permissão se valida no servidor, não na interface]]
+- Princípio: [[Permissão se valida no servidor, não na interface]] · [[O recorte é a área que responde, não o assunto que a tela trata]]
 - Irmã: [[Escopo de dado se clampa no servidor, num funil só]] · [[Permissão composta por papéis somados, não exceção por usuário]] · [[Isolamento entre clientes é política do banco, não filtro na query]]
 - Visto em: [[Navehub]]
 - Mapa: [[Backend]]

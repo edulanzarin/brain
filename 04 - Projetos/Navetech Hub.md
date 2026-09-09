@@ -476,7 +476,7 @@ O analista logado preenche de forma web; o nº do relatório é **sequencial**, 
 
 Verificado: tsc/eslint/build e round-trip do SQL contra o banco (rascunho → salvar jsonb → enviar/sequence → ler com joins). **Pendente (v2)**: extração + IA (reuso [[Coleta determinística, LLM só interpreta]] + [[Censurar a identificação antes de mandar pro LLM externo]]) + indicadores na tela de Gestão.
 
-**Saiu da Folha em set/2026**: virou módulo do escritório inteiro — ver [[#Módulo Post Mortem — o relatório vira do escritório (set 2026)]].
+**Saiu da Folha em set/2026** e **voltou logo depois**: virou módulo do escritório inteiro ([[#Módulo Post Mortem — o relatório vira do escritório (set 2026)]]) e duas semanas depois voltou pra dentro de cada setor, o DP incluído ([[#Post Mortem volta pra dentro do setor, e nasce o Societário (set 2026)]]). O par de seções descrito acima é de novo o que está no ar.
 
 ### Rescisões a pagar (ago/2026)
 
@@ -505,6 +505,11 @@ Decisões que valem além daqui:
 Verificado: tsc/eslint/`next build`; os agregados office-wide rodaram no ambiente do Eduardo (Questor real). Branches `feat/painel-dp` e `feat/painel-dp-duplo`, merge ff na `main`.
 
 ## Módulo Post Mortem — o relatório vira do escritório (set/2026)
+
+> **Revertido duas semanas depois.** O módulo do assunto deixou o gestor de cada
+> área sem a leitura da sua — ver
+> [[#Post Mortem volta pra dentro do setor, e nasce o Societário (set 2026)]].
+> A seção fica como registro do que se tentou e por quê.
 
 Pedido do **Eduardo Moraes (DP)**: "o relatório post mortem agora vai ser um plano
 pra todo o escritório, cada setor terá o seu módulo lá, e depois um módulo GERAL
@@ -561,6 +566,68 @@ teste foi abortado — subir e passar pelas telas é a primeira coisa a fazer.
 **não caem em ninguém sozinhas** — só a permissão do DP foi convertida. O admin
 precisa dar `postmortem/<setor>` aos cargos de cada área e `postmortem/geral` a
 quem coordena, em Administração → Cargos.
+
+## Post Mortem volta pra dentro do setor, e nasce o Societário (set/2026)
+
+O módulo do escritório durou duas semanas. O Eduardo olhou o resultado e cortou:
+não é pra ter módulo Post Mortem, o relatório fica **dentro de cada setor**, e é o
+**gestor de cada setor** que lê o dele. Branch `refactor/post-mortem-no-setor`,
+migration 036.
+
+O que o desenho anterior produzia, e é o que não servia: a única leitura completa
+era a **Visão geral**, quer dizer, de uma coordenação central — e o gestor de cada
+área, que é quem cobra o relatório e age sobre a causa, ficou sem a leitura da
+sua. O módulo do assunto tinha inventado um cargo pra conseguir existir. Virou
+princípio: [[O recorte é a área que responde, não o assunto que a tela trata]].
+
+**A forma nova.** Cada módulo de setor ganha o par de sempre — `post-mortem` (o
+analista, os seus, recorte por linha) e `post-mortem-gestao` (o gestor daquela
+área, todos os relatórios do setor). É o mesmo par do Painel do DP e do Contábil,
+e vem do catálogo comum `secoesPostMortem(modulo)`, espalhado em
+`fiscal-secoes`, `contabil-secoes`, `folha-secoes` e `societario-secoes`. A Visão
+geral some: ela cruzava setor, que é justamente o que deixou de existir.
+
+- **Nasce o módulo Societário.** O setor preenchia relatório e não tinha onde
+  morar — sem módulo da área não existe gestor da área. Começa com uma seção só
+  (o post mortem), casca self-contained como a das Obrigações, ícone
+  `societario.png` que já estava no repo. Módulo de uma seção é começo, não
+  defeito.
+- **A rota de API foi junto pra dentro do módulo** (`/api/<modulo>/post-mortem`).
+  O gate do `apiRoute` deriva o módulo do CAMINHO; um `/api/postmortem` único
+  obrigaria a conferir o setor por um parâmetro, que é do cliente. Handlers,
+  componentes e páginas são escritos **uma vez** (`postmortem-rotas.ts`,
+  `components/postmortem/`) e cada módulo tem só o arquivo que o roteador exige —
+  reexport de uma linha. Registrado em
+  [[O que dois módulos compartilham é a query, não a rota]].
+- **O setor entrou no WHERE de salvar/enviar/excluir**, junto com o autor: quem
+  chega pelo caminho de um módulo não escreve em relatório de outro setor, e isso
+  fica garantido pela consulta, não por uma leitura extra antes dela
+  ([[Um invariante se garante na estrutura, não no processo]]).
+- **A migration não tira acesso de ninguém.** `postmortem/<setor>` vira
+  `<modulo>/post-mortem`; quem tinha a Geral vira **gestão dos quatro setores**
+  (um `insert ... select` com `cross join values`). É de propósito mais largo do
+  que o desenho pede — separar quem fica com qual área é decisão de gente, e a
+  tela de cargos resolve. No fim, `delete from cargo_secao where modulo =
+  'postmortem'`: linha órfã reaparece como fantasma na primeira auditoria.
+- **A trilha de auditoria não foi reescrita.** Os registros antigos citam
+  `postmortem.export`, módulo que não existe mais, e o filtro da tela perde essa
+  opção. Trilha é o que aconteceu.
+- **Os links antigos caem no lugar novo pelo `proxy.ts`** — `/post-mortem/dp/12`
+  → `/folha/post-mortem/12`. `/post-mortem/geral` não tem equivalente e cai no
+  launcher. O mapa setor→módulo é cópia rasa no proxy de propósito: ele roda na
+  edge e não deve arrastar o catálogo pra lá por causa de um redirect de
+  compatibilidade.
+
+**Verificação**: `tsc --noEmit` limpo, eslint sem erro novo, 80 testes passando; a
+migration 036 rodou em transação desfeita contra o `nexo-db` com cargos
+sintéticos, e a conversão saiu exata (analista do Fiscal migrou, coordenação
+ganhou a gestão dos quatro, nada sobrou em `postmortem`). **O app não foi
+clicado** — a máquina do Eduardo não aguenta o servidor de dev no ar.
+
+**Antes de considerar entregue**: rodar `npm run migrate` no ambiente do Eduardo
+(o `nexo-db` local está muito atrás e não tem a tabela `postmortem`), e conferir
+em Administração → Cargos quem deve ficar com `post-mortem-gestao` de cada área —
+a migration foi larga de propósito.
 
 ## Módulo RH (interno da Navecon — jul/2026)
 

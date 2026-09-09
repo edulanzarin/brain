@@ -91,6 +91,7 @@ UI que mostra dado que muda sem o usuário pedir.
 - [[Migração de dados mantém o antigo como reserva até a virada]]
 - [[A definição em dado dirige o comportamento, não um caso no código]] — o que varia por um eixo conhecido vira dado que uma peça lê.
 - [[Um invariante se garante na estrutura, não no processo]] — "no máximo uma X" recusa-se no schema, não na expectativa do fluxo.
+- [[O recorte é a área que responde, não o assunto que a tela trata]] — assunto que várias áreas tratam se instala dentro de cada uma; juntar num módulo do assunto obriga a inventar um leitor de tudo, e o gestor de cada área fica sem a leitura da sua.
 - [[O que tem ciclo de vida próprio é entidade própria, não modo de outra]] — quantas vezes acontece, se repete e o que a fecha: divergiu da tabela hospedeira, é entidade própria, não flag dela.
 - [[Recorrência guarda a receita e o próximo disparo, não N ocorrências futuras]] — periódico é receita + ponteiro; o job materializa uma por vez.
 - [[Plataforma de IA hospedada prende o app pelo banco]]

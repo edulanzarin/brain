@@ -29,6 +29,32 @@ Separar as duas coisas que estavam grudadas na rota — a **consulta** e o **gat
 O dado é o mesmo; quem o serve é o módulo de quem está pedindo. A query não se
 duplica, a permissão não vaza.
 
+## Quando o compartilhado é a feature inteira
+
+O caso acima é uma consulta em dois módulos. A forma se repete inteira quando o
+que várias áreas compartilham não é um dado, é uma **tela** — o mesmo formulário
+preenchido pelo Fiscal, pelo Contábil, pelo DP e pelo Societário.
+
+A resposta é a mesma, e escala melhor do que parece: **os handlers, os
+componentes e as páginas são escritos uma vez**, num lib e numa pasta de
+componentes, e cada módulo tem só os arquivos que o roteador exige — reexports
+de uma linha.
+
+```ts
+// src/app/api/fiscal/post-mortem/route.ts
+export { GET, POST } from "@/lib/postmortem-rotas";
+```
+
+O handler descobre de quem é o pedido pelo próprio caminho (`/api/<modulo>/...`),
+e é isso que fecha o buraco: com um endpoint único, o servidor teria que
+descobrir a área por um **parâmetro**, e parâmetro é do cliente. Com o módulo no
+caminho, quem pede o post mortem do Fiscal já passou pelo gate do Fiscal antes de
+o handler rodar.
+
+Doze arquivos de uma linha soam caros até a alternativa aparecer: quatro cópias
+das mesmas telas, e a quinta — quando entrar um setor novo — saindo diferente das
+outras.
+
 ## A exceção: dado genuinamente transversal
 
 Nem tudo é de um módulo. Um recurso que os dois usam por igual e não pertence a
@@ -38,7 +64,7 @@ dado **de ninguém** pode ser compartilhado. Detalhe de nota é dos dois, mas ca
 serve o seu.
 
 ## Conexões
-- Princípio: [[Permissão se valida no servidor, não na interface]]
+- Princípio: [[Permissão se valida no servidor, não na interface]] · [[O recorte é a área que responde, não o assunto que a tela trata]]
 - Depende de: [[Cravar o seam de permissão antes do login]]
 - Visto em: [[Navetech Hub]]
 - Mapa: [[Backend]]

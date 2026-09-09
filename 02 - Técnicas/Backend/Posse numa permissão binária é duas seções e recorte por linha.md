@@ -36,7 +36,7 @@ Assim o dono é uma propriedade da LINHA (uma coluna `autor`), não um privilég
 concedido — e ninguém vê o alheio trocando a URL.
 
 ## Conexões
-- Princípio: [[Permissão se valida no servidor, não na interface]]
+- Princípio: [[Permissão se valida no servidor, não na interface]] · [[O recorte é a área que responde, não o assunto que a tela trata]]
 - Irmã: [[Permissão composta por papéis somados, não exceção por usuário]] · [[Escopo de dado se clampa no servidor, num funil só]] · [[Drill-down por id foge do funil de escopo e precisa de gate próprio]]
 - Visto em: [[Navetech Hub]]
 - Mapa: [[Backend]]

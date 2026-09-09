@@ -80,7 +80,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   calado em "Outros".
   Princípio: [[Um invariante se garante na estrutura, não no processo]].
 - [[O que dois módulos compartilham é a query, não a rota]] — reuso de dado entre
-  módulos sem furar o gate por módulo.
+  módulos sem furar o gate por módulo. Vale de uma consulta até uma feature
+  inteira reusada por quatro setores: handlers e telas escritos uma vez, reexport
+  de uma linha por módulo, e o gate vem do caminho — não de um parâmetro.
+  Princípio: [[O recorte é a área que responde, não o assunto que a tela trata]].
 - [[Formulário público por token opaco fica fora do gate de sessão]] — quem não
   tem login responde por link; o token é a credencial, a exceção ao gate é
   cirúrgica.
@@ -479,6 +482,7 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 - [[Ordene pela grandeza que decide, não pela que impressiona]]
 - [[Permissão se valida no servidor, não na interface]]
+- [[O recorte é a área que responde, não o assunto que a tela trata]]
 - [[Configuração vem do ambiente, não do código]]
 - [[Ambiente de dev sobe igual ao de produção]]
 - [[Um invariante se garante na estrutura, não no processo]]
