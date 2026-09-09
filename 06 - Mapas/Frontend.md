@@ -56,6 +56,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
   "1.200" são mil e duzentos, "250.50" são duzentos e cinquenta e cinquenta. O parser
   ingênuo grava R$ 1,20 sem erro nenhum; três dígitos depois do ponto só podem ser
   milhar.
+- [[Campo de dinheiro é máscara de centavos, não texto livre]] — a saída que dispensa
+  o parser acima: o campo só aceita dígito, cada tecla empurra os centavos e o valor
+  atravessa como inteiro até o banco. Vale na digitação; importação continua parseando.
 - [[A segunda ação do formulário se marca no botão, não no estado]] — apagar e salvar
   no mesmo formulário: `name`/`value` no botão clicado. Limpar o campo no `onClick`
   manda o valor antigo, porque o envio lê o campo de agora e o `setState` só chega no

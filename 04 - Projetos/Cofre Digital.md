@@ -18,7 +18,8 @@ Código em: `~/Dev/cofre-digital`
 Rodando em Docker, acessível na rede em `http://<ip>:4004`. Três módulos de
 conteúdo (certificados, acessos, alvarás) mais empresas, equipe e configurações.
 Em jul/2026 passou por uma rodada de acabamento do design e, depois, pela
-regularização da infra (ver abaixo).
+regularização da infra (ver abaixo). Em set/2026 a ficha da empresa ganhou os valores
+do contrato e anotações fixáveis, a pedido do societário.
 
 ## Infra (regularizada em 20/07/2026)
 
@@ -122,6 +123,12 @@ PostgreSQL 17 · Docker Compose. Ícones lucide, PKCS#12 lido no navegador.
 - [[Dígito verificador rejeita o documento errado na entrada]] — o "Automático
   pelo CNPJ" criava empresa a partir de qualquer número; agora o funil confere o
   dígito verificador antes de deixar o documento entrar.
+- [[Histórico se escreve do diff, e alteração sem diferença não vira evento]] — o
+  padrão do histórico do certificado, extraído quando a empresa passou a ter o dela.
+- [[Recado que ainda vale sai da linha do tempo e sobe para o topo]] — por que o
+  fixado não mora na aba de anotações.
+- [[Campo de dinheiro é máscara de centavos, não texto livre]] — honorário digitado
+  sem parser e sem ambiguidade de ponto.
 - [[Importação em massa passa pela API, não pelo banco]] — a migração dos ~1156
   certificados do sistema antigo sobe cada um pelo endpoint de cadastro, herdando
   validação, empresa pelo CNPJ e grupo, em vez de INSERT direto.
@@ -217,8 +224,9 @@ Uma passada pra endurecer cadastro/edição e deixar o histórico dizer o que mu
   tempo real de CNPJ/CPF inválido e tipo incompatível com o documento.
 
 Branch `feat/certificados-robustez`. O diff de histórico (snapshot antes/depois +
-descrever só o que mudou, sem evento vazio) é candidato a virar técnica própria se
-aparecer num segundo sistema.
+descrever só o que mudou, sem evento vazio) virou técnica quando a empresa ganhou a
+própria linha do tempo em set/2026:
+[[Histórico se escreve do diff, e alteração sem diferença não vira evento]].
 
 ## Migração do sistema antigo (jul/2026)
 
@@ -234,6 +242,36 @@ Ferramentas em `scripts/` (`exportar-sistema-antigo.mjs`, `importar-certificados
 `README-migracao.md`): exporta o mapa, e importa uma pasta local de `.pfx`/`.p12`
 mandando cada um pelo endpoint de cadastro — herda validação, cria empresa pelo
 CNPJ e anexa o grupo, idempotente. Virou [[Importação em massa passa pela API, não pelo banco]]. As senhas exportadas ficam fora do repositório (`~/cofre-migracao`).
+
+## Cadastro e anotações da empresa (set/2026)
+
+Dois pedidos do societário, os dois na ficha da empresa.
+
+**Valores do contrato.** Honorário mensal e valor de alteração contratual viraram
+campos do cadastro — a informação decide entrada e saída de cliente e vivia fora do
+sistema. Ficam em centavos, como inteiro, e o campo é máscara que empurra as casas:
+[[Campo de dinheiro é máscara de centavos, não texto livre]]. Aparecem num bloco de
+cadastro no topo do cofre e numa coluna da lista de empresas, que é onde a comparação
+acontece.
+
+**Anotações fixáveis.** A empresa ganhou linha do tempo própria (`CompanyEvent`), do
+mesmo feitio da do certificado e do alvará: cadastro, alterações e recados da equipe.
+Duas diferenças:
+
+- as alterações entram por diff ("Honorário mensal: R$ 800,00 → R$ 950,00"), o que
+  promoveu o padrão do certificado a
+  [[Histórico se escreve do diff, e alteração sem diferença não vira evento]];
+- a anotação pode nascer **fixada**, e o que está fixado sai da aba e mora colado no
+  cabeçalho, à vista em qualquer aba —
+  [[Recado que ainda vale sai da linha do tempo e sobe para o topo]].
+
+Quem só visualiza também anota e fixa: acompanhar o cliente não é o mesmo papel que
+editar o cadastro dele. Os três pedaços do histórico (cabeçalho, campo de escrita,
+linha do tempo) foram extraídos do `HistoryPanel` para servirem aos dois usos, com o
+alfinete só onde ele existe.
+
+Branch `feat/empresas-anotacoes-honorarios`, migração
+`20260909143000_company_fees_and_notes`.
 
 ## Próximos passos possíveis
 

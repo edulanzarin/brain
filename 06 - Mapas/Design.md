@@ -275,6 +275,9 @@ decide se vale abrir. Vale no eixo horizontal também: na barra do celular, o qu
   14px o olho fecha a figura no repertório dele: trilha pontilhada vira colcheia,
   fita com dois marcos vira osso. Pergunte "o que mais isso parece?" antes de
   "está bonito?", e cuide também da colisão interna, com os ícones do próprio set.
+- [[Recado que ainda vale sai da linha do tempo e sobe para o topo]] — log cronológico
+  enterra o combinado que ainda vale, e aba própria não salva quem abriu a ficha para
+  outra coisa; o fixado sai da navegação e mora colado no cabeçalho.
 
 Princípios: [[Catálogo de componentes é contrato vivo, não documentação]] ·
 [[O primitivo só padroniza o que passa por dentro dele]] ·

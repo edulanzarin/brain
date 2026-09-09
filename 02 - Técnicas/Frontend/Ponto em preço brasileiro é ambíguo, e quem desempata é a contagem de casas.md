@@ -53,6 +53,8 @@ errada mora no meio, onde ninguém olha.
 - Princípio: [[Casar dado do mundo real é por classe de equivalência, não por igualdade]] —
   o mesmo valor chega em várias grafias corretas, e comparar a string em vez da
   classe é onde a leitura silenciosamente muda o dado.
-- Irmã: [[CSV que abre no Excel pt-BR usa ponto e vírgula, BOM e vírgula decimal]]
+- Irmã: [[CSV que abre no Excel pt-BR usa ponto e vírgula, BOM e vírgula decimal]] ·
+  [[Campo de dinheiro é máscara de centavos, não texto livre]] — a prevenção que
+  dispensa este parser quando o valor é digitado, e não importado
 - Visto em: [[Privello]]
 - Mapa: [[Frontend]]

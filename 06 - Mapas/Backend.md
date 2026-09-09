@@ -202,6 +202,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   (fonte read-only + app gravável); correção, entidade ausente e renomeação viram overlay
   no banco do app, chaveado pela identidade da fonte, com merge em TS. Princípio:
   [[Sobre fonte read-only, o editável mora no seu banco chaveado pela identidade dela]].
+- [[Histórico se escreve do diff, e alteração sem diferença não vira evento]] — a
+  linha do tempo que grava "dados atualizados" prova o clique e esconde a mudança;
+  o evento sai da comparação antes/depois (com rótulo resolvido, não id), e edição
+  sem diferença nenhuma não vira registro.
 
 ## IA e LLM
 
