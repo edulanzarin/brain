@@ -136,6 +136,10 @@ precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três d�
 - [[Ponte pro endereço novo só se levanta quando o outro lado responde]] — redirect é
   código, mas o destino é fato de infraestrutura. A variável de ambiente é a declaração
   de que o outro lado existe; sem ela, o comportamento anterior continua valendo.
+- [[Formatar a máquina perde tudo que o git não versiona]] — varrer por categoria (sem
+  remote, sem push, WIP, `.env`, ignorado que não se regenera, banco, config de
+  ferramenta), não por projeto. Código vai pro GitHub privado, segredo e dado pro cofre
+  offline, e a volta é um roteiro que o Claude executa na máquina limpa.
 
 Relacionado, no [[Backend]]:
 [[Polling substitui webhook quando não há IP público]] — integração sem abrir porta.
