@@ -49,7 +49,7 @@ const FECHAMENTOS: Record<number, { acao: "token" | "shard" | "parar" | "tentar"
 - **`token`** — renova o par. Recusado de novo depois de renovar, o vínculo
   morreu: **pare** e peça a credencial nova, porque nenhuma tentativa sua produz
   uma.
-- **`parar`** — terminal. Ver [[Recusa não é falha: contra o não do servidor, insistir é ruído]].
+- **`parar`** — terminal. Ver [[Recusa não é falha; contra o não do servidor, insistir é ruído]].
 - **`tentar`** — a queda comum, a única que merece backoff.
 
 ## O que mais vale lembrar
@@ -69,7 +69,7 @@ const FECHAMENTOS: Record<number, { acao: "token" | "shard" | "parar" | "tentar"
 
 ## Conexões
 - Princípio: [[Laço que trata toda falha igual apaga a causa da primeira]]
-- Irmã: [[Recusa não é falha: contra o não do servidor, insistir é ruído]] ·
+- Irmã: [[Recusa não é falha; contra o não do servidor, insistir é ruído]] ·
   [[Socket que não abre não emite evento, e só um temporizador percebe]]
 - Visto em: [[piwdex]]
 - Mapa: [[Backend]]

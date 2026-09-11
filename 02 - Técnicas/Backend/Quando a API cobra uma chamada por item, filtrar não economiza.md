@@ -42,6 +42,6 @@ conveniência de leitura, não plano de capacidade.
 
 ## Conexões
 - Princípio: [[Fator que domina o resultado não entra na conta por estimativa]]
-- Irmã: [[Chamada externa tem timeout e erro tratado]] · [[Recusa não é falha: contra o não do servidor, insistir é ruído]]
+- Irmã: [[Chamada externa tem timeout e erro tratado]] · [[Recusa não é falha; contra o não do servidor, insistir é ruído]]
 - Visto em: [[Navetech Hub]]
 - Mapa: [[Backend]]

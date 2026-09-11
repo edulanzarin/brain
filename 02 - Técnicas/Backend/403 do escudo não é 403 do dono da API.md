@@ -66,7 +66,7 @@ não é disfarce: é fazer o mesmo pedido que a aba faria.
 ## Conexões
 - Princípio: [[Laço que trata toda falha igual apaga a causa da primeira]]
 - Irmã: [[O código com que o socket fecha é a classificação que o retry precisa]] ·
-  [[Recusa não é falha: contra o não do servidor, insistir é ruído]] ·
+  [[Recusa não é falha; contra o não do servidor, insistir é ruído]] ·
   [[Chamada externa tem timeout e erro tratado]]
 - Visto em: [[piwdex2]]
 - Mapa: [[Backend]]

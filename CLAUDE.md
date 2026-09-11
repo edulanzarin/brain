@@ -149,6 +149,8 @@ regras num comentário HTML no fim — ler antes de salvar.
 3. **Palavras próprias**, não copiar/colar. Resumir, explicar, conectar.
 4. **Título afirmativo e específico** — "Porta interna é constante, porta externa é
    configuração", não "Notas de Docker". O título é o texto do link.
+   Sem `: * ? " < > |` no título: ele vira nome de arquivo, e o Windows recusa esses
+   caracteres (o clone do vault quebra). Para ligar duas orações, `;` ou vírgula.
 5. **Português**, sem emoji em título nem no corpo.
 6. **Qualidade > volume.** Antes de criar, buscar se já existe — e atualizar em vez de
    duplicar.

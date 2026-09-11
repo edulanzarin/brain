@@ -3,7 +3,7 @@ tags: [tipo/atomica, camada/padrao, dev/backend, armadilha]
 criado: 2026-08-19
 ---
 
-# Recusa não é falha: contra o não do servidor, insistir é ruído
+# Recusa não é falha; contra o não do servidor, insistir é ruído
 
 > Retry existe pra falha **passageira** — rede caiu, servidor engasgou, token venceu.
 > Quando o outro lado **recusa** (banido, sem permissão, cota estourada), tentar de novo

@@ -68,7 +68,7 @@ entra sem ninguém notar.
 
 ## Conexões
 - Princípio: [[Ausência de leitura cai no valor que dispara a ação]] — página vazia cai em "continuar procurando", nunca em "terminei"
-- Irmã: [[Recusa não é falha: contra o não do servidor, insistir é ruído]] — o 429 explícito pede o contrário: recuar. O vazio silencioso é que pede insistir espaçado
+- Irmã: [[Recusa não é falha; contra o não do servidor, insistir é ruído]] — o 429 explícito pede o contrário: recuar. O vazio silencioso é que pede insistir espaçado
 - Depende de: [[Chamada externa tem timeout e erro tratado]]
 - Visto em: [[Navetech Hub]] — varredura do [[API do Acessórias]]
 - Mapa: [[Backend]]

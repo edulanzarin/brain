@@ -58,6 +58,6 @@ olhos de quem vigia. Só a segunda paga a janela inteira.
 
 ## Conexões
 - Princípio: [[Configuração vem do ambiente, não do código]]
-- Irmã: [[Adapter de canal isola o app do provider de mensageria]] · [[Persistir a mensagem não espera a entrega, a entrega é status]] · [[Recusa não é falha: contra o não do servidor, insistir é ruído]]
+- Irmã: [[Adapter de canal isola o app do provider de mensageria]] · [[Persistir a mensagem não espera a entrega, a entrega é status]] · [[Recusa não é falha; contra o não do servidor, insistir é ruído]]
 - Visto em: [[navecrm]]
 - Mapa: [[Backend]]
