@@ -33,6 +33,15 @@ O que se porta e o que se refaz:
   e cada armadilha deles está registrada aqui. Ajusta-se import e tipo, não o SQL.
 - **A interface se refaz inteira**, montada sobre os primitivos novos.
 
+**Estado das duas pastas em 16/09/2026, conferido.** Quem está no ar e recebendo
+trabalho novo é o **nexo2** — é ele que tem o remote `edulanzarin/nexo`, é dele o
+código que casa com a tela em produção (o job noturno dos grupos rodou às 05:58
+de 16/09), e os pedidos de quem usa o Fechamento foram atendidos lá. A reescrita
+em `~/Dev/nexo` está parada no commit de 08/09, sem os grupos do Acessórias, e
+foi para o GitHub como `edulanzarin/nexo-local` depois da formatação (nome
+original tomado, sem commit em comum). **Confirmar com o Eduardo se a reescrita
+continua ou se o nexo2 voltou a ser o sistema.**
+
 ### Módulo Contábil portado (set/2026)
 
 Oito seções de pé, com as migrations do que o Questor não diz direito (override
@@ -118,6 +127,35 @@ E um defeito que só aparece quando a aba tem filtro próprio: a barra de filtro
 montava a URL do zero ao aplicar, apagando qualquer parâmetro que não fosse dela.
 O filtro de grupo sumiria a cada clique em Executar. Agora ela reescreve só as
 chaves que são suas.
+
+**Segundo retorno, e o fim do aviso de "mês em curso" (set/2026, nexo2).** Mais
+dois pedidos de quem cobra o fechamento:
+
+- *"Consegue colocar um campo para filtrar por analista?"* O responsável virou
+  filtro ao lado do grupo, com a mesma regra: recorta a aba inteira. A lista sai
+  de rota própria lida da carteira materializada (não da resposta do relatório),
+  para o filtro existir antes do primeiro Executar, e vem recortada pelo escopo
+  da sessão — analista cuja carteira o usuário não alcança seria opção que
+  devolve vazio. Empresas sem responsável são opção própria no fim da lista: é
+  justamente o recorte que alguém vai querer cobrar. O valor viaja como o nome,
+  repetido na URL (`analista=A&analista=B`), porque nome de pessoa pode ter
+  vírgula. Com recorte ativo, o cartão da carteira passou a falar do recorte —
+  "1.641" ao lado dos números de um analista só parecia a carteira dele.
+- *"Aqui também tem que ser de agosto, porque estamos em setembro; é sempre mês
+  anterior, competência."* A referência era a última competência DO PERÍODO, e o
+  período padrão da barra é do dia 1º até hoje: em 16/09 a aba media set/26 e
+  mostrava tudo em aberto, 0% fechado. O aviso "set/26 ainda está em curso, recue
+  o período" era a confissão do erro — a tela sabia a leitura certa e mandava a
+  pessoa fazê-la à mão. Agora a referência é a última competência **encerrada**,
+  o mês em curso fica na fita fora dos números, e período que não toca nenhuma
+  competência encerrada puxa a última para dentro. Virou nota:
+  [[O indicador de ciclo fala do último ciclo encerrado, não do que está em curso]].
+
+De quebra, a consulta passou a varrer a competência inteira em vez do intervalo
+pedido: com período até o dia 9, o fechamento lançado no dia 28 não aparecia e a
+empresa constava em aberto sem estar. A regra de calendário saiu para módulo puro
+com teste (`contabil-fechamento-competencias`) — mês anterior, virada de ano,
+fevereiro bissexto e período pela metade.
 
 Decisões da interface nova que valem para as próximas seções:
 
