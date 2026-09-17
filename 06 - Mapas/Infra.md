@@ -98,6 +98,12 @@ precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três d�
 - [[No Windows o npm roda script pelo cmd.exe, e a porta padrão do script dev chega literal]] —
   `${PORT:-40xx}` chega cru no Next; `npm config set script-shell` apontando para o Bash
   do Git conserta na máquina, sem mexer na convenção dos repositórios.
+- [[Trocar a fonte do Windows é redirecionar a família Segoe; as de ícone ficam de fora]] —
+  não há configuração de fonte de interface fora do registro: esvaziar os doze valores de
+  texto da `Segoe UI` (sem apagar os `.ttf`) e mandar a família pra outra no
+  `FontSubstitutes`. Ficam de fora as de ícone, emoji e símbolo — substituí-las apaga seta,
+  wi-fi e botão de fechar — e a `Segoe UI Variable`, ao preço de os apps WinUI seguirem em
+  Segoe. O desfazer se gera do estado lido, antes da mudança.
 - [[Volume de dev sobrevive entre versões do projeto e traz schema velho]] — rebuild
   no mesmo slug reencontra o banco antigo; recriar o volume, não forçar reset.
 - [[Renomear coluna é migration à mão; a gerada derruba e recria]] — o ORM compara
