@@ -66,11 +66,10 @@ Não são alternativas excludentes: a fila entrega o trabalho a um worker, e den
 worker o provider ainda pode estar atrás de uma interface.
 
 ## Conexões
-- Irmã: [[Polling substitui webhook quando não há IP público]] · [[Em canal humano automatizado, o ritmo denuncia antes do volume]]
+- Princípio: [[Fornecedor externo entra pelo contrato do app, não o app pelo dele]]
+- Irmã: [[Polling substitui webhook quando não há IP público]] · [[Em canal humano automatizado, o ritmo denuncia antes do volume]] · [[Dublê que não fecha o fluxo deixa o caminho sem ninguém passar]]
 - Visto em: [[navetalks]] · [[navecrm]]
 - Mapa: [[Backend]]
 
-<!-- Folha por ora: o princípio-mãe ("recurso externo trocável fica atrás de uma costura")
-     ainda não está na Base. Candidato a virar princípio num terceiro caso — já ecoa em
-     polling/webhook e em trocar o backend de armazenamento sem downtime. Não inventar o
-     princípio agora (regra dos dois casos). -->
+<!-- Deixou de ser folha em set/2026: o princípio-mãe subiu para a Base quando o adapter
+     de pagamento do telebot virou o terceiro caso, ao lado deste e do polling/webhook. -->
