@@ -105,6 +105,17 @@ Produtividade só executa no próprio botão
 gráfico passaram a receber a cor do catálogo
 ([[Série que tem cor no catálogo recebe a cor, não a posição na paleta]]).
 
+**Módulo DP portado (17/09/2026).** Dez seções do nexo2, na mesma doutrina do Contábil:
+domínio quase intacto, interface refeita sobre os primitivos. Painel (time e gestão),
+Rotatividade, Custo de folha, Férias, Rescisões a pagar, eSocial, Produtividade e os dois
+Post mortem. Entraram junto a migration das rescisões (prazo, destinatários, marcação de
+paga e log de aviso), o `nodemailer` com driver de log quando não há SMTP, e a rota de
+disparo protegida por segredo. Conferido contra o Questor: 245 CLT ativos e 24 com férias
+vencidas na 1200, 285 rescisões no período com 196 vencidas, turnover de 19,8%, 940
+eventos eSocial. A barra de filtros ganhou segunda linha no meio do caminho, por
+observação do Eduardo olhando a Rotatividade:
+[[Filtro que depende de outro filtro vai na segunda linha da barra]].
+
 **Início redesenhado (17/09/2026).** Segunda passada no visual, depois de um print da
 tela: *"tá feio aqui"*. A grade de sete cartões iguais virou hierarquia por
 disponibilidade — saudação com o dia no fuso do escritório, o módulo aberto como cartão

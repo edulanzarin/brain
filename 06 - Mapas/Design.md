@@ -45,6 +45,9 @@ Projeto novo herda os princípios sempre; puxa este dialeto só se for da mesma 
 - [[Acento da interface é um token separado da cor de dado]] — quando a cor tem
   significado de dado (azul=entrada), o acento de UI vira outro token; senão
   retematizar a interface contamina os gráficos.
+- [[Filtro que depende de outro filtro vai na segunda linha da barra]] — setor e cargo
+  só têm opção depois da empresa; na mesma grade eles aparecem ao lado dela, prontos e
+  vazios. Recorte e botão em cima, refino embaixo.
 - [[Grade de iguais esconde o único item que funciona]] — sete cartões do mesmo
   tamanho, cinco com a legenda "em porte": o peso na tela tem que sair do que dá para
   FAZER. O que abre vem grande e com o atalho do trabalho; o resto vai compacto, sob um
