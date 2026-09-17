@@ -122,6 +122,9 @@ Princípios: [[Estado compartilhável mora na URL]] ·
   `useEffect(…, [])` não roda de novo. O próximo "salvar" grava os valores do sujeito
   anterior no novo, sem erro nenhum. `key` no sujeito resolve todos os filhos de uma vez.
   Princípio: [[Estado de tela pertence à seção, não à página]].
+- [[Print headless pelo navegador já instalado fecha o ciclo de julgar a tela]] — Edge
+  com porta de depuração, cookie por CDP e PNG salvo: dá para OLHAR a tela que se
+  escreveu, inclusive em largura de celular, sem instalar navegador de teste.
 - [[Estado lembrado entre montagens leva junto a chave de que ele derivou]] — lembrar a
   prévia do extrato sem lembrar a conta dela faz o ajuste no render comparar a prop nova
   com ela mesma, e a prévia velha aparece na conta nova. O marcador de "já apliquei o

@@ -105,6 +105,14 @@ Produtividade só executa no próprio botão
 gráfico passaram a receber a cor do catálogo
 ([[Série que tem cor no catálogo recebe a cor, não a posição na paleta]]).
 
+**Início redesenhado (17/09/2026).** Segunda passada no visual, depois de um print da
+tela: *"tá feio aqui"*. A grade de sete cartões iguais virou hierarquia por
+disponibilidade — saudação com o dia no fuso do escritório, o módulo aberto como cartão
+grande com atalhos direto para as seções, e em porte / sem acesso compactos abaixo
+([[Grade de iguais esconde o único item que funciona]]). De quebra, a barra de topo
+ganhou trilha (Início > área > seção) e as ações do filtro subiram para a linha dos
+campos. O ciclo passou a ter print: [[Print headless pelo navegador já instalado fecha o ciclo de julgar a tela]].
+
 **Visual (17/09/2026).** Pedido de deixar o nexo "mais moderno, tipo o nexo2".
 Oferecidas as quatro frentes que separam os dois (tema escuro, acento índigo/violeta,
 movimento, fonte Geist com números grandes), o Eduardo escolheu **só o movimento**:

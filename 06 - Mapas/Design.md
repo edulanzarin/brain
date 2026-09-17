@@ -45,6 +45,10 @@ Projeto novo herda os princípios sempre; puxa este dialeto só se for da mesma 
 - [[Acento da interface é um token separado da cor de dado]] — quando a cor tem
   significado de dado (azul=entrada), o acento de UI vira outro token; senão
   retematizar a interface contamina os gráficos.
+- [[Grade de iguais esconde o único item que funciona]] — sete cartões do mesmo
+  tamanho, cinco com a legenda "em porte": o peso na tela tem que sair do que dá para
+  FAZER. O que abre vem grande e com o atalho do trabalho; o resto vai compacto, sob um
+  título que já diz o estado.
 - [[Cor de identidade não se drena por estado de disponibilidade]] — o cartão do
   módulo ficava cinza enquanto as telas não existissem, e como nada estava pronto o
   launcher inteiro nasceu cinza: o sistema de cor era invisível justo quando seria
