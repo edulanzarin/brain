@@ -105,6 +105,15 @@ numa tela pré-filtrada") continua válido — só que o ponto certo de soltar �
 **sair do módulo**, não sair da seção: dentro do módulo você está no trabalho, e
 aí lembrar é recurso, não armadilha.
 
+## Na reescrita (set/2026): memória sem ouvintes basta
+
+O Nexo reescrito refez o mecanismo mais simples: um `useState` que NASCE do Map e
+grava nele num efeito, sem store reativo — lá os controles vivem dentro da página,
+então nenhum campo tem duas instâncias vivas. A barra lateral guarda a query de cada
+seção e o link devolve a seção como foi deixada; o unmount da barra, que só acontece
+ao sair do módulo, esquece tudo. A armadilha que apareceu no caminho foi a do estado
+derivado de prop: ver [[Estado lembrado entre montagens leva junto a chave de que ele derivou]].
+
 ## Conexões
 - Ver também: [[Cache do React Query não é lugar de estado de interface]]
 - Visto em: [[Navetech Hub]], nas seções do módulo Contábil

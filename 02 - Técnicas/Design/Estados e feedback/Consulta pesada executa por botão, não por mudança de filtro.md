@@ -72,6 +72,18 @@ Dois detalhes que valeram:
   carregando visível é o que faz a ação ter acontecido — mesmo custo do
   [[Esqueleto de carregamento imita a forma do conteúdo]], propósito inverso.
 
+## Abas que dividem o recorte: chegar não é clicar
+
+Quando uma seção tem várias abas sobre o MESMO recorte e cada uma é uma varredura
+própria (lançamentos, atraso, carteira, tempo), o marcador `ap=1` na URL é um só para
+todas. Deixá-lo passar de uma aba para outra transforma a troca de aba em execução:
+a pessoa só queria olhar o nome da aba e disparou uma varredura de milhões de linhas.
+
+A regra é a mesma do filtro: **chegar numa aba não a executa**, ela espera o próprio
+botão. Quem sabe QUAIS abas já rodaram é uma lista da seção (lembrada com o resto do
+estado dela), e a troca de aba ajusta o marcador pelo destino: some se a aba nunca
+rodou, volta se já — e aí o resultado reaparece sem pedir de novo.
+
 ## Conexões
 - Princípio: [[Todo estado da tela tem visual]] · [[Estado compartilhável mora na URL]]
 - Irmã: [[Controles de filtro do dashboard]] · [[Filtro de lista mora na URL]]

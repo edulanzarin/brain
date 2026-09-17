@@ -122,6 +122,10 @@ Princípios: [[Estado compartilhável mora na URL]] ·
   `useEffect(…, [])` não roda de novo. O próximo "salvar" grava os valores do sujeito
   anterior no novo, sem erro nenhum. `key` no sujeito resolve todos os filhos de uma vez.
   Princípio: [[Estado de tela pertence à seção, não à página]].
+- [[Estado lembrado entre montagens leva junto a chave de que ele derivou]] — lembrar a
+  prévia do extrato sem lembrar a conta dela faz o ajuste no render comparar a prop nova
+  com ela mesma, e a prévia velha aparece na conta nova. O marcador de "já apliquei o
+  padrão" é o mesmo caso. Hook: `useState` que nasce da memória e grava num efeito.
 - [[O empacotador segue o valor importado, não o tipo]] — componente de cliente pode
   importar `type` de módulo de servidor à vontade; importar um VALOR do mesmo arquivo
   arrasta o módulo e as dependências dele pro navegador. O erro cita `net` e `fs`, nunca

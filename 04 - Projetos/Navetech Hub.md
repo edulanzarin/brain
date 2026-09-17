@@ -48,22 +48,71 @@ Postgres portátil na 5022 e `next start` na 4022. Receita em
 [[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]]
 e [[No Windows o npm roda script pelo cmd.exe, e a porta padrão do script dev chega literal]].
 
-### Módulo Contábil portado (set/2026)
+### Módulo Contábil portado (set/2026) — completo em 17/09
 
-Oito seções de pé, com as migrations do que o Questor não diz direito (override
-manual, CFOP que contabiliza, conta efetiva de serviço, regras de extrato,
-de-para de implantação):
+As quinze seções do nexo2 de pé, com as migrations do que o Questor não diz
+direito (override manual, CFOP que contabiliza, conta efetiva de serviço, regras
+de extrato, de-para de implantação, grupos do Acessórias, triagem da conferência,
+post mortem):
 
 | Seção | O que faz |
 |---|---|
-| Painel | placar do mês: o que já se rodou e o tamanho da base configurada |
-| Conciliação bancária | lê o extrato (OFX/PDF), casa com as regras da conta e gera o CSV de importação |
-| Conferência fiscal | cada nota contra o plano de contabilização: pendente, conta errada, duplicada, em bloco |
-| Notas fiscais | o explorador bruto do período, com detalhe de itens e exportação auditada |
+| Painel de gestão | o mesmo placar do mês, com o time inteiro |
+| Painel | placar do mês de quem está logado: o que já rodou e o tamanho da base configurada |
+| Conferência fiscal | cada nota contra o plano de contabilização: pendente, conta errada, duplicada, em bloco; triagem e fita da nota |
 | Balancete fiscal | esperado pelas regras × lançado, com drill-down por conta e as notas culpadas |
-| Implantação de saldos | balancete de abertura em PDF, casado com o plano, virando arquivo de importação |
+| Balancete contábil | balancete de verificação e a análise: regras, indicadores, evolução e laudo por IA com a empresa censurada |
+| Conciliação bancária | lê o extrato (OFX/PDF), casa com as regras da conta e gera o CSV de importação |
+| Notas fiscais | o explorador bruto do período, com detalhe de itens e exportação auditada |
+| Pendências | os achados da Conferência e da Auditoria numa fila só, para resolver ou ignorar |
+| Implantação | balancete de abertura e bens do imobilizado em PDF viram arquivos de importação |
+| Funcionários | o quadro da empresa pela folha do Questor, sem remuneração |
+| Plano de contabilização | o plano por CFOP: editar, aprender do histórico, replicar entre empresas |
 | Auditoria | varredura linha a linha do razão, com amostra por tipo de achado |
 | Produtividade | sete abas: lançamentos, fechamento, atraso, carteira, exclusões, tempo e uso do Nexo |
+| Post mortem · Post mortem Gestão | a análise de incidente preenchida pelo analista, e a leitura da gestão do setor |
+
+#### Como o "todo" foi fechado (17/09/2026)
+
+Pedido do Eduardo: *"TODO o modulo contabil do nexo2 eu quero no nexo. Todo."* O
+porte não foi seção por seção de memória: cada seção do nexo2 foi comparada com a
+do nexo **incluindo o que mudou no nexo2 depois da bifurcação** (grupos do
+Acessórias, triagem, fita, post mortem), e a lista de lacunas virou a fila. A
+Produtividade era a de maior dívida: as abas tinham ficado como tabela crua, sem
+filtro por pessoa, recortes de exportação, ranking ordenável, calendário de
+atividade nem dispersão horas × lançamentos. Peças novas no catálogo:
+`MenuExportar`, `FiltroPessoa`, `CalendarioAtividade`, `Dispersao`, `SeletorGrupo`.
+
+O comparativo achou defeitos do **primeiro porte**, corrigidos: o modal de nota
+abria com a empresa errada, "Atualizar" com o mesmo recorte não perguntava nada
+ao Questor (a URL não mudava e o cache respondia), e trocar de aba na Conciliação
+desmontava a aba e jogava fora o extrato lido.
+
+E achou **furos no nexo2, que está em produção**: replicar o plano de
+contabilização e apagar regra de extrato não conferem se a empresa de destino está
+no escopo da sessão, e o aprendizado de conta efetiva e de CFOP que contabiliza
+tem a corrida de apaga-e-insere
+([[Regravar o conjunto de uma chave com delete e insert exige trava por chave]]),
+que na Central de pendências aparecia como 503. Os três foram corrigidos no nexo;
+no nexo2 seguem abertos.
+
+Casca que veio junto: o recorte de cada seção e o trabalho em andamento (extrato,
+PDF casado, filtros da conferência) sobrevivem à troca de seção e caem ao sair do
+módulo ([[Estado de tela pertence à seção, não à página]],
+[[Estado lembrado entre montagens leva junto a chave de que ele derivou]]); aba da
+Produtividade só executa no próprio botão
+([[Consulta pesada executa por botão, não por mudança de filtro]]); séries do
+gráfico passaram a receber a cor do catálogo
+([[Série que tem cor no catálogo recebe a cor, não a posição na paleta]]).
+
+Ficou de fora de propósito: o `bf-check` do nexo2 (rota temporária de validação
+do balancete fiscal, sem tela). O filtro por grupo empresarial da Produtividade
+está pronto, mas os grupos são geridos no módulo Configurações, ainda a portar —
+até lá o seletor aparece desabilitado dizendo que não há grupo.
+
+Verificação: tsc, eslint, 77 testes, `next build`, e as rotas do Contábil contra o
+Questor (empresa 1200, ago/2026) todas 200; o filtro por grupo recortou 2,28 mi
+lançamentos do escritório para os 7.800 da empresa do grupo de teste.
 
 #### Fechamento (set/2026) — a primeira tela que cruza duas fontes
 
@@ -191,9 +240,8 @@ Armadilhas achadas na reconstrução, todas viradas em nota:
 [[A lista do select nativo não aceita estilo, então ele não serve de dropdown padrão]] e
 [[Dois setters de URL no mesmo gesto, e o segundo desfaz o primeiro]].
 
-**Falta portar** do Contábil: conferência de contas, balancete contábil,
-pendências e plano de contabilização —
-mais os módulos Fiscal, DP, RH, Obrigações e Configurações. Todos aparecem na
+**Falta portar**: os módulos Fiscal, DP, RH, Obrigações e Configurações (o
+Contábil está completo). Todos aparecem na
 navegação marcados como "a portar": peça que falta se vê, peça de mentira passa
 em toda inspeção.
 
@@ -1264,6 +1312,12 @@ Seção ainda não portada aparece na navegação marcada "a portar", não escon
   app acusava senha recusada de um usuário que ninguém tinha configurado.
 
 ## Próximos passos
+
+- [ ] **Fechar no nexo2 (produção) os furos achados no porte de 17/09**: escopo de
+  empresa no replicar do plano e no DELETE de regra de extrato, e a trava por
+  empresa nos dois aprendizados (conta efetiva, CFOP que contabiliza).
+- [ ] Portar o módulo Configurações (grupos de empresa) para o filtro por grupo da
+  Produtividade ter o que listar.
 
 - [ ] **Portar os módulos para o Nexo reconstruído**, um a um: a interface se remonta sobre os primitivos, a camada de domínio vem quase intacta, e a seção sai de "a portar" ao entrar. Ordem sugerida: Fiscal (o mais maduro), Contábil, DP, RH, Obrigações.
 - [x] Login e usuários (jul/2026) — feito. Autenticação por email/senha, sessão opaca no banco, 3 eixos (módulo/seção/empresa com grupos), área `/admin`. Ver "Arquitetura de módulos e permissão" acima.
