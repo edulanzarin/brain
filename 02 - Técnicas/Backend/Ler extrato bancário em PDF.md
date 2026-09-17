@@ -20,7 +20,7 @@ Sem OFX para comparar, essa é a única conferência objetiva disponível. Vale 
 
 | Modo | Exemplo | Bancos vistos |
 |---|---|---|
-| saldo corrente | `… 3.696,11  3.846,67` | Sicredi, Viacredi, Sifra |
+| saldo corrente | `… 3.696,11  3.846,67` | Sicredi, Viacredi, Sifra, Ailos (banco 85, lido em `-raw`) |
 | menos explícito | `-R$ 9,00`, `- 5.078,43` | Itaú, Daycoval, Bradesco, Belluno |
 | sufixo C/D | `24.423,66 D`, `0,00C` | C6, Sicoob |
 
@@ -29,6 +29,7 @@ Detalhes que quebram parser ingênuo:
 - **Menos separado do número** por espaços (é marcador de coluna de débito).
 - **Data sem ano** (Daycoval usa `22/06`) — pegar o ano do período no cabeçalho.
 - **Número que não é dinheiro**: `101.004` (nº de documento) parece valor BR. Exigir **vírgula decimal** (`\d,\d{2}`) resolve.
+- **`R?\$?` come a última letra da descrição.** Com o "R" opcional sozinho, a regex de dinheiro casa o "R" de "VENDOR 9.609,60" (os espaços entram no `\s*`), e a descrição sai "VENDO". Ninguém vê o valor errado, mas a regra cadastrada pelo texto deixa de casar. `(?:R?\$)?`: o R só conta colado no $. Passou meses sem ser notado; apareceu comparando PDF com OFX do mesmo mês.
 - **Rodapé colando na descrição**: no Nubank o rodapé ("Tem alguma dúvida?…") virava continuação da última transação da página. Transações são indentadas e o rodapé começa na coluna 1 — exigir indentação resolve.
 - **PDF com senha**: o C6 exporta protegido. `pdftotext -upw SENHA` abre; a mensagem de erro precisa distinguir "falta senha" de "senha errada".
 
@@ -63,6 +64,10 @@ Quando o registro não é uma linha e sim um bloco de várias linhas com colunas
 ## OFX, quando existe, é melhor
 
 OFX 1.x é **SGML**, não XML: as tags de folha às vezes vêm fechadas (Nubank fecha) e às vezes não. Um parser que assuma XML bem formado quebra com metade dos bancos — extrair por regex tolerante a fechamento ausente cobre os dois.
+
+**OFX também mente sobre o sinal.** Pela especificação o sinal vem no `TRNAMT` e o `TRNTYPE` só classifica, mas o Ailos (cooperativas do banco 85) manda todo valor positivo e a direção só no `TRNTYPE` (`DEBIT`/`CREDIT`): lido pelo valor, a conciliação inteira sai invertida, banco no débito. A regra é decidir **por arquivo**: se algum valor é negativo, o banco usa sinal e o tipo não mexe em nada; se nenhum é, a saída vem do tipo. Decidir por linha quebra o banco que usa sinal e manda um estorno de tarifa como `FEE` positivo. O mesmo arquivo trazia mais duas manhas: o **"SALDO ANTERIOR" como transação de crédito** (lançado, vira entrada do tamanho do saldo) e **uma `BANKTRANLIST` por dia**, então o período é a menor `DTSTART` e a maior `DTEND`, não a primeira lista.
+
+**Data de OFX e de PDF não precisam bater.** No mesmo mês do Ailos, 7 de 228 lançamentos vieram com data diferente: o OFX traz o carimbo do processamento (IOF às 02h do dia seguinte, compra de sábado), o PDF a data contábil. Valor e descrição batiam um a um. Comparar os dois formatos por data acusa diferença que não é erro de leitura.
 
 Validação forte quando se tem os dois formatos do mesmo extrato: ler OFX e PDF e comparar. No Nubank de fev/2025 bateram exatamente — 34 transações, 3 entradas somando 1.875,02 e 31 saídas somando 2.060,11, iguais ao resumo declarado no próprio PDF.
 

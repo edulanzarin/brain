@@ -31,5 +31,5 @@ Extrair em `-raw` e ler por marcos e tokens:
 - Princípio: [[Leitura extraída se prova pela redundância que o próprio documento imprime]]
 - Irmã: [[Ler extrato bancário em PDF]]
 - Depende de: [[Armadilhas de child_process no Node]]
-- Visto em: [[Navetech Hub]] (Implantação do patrimonial)
+- Visto em: [[Navetech Hub]] (Implantação do patrimonial; extrato do Ailos na Conciliação, onde o `-layout` jogava valor e saldo para as linhas de baixo e o `-raw` devolve uma linha por lançamento)
 - Mapa: [[Backend]]
