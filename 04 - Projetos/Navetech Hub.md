@@ -113,6 +113,15 @@ grande com atalhos direto para as seções, e em porte / sem acesso compactos ab
 ganhou trilha (Início > área > seção) e as ações do filtro subiram para a linha dos
 campos. O ciclo passou a ter print: [[Print headless pelo navegador já instalado fecha o ciclo de julgar a tela]].
 
+**Fonte e acabamento (17/09/2026).** Com o início aprovado, o pedido virou "fonte ainda
+mais moderna" e "mudar dentro dos módulos também": a família do sistema passou de Figtree
+(redonda) para **Geist** (grotesca técnica, numeral tabular nativo, mais enxuta em coluna de
+tabela), com Geist Mono no lugar da IBM Plex. Dentro dos módulos, o canto de 16px do início
+passou a valer para painel, gráfico, indicador e faixa; a barra de filtros virou a mesma
+superfície de vidro; o indicador perdeu o vão interno; e o cabeçalho de seção virou faixa de
+vidro com halo da cor do módulo. O cartão do início também emagreceu: listar as seções
+adiantava dois cliques com um módulo portado e viraria parede com os seis.
+
 **Visual (17/09/2026).** Pedido de deixar o nexo "mais moderno, tipo o nexo2".
 Oferecidas as quatro frentes que separam os dois (tema escuro, acento índigo/violeta,
 movimento, fonte Geist com números grandes), o Eduardo escolheu **só o movimento**:
