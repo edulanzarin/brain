@@ -28,6 +28,21 @@ Depois, por HTTP e WebSocket (o `WebSocket` global do Node 22 basta):
 5. Página inteira: `Page.getLayoutMetrics` dá a altura do conteúdo, que vira nova
    altura de viewport antes de `Page.captureScreenshot`.
 
+## Detalhe fino precisa de escala, não de print maior
+
+O print da página inteira responde "a tela está de pé". Ele não responde "essa
+pista de 14px aparece?", porque a imagem é reduzida para caber na tela de quem
+julga, e o detalhe some na redução — o que parece ausência de bug é perda de
+resolução.
+
+Duas saídas, e o `clip` do CDP faz as duas: `scale: 2` na página inteira, ou um
+recorte por elemento (`DOM.getBoxModel` → `clip`) em dobro. A segunda é a que
+serve para julgar tipografia e contraste de um componente.
+
+E quando o seletor "não casa com nada", desconfie do servidor antes do seletor:
+a página de erro do navegador não tem `main` nem as classes do app, então um
+servidor caído se disfarça de seletor errado.
+
 ## Três armadilhas que custam meia hora cada
 
 - **O primeiro alvo pode não ser a sua página.** Num perfil zerado, o Edge abre

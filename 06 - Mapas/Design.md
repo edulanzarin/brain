@@ -100,9 +100,10 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   contorno preto. Traz junto a variante de preenchimento (sem ela o chão vira grade
   visível) e a âncora do objeto alto, que é o tile de baixo.
 - [[Rolagem horizontal que não se anuncia esconde a coluna que decide]] — tabela larga que
-  rola em vez de espremer está certa; muda é que no celular o que fica fora da tela são as
-  ÚLTIMAS colunas, e num extrato as últimas são o valor. Sombra nas bordas que some sozinha,
-  com `background-attachment` local nas camadas de cobertura e scroll nas de sombra.
+  rola em vez de espremer está certa; ruim é no celular as ÚLTIMAS colunas ficarem fora da
+  tela sem aviso, e num extrato as últimas são o valor. Pista nas bordas que some sozinha
+  (`background-attachment` local na cobertura, scroll na pista) — e em tema escuro ela é
+  CLARA: a sombra preta das receitas da internet é invisível sobre fundo quase preto.
 - [[Faixa que sangra estoura pela barra de rolagem, e o corte é na raiz]] — `100vw`
   mede a janela com a canaleta junto, então toda seção de borda a borda nasce larga
   pela espessura da barra. O corte é `overflow-x: clip` na raiz: no ancestral mais
