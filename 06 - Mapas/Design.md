@@ -215,6 +215,10 @@ decide se vale abrir. Vale no eixo horizontal também: na barra do celular, o qu
   dinheiro no eixo faz "R$ 8,0 mi" quebrar em duas linhas sobre o dado, repetindo cinco
   vezes o que o subtítulo já disse. Dois formatadores: identificado na dica, terso no
   eixo — e rótulo de categoria se corta, porque o gráfico enrola em vez de truncar.
+- [[Entrada animada com preenchimento both prende o transform e anula o hover]] —
+  `animation-fill-mode: both` deixa o último quadro aplicado e ele vence o `:hover`.
+  Entrada em `backwards`, hover em `translate`/`scale` (propriedades separadas), e
+  cascata por `nth-child` na folha, sem a tela numerar nada.
 - [[Série que tem cor no catálogo recebe a cor, não a posição na paleta]] — gráfico
   que pinta por índice diverge da legenda no primeiro item cinza do catálogo, sem erro.
   A série aceita `cor` e ela vence a posição; legenda, composição e gráfico leem do

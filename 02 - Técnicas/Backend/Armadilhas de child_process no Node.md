@@ -37,6 +37,20 @@ p.stdin.end(bytes);
 - **`p.stdin.on("error")` vazio** evita `EPIPE` derrubar o processo quando o filho fecha a entrada antes de consumir tudo.
 - Preferir `spawn`/`execFile` a `exec`: `exec` passa pelo shell, então argumento com caractere especial vira injeção.
 
+## `-` como entrada depende da implementação (set/2026)
+
+O mesmo nome de programa pode ser duas ferramentas. O `pdftotext` do contêiner é o
+**poppler**, que aceita `-` como arquivo de entrada; o do Git for Windows é o
+**xpdf**, que não aceita: imprime a tela de ajuda e sai com código 99. Arquivo
+temporário (`mkdtemp` + `rm` no `finally`) funciona nas duas e dispensa o stdin.
+
+O defeito apareceu disfarçado por outro: o código reconhecia PDF protegido testando
+`/password/i` no stderr — e a tela de ajuda lista `-opw <string> : owner password`.
+Todo PDF, protegido ou não, virava pedido de senha. **Classificar a falha de
+ferramenta externa pela frase exata** que ela emite naquele caso (`Incorrect
+password`, igual nas duas), nunca pela palavra solta, que aparece em ajuda, aviso
+e mensagem de outro erro.
+
 ## Conexões
 - Princípio: [[Chamada externa tem timeout e erro tratado]]
 - Visto em: [[Ler extrato bancário em PDF]] · [[Navetech Hub]]

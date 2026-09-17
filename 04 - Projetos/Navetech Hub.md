@@ -105,6 +105,16 @@ Produtividade só executa no próprio botão
 gráfico passaram a receber a cor do catálogo
 ([[Série que tem cor no catálogo recebe a cor, não a posição na paleta]]).
 
+**Visual (17/09/2026).** Pedido de deixar o nexo "mais moderno, tipo o nexo2".
+Oferecidas as quatro frentes que separam os dois (tema escuro, acento índigo/violeta,
+movimento, fonte Geist com números grandes), o Eduardo escolheu **só o movimento**:
+o tema claro institucional, o azul e a tipografia do nexo ficam. Entrou como
+sistema nos primitivos (entrada em cascata, toque com mola, sublinha de aba que
+desliza, barras que crescem), para tela nenhuma animar à mão — ver
+[[Entrada animada com preenchimento both prende o transform e anula o hover]].
+No mesmo dia caiu o "todo PDF está protegido por senha" da Implantação e da
+Conciliação, que só existia fora do contêiner: [[Armadilhas de child_process no Node]].
+
 Ficou de fora de propósito: o `bf-check` do nexo2 (rota temporária de validação
 do balancete fiscal, sem tela). O filtro por grupo empresarial da Produtividade
 está pronto, mas os grupos são geridos no módulo Configurações, ainda a portar —
