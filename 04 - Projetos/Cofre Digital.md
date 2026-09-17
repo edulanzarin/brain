@@ -56,6 +56,8 @@ seguiram intactos. O volume antigo ficou parado como rede de segurança.
   imagens (upload ou Ctrl+V), com prévia ao escrever.
 - **Alvarás**: vencimento opcional (existe alvará permanente), arquivo anexo e
   histórico. Os sem data entram no total mas ficam fora das barras de situação.
+  Cada documento tem categoria: alvará, dispensa ou Declaração de Direitos de
+  Liberdade Econômica.
 - **Empresas**: cada uma com seu próprio cofre, agregando os três módulos.
 - **Bloqueio do cofre**: PIN, bloqueio manual e automático por inatividade —
   camada extra além do login.
@@ -272,6 +274,32 @@ alfinete só onde ele existe.
 
 Branch `feat/empresas-anotacoes-honorarios`, migração
 `20260909143000_company_fees_and_notes`.
+
+## Categoria do alvará (set/2026)
+
+Quem é dispensado do alvará guarda outro papel no lugar: a **dispensa** emitida pelo
+município (em alguns ela vence e precisa ser renovada) ou a **Declaração de Direitos de
+Liberdade Econômica** da JUCESC (atividade de baixo risco, em geral sem vencimento).
+
+A primeira tentativa (10/09) foi só pôr "Dispensa de Alvará" entre as sugestões do nome,
+que é texto livre com datalist. Uma semana depois o societário pediu "uma aba que dê pra
+colocar que é declaração" e um lugar pra dizer que é dispensa: sugestão no nome não
+deixa ninguém *afirmar* a categoria, e na lista ela some no meio do nome.
+
+Virou campo `kind` (`alvara | dispensa | declaracao`, texto com padrão `alvara`):
+
+- segmentado no topo do cadastro; as sugestões do nome mudam com a categoria, e o nome
+  que ainda é sugestão acompanha a troca (a declaração só tem um nome possível);
+- coluna Categoria na lista (inclusive na aba da empresa), etiqueta no detalhe, busca
+  encontra pela categoria;
+- datas seguem opcionais nas três, então a dispensa com vencimento entra no alerta e no
+  dashboard como qualquer alvará;
+- a migração classifica os já cadastrados pelo começo do nome (`ILIKE 'dispensa%'`,
+  `'declara%'`).
+
+O módulo continua se chamando Alvarás na navegação e nos toasts: é o guarda-chuva.
+
+Branch `feat/alvaras-categoria`, migração `20260917120000_alvara_kind`.
 
 ## Próximos passos possíveis
 
