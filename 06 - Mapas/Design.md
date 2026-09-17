@@ -137,6 +137,9 @@ decide se vale abrir. Vale no eixo horizontal também: na barra do celular, o qu
 - [[Escolha única e múltipla não usam o mesmo controle]] — caixa em tudo deixa marcar
   cabelo loiro E ruivo. Eixo vira chip, acumulável fica caixa, e a trava mora numa
   coluna do cadastro para eixo novo não custar deploy.
+- [[Lista marcável grande age sobre o que o filtro acha, não sobre o que a tela desenhou]] —
+  lote vale para as N filtradas, visão "Marcadas" para revisar, Shift+clique pega
+  intervalo, e Enter na busca não envia o form.
 - [[Palavra da interface é lida com o dicionário do usuário, não com o seu]] — "seu
   endereço" era exato e virou "onde você mora" num classificado de acompanhantes; e
   "nome" em dois campos vira "isto substitui aquilo?". Fale da coisa, não da categoria
