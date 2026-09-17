@@ -15,6 +15,12 @@ Código em: `~/Dev/telebot`
 
 Nome provisório — a decidir antes de qualquer registro de domínio ou marca.
 
+Existe um `~/Dev/bitpay-bots` parado desde a formatação de set/2026 com a mesma
+ideia (Next + Prisma + Stripe, ~7 mil linhas). A decisão foi escrever do zero sem
+olhar aquele código: ele não segue as convenções atuais (porta 3000, containers
+sem slug, sem catálogo) e o mercado pedia Pix, não Stripe. Fica registrado aqui
+para os dois não parecerem duplicata daqui a alguns meses.
+
 ## Estado atual
 
 Ponta a ponta com o provedor simulado, build de produção passando. Estão de pé:
