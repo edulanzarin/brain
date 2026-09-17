@@ -104,6 +104,13 @@
         "a": 1,
         "rgb": 16743424
       }
+    },
+    {
+      "query": "tag:#projeto/telebot",
+      "color": {
+        "a": 1,
+        "rgb": 2282478
+      }
     }
   ],
   "collapse-display": true,

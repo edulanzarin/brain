@@ -419,6 +419,14 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   Princípio: [[Ausência de leitura cai no valor que dispara a ação]].
 - [[Adapter de canal isola o app do provider de mensageria]] — provider externo trocável
   (WhatsApp: Baileys ou Cloud API) fica atrás de uma interface; o app não vê o fornecedor.
+- [[Webhook de dinheiro precisa de duas travas, a do evento e a do efeito]] — guardar o id
+  do evento corta a reentrega literal, mas não dois eventos DIFERENTES sobre o mesmo
+  pagamento; a segunda trava cerca o efeito (`unique` no acesso e no movimento de venda) e
+  a transação lê o pedido com `for update`. Falha sem dar erro: credita duas vezes.
+- [[Dublê que não fecha o fluxo deixa o caminho sem ninguém passar]] — o simulado que
+  responde "aguardando" para sempre parece conservador e deixa a metade seguinte do
+  produto sem nunca ter rodado; a primeira execução dela acontece com dinheiro real em
+  cima. No modo simulado, perguntar é pagar.
 - [[Persistir a mensagem não espera a entrega, a entrega é status]] — gravar (durável,
   interno) e entregar (externo, falível) são passos separados; a entrega vira status da
   mensagem (`pendente → enviado → entregue → lida`), nunca pré-requisito da gravação.

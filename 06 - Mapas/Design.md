@@ -99,6 +99,10 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   porque foi desenhado pra ficar em cima de outro terreno. Usado solto, a trilha ganha
   contorno preto. Traz junto a variante de preenchimento (sem ela o chão vira grade
   visível) e a âncora do objeto alto, que é o tile de baixo.
+- [[Rolagem horizontal que não se anuncia esconde a coluna que decide]] — tabela larga que
+  rola em vez de espremer está certa; muda é que no celular o que fica fora da tela são as
+  ÚLTIMAS colunas, e num extrato as últimas são o valor. Sombra nas bordas que some sozinha,
+  com `background-attachment` local nas camadas de cobertura e scroll nas de sombra.
 - [[Faixa que sangra estoura pela barra de rolagem, e o corte é na raiz]] — `100vw`
   mede a janela com a canaleta junto, então toda seção de borda a borda nasce larga
   pela espessura da barra. O corte é `overflow-x: clip` na raiz: no ancestral mais

@@ -61,6 +61,48 @@ precisa de admin, não vira serviço do Windows e sai apagando duas pastas.
 4. Subir com `pg_ctl -D ... -l ...\<slug>.log -w start`, criar o banco e rodar as
    migrations do projeto normalmente.
 
+## O pacote traz o servidor, não o cliente
+
+`@embedded-postgres/windows-x64` entrega **três** executáveis: `initdb.exe`,
+`pg_ctl.exe` e `postgres.exe`. As ferramentas de cliente não vêm junto — não há
+`psql`, `createdb` nem `pg_dump` nessa pasta, e quem for procurá-las lá vai achar
+que a instalação quebrou.
+
+Isso morde no passo 4, porque `initdb` cria o cluster mas **não** cria o banco do
+projeto: sem `createdb`, a conexão falha em `InitPostgres` com uma mensagem que
+não diz que o banco não existe.
+
+A saída não é instalar o Postgres completo, é usar o cliente que o projeto já
+tem. O `pg` do Node conecta no banco `postgres` (esse o `initdb` sempre cria) e
+roda o `create database`:
+
+```js
+const c = new pg.Client({ host: "localhost", port: PORTA, user: SLUG,
+                          password: SENHA, database: "postgres" });
+await c.connect();
+const { rows } = await c.query("select 1 from pg_database where datname = $1", [SLUG]);
+if (!rows.length) await c.query(`create database ${SLUG}`);
+```
+
+Pelo mesmo motivo, o `db:psql` da convenção não existe aqui. No lugar dele vale
+um `db:sql "select ..."` que executa pelo `pg` e imprime com `console.table` —
+resolve a consulta rápida sem binário nenhum a mais.
+
+## `pg_ctl start` com stdio herdado prende quem chamou
+
+`spawnSync(pg_ctl, ["start"], { stdio: "inherit" })` retorna, mas o terminal
+**não volta**: o `postgres` herda os descritores do `pg_ctl` e os mantém abertos
+enquanto viver, então quem chamou o `npm run db:up` fica pendurado esperando um
+cano que só fecha quando o banco cair.
+
+O sintoma engana: o banco sobe, o cluster funciona, e parece que o script travou.
+`stdio: "ignore"` resolve — o log já vai para arquivo pelo `-l`, que é onde ele
+deve estar. Caso particular de [[Armadilhas de child_process no Node]].
+
+E, no fim do script, `rmSync` da pasta temporária pode estourar `EBUSY` no
+Windows, porque apagar arquivo ainda aberto não é permitido; envolva em
+`try/catch` em vez de deixar a limpeza derrubar um trabalho já concluído.
+
 ## O que mais vale lembrar
 
 - **A porta é a reservada do projeto**, não 5432. O `APP_DB_URL` de dev já aponta
