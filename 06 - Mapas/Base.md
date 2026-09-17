@@ -63,6 +63,7 @@ Independe de banco e de domínio (vale contábil, estoque, qualquer conferência
 - [[Onde não há regra, espelhar é mais honesto que arbitrar]] — item sem regra copia o real pro esperado e fecha em zero; esperado inventado gera diferença que fala do conferidor, não do mundo. A classificação é por item, nunca por balde.
 - [[A unidade de contagem é o ato, não a linha que ele deixou]] — um gesto grava as linhas que o modelo exigir (uma por funcionário, uma por imposto, uma por recarga), e contar linha mede o formato da tabela, não o trabalho. Medido: 18.504 linhas para 137 atos. A distorção REORDENA o ranking, não só infla o total; contagem idêntica entre categorias é a assinatura do lote.
 - [[Diferença entre duas leituras só fala do mundo se o instrumento não mudou]] — o diff entre duas fotos soma o que mudou lá fora com o que mudou em quem fotografou; carimbe a versão do extrator no dado e recuse comparar através dela. Patch faltando é buraco, patch inventado é mentira.
+- [[Leitura extraída se prova pela redundância que o próprio documento imprime]] — cadeia de saldos, total do grupo, total geral, valor − depreciação = residual: o documento traz o gabarito da própria leitura. Leia os totais junto, desempate coluna ambígua pela identidade que fecha e mostre a conferência na tela; o erro típico de extração (a coluna vizinha) é plausível sozinho e só a relação entre números o denuncia.
 
 ## Sistemas vivos — estado, canal e processo
 

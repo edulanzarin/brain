@@ -66,6 +66,6 @@ sendo uma decisão humana auditável.
 - Princípio: [[Um invariante se garante na estrutura, não no processo]]
 - Irmã: [[Importação em massa passa pela API, não pelo banco]]
 - Depende de: [[Questor - conexão read-only e regras]]
-- Layouts: [[Layouts de importação de lançamento contábil no Questor]]
-- Visto em: [[Navetech Hub]] (Implantação de Saldos e Conciliação)
+- Layouts: [[Layouts de importação de lançamento contábil no Questor]] · [[Arquivo de importação do patrimonial do Questor]]
+- Visto em: [[Navetech Hub]] (Implantação de Saldos e do patrimonial, Conciliação)
 - Mapa: [[Backend]]

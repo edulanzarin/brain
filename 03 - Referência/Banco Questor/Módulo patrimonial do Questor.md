@@ -34,7 +34,10 @@ Cadastro do ativo imobilizado. PK `codigobem` (bigint, global).
 
 ## Depreciação e integração contábil
 
-- `patenccontacontabil` (~1,9M) — **encargos** (depreciação) por bem/conta.
+- `patcfgbem` — **configuração de depreciação** por bem: `percentualencargo` (taxa anual), `encargoacumulado` (depreciação que veio acumulada na implantação), `datainicial`/`datafinal`, `valorresidual`, `vidautil`, `tipodepreciacao`, `contactbencargo`.
+- `patenccontacontabil` (~1,9M) — **encargos** (depreciação) por bem/conta. `tipoencargo = 6` é o acumulado importado; `tipoencargo = 1`, as parcelas mensais.
+
+Bem de cliente novo entra por arquivo: [[Arquivo de importação do patrimonial do Questor]] (o que cada coluna grava nessas tabelas).
 - `pattabelactblcto` / `pattabelactblctoctb` (~430k cada) — geração e vínculo dos lançamentos contábeis do patrimônio.
 - `patcreditodacon` (~456k) — crédito de depreciação acelerada (DACON/incentivos).
 - `patperiodocontabilizado` — controle de períodos já contabilizados.

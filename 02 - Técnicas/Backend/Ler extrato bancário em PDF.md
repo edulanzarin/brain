@@ -58,6 +58,8 @@ Armadilha custosa: **a marca aparece como contraparte nas transações**. Um ext
 
 PDF digitalizado (imagem) não tem texto para extrair — detectável por não ter `/Font`. Aí só OCR, ou pedir o OFX.
 
+Quando o registro não é uma linha e sim um bloco de várias linhas com colunas empilhadas, o `-layout` mistura registros vizinhos e quem resolve é o `-raw`: [[Relatório com registro em várias linhas se lê na ordem de desenho do PDF]].
+
 ## OFX, quando existe, é melhor
 
 OFX 1.x é **SGML**, não XML: as tags de folha às vezes vêm fechadas (Nubank fecha) e às vezes não. Um parser que assuma XML bem formado quebra com metade dos bancos — extrair por regex tolerante a fechamento ausente cobre os dois.
@@ -65,7 +67,9 @@ OFX 1.x é **SGML**, não XML: as tags de folha às vezes vêm fechadas (Nubank 
 Validação forte quando se tem os dois formatos do mesmo extrato: ler OFX e PDF e comparar. No Nubank de fev/2025 bateram exatamente — 34 transações, 3 entradas somando 1.875,02 e 31 saídas somando 2.060,11, iguais ao resumo declarado no próprio PDF.
 
 ## Conexões
-- Princípio: [[Chamada externa tem timeout e erro tratado]]
+- Princípio: [[Leitura extraída se prova pela redundância que o próprio documento imprime]] (a cadeia de saldos)
+- Depende de: [[Chamada externa tem timeout e erro tratado]]
+- Irmã: [[Relatório com registro em várias linhas se lê na ordem de desenho do PDF]]
 - Relacionado: [[Agregar antes de juntar em tabelas gigantes no Postgres]] (mesma ideia: deixar o dado se validar)
 - Visto em: [[Navetech Hub]] (seção Conciliação)
 - Contas contábeis do banco: [[Contas bancárias e layout de contabilização no Questor]]

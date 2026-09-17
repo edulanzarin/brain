@@ -19,6 +19,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Armadilhas de child_process no Node]] — timeout, stderr e `EPIPE`; por que
   `spawn` em vez de `exec`.
 - [[Ler extrato bancário em PDF]] — extrair dado estruturado de PDF.
+- [[Relatório com registro em várias linhas se lê na ordem de desenho do PDF]] — quando
+  o registro é um bloco de várias linhas, `pdftotext -raw` (ordem de desenho) e não
+  `-layout` (altura); marcos por linha, valores por token. Princípio:
+  [[Leitura extraída se prova pela redundância que o próprio documento imprime]].
 - [[Servir anexo por rota com checagem de permissão]] — arquivo protegido não é
   arquivo estático. Princípio: [[Permissão se valida no servidor, não na interface]].
 - [[Linha no banco não garante o arquivo no disco]] — a referência entre banco e

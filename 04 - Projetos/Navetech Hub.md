@@ -299,6 +299,20 @@ O problema real (dito pelo Eduardo): entram muitas empresas por mês, de softwar
 - **Por que lançamentos e não "saldo direto"**: o Questor tem Implantação de Saldos nativa (tela "Cadastro: Saldos Contábeis" → `implsaldoctb`, saldo por conta sem contrapartida/histórico) — ver [[Módulo contábil do Questor]]. **Mas essa tela não tem importador** (verificado jul/2026, digitação manual conta a conta). Por isso o Nexo importa **lançamentos** (a única tela com layout de importação), aceitando a transitória + histórico como custo do caminho automatizável. Descartada a ideia de gerar o formato nativo — não há como importá-lo.
 - **Pendente**: leitores de PDF **dedicados por software** para os layouts que o parser genérico não pega (consolidado etc.) — o padrão do extrato (um leitor por banco) aplicado ao balancete; validar o arquivo gerado importando de fato num Questor de teste (o formato do valor — com/sem separador de milhar — a confirmar contra uma importação real).
 
+### Implantação do patrimonial (set/2026, nexo2)
+
+Pedido do Contábil (Kailane): passar os bens do relatório de imobilizado de cliente novo para o arquivo de importação do patrimonial do Questor. Feito à mão ou colando no ChatGPT, errava quando o PDF mudava de sistema; o modelo que ela mandou tinha o residual no lugar da depreciação acumulada e a conta de depreciação no lugar da conta do bem.
+
+A seção `/contabil/implantacao` virou **Implantação** com duas abas, **Saldos** (a de antes) e **Patrimonial** (`/contabil/implantacao/patrimonial`). Mesmo fluxo da Conciliação: sobe o PDF na barra, confere, baixa o arquivo.
+
+- **Leitores por sistema** (`patrimonial-pdf.ts`), no desenho do extrato: o primeiro reconhecer assume. Hoje só o "Correção e depreciação" do SCI, lido em `pdftotext -raw` porque o `-layout` mistura os bens ([[Relatório com registro em várias linhas se lê na ordem de desenho do PDF]]). `textoDoPdf` ganhou o modo.
+- **Conferência** (`patrimonial-conferencia.ts`, pura): cada bem fecha valor − depreciação = residual e cada conta soma o total impresso; a tela recalcula a cada edição e aponta conta e bem ([[Leitura extraída se prova pela redundância que o próprio documento imprime]]).
+- **De-para das contas** pela cascata da Implantação, com natureza devedora e chave `patrimonial:<conta>` no `implantacao_depara`. A cascata saiu de `implantacao-depara.ts` para `implantacao-casamento.ts`, pura e testada, e o grau-1 da classificação perdeu o zero à esquerda ([[De-para determinístico com override que vira aprendizado]]).
+- **Arquivo** (`patrimonial-gerar.ts`): layout e mapeamento em [[Arquivo de importação do patrimonial do Questor]]; Windows-1252 pelo `bytesWindows1252` de `csv.ts`. Bem em conta sem correspondência recusa o arquivo. Auditado como `contabil.implantacao.patrimonial`, que conta como implantação no Painel e no No Nexo.
+- **Prova**: o PDF real da empresa 1383 passou por leitura, de-para contra o plano dela e geração. As quatro contas casaram sozinhas nas que a Kailane escolheu à mão, e as 34 linhas têm par exato no que ela importou (conta, valor, data, encargo, percentual). A tela não foi aberta no navegador: `tsc`, `eslint`, `vitest` e `next build` passaram.
+- **Pendente**: PDF de outros sistemas (Domínio, Alterdata, Questor…) para escrever os próximos leitores, porque o de hoje recusa layout que não conhece. Confirmar com o Contábil se "Data Final" deve mesmo ir vazia (foi assim na importação conferida).
+- **Achado de passagem, não corrigido**: `text-warn`/`bg-warn` não existe no tema (o token é `warning`) e aparece em dez pontos do Contábil, que ficam sem a cor de aviso.
+
 ### Fechamento, Contas de Controle e Provisões (jul/2026 — REMOVIDAS ago/2026)
 
 > **Removidas do repo em ago/2026** (`chore(contabil): remove o stack parado`). Ficaram fora da sidebar (dormentes) e Provisões calculava sobre modelo errado (a provisão não é folha 70/71: mora em `provisaoferias`/`provisao13`, e a query misturava accrual com baixa). Código dormente que produz número errado é passivo — o git guarda o histórico se um dia religar com o modelo certo, validado no Questor. O texto abaixo fica como memória do que eram e por quê.

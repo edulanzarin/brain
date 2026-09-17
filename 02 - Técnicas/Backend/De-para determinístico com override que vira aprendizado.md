@@ -36,10 +36,21 @@ O que não casou fica visível pro humano; a escolha dele **grava um override** 
 alimenta o passo 1 da próxima vez. O de-para é uma tabela de DADOS que dirige o
 comportamento — [[A definição em dado dirige o comportamento, não um caso no código]] —, então evolui sem deploy.
 
-Aparece duas vezes no mesmo sistema, em features diferentes: a contabilização por
-CFOP (plano do Questor + override manual + aprendido do histórico) e a implantação
-de saldos (plano de origem → `planoespec`). O mecanismo é o mesmo; muda só o que
-está de cada lado.
+Aparece três vezes no mesmo sistema, em features diferentes: a contabilização por
+CFOP (plano do Questor + override manual + aprendido do histórico), a implantação
+de saldos (plano de origem → `planoespec`) e a do patrimonial (conta que agrupa os
+bens no relatório de origem → conta do bem no `planoespec`). O mecanismo é o
+mesmo; muda só o que está de cada lado.
+
+O terceiro uso ensinou três ajustes que valem para qualquer reuso:
+
+- **Normalize a classe antes de comparar.** O SCI classifica `01.2.3.01.005`, o
+  Questor `1.2.05.003.015`; "01" ≠ "1" zerou os candidatos e nada casava.
+- **A natureza é a trava que separa conta e redutora.** "Veículos" e "(-) Deprec.
+  Veículos" têm a mesma palavra; exigir natureza devedora tira a redutora do páreo.
+- **Chave de override com prefixo da origem** (`patrimonial:102`) quando duas
+  features gravam na mesma tabela. O código "3" de um grupo patrimonial não é a
+  conta "3" do balancete, e sem prefixo um herdaria o casamento do outro.
 
 ## O que mais vale lembrar
 
@@ -53,5 +64,5 @@ pro caso vizinho.
 ## Conexões
 - Princípio: [[A definição em dado dirige o comportamento, não um caso no código]]
 - Irmã: [[Coleta determinística, LLM só interpreta]]
-- Visto em: [[Navetech Hub]] (Implantação de Saldos; contabilização por CFOP)
+- Visto em: [[Navetech Hub]] (Implantação de Saldos e do patrimonial; contabilização por CFOP)
 - Mapa: [[Backend]]

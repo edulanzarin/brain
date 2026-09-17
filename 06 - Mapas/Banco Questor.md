@@ -20,7 +20,7 @@ Notas em `03 - Referência/Banco Questor`. Banco é **produção**: acesso somen
 - **Contábil** — [[Módulo contábil do Questor]] · [[Fechamento mensal no Questor - a conta de Encerramento do Exercício]] · [[Plano de contas padrão do Questor e leitura do balancete]] · [[Vínculo nota fiscal e lançamento contábil no Questor]] · [[Plano de contabilização por CFOP no Questor]] · [[Contas bancárias e layout de contabilização no Questor]] · [[Layouts de importação de lançamento contábil no Questor]]
 - **Folha / eSocial** — [[Módulo de folha e eSocial do Questor]]
 - **Financeiro** — [[Módulo financeiro do Questor]]
-- **Patrimonial** — [[Módulo patrimonial do Questor]]
+- **Patrimonial** — [[Módulo patrimonial do Questor]] · [[Arquivo de importação do patrimonial do Questor]]
 - **Cadastros centrais** — [[Cadastros centrais do Questor - empresa, estab, pessoa]]
 - **Logs / auditoria** — [[Logs e auditoria no Questor]]
 
