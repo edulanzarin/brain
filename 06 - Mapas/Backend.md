@@ -246,6 +246,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   catálogo e posse trazem os mesmos campos e divergem só na ausência; usar um pelo outro
   faz o item exclusivo de uma das listas sumir sem erro nenhum.
   Princípio: [[Estado mutável se lê da fonte no uso, não de cópia guardada]].
+- [[Grupo definido por exclusão guarda as de fora e se resolve na leitura]] — "todas menos
+  estas" guardado como lista marcada deixa de fora tudo que é cadastrado depois; modo
+  `exceto` + um resolvedor só, e trocar de modo inverte as marcações. Princípio:
+  [[Estado mutável se lê da fonte no uso, não de cópia guardada]].
 - [[403 do escudo não é 403 do dono da API]] — a borda (Cloudflare, WAF) responde com os
   mesmos status da aplicação, e o `403` dela fala do seu PEDIDO, não da sua conta. Lido
   como recusa de conta, vira estado terminal por um desafio de trinta segundos. A

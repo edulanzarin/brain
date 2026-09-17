@@ -41,6 +41,15 @@ nível de dois meses atrás, e nada na tela diria isso.
 O preço da referência é a entidade apagada, e ele se paga à vista: o lugar dela volta
 VAZIO e visível. Um time de seis virando de cinco em silêncio é pior que o buraco.
 
+## Quando a cópia é de um conjunto que cresce por fora
+
+Uma seleção do tipo "todos menos estes" guardada como a lista dos marcados é cópia do
+universo no dia em que foi montada. No [[Navetech Hub]], o grupo de permissão "Todas
+menos NAVECON" eram 1.478 empresas marcadas; toda empresa cadastrada depois no Questor
+ficava invisível para quem tinha o cargo, até alguém ir marcar. A regra guardada é a
+intenção ("todas, exceto estas") e o conjunto sai da fonte na hora de ler:
+[[Grupo definido por exclusão guarda as de fora e se resolve na leitura]].
+
 ## Na prática
 
 - Toda frente que renova credencial persiste o novo valor NA HORA; toda frente que vai
@@ -52,5 +61,5 @@ VAZIO e visível. Um time de seis virando de cinco em silêncio é pior que o bu
 
 ## Conexões
 - Irmã: [[Estado vivo se empurra, não se pergunta]] · [[Guarde a intenção e o processo se reconstrói dela]]
-- Técnica que aplica: [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]]
+- Técnica que aplica: [[Token que rotaciona não tolera cópia longeva, releia do banco antes do uso]] · [[Config que o motor executa mora no servidor e se aplica em todo início de fluxo]] · [[Grupo definido por exclusão guarda as de fora e se resolve na leitura]]
 - Mapa: [[Base]]
