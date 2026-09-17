@@ -41,6 +41,9 @@ E no `package.json`, **um** script só, com a porta vindo do ambiente e um padr�
 { "scripts": { "dev": "next dev -p ${PORT:-4011}" } }
 ```
 
+(A expansão é de shell POSIX. No Windows o npm usa o `cmd.exe` e ela chega crua no
+Next: [[No Windows o npm roda script pelo cmd.exe, e a porta padrão do script dev chega literal]].)
+
 Aí `npm run dev` sobe em 4011 e `PORT=3000 npm run dev` sobe em 3000. Nada de
 `dev:3000`, `dev:3001`, `dev:4011` — script por porta é a escala errada: um script novo
 por porta que eu inventar, e nenhum deles diz qual é a porta de verdade do projeto.

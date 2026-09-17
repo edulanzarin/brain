@@ -35,6 +35,10 @@ Volume montado pra hot reload, porta publicada, nível de log e dado semente. Tu
 é configuração. Se a divergência precisar de um serviço a mais ou a menos, ela deixou
 de ser configuração e virou risco.
 
+Quando a máquina não roda container nenhum, o banco sai do compose à força, e aí a
+regra passa a ser copiar do container o que diverge calado: versão maior, porta e
+collation. Ver [[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]].
+
 ## Conexões
 - Depende de: [[Configuração vem do ambiente, não do código]]
 - Padrões que aplicam: [[Migrations em container próprio no Docker Compose]] · [[Next.js standalone no Docker e o outputFileTracingRoot]]

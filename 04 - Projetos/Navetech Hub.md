@@ -39,8 +39,14 @@ código que casa com a tela em produção (o job noturno dos grupos rodou às 05
 de 16/09), e os pedidos de quem usa o Fechamento foram atendidos lá. A reescrita
 em `~/Dev/nexo` está parada no commit de 08/09, sem os grupos do Acessórias, e
 foi para o GitHub como `edulanzarin/nexo-local` depois da formatação (nome
-original tomado, sem commit em comum). **Confirmar com o Eduardo se a reescrita
-continua ou se o nexo2 voltou a ser o sistema.**
+original tomado, sem commit em comum).
+
+**Em 17/09/2026 o Eduardo confirmou: a reescrita continua.** O trabalho novo volta
+para `~/Dev/nexo`, portando do nexo2, e o nexo2 segue no ar até a troca. No PC dele
+(Windows, sem virtualização, logo sem Docker) a reescrita roda com o banco em
+Postgres portátil na 5022 e `next start` na 4022. Receita em
+[[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]]
+e [[No Windows o npm roda script pelo cmd.exe, e a porta padrão do script dev chega literal]].
 
 ### Módulo Contábil portado (set/2026)
 

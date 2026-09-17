@@ -35,6 +35,8 @@ Quatro decisões que já têm resposta padrão — não reinventar a cada projet
 
    No `package.json`, um script só: `"dev": "next dev -p ${PORT:-4011}"`.
    Rodar em outra porta é `PORT=3000 npm run dev` — nunca criar `dev:3000`.
+   No Windows isso exige o npm rodando script em Bash:
+   [[No Windows o npm roda script pelo cmd.exe, e a porta padrão do script dev chega literal]].
 
 4. **Compose igual em dev e produção**, com app, db e migrations:
    [[Ambiente de dev sobe igual ao de produção]].
@@ -87,6 +89,14 @@ precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três d�
   Windows aceita dois LISTENING na mesma porta e o cliente fala com o errado; o idioma
   da mensagem de erro denuncia qual servidor respondeu, e cada erro diz até que camada
   a conexão chegou.
+- [[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]] —
+  conferir `VirtualizationFirmwareEnabled` antes de instalar Docker Desktop. Sem ela, um
+  cluster portátil por projeto na porta 5xxx reservada (o `.env` não muda), com
+  `listen_addresses = 'localhost'` por causa do `::1` e `--locale=C` para ordenar como a
+  imagem alpine de produção.
+- [[No Windows o npm roda script pelo cmd.exe, e a porta padrão do script dev chega literal]] —
+  `${PORT:-40xx}` chega cru no Next; `npm config set script-shell` apontando para o Bash
+  do Git conserta na máquina, sem mexer na convenção dos repositórios.
 - [[Volume de dev sobrevive entre versões do projeto e traz schema velho]] — rebuild
   no mesmo slug reencontra o banco antigo; recriar o volume, não forçar reset.
 - [[Renomear coluna é migration à mão; a gerada derruba e recria]] — o ORM compara
