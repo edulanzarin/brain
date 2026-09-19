@@ -167,6 +167,10 @@ Slug `privello` · app `privello-app` na `4075` · banco `privello-db` na `5075`
 Compose com app e db, imagem standalone, migrations e seed no entrypoint, mídia
 em volume próprio. Chassi e mapa de portas em [[Infra]].
 
+Depois da troca para Windows, o banco de dev roda num Postgres portátil na mesma
+`5075` enquanto a máquina não virtualiza, e o `.env` não sabe da diferença:
+[[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]].
+
 ## Stack
 
 Next.js 16 (App Router, Server Components, Server Actions) · React 19 ·

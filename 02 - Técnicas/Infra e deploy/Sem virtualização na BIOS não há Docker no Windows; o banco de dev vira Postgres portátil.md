@@ -24,6 +24,12 @@ Com `False`, o WSL2 e o Hyper-V não sobem, e o Docker Desktop instala sem conse
 iniciar. Ligar VT-x/AMD-V é reiniciar e entrar na BIOS, uma decisão do dono da máquina
 e não um passo de script.
 
+Quando a decisão já foi tomada, a instalação vem **antes** do reinício, não depois:
+`wsl --install --no-distribution` (a plataforma WSL 2, sem distro Linux) e
+`winget install Docker.DockerDesktop` completam com a virtualização desligada, e o
+`wsl --status` passa a dizer só que ela falta. Assim a ida à BIOS é uma só, e o
+reinício que ela exige é o mesmo que o instalador pede.
+
 ## A solução
 
 Postgres portátil: binários numa pasta do usuário e um cluster por projeto. Não
@@ -84,6 +90,10 @@ const { rows } = await c.query("select 1 from pg_database where datname = $1", [
 if (!rows.length) await c.query(`create database ${SLUG}`);
 ```
 
+Em projeto com Prisma, nem esse script: `prisma migrate deploy` cria o banco quando
+ele não existe e aplica as migrations na sequência. O cluster recém-saído do `initdb`
+já serve.
+
 Pelo mesmo motivo, o `db:psql` da convenção não existe aqui. No lugar dele vale
 um `db:sql "select ..."` que executa pelo `pg` e imprime com `console.table` —
 resolve a consulta rápida sem binário nenhum a mais.
@@ -126,5 +136,5 @@ Windows, porque apagar arquivo ainda aberto não é permitido; envolva em
 ## Conexões
 - Princípio: [[Ambiente de dev sobe igual ao de produção]] · [[Uma faixa de portas por projeto]]
 - Irmã: [[No Windows o npm roda script pelo cmd.exe, e a porta padrão do script dev chega literal]] · [[No Windows, duas coisas escutam a mesma porta e o cliente fala com a errada]] · [[Formatar a máquina perde tudo que o git não versiona]]
-- Visto em: [[Navetech Hub]]
+- Visto em: [[Navetech Hub]] · [[Privello]]
 - Mapa: [[Infra]]
