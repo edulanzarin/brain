@@ -91,10 +91,14 @@ precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três d�
   da mensagem de erro denuncia qual servidor respondeu, e cada erro diz até que camada
   a conexão chegou.
 - [[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]] —
-  conferir `VirtualizationFirmwareEnabled` antes de instalar Docker Desktop. Sem ela, um
-  cluster portátil por projeto na porta 5xxx reservada (o `.env` não muda), com
-  `listen_addresses = 'localhost'` por causa do `::1` e `--locale=C` para ordenar como a
-  imagem alpine de produção.
+  conferir `HypervisorPresent` antes de desistir do Docker Desktop. Sem virtualização de
+  verdade, um cluster portátil por projeto na porta 5xxx reservada (o `.env` não muda),
+  com `listen_addresses = 'localhost'` por causa do `::1` e `--locale=C` para ordenar
+  como a imagem alpine de produção.
+- [[Com o hypervisor do Windows no ar, o WMI diz que a CPU não virtualiza]] — a flag
+  `VirtualizationFirmwareEnabled` lê `False` quando o hypervisor já roda, e o Windows 11
+  o liga no primeiro boot pela Integridade de Memória. Uma semana de Postgres portátil
+  saiu desse falso negativo.
 - [[Sem Docker na máquina, a imagem se confere montando o standalone numa pasta limpa]] —
   a lista de `cp` do último estágio do Dockerfile, numa pasta vazia e sem `.env`, pega os
   defeitos de ausência (static fora, pacote que o tracing não levou). E revela o `.env` de

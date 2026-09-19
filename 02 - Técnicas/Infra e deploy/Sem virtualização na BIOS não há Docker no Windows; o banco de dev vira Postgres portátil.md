@@ -9,26 +9,33 @@ criado: 2026-09-17
 > ligada no firmware. Sem ela, o banco de dev é um Postgres portátil na porta que o
 > projeto já reservou, e o `.env` não muda nada.
 
+Esta nota nasceu de um falso negativo: a máquina em que ela foi escrita virtualizava
+o tempo todo, e o teste que dizia o contrário é o que aparece em toda resposta sobre
+o assunto ([[Com o hypervisor do Windows no ar, o WMI diz que a CPU não virtualiza]]).
+O Postgres portátil continua valendo onde a virtualização falta de verdade; antes de
+cair nele, confirme.
+
 ## O problema
 
 A convenção de projeto sobe o banco de dev em container (`npm run db:up`). Num
 Windows 11 recém-formatado, sem Docker, a primeira ideia é `winget install
 Docker.DockerDesktop`. Não adianta nada se a máquina não virtualiza. Dá para conferir
-antes de instalar:
+antes de instalar, mas perguntando pelo hypervisor, não pela CPU:
 
 ```powershell
-(Get-CimInstance Win32_Processor).VirtualizationFirmwareEnabled   # False = não roda
+(Get-CimInstance Win32_ComputerSystem).HypervisorPresent   # True = virtualiza
 ```
 
-Com `False`, o WSL2 e o Hyper-V não sobem, e o Docker Desktop instala sem conseguir
-iniciar. Ligar VT-x/AMD-V é reiniciar e entrar na BIOS, uma decisão do dono da máquina
-e não um passo de script.
+Sem virtualização de verdade, o WSL2 e o Hyper-V não sobem, e o Docker Desktop instala
+sem conseguir iniciar. Ligar VT-x/AMD-V é reiniciar e entrar na BIOS, uma decisão do
+dono da máquina e não um passo de script.
 
 Quando a decisão já foi tomada, a instalação vem **antes** do reinício, não depois:
 `wsl --install --no-distribution` (a plataforma WSL 2, sem distro Linux) e
-`winget install Docker.DockerDesktop` completam com a virtualização desligada, e o
-`wsl --status` passa a dizer só que ela falta. Assim a ida à BIOS é uma só, e o
-reinício que ela exige é o mesmo que o instalador pede.
+`winget install Docker.DockerDesktop` completam mesmo sem virtualização. Até esse
+reinício o `wsl --status` culpa a virtualização mesmo quando ela está ligada: o que
+falta é a Plataforma de Máquina Virtual, que só ativa no boot. Assim a ida à BIOS,
+se for preciso, é uma só, e o reinício que ela exige é o mesmo que o instalador pede.
 
 ## A solução
 
@@ -135,6 +142,6 @@ Windows, porque apagar arquivo ainda aberto não é permitido; envolva em
 
 ## Conexões
 - Princípio: [[Ambiente de dev sobe igual ao de produção]] · [[Uma faixa de portas por projeto]]
-- Irmã: [[No Windows o npm roda script pelo cmd.exe, e a porta padrão do script dev chega literal]] · [[No Windows, duas coisas escutam a mesma porta e o cliente fala com a errada]] · [[Formatar a máquina perde tudo que o git não versiona]]
+- Irmã: [[Com o hypervisor do Windows no ar, o WMI diz que a CPU não virtualiza]] · [[No Windows o npm roda script pelo cmd.exe, e a porta padrão do script dev chega literal]] · [[No Windows, duas coisas escutam a mesma porta e o cliente fala com a errada]] · [[Formatar a máquina perde tudo que o git não versiona]]
 - Visto em: [[Navetech Hub]] · [[Privello]]
 - Mapa: [[Infra]]

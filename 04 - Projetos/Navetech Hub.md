@@ -43,8 +43,9 @@ original tomado, sem commit em comum).
 
 **Em 17/09/2026 o Eduardo confirmou: a reescrita continua.** O trabalho novo volta
 para `~/Dev/nexo`, portando do nexo2, e o nexo2 segue no ar até a troca. No PC dele
-(Windows, sem virtualização, logo sem Docker) a reescrita roda com o banco em
-Postgres portátil na 5022 e `next start` na 4022. Receita em
+(Windows; na época o diagnóstico foi "sem virtualização, logo sem Docker", e era falso
+negativo — [[Com o hypervisor do Windows no ar, o WMI diz que a CPU não virtualiza]]) a
+reescrita roda com o banco em Postgres portátil na 5022 e `next start` na 4022. Receita em
 [[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]]
 e [[No Windows o npm roda script pelo cmd.exe, e a porta padrão do script dev chega literal]].
 

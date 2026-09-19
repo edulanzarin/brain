@@ -40,8 +40,10 @@ Sem remote git.
 Slug `telebot` · app `telebot-app` na `4081` · banco `telebot-db` na `5081`.
 Chassi e mapa de portas em [[Infra]].
 
-Em desenvolvimento o banco é cluster portátil, porque esta máquina não virtualiza
-— [[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]].
+Em desenvolvimento o banco é cluster portátil, escolhido quando a máquina parecia não
+virtualizar — [[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]].
+Era falso negativo ([[Com o hypervisor do Windows no ar, o WMI diz que a CPU não virtualiza]]),
+e desde 19/09/2026 o Docker roda nesta máquina.
 
 Produção: `docker-compose.yml` com `telebot-db`, `telebot-migrate`, `telebot-app` e
 `telebot-agenda` (a manutenção a cada 10 min), mais o override

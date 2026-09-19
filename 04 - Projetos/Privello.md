@@ -167,9 +167,10 @@ Slug `privello` · app `privello-app` na `4075` · banco `privello-db` na `5075`
 Compose com app e db, imagem standalone, migrations e seed no entrypoint, mídia
 em volume próprio. Chassi e mapa de portas em [[Infra]].
 
-Depois da troca para Windows, o banco de dev roda num Postgres portátil na mesma
-`5075` enquanto a máquina não virtualiza, e o `.env` não sabe da diferença:
-[[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]].
+O banco de dev é o container (`npm run banco`), como o README manda. Na volta depois da
+troca para Windows ele passou meia hora num Postgres portátil na mesma `5075`, por um
+falso negativo da virtualização:
+[[Com o hypervisor do Windows no ar, o WMI diz que a CPU não virtualiza]].
 
 ## Stack
 
