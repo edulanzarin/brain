@@ -95,6 +95,10 @@ precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três d�
   cluster portátil por projeto na porta 5xxx reservada (o `.env` não muda), com
   `listen_addresses = 'localhost'` por causa do `::1` e `--locale=C` para ordenar como a
   imagem alpine de produção.
+- [[Sem Docker na máquina, a imagem se confere montando o standalone numa pasta limpa]] —
+  a lista de `cp` do último estágio do Dockerfile, numa pasta vazia e sem `.env`, pega os
+  defeitos de ausência (static fora, pacote que o tracing não levou). E revela o `.env` de
+  dev dentro do container: `environment:` do compose tem que vencer PORT e o banco.
 - [[No Windows o npm roda script pelo cmd.exe, e a porta padrão do script dev chega literal]] —
   `${PORT:-40xx}` chega cru no Next; `npm config set script-shell` apontando para o Bash
   do Git conserta na máquina, sem mexer na convenção dos repositórios.

@@ -42,7 +42,14 @@ Chassi e mapa de portas em [[Infra]].
 
 Em desenvolvimento o banco é cluster portátil, porque esta máquina não virtualiza
 — [[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]].
-Falta escrever o compose de produção.
+
+Produção: `docker-compose.yml` com `telebot-db`, `telebot-migrate`, `telebot-app` e
+`telebot-agenda` (a manutenção a cada 10 min), mais o override
+`docker-compose.prod.yml` com `telebot-caddy` emitindo o HTTPS — obrigatório, porque o
+Telegram só entrega webhook em endereço com certificado. O compose nunca rodou nesta
+máquina; o conteúdo da imagem foi conferido fora dela —
+[[Sem Docker na máquina, a imagem se confere montando o standalone numa pasta limpa]].
+Ainda não está no ar: falta servidor e domínio.
 
 ## Stack
 
@@ -84,6 +91,7 @@ pagamento — as duas APIs são HTTP com JSON.
 - [[Rolagem horizontal que não se anuncia esconde a coluna que decide]]
 - [[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]] —
   ganhou a parte do pacote que traz só o servidor e a do `pg_ctl` que prende o terminal.
+- [[Sem Docker na máquina, a imagem se confere montando o standalone numa pasta limpa]]
 
 ## Próximos passos
 
@@ -92,7 +100,7 @@ pagamento — as duas APIs são HTTP com JSON.
       Telegram não tem onde ser entregue).
 - [ ] Cobrar a mensalidade da plataforma: hoje o plano da conta é só um campo, e
       ninguém cobra por ele. A taxa por venda já é descontada e congelada.
-- [ ] Compose de produção e agendador da manutenção.
+- [ ] Servidor (VPS com Docker) e domínio apontado para ele; a receita está no README.
 - [ ] Renovação antes do vencimento, dentro do mesmo chat.
 
 ## Conexões
