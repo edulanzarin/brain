@@ -34,11 +34,11 @@ Reverter é reescrever os nomes de arquivo — nada foi destruído.
 "Segoe UI (TrueType)"=""            ; e as outras onze de texto
 
 [HKLM\...\CurrentVersion\FontSubstitutes]
-"Segoe UI"="Inter"
-"Segoe UI Light"="Inter Light"
-"Segoe UI Semilight"="Inter Light"
-"Segoe UI Semibold"="Inter SemiBold"
-"Segoe UI Black"="Inter Black"
+"Segoe UI"="Roboto"
+"Segoe UI Light"="Roboto Light"
+"Segoe UI Semilight"="Roboto"        ; Regular, nao Light -- ver abaixo
+"Segoe UI Semibold"="Roboto Medium"
+"Segoe UI Black"="Roboto Black"
 ```
 
 **Quem fica de fora, e por quê:**
@@ -53,11 +53,51 @@ Deixar a `Variable` de fora tem preço: os apps WinUI seguem em Segoe, e a
 interface fica em duas fontes. É uma troca consciente de consistência por risco.
 
 **Os pesos saem da tabela `name`, não de chute.** Uma fonte com muitos pesos os
-distribui em famílias GDI separadas, e o formato varia entre fontes. A Inter
-agrupa Regular/Bold/Italic/BoldItalic em `Inter` e põe cada peso extra em família
-própria (`Inter Light`, `Inter SemiBold`) — o mesmo formato da Segoe, e é isso
-que faz negrito e itálico continuarem resolvendo certo. Ler o `name` id 1 de cada
-`.ttf` antes de escrever a tabela leva dez linhas e evita descobrir pela tela.
+distribui em famílias GDI separadas, e o formato varia entre fontes. A Roboto
+agrupa Regular/Bold/Italic/BoldItalic em `Roboto` e põe cada peso extra em família
+aparte (`Roboto Light`, `Roboto Medium`, `Roboto Black`) — o mesmo formato da Segoe,
+e é isso que faz negrito e itálico continuarem resolvendo certo. Ler o `name` id 1 de
+cada `.ttf` antes de escrever a tabela leva dez linhas e evita descobrir pela tela.
+
+**O peso ausente arredonda pra baixo, não pra cima.** A Segoe tem Semilight (350) e
+Semibold (600); a Roboto não tem nenhum dos dois. Semilight vai pra Regular (400) e
+não pra Light (300): mandar pra Light deixa fino demais boa parte do texto do Win11,
+que é onde o Semilight é usado. Semibold vai pra Medium (500), porque Bold (700) pesa
+demais num rótulo de interface.
+
+## Escolher a substituta é medir, não olhar
+
+Uma fonte bonita não é uma fonte que cabe. O Windows desenha menu, diálogo, lista e
+botão contando com as **larguras de avanço da Segoe**; a substituta herda esse espaço
+já reservado. Se ela for mais larga, tudo estoura, corta com reticências e aperta --
+sem nenhum erro em lugar nenhum.
+
+Medir é rápido: registrar cada candidata só no processo com `AddFontResourceEx` e
+`FR_PRIVATE` (não instala nada) e comparar `MeasureText` da mesma frase contra a Segoe.
+O x-height sai do `OS/2` dividido pelo `unitsPerEm` do `head`.
+
+| | x-height | largura da mesma frase |
+|---|---|---|
+| Segoe UI | base | base |
+| Inter | +9,2% | **+8,8%** |
+| Roboto | +5,7% | +0,5% |
+| Open Sans | +7,0% | +0,5% |
+| IBM Plex Sans | +3,2% | +0,5% |
+| Source Sans 3 | -2,8% | +0,5% |
+| Selawik | 0% | +0,5% |
+
+A leitura que importa: **largura e x-height são eixos separados**. Quase toda fonte de
+interface larga usada hoje foi ajustada pra caber no mesmo avanço, então a coluna da
+direita é praticamente constante -- e a Inter é a exceção que quebra. Escolher pela
+coluna do x-height é escolher o quanto a interface parece cheia; escolher pela largura
+é escolher se ela funciona.
+
+O segundo eixo é **hinting**. Fonte desenhada pra tela densa com antialiasing cinza (a
+Inter é o caso típico) fica fina e lavada em 1080p com ClearType, e pior ainda em tema
+escuro, onde texto claro sobre fundo escuro borra pra fora. Fonte que nasceu pra tela
+fraca -- Segoe, Roboto, Selawik -- tem hinting manual ou forte e aguenta. Não dá pra
+julgar isso num navegador: `TextRenderer` desenha pelo mesmo GDI dos controles, e a
+prova de que o ClearType está ativo é achar pixel com franja colorida no resultado.
 
 ## O que mais vale lembrar
 

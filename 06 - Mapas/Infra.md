@@ -111,7 +111,9 @@ precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três d�
   texto da `Segoe UI` (sem apagar os `.ttf`) e mandar a família pra outra no
   `FontSubstitutes`. Ficam de fora as de ícone, emoji e símbolo — substituí-las apaga seta,
   wi-fi e botão de fechar — e a `Segoe UI Variable`, ao preço de os apps WinUI seguirem em
-  Segoe. O desfazer se gera do estado lido, antes da mudança.
+  Segoe. A substituta se escolhe medindo: ela herda a largura que o Windows já reservou
+  pra Segoe, e a que for mais larga estoura menu e lista sem dar erro nenhum. O desfazer
+  se gera do estado lido, antes da mudança.
 - [[Volume de dev sobrevive entre versões do projeto e traz schema velho]] — rebuild
   no mesmo slug reencontra o banco antigo; recriar o volume, não forçar reset.
 - [[Renomear coluna é migration à mão; a gerada derruba e recria]] — o ORM compara
