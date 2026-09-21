@@ -232,6 +232,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   — o cursor `ultNSU` é do CNPJ, não do sistema: entrar numa fila que já tem dono
   bloqueia o dono por uma hora. Quando já tem dono, busca por chave, que não mexe no
   cursor.
+- [[Capturar XML de escritório contábil são três frentes, e a terceira não tem serviço nacional]]
+  — NF-e, CT-e e NFS-e são integrações distintas; a que toca mais clientes é a
+  municipal, que só fecha onde o município aderiu ao ADN.
 - [[Em canal humano automatizado, o ritmo denuncia antes do volume]] — o que identifica
   automação num canal feito para pessoas é o padrão, não o total: um sistema toma
   bloqueio ABAIXO do limite que julgava respeitar. As cinco travas do portão, e por que
