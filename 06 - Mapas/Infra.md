@@ -41,8 +41,30 @@ Quatro decisões que já têm resposta padrão — não reinventar a cada projet
 4. **Compose igual em dev e produção**, com app, db e migrations:
    [[Ambiente de dev sobe igual ao de produção]].
 
+5. **Quem alcança o quê**: app em `0.0.0.0` porque a rede precisa dele; banco em
+   `127.0.0.1:` porque quem consome é o container ao lado e o `npm run dev` da própria
+   máquina. **Banco não vai para a rede** — nem "só esse", nem "como padrão". Projeto
+   que precisa de dado de outro entra na ponte:
+   [[Dois projetos no mesmo host se falam por rede externa compartilhada]], e o que
+   atravessa é rota HTTP, não SQL.
+
 Seguindo isso, o esqueleto sai igual em todo projeto e os comandos de manutenção viram
 template: `docker logs <slug>-app`, `docker exec -it <slug>-db psql`.
+
+## A ponte entre projetos
+
+Rede única `navecon-ponte`, criada uma vez no host (`docker network create
+navecon-ponte`) e declarada como `external` em cada compose que participa. Quem entra
+nela fala com o vizinho por nome de serviço e porta interna
+(`http://cofre-digital-app:3000`), sem publicar porta nova. Armadilha: declarar
+`networks:` num serviço o tira da rede default — listar `default` junto, ou o app perde
+o próprio banco. Detalhe em
+[[Dois projetos no mesmo host se falam por rede externa compartilhada]].
+
+| Na ponte | Papel |
+|---|---|
+| `cofre-digital-app` | dono dos certificados e senhas |
+| `nexo-app` | consome certificado para baixar XML na SEFAZ |
 
 ## Mapa de portas
 
