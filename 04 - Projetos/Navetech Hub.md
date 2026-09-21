@@ -1042,6 +1042,28 @@ sem filtro e sem histórico por pessoa. Virou trilha própria em `033_rh_desempe
   de log (SMTP do dev aponta para a conta real). O KPI "Formulários disparados" do painel
   passou a somar rodada de desempenho, senão o número cairia calado.
 
+### Cobrar quem não respondeu a avaliação de desempenho (set/2026)
+
+Feito **no nexo2** (a versão em produção), não na reescrita — a seção Desempenho só
+existe lá por enquanto, e o pedido veio do uso real: a rodada saía e a RH ficava sem
+ação, porque "Reenviar" repete o e-mail do disparo, não diz que é cobrança e não deixa
+rastro. Fica **pendente de portar** para `~/Dev/nexo`.
+
+- **Só avaliação com zero resposta.** O link é um só para o setor e quem responde se
+  identifica digitando o nome — não há como saber qual gestor faltou. O porquê e as
+  três saídas possíveis em
+  [[Token do grupo não diz quem faltou, então cobrar só cabe no zero]].
+- **Manual, como o resto do desempenho.** Sem job: a seção não tem prazo (é a RH que
+  decide quando avaliar), então também é ela quem decide quando insistir.
+- **Botão por linha e botão por rodada.** A cobrança em lote só aparece com rodada
+  escolhida no filtro, já com o número do que vai sair; "quem não respondeu" só quer
+  dizer alguma coisa dentro de um disparo. Falha de uma avaliação (setor sem gestor,
+  SMTP fora) vira nome numa lista e não derruba o lote.
+- **`rh_desempenho_lembrete`** (migration 039): uma linha por cobrança, com os
+  destinatários em snapshot — a tela mostra "cobrada 3x, última em 12/09".
+- O status **não** vira `erro` quando a cobrança falha: o disparo original deu certo,
+  e rebaixar apagaria da tela que a avaliação está no ar.
+
 ## Filial (estabelecimento) no filtro — jul/2026
 
 O sistema filtrava só por **empresa** (`codigoempresa`); no Questor a empresa

@@ -60,6 +60,7 @@ await enviarEmail({ para, assunto, html: linkUnico });
 - Princípio: [[Um invariante se garante na estrutura, não no processo]] ·
   [[O que tem ciclo de vida próprio é entidade própria, não modo de outra]]
 - Irmã: [[Formulário público por token opaco fica fora do gate de sessão]] ·
-  [[Registro que muda de casa leva junto o token já distribuído]]
+  [[Registro que muda de casa leva junto o token já distribuído]] ·
+  [[Token do grupo não diz quem faltou, então cobrar só cabe no zero]]
 - Visto em: [[Navetech Hub]] · [[navetalks]]
 - Mapa: [[Backend]]

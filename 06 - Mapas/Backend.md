@@ -101,6 +101,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 - [[Uma resposta canônica de um grupo é um token compartilhado]] — vários podem
   responder, mas só uma resposta vale: um token para o grupo, o primeiro fecha.
   Princípio: [[Um invariante se garante na estrutura, não no processo]].
+- [[Token do grupo não diz quem faltou, então cobrar só cabe no zero]] — o preço do
+  link de grupo: sem casar resposta com pessoa, o lembrete só é honesto enquanto
+  ninguém respondeu.
+  Princípio: [[Ausência só aparece contra o universo, nunca contra a tabela de eventos]].
 - [[Permissão composta por papéis somados, não exceção por usuário]] — o cargo
   concentra tudo; a pessoa acumula papéis e o acesso é a união, sem override por
   gente. Princípio: [[Permissão se valida no servidor, não na interface]].
