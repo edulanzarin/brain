@@ -57,6 +57,9 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   [[Permissão se valida no servidor, não na interface]].
 - [[Sessão opaca no banco separa autenticação de permissão]] — cookie só carrega o
   token; permissão vem do banco a cada request (revogável, sempre atual).
+- [[No portão de sessão, aberto a todos e exclusivo de visitante são listas diferentes]]
+  — três estados de rota, não dois: exige sessão, dispensa sessão, recusa sessão.
+  Juntar os dois últimos expulsa da página aberta justamente quem está logado.
 - [[Supervisão é papel do setor, não cargo global]] — "quem manda" é marca na
   associação pessoa↔setor, não coluna no cadastro; quem configura o sistema não
   enxerga por isso o atendimento de todo setor. Princípio:

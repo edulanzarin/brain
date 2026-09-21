@@ -62,6 +62,31 @@ seguiram intactos. O volume antigo ficou parado como rede de segurança.
 - **Bloqueio do cofre**: PIN, bloqueio manual e automático por inatividade —
   camada extra além do login.
 - **Janela de "vencendo" configurável**, valendo para badges, filtros e dashboard.
+- **Consulta pública** em `/publico/certificados`: sem login, com lista, busca,
+  filtros, senha, validade, histórico e o caminho do `.pfx` na rede — mas sem
+  entregar o arquivo.
+
+## Consulta pública de certificados (set/2026)
+
+As duas perguntas que mais chegavam ao societário — qual a senha deste certificado e
+até quando ele vale — estavam atrás de uma conta no cofre. Viraram uma página aberta,
+por decisão do Eduardo.
+
+O que ela NÃO faz: entregar o `.pfx`. Quem vai instalar pega na pasta do cliente, e o
+detalhe mostra o caminho exato (raiz do armazenamento + `filePath`), porque dizer "vai
+na pasta" sem dizer qual pasta devolve a pessoa para o corredor. Em A3 diz que não há
+arquivo, em vez de exibir caminho inexistente.
+
+O custo, registrado de propósito: quem alcança a porta 4004 na rede lê a senha de
+qualquer cliente, e sem sessão não há como saber quem foi. O que dá para preservar foi
+preservado — o cadeado do cofre vale na consulta (bloqueou, bloqueou para todos), e
+cada senha consultada vira linha no histórico do certificado com o IP quando existe.
+Sem QUEM, mas com O QUE e QUANDO: o bastante para enxergar a tarde em que as senhas
+saíram todas de uma vez.
+
+Duas armadilhas de implementação viraram nota: o portão de sessão tratando rota aberta
+e rota de visitante como a mesma lista, e o primitivo de selo lendo a janela de
+vencimento por hook autenticado.
 
 ## Decisões importantes
 
@@ -131,6 +156,9 @@ PostgreSQL 17 · Docker Compose. Ícones lucide, PKCS#12 lido no navegador.
   fixado não mora na aba de anotações.
 - [[Campo de dinheiro é máscara de centavos, não texto livre]] — honorário digitado
   sem parser e sem ambiguidade de ponto.
+- [[No portão de sessão, aberto a todos e exclusivo de visitante são listas diferentes]]
+  — a regra que expulsava de `/login` quem tem sessão passou a expulsar da página
+  pública também, porque as duas viviam na mesma lista.
 - [[Importação em massa passa pela API, não pelo banco]] — a migração dos ~1156
   certificados do sistema antigo sobe cada um pelo endpoint de cadastro, herdando
   validação, empresa pelo CNPJ e grupo, em vez de INSERT direto.
