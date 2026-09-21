@@ -228,6 +228,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
 
 ## Integrações
 
+- [[Distribuição DFe da SEFAZ tem uma fila por CNPJ, e o segundo consumidor derruba o primeiro]]
+  — o cursor `ultNSU` é do CNPJ, não do sistema: entrar numa fila que já tem dono
+  bloqueia o dono por uma hora. Quando já tem dono, busca por chave, que não mexe no
+  cursor.
 - [[Em canal humano automatizado, o ritmo denuncia antes do volume]] — o que identifica
   automação num canal feito para pessoas é o padrão, não o total: um sistema toma
   bloqueio ABAIXO do limite que julgava respeitar. As cinco travas do portão, e por que
