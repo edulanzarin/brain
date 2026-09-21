@@ -106,6 +106,29 @@ Produtividade só executa no próprio botão
 gráfico passaram a receber a cor do catálogo
 ([[Série que tem cor no catálogo recebe a cor, não a posição na paleta]]).
 
+**Módulo RH portado (21/09/2026).** As nove seções do nexo2 — Painel, Diretório,
+Experiência, Desempenho, Rotatividade, Avaliações, Denúncias, Formulários e
+Gestores —, mais as quatro telas públicas sem login (formulário por token,
+avaliação anônima, denúncia e acompanhamento por protocolo). Uma migration
+consolida o que lá foram catorze arquivos, já no estado final.
+
+Quatro peças nasceram em `produto/` porque servem várias telas: os campos de um
+formulário desenhados a partir da definição, a apuração, a ficha da pessoa e o
+seletor de gente. A rotatividade do DP foi partida em recorte (de cada módulo) e
+resultado (o mesmo nos dois) — a tela do DP caiu de 432 para 190 linhas sem mudar
+de comportamento.
+
+Dois defeitos só apareceram olhando a tela rodando contra o banco real: o painel
+contava as experiências pela tabela materializada e anunciava "nada pendente"
+enquanto a seção listava 34 vencidas, e o cabeçalho de seção era uma caixa que
+repetia a trilha em trinta telas
+([[Cabeçalho de seção não repete o que a navegação já diz]]).
+
+O Questor confirmou a decisão de chavear gestor por departamento: o mesmo
+`classiforgan` 002 vem escrito de dois jeitos entre as empresas do grupo, e o 001
+vem com erro de digitação na origem — é para isso que existe a camada de
+renomeação.
+
 **Módulo DP portado (17/09/2026).** Dez seções do nexo2, na mesma doutrina do Contábil:
 domínio quase intacto, interface refeita sobre os primitivos. Painel (time e gestão),
 Rotatividade, Custo de folha, Férias, Rescisões a pagar, eSocial, Produtividade e os dois

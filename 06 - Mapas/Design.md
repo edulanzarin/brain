@@ -289,6 +289,11 @@ decide se vale abrir. Vale no eixo horizontal também: na barra do celular, o qu
 - [[Arte de ícone se julga no tamanho de uso, e o acento é a massa]] — folha de
   contato no fundo real, silhueta antes de cor, e a fronteira entre arte de figura
   (24px pra cima) e ícone de traço no chrome miúdo.
+- [[Cabeçalho de seção não repete o que a navegação já diz]] — o cartão de vidro
+  com chip tingido no topo de trinta telas dizia o nome do módulo pela quarta vez
+  e o da seção pela terceira; o quarto sinal não reforça, ocupa a primeira dobra.
+  Caixa com um título dentro é borda em volta de texto: posição já é hierarquia.
+  E antes de aceitar "senão perde-se o sinal X", conte em quantos lugares X já está.
 - [[Marca não repete o nome que está escrito ao lado dela]] — a inicial num
   quadrado é a saída automática e não diz nada, porque o nome já está escrito a
   três centímetros do ícone em toda superfície onde ele aparece. Livre disso, a
