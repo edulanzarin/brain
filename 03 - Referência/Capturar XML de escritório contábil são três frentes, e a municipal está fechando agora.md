@@ -3,7 +3,7 @@ tags: [tipo/atomica, camada/referencia, dev/backend, fiscal]
 criado: 2026-09-21
 ---
 
-# Capturar XML de escritório contábil são três frentes, e a terceira não tem serviço nacional
+# Capturar XML de escritório contábil são três frentes, e a municipal está fechando agora
 
 > "Baixar os XML dos clientes" soa como um downloader. São três integrações diferentes, com filas, cursores e até órgãos distintos — e a que toca MAIS clientes é justamente a que não tem webservice nacional que resolva.
 
@@ -40,15 +40,32 @@ Serviço **separado** (`CTeDistribuicaoDFe`), com fila e cursor próprios. Quem
 implementa só a frente 1 perde 70% das entradas do escritório. Mesma mecânica,
 código a mais — é trabalho, não risco.
 
-## Frente 3 — NFS-e, a que não fecha
+## Frente 3 — NFS-e, a que está fechando agora
 
-Imposto municipal: cada prefeitura tem o seu sistema. O **ADN NFS-e** (Ambiente
-de Dados Nacional, da Receita) publica API de DF-e onde o contribuinte consulta
-documentos em que é emitente, tomador ou intermediário — mas **só alcança
-municípios conveniados** ao Sistema Nacional. Município fora do convênio
-continua com portal próprio, cada um com seu padrão.
+Imposto municipal, historicamente mais de cinco mil sistemas diferentes. Isso
+mudou em 2026, e quem parar de ler na frase anterior vai desenhar o sistema
+errado:
 
-E aqui as duas pontas têm tamanhos diferentes:
+- **01/01/2026** — municípios passam a ser obrigados a autorizar a emissão da
+  NFS-e Nacional e, se mantiverem emissor próprio, a **compartilhar os
+  documentos com o ADN** no leiaute padronizado.
+- **01/09/2026** — ME e EPP do Simples Nacional emitem **exclusivamente pelo
+  Emissor Nacional** (web ou API), por força da Resolução CGSN 189/2026,
+  publicada em 23/04/2026.
+
+O **ADN NFS-e** (Ambiente de Dados Nacional, da Receita) publica API de DF-e em
+que o contribuinte consulta os documentos onde é emitente, tomador ou
+intermediário. Com o compartilhamento virando obrigação do município, a
+promessa é justamente a ponta que parecia impossível: o tomador consultando num
+lugar só o que recebeu de qualquer município.
+
+**A ressalva que separa a lei do sistema**: obrigação publicada não é
+implementação em pé nos cinco mil municípios, e a cobertura real do
+compartilhamento precisa ser medida, não suposta. Pior: **o Questor não guarda
+chave de NFS-e** — em jun–ago/2026, 99,99% das NFS-e de saída estão sem chave
+nenhuma —, então a conferência não sai do banco. Tem de sair do próprio ADN.
+
+E as duas pontas ainda têm tamanhos diferentes enquanto a cobertura não fecha:
 
 - **NFS-e que o cliente EMITE**: o município é o dele. A carteira está em 184
   municípios, mas concentrada — Brusque (393 empresas), Itajaí (114),
