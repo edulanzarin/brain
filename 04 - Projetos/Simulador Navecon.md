@@ -16,7 +16,7 @@ Código em: `~/Dev/simulador-navecon`
 ## Estado atual
 
 Construído e commitado na `main` (repositório local, sem remote ainda). Build
-limpo, 38 testes verdes, telas conferidas por print headless em celular e
+limpo, 46 testes verdes, telas conferidas por print headless em celular e
 desktop.
 
 **Roda de pé na máquina** (22/09/2026): `docker compose up -d --build` sobe
