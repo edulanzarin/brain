@@ -51,6 +51,15 @@ Quatro decisões que já têm resposta padrão — não reinventar a cada projet
 Seguindo isso, o esqueleto sai igual em todo projeto e os comandos de manutenção viram
 template: `docker logs <slug>-app`, `docker exec -it <slug>-db psql`.
 
+## Como o domínio chega (servidor ts05)
+
+Não há proxy reverso nem porta 80/443 aberta: quem publica é um **Cloudflare
+Tunnel**, um container `cloudflared` que roteia `hostname → nome do container`.
+Projeto novo entra na rede do túnel por override no servidor, ganha regra de
+ingress e um CNAME na Cloudflare. Compose com Caddy próprio **não serve lá**.
+Receita e armadilhas em
+[[O túnel publica alcançando o container pelo nome, sem abrir porta]].
+
 ## A ponte entre projetos
 
 Rede única `navecon-ponte`, criada uma vez no host (`docker network create

@@ -30,22 +30,30 @@ de partida, não com os da Navecon.
 
 Vai rodar em **`simulador.navecon.net.br`**, `APP_BASE_PATH=/`.
 
-## Quem atende a 443 decide o compose
+## No ar em ts05
 
-O compose de produção daqui publica 80/443 com Caddy próprio, e o do
-[[Evento Navecon]] faz igual. **Os dois no mesmo host colidem** com
-`port is already allocated`, e o erro só aparece depois do build, com o DNS já
-apontado.
+Deploy feito em 22/09/2026. **Não é proxy reverso: é Cloudflare Tunnel.** O
+`docker-compose.prod.yml` com Caddy daqui não serve naquele host, e teria
+brigado por uma porta que ninguém escuta. Receita em
+[[O túnel publica alcançando o container pelo nome, sem abrir porta]].
 
-O TI deu acesso a um servidor onde `docker compose up -d --build` puro já
-responde no domínio, o que significa proxy reverso no host. Nesse cenário o
-simulador **não sobe Caddy**: publica em `127.0.0.1:4082` e o TI aponta o vhost.
-O que precisa ser pedido junto é o repasse de `X-Forwarded-For` e
-`X-Forwarded-Proto` — sem eles o `trust proxy` do Express vê a plateia inteira
-como um IP só no rate limit, e o cookie `Secure` do `/admin` não fecha o login.
+O que está de pé no servidor:
 
-Os três comandos que descobrem o cenário estão no README do projeto.
-**Falta confirmar qual é**, e é a última incógnita técnica do deploy.
+- `~/simulador-navecon` clonado por **deploy key** somente-leitura (o servidor
+  não tinha chave do GitHub).
+- `.env` com senhas geradas **no servidor**. Admin `Navecon`.
+- `docker-compose.override.yml` só no servidor, ligando o app à rede
+  `bolao-navepro_bolao-net`, que é onde o `cloudflared` vive.
+- Sobe com `docker compose up -d --build`, **sem** o arquivo de produção.
+- Regra de ingress apontando para `http://simulador-navecon-app:3000`.
+
+**Falta o CNAME** `simulador` → `<id>.cfargotunnel.com` na Cloudflare. Sem ele a
+regra está certa e o domínio não resolve; não dá para criar do servidor porque
+só existe o JSON de credencial, sem `cert.pem`.
+
+O bolão e a imersão saíram do ar a pedido do Eduardo em 22/09/2026: as regras de
+ingress foram removidas e **nada foi apagado** — containers e volumes intactos,
+com backup do `config.yml` anterior ao lado.
 
 ## De onde veio
 
@@ -139,6 +147,7 @@ de Diagnóstico Tributário Navecon.
 Só links. O texto mora na nota de técnica/princípio.
 
 - [[Quando o degrau é real, preserve a monotonia em vez de suavizar]]
+- [[O túnel publica alcançando o container pelo nome, sem abrir porta]]
 - [[Centralizar na altura é margin auto, porque justify-content corta o topo]]
 - [[Media query mede a janela; quem decide a quebra é a largura do contêiner]]
 - [[A entrega não fica refém do registro que pode falhar]]
@@ -152,11 +161,14 @@ Só links. O texto mora na nota de técnica/princípio.
 - [ ] **Fábio revisar `modelo/tabelas.ts`.** É o bloqueio real antes do palco: os
       números atuais são os do concorrente, não os da carteira da Navecon.
 - [x] Subir a stack local e validar o fluxo ponta a ponta (22/09/2026)
-- [ ] **Descobrir quem atende a 443 no servidor** (três comandos no README): decide
-      se sobe com Caddy próprio ou se o TI aponta um vhost para 127.0.0.1:4082
-- [ ] DNS A/AAAA de `simulador.navecon.net.br` no IP do servidor
-- [ ] Preencher `.env` de produção: `POSTGRES_PASSWORD`, `ADMIN_USER`,
-      `ADMIN_PASSWORD`, SMTP
+- [x] Subir no servidor ts05 pelo Cloudflare Tunnel (22/09/2026)
+- [ ] **CNAME `simulador` → `7690cba5-….cfargotunnel.com` na Cloudflare, proxied.**
+      É o único passo que falta para o domínio responder, e só dá para fazer no painel.
+- [x] `.env` de produção com senhas geradas no servidor (22/09/2026)
+- [ ] SMTP: hoje `NOTIFY_ENABLED=false`, o lead grava mas não sai aviso
+- [ ] Tirar o `cloudflared` de dentro do compose do bolão: hoje um `compose down`
+      naquele projeto derruba o simulador junto
+- [ ] Trocar a senha do `/admin` depois do evento (passou por chat)
 - [ ] Confirmar o WhatsApp de atendimento (hoje usa o do rodapé da imersão,
       `47 9237-0273`)
 - [x] Repositório no GitHub, privado (22/09/2026)
