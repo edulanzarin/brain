@@ -91,6 +91,12 @@ o [[Evento Navecon]]) não existe aqui.
   o resultado inteiro em três perfis de mentira. Foi o que permitiu julgar cada
   estado por URL, sem preencher o quiz a cada print. Ver
   [[Catálogo de componentes é contrato vivo, não documentação]].
+- **Uma etapa por tela, centrada na altura.** Cada fase é um palco de `100dvh`
+  numa coluna de 440px, com o progresso grudado no alto e a ação grudada
+  embaixo, no alcance do polegar. A primeira versão jogava tudo contra o topo e
+  contra as bordas do celular, e as nove opções da pergunta de segmento não
+  cabiam numa tela. Ver
+  [[Centralizar na altura é margin auto, porque justify-content corta o topo]].
 
 ## O defeito que veio junto no modelo
 
@@ -118,6 +124,7 @@ de Diagnóstico Tributário Navecon.
 Só links. O texto mora na nota de técnica/princípio.
 
 - [[Quando o degrau é real, preserve a monotonia em vez de suavizar]]
+- [[Centralizar na altura é margin auto, porque justify-content corta o topo]]
 - [[A entrega não fica refém do registro que pode falhar]]
 - [[No Windows, duas coisas escutam a mesma porta e o cliente fala com a errada]]
   (ganhou a variante IPv4/IPv6 disputando a mesma porta)

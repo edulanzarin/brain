@@ -65,6 +65,9 @@ Princípios: [[Token semântico em vez de valor literal]] ·
 
 `02 - Técnicas/Design/Layout e espaço`
 
+- [[Centralizar na altura é margin auto, porque justify-content corta o topo]] — o
+  alinhamento central reparte a sobra nas duas pontas, e com sobra negativa o começo
+  do conteúdo vai para fora do alcance da rolagem.
 - [[Classes de componente vão em @layer components no Tailwind]] — pra a classe de
   componente vencer a utilitária sem `!important`.
 - [[A classe do chamador só vence a do primitivo com tailwind-merge]] — quando o
