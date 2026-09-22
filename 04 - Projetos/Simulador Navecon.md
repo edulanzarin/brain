@@ -15,7 +15,7 @@ Código em: `~/Dev/simulador-navecon`
 
 ## Estado atual
 
-Construído e commitado na `main` (repositório local, sem remote ainda). Build
+No GitHub, privado: **`git@github.com:edulanzarin/simulador-navecon.git`**. Build
 limpo, 46 testes verdes, telas conferidas por print headless em celular e
 desktop.
 
@@ -28,9 +28,24 @@ CSV exportando e corpo inválido voltando 400 com a lista de problemas.
 **Não subiu para o servidor**, e o modelo tributário ainda está com os números
 de partida, não com os da Navecon.
 
-Vai rodar em **`simulador.navecon.net.br`** (subdomínio próprio, Caddy do compose
-de produção terminando o TLS, `APP_BASE_PATH=/`), mesmo arranjo do
-[[Evento Navecon]].
+Vai rodar em **`simulador.navecon.net.br`**, `APP_BASE_PATH=/`.
+
+## Quem atende a 443 decide o compose
+
+O compose de produção daqui publica 80/443 com Caddy próprio, e o do
+[[Evento Navecon]] faz igual. **Os dois no mesmo host colidem** com
+`port is already allocated`, e o erro só aparece depois do build, com o DNS já
+apontado.
+
+O TI deu acesso a um servidor onde `docker compose up -d --build` puro já
+responde no domínio, o que significa proxy reverso no host. Nesse cenário o
+simulador **não sobe Caddy**: publica em `127.0.0.1:4082` e o TI aponta o vhost.
+O que precisa ser pedido junto é o repasse de `X-Forwarded-For` e
+`X-Forwarded-Proto` — sem eles o `trust proxy` do Express vê a plateia inteira
+como um IP só no rate limit, e o cookie `Secure` do `/admin` não fecha o login.
+
+Os três comandos que descobrem o cenário estão no README do projeto.
+**Falta confirmar qual é**, e é a última incógnita técnica do deploy.
 
 ## De onde veio
 
@@ -137,12 +152,14 @@ Só links. O texto mora na nota de técnica/princípio.
 - [ ] **Fábio revisar `modelo/tabelas.ts`.** É o bloqueio real antes do palco: os
       números atuais são os do concorrente, não os da carteira da Navecon.
 - [x] Subir a stack local e validar o fluxo ponta a ponta (22/09/2026)
+- [ ] **Descobrir quem atende a 443 no servidor** (três comandos no README): decide
+      se sobe com Caddy próprio ou se o TI aponta um vhost para 127.0.0.1:4082
 - [ ] DNS A/AAAA de `simulador.navecon.net.br` no IP do servidor
 - [ ] Preencher `.env` de produção: `POSTGRES_PASSWORD`, `ADMIN_USER`,
       `ADMIN_PASSWORD`, SMTP
 - [ ] Confirmar o WhatsApp de atendimento (hoje usa o do rodapé da imersão,
       `47 9237-0273`)
-- [ ] Conectar remote e dar push
+- [x] Repositório no GitHub, privado (22/09/2026)
 
 ## Conexões
 - Usa: [[Design]] · [[Infra]]
