@@ -38,6 +38,7 @@ Independe de CSS, de Tailwind e de React. Técnicas concretas em [[Design]].
 - [[A tela não afirma mais precisão do que a fonte tem]] — casa decimal é o tamanho da afirmação; zero arredondado e ponto onde só há faixa inventam exatidão.
 - [[Travar o valor não impede a tela de afirmar a partir dele]] — `clamp` conserta o que se lê, não o que se conclui: projeção, cor, conselho e agregado continuam saindo do valor travado.
 - [[Limiar em grandeza contínua vira degrau, e o degrau decide a ordem]] — `if x >= K` que responde número, e não rótulo, faz 0,1% de entrada virar 2x de saída; o teste é medir a razão entre vizinhos.
+- [[Quando o degrau é real, preserve a monotonia em vez de suavizar]] — degrau do mundo (faixa legal, tabela oficial) não se interpola; o que continua exigível é atravessá-lo sem inverter o total, e quem confere isso é propriedade, não exemplo.
 - [[Estado compartilhável mora na URL]] — o que descreve a vista vai pro link.
 - [[Estado de tela pertence à seção, não à página]] — estado no menor escopo que resolve.
 - [[Entidade auxiliar se cria no ponto de uso, não em tela própria]] — grupo/etiqueta é campo, não aba.
@@ -93,6 +94,7 @@ UI que mostra dado que muda sem o usuário pedir.
 - [[Migração de dados mantém o antigo como reserva até a virada]]
 - [[A definição em dado dirige o comportamento, não um caso no código]] — o que varia por um eixo conhecido vira dado que uma peça lê.
 - [[Um invariante se garante na estrutura, não no processo]] — "no máximo uma X" recusa-se no schema, não na expectativa do fluxo.
+- [[A entrega não fica refém do registro que pode falhar]] — grava o que precisa durar, entrega, e só então avisa; encadear o aviso na frente da entrega transforma SMTP lento em queda total.
 - [[O recorte é a área que responde, não o assunto que a tela trata]] — assunto que várias áreas tratam se instala dentro de cada uma; juntar num módulo do assunto obriga a inventar um leitor de tudo, e o gestor de cada área fica sem a leitura da sua.
 - [[O que tem ciclo de vida próprio é entidade própria, não modo de outra]] — quantas vezes acontece, se repete e o que a fecha: divergiu da tabela hospedeira, é entidade própria, não flag dela.
 - [[Recorrência guarda a receita e o próximo disparo, não N ocorrências futuras]] — periódico é receita + ponteiro; o job materializa uma por vez.

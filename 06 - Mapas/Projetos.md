@@ -16,6 +16,7 @@ mora aqui: mora em [[Base]] (princípios) e em [[Design]], [[Frontend]], [[Backe
 - [[Navedesk]] — chamados internos.
 - [[Cofre Digital]] — certificados, acessos e alvarás da intranet.
 - [[Evento Navecon]] — landing da imersão com inscrição e pagamento (Mercado Pago).
+- [[Simulador Navecon]] — simulador tributário de captação: quiz de nove perguntas, muro de cadastro antes do resultado e diagnóstico recalculado no servidor.
 - [[Navehub]] — CRM + atendimento por WhatsApp para contabilidade (SaaS multi-tenant).
 - [[Idle Game]] — RPG idle de navegador com espécies emergentes (árvore evolutiva global).
 - [[Vespéria]] — idle de Pokémon em cidade caminhável; a rota é população viva e a captura tem piso garantido.

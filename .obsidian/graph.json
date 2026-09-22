@@ -111,6 +111,13 @@
         "a": 1,
         "rgb": 2282478
       }
+    },
+    {
+      "query": "tag:#projeto/simulador-navecon",
+      "color": {
+        "a": 1,
+        "rgb": 12597663
+      }
     }
   ],
   "collapse-display": true,

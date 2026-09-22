@@ -55,7 +55,8 @@ nova ganhar por 8%") **não salva**: ela foi dimensionada pra ruído, não pra u
 150%. Quando há degrau, a margem só desloca onde ele aparece.
 
 ## Conexões
-- Irmã: [[A régua sai da distribuição, não dos extremos]] ·
+- Irmã: [[Quando o degrau é real, preserve a monotonia em vez de suavizar]] ·
+  [[A régua sai da distribuição, não dos extremos]] ·
   [[Custo de processo aleatório se orça pela cauda, não pela média]]
 - Visto em: [[piwdex2]]
 - Mapa: [[Base]]

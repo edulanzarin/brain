@@ -43,8 +43,18 @@ E quando o seletor "não casa com nada", desconfie do servidor antes do seletor:
 a página de erro do navegador não tem `main` nem as classes do app, então um
 servidor caído se disfarça de seletor errado.
 
-## Três armadilhas que custam meia hora cada
+## Quatro armadilhas que custam meia hora cada
 
+- **`--window-size` dimensiona a captura, não o layout — e mente calado.** É a
+  pior das quatro, porque o PNG sai com exatamente a largura pedida. Pedindo
+  390x844 para julgar celular, o arquivo tem 390px e parece certo; por dentro a
+  página foi diagramada nos 800px padrão do headless e o print é um RECORTE
+  dela. O sintoma é uma tela que parece estourada — título cortado, grade em
+  duas colunas onde deveria ter uma — e o defeito não existe. Vale nos dois
+  modos, `--headless=new` e `--headless` antigo. Quem muda a largura que o CSS
+  enxerga é só o `Emulation.setDeviceMetricsOverride` do passo 3, e com ele o
+  `--window-size` deixa de importar. Regra prática: se o layout responsivo não
+  reagir à largura pedida, é isto, não o CSS.
 - **O primeiro alvo pode não ser a sua página.** Num perfil zerado, o Edge abre
   um diálogo próprio ("sincronizar seus dados"), e `/json/list` entrega ele. Daí
   o print sai de uma tela que não é a sua. Criar o alvo resolve.
@@ -65,5 +75,5 @@ aparelho na mão.
 ## Conexões
 - Princípio: [[Verificar no build de produção, não só em dev]]
 - Irmã: [[Armadilhas de child_process no Node]]
-- Visto em: [[Navetech Hub]]
+- Visto em: [[Navetech Hub]] · [[Simulador Navecon]]
 - Mapa: [[Frontend]]
