@@ -63,6 +63,45 @@ E remover a regra de firewall criada pra 5432: ela não abriu o container coisa
 nenhuma, abriu o **Postgres nativo** pra rede inteira. Regra de firewall
 escrita durante diagnóstico tem que ser revista quando a causa muda.
 
+## A variante que não precisa de duas portas: IPv4 e IPv6 na mesma
+
+Em set/2026, no simulador tributário, o container subiu certo e `curl
+localhost:4082/api/health` devolveu **500**, enquanto as páginas devolviam 200.
+`Get-NetTCPConnection -LocalPort 4082` explicou:
+
+```
+::1          pid=3956  node                  <- vite preview esquecido
+127.0.0.1    pid=7656  com.docker.backend    <- o container
+```
+
+Dois donos da mesma porta, cada um numa família de endereço, e **nenhum bind
+falhou**. No Windows o `localhost` resolve **IPv6 primeiro**, então todo `curl
+localhost` foi parar no processo velho; `curl 127.0.0.1` ia no container. O
+`/api/health` dava 500 porque o vite tentava fazer proxy pra um backend que não
+existia mais.
+
+Duas lições operacionais:
+
+- **Matar a tarefa de background não garante matar o processo.** O `npm`/`npx`
+  morre e o `node` filho fica escutando. Confira a porta, não a tarefa.
+- **Em diagnóstico, prefira `127.0.0.1` a `localhost`.** Tira a resolução de
+  nome da equação. Se o comportamento muda entre os dois, a causa é esta.
+
+## O sintoma que denuncia "não é o meu servidor"
+
+Antes de qualquer comando de rede, dois sinais bastaram:
+
+- **Nada no log do container.** Uma requisição que dá 500 no meu Express passa
+  pelo handler de erro e imprime `[error]`. Log limpo com erro na tela significa
+  que a requisição não chegou ali.
+- **Header que não é meu.** A resposta vinha `Content-Type: text/plain` com
+  `Vary: Origin` e **sem** o `Content-Security-Policy` que o helmet põe em toda
+  resposta minha. Cabeçalho ausente é assinatura: se o middleware obrigatório
+  não carimbou, quem respondeu foi outro.
+
+Vale como regra geral, fora do Windows: **compare a resposta com a assinatura do
+seu próprio stack antes de debugar a rota.**
+
 ## Por que a faixa reservada resolve isso na origem
 
 Publicar banco na 5432 é a única escolha que **garante** encontro com um Postgres
@@ -73,5 +112,7 @@ que é a sorte grande. A versão silenciosa teria conectado.
 
 ## Conexões
 - Princípio: [[Uma faixa de portas por projeto]]
-- Irmã: [[Porta interna é constante, porta externa é configuração]] · [[Config declarada envelhece; quem diz a regra é o comportamento observado]]
+- Irmã: [[Porta interna é constante, porta externa é configuração]] ·
+  [[Config declarada envelhece; quem diz a regra é o comportamento observado]]
+- Visto em: [[Simulador Navecon]]
 - Mapa: [[Infra]]

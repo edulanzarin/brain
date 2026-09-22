@@ -17,8 +17,16 @@ Código em: `~/Dev/simulador-navecon`
 
 Construído e commitado na `main` (repositório local, sem remote ainda). Build
 limpo, 38 testes verdes, telas conferidas por print headless em celular e
-desktop. **Não subiu para o servidor**, e o modelo tributário ainda está com os
-números de partida, não com os da Navecon.
+desktop.
+
+**Roda de pé na máquina** (22/09/2026): `docker compose up -d --build` sobe
+app + db + migrate, e o fluxo foi exercitado ponta a ponta — lead gravado pela
+API, diagnóstico recalculado no servidor batendo com o esperado (17,60%,
+R$ 1.056.000 de carga, faixa R$ 52.377–84.480, índice 72), painel listando,
+CSV exportando e corpo inválido voltando 400 com a lista de problemas.
+
+**Não subiu para o servidor**, e o modelo tributário ainda está com os números
+de partida, não com os da Navecon.
 
 Vai rodar em **`simulador.navecon.net.br`** (subdomínio próprio, Caddy do compose
 de produção terminando o TLS, `APP_BASE_PATH=/`), mesmo arranjo do
@@ -111,6 +119,8 @@ Só links. O texto mora na nota de técnica/princípio.
 
 - [[Quando o degrau é real, preserve a monotonia em vez de suavizar]]
 - [[A entrega não fica refém do registro que pode falhar]]
+- [[No Windows, duas coisas escutam a mesma porta e o cliente fala com a errada]]
+  (ganhou a variante IPv4/IPv6 disputando a mesma porta)
 - [[Print headless pelo navegador já instalado fecha o ciclo de julgar a tela]]
   (ganhou a armadilha do `--window-size`, que dimensiona a captura e não o layout)
 
@@ -118,8 +128,7 @@ Só links. O texto mora na nota de técnica/princípio.
 
 - [ ] **Fábio revisar `modelo/tabelas.ts`.** É o bloqueio real antes do palco: os
       números atuais são os do concorrente, não os da carteira da Navecon.
-- [ ] Rodar o `docker compose up --build` de verdade (não subi aqui, a máquina
-      não aguenta a stack junto do resto)
+- [x] Subir a stack local e validar o fluxo ponta a ponta (22/09/2026)
 - [ ] DNS A/AAAA de `simulador.navecon.net.br` no IP do servidor
 - [ ] Preencher `.env` de produção: `POSTGRES_PASSWORD`, `ADMIN_USER`,
       `ADMIN_PASSWORD`, SMTP
