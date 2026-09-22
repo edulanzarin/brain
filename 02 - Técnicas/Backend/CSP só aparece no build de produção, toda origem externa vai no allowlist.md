@@ -42,8 +42,27 @@ erros de CSP; o dev server nunca vai te avisar.
 - `preconnect`/`dns-prefetch` são dicas de recurso, não são governados pelas
   diretivas de fetch — liberar no allowlist é o `<link>` real e os arquivos.
 
+## upgrade-insecure-requests deixa a tela em branco fora do https
+
+A diretiva manda o navegador **refazer em https** toda requisição http da
+página. Sob o domínio real ela é inócua, porque os assets são relativos e de
+mesma origem. Mas ela inviabiliza qualquer acesso por http, e o sintoma não
+parece de CSP:
+
+- o HTML responde **200**;
+- os assets, pedidos por `curl`, respondem **200**;
+- no navegador a tela fica **em branco**, sem erro na página.
+
+O navegador promoveu `/assets/…` para `https://host:4082`, onde ninguém fala
+TLS. O `curl` não reproduz porque **ignora CSP** — e é por isso que a checagem
+por linha de comando dá tudo certo enquanto a tela não abre.
+
+Morde em prévia na LAN, em acesso por IP e em ambiente atrás de proxy que
+termina o TLS e repassa http. Quem garante https no domínio é o HSTS, que não
+tem esse efeito colateral; a diretiva pode sair.
+
 ## Conexões
 - Princípio: [[Verificar no build de produção, não só em dev]]
 - Depende de: [[Ambiente de dev sobe igual ao de produção]]
-- Visto em: [[Evento Navecon]]
+- Visto em: [[Evento Navecon]] · [[Simulador Navecon]]
 - Mapa: [[Backend]]

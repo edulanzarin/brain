@@ -47,6 +47,9 @@ O que está de pé no servidor:
 - Sobe com `docker compose up -d --build`, **sem** o arquivo de produção.
 - Regra de ingress apontando para `http://simulador-navecon-app:3000`.
 
+Enquanto o CNAME não existe, o acesso é pela VPN em
+**http://192.168.5.223:4082** (o override publica no IP da LAN além do loopback).
+
 **Falta o CNAME** `simulador` → `<id>.cfargotunnel.com` na Cloudflare. Sem ele a
 regra está certa e o domínio não resolve; não dá para criar do servidor porque
 só existe o JSON de credencial, sem `cert.pem`.
@@ -148,6 +151,8 @@ Só links. O texto mora na nota de técnica/princípio.
 
 - [[Quando o degrau é real, preserve a monotonia em vez de suavizar]]
 - [[O túnel publica alcançando o container pelo nome, sem abrir porta]]
+- [[CSP só aparece no build de produção, toda origem externa vai no allowlist]]
+  (ganhou o `upgrade-insecure-requests`, que deixa o acesso http em branco)
 - [[Centralizar na altura é margin auto, porque justify-content corta o topo]]
 - [[Media query mede a janela; quem decide a quebra é a largura do contêiner]]
 - [[A entrega não fica refém do registro que pode falhar]]
