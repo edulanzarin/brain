@@ -125,6 +125,7 @@ Só links. O texto mora na nota de técnica/princípio.
 
 - [[Quando o degrau é real, preserve a monotonia em vez de suavizar]]
 - [[Centralizar na altura é margin auto, porque justify-content corta o topo]]
+- [[Media query mede a janela; quem decide a quebra é a largura do contêiner]]
 - [[A entrega não fica refém do registro que pode falhar]]
 - [[No Windows, duas coisas escutam a mesma porta e o cliente fala com a errada]]
   (ganhou a variante IPv4/IPv6 disputando a mesma porta)

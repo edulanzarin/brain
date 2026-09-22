@@ -58,7 +58,8 @@ altura, ele nem aparece.
   com `100vh` na linha anterior como reserva para quem não conhece `dvh`.
 
 ## Conexões
-- Irmã: [[Margem negativa em item de flex centralizado vale metade]] ·
+- Irmã: [[Media query mede a janela; quem decide a quebra é a largura do contêiner]] ·
+  [[Margem negativa em item de flex centralizado vale metade]] ·
   [[Estado de tela pertence à seção, não à página]]
 - Visto em: [[Simulador Navecon]]
 - Mapa: [[Design]] · [[Frontend]]

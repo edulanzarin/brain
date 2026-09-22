@@ -68,6 +68,9 @@ Princípios: [[Token semântico em vez de valor literal]] ·
 - [[Centralizar na altura é margin auto, porque justify-content corta o topo]] — o
   alinhamento central reparte a sobra nas duas pontas, e com sobra negativa o começo
   do conteúdo vai para fora do alcance da rolagem.
+- [[Media query mede a janela; quem decide a quebra é a largura do contêiner]] — bloco
+  de largura fixa dentro de tela larga: a condicional acende e aperta o que devia
+  soltar. Layout de componente é `@container`, ou nenhuma condicional.
 - [[Classes de componente vão em @layer components no Tailwind]] — pra a classe de
   componente vencer a utilitária sem `!important`.
 - [[A classe do chamador só vence a do primitivo com tailwind-merge]] — quando o
