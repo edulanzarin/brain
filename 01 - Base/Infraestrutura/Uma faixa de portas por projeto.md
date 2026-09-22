@@ -40,6 +40,7 @@ Mapa atual:
 | poke-idle | 4079 | 5079 |
 | naruto-idle | 4080 | 5080 |
 | telebot | 4081 | 5081 |
+| simulador-navecon | 4082 | 5082 |
 
 Projeto novo pega o próximo número livre e **registra aqui na hora** — a nota é a fonte
 da verdade, não o `docker ps` da máquina que por acaso está ligada.

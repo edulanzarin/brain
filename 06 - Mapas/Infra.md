@@ -90,6 +90,7 @@ o próprio banco. Detalhe em
 | poke-idle | 4079 | 5079 |
 | naruto-idle | 4080 | 5080 |
 | telebot | 4081 | 5081 |
+| simulador-navecon | 4082 | 5082 |
 
 App `4xxx`, banco espelha trocando o `4` inicial por `5`, e um terceiro serviço que
 precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três dígitos:
