@@ -28,7 +28,10 @@ CSV exportando e corpo inválido voltando 400 com a lista de problemas.
 **Não subiu para o servidor**, e o modelo tributário ainda está com os números
 de partida, não com os da Navecon.
 
-Vai rodar em **`simulador.navecon.net.br`**, `APP_BASE_PATH=/`.
+No ar em **`diagnostico.navecon.net.br`** desde 23/09/2026. Nasceu em
+`simulador.navecon.net.br`; quando o marketing renomeou o produto, o TI **editou**
+o registro de DNS em vez de criar um segundo, e o nome antigo morreu junto. Eduardo
+decidiu ficar com um endereço só.
 
 ## No ar em ts05
 
@@ -167,8 +170,7 @@ Só links. O texto mora na nota de técnica/princípio.
       números atuais são os do concorrente, não os da carteira da Navecon.
 - [x] Subir a stack local e validar o fluxo ponta a ponta (22/09/2026)
 - [x] Subir no servidor ts05 pelo Cloudflare Tunnel (22/09/2026)
-- [ ] **CNAME `simulador` → `7690cba5-….cfargotunnel.com` na Cloudflare, proxied.**
-      É o único passo que falta para o domínio responder, e só dá para fazer no painel.
+- [x] Domínio no ar: `diagnostico.navecon.net.br` (23/09/2026)
 - [x] `.env` de produção com senhas geradas no servidor (22/09/2026)
 - [ ] SMTP: hoje `NOTIFY_ENABLED=false`, o lead grava mas não sai aviso
 - [ ] Tirar o `cloudflared` de dentro do compose do bolão: hoje um `compose down`
