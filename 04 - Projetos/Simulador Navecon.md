@@ -53,9 +53,12 @@ O que está de pé no servidor:
 Enquanto o CNAME não existe, o acesso é pela VPN em
 **http://192.168.5.223:4082** (o override publica no IP da LAN além do loopback).
 
-**Falta o CNAME** `simulador` → `<id>.cfargotunnel.com` na Cloudflare. Sem ele a
-regra está certa e o domínio não resolve; não dá para criar do servidor porque
-só existe o JSON de credencial, sem `cert.pem`.
+**O CNAME só o TI cria.** No servidor existe apenas o JSON de credencial do túnel,
+que autentica a conexão e não mexe em DNS. Tentei gerar o `cert.pem` pelo
+`cloudflared tunnel login` rodando em container no servidor e falhou com
+`Failed to fetch resource`: navegador numa máquina, processo noutra, e o callback
+não fechou. O que resolveria de vez é um API token com escopo `Zone : DNS : Edit`
+na zona, usado direto contra a API da Cloudflare, sem depender do cloudflared.
 
 O bolão e a imersão saíram do ar a pedido do Eduardo em 22/09/2026: as regras de
 ingress foram removidas e **nada foi apagado** — containers e volumes intactos,
