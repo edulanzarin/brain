@@ -42,16 +42,16 @@ compilando:
   Edge headless, SSE recebendo o evento gravado no banco, webhook do Telegram
   (segredo, reentrega) e o standalone montado numa pasta limpa, como o
   Dockerfile monta, subindo só com variáveis de ambiente.
-- O compose em si não rodou nesta máquina nesta rodada (Docker Desktop estava
-  desligado); a conferência da imagem foi a do standalone.
+- O compose rodou local em 24/09/2026 (`docker compose up -d --build`): db, migrate
+  e app saudáveis, painel logado respondendo em http://localhost:4081.
 
 Não está no ar: falta domínio com HTTPS e credencial do Mercado Pago.
 
 ## Infra
 
 Slug `telebot` · app `telebot-app` na `4081` · banco `telebot-db` na `5081`.
-Compose com `telebot-db`, `telebot-migrate` e `telebot-app`, sem Caddy: no
-servidor da casa o domínio chega por Cloudflare Tunnel. O agendador separado da
+Compose com `telebot-db`, `telebot-migrate` e `telebot-app`, sem Caddy. Roda
+só local: o Eduardo não quer o telebot no ts05 (é projeto pessoal, não da Navecon), e o destino público ainda não foi escolhido. O agendador separado da
 v1 saiu: o trabalhador (fila, manutenção, polling) roda no processo do app, pelo
 `instrumentation.ts`.
 
@@ -115,8 +115,8 @@ Bricolage Grotesque (títulos) e Geist (corpo e números).
 
 - [ ] Eduardo olhar o visual novo e dizer o que muda.
 - [ ] Decidir o nome de verdade.
-- [ ] Domínio com HTTPS pelo túnel do `ts05` e credencial do Mercado Pago.
-- [ ] Rodar o compose inteiro uma vez (Docker Desktop ligado).
+- [ ] Escolher onde publicar (VPS e domínio próprios, fora do ts05) e credencial do Mercado Pago.
+- [x] Rodar o compose inteiro (24/09/2026, local).
 - [ ] Saque automático por Pix de saída (hoje a administração paga à mão).
 - [ ] Remote git.
 
