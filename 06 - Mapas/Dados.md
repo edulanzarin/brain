@@ -25,6 +25,14 @@ de sistema externo é referência e tem mapa próprio.
   parecem a mesma pergunta e não são; matrícula em tabela separada, com ponteiro
   opcional pro pedido, aguenta reembolso, cortesia e curso gratuito. Princípio:
   [[Um invariante se garante na estrutura, não no processo]].
+- [[Fila no Postgres entra na transação do estado, e o NOTIFY só acorda no commit]] —
+  tabela de tarefas com índice único parcial por chave pendente, reserva com `for
+  update skip locked` e trava com prazo; o `pg_notify` dentro da transação acorda o
+  trabalhador só no commit. Armadilha: teste de integração disputa a fila com o app
+  que estiver de pé no mesmo banco.
+- [[Linha do tempo ordena pelo tempo do fato, não pelo id]] — o id ordena a gravação;
+  semente, importação ou fila atrasada gravam fora de ordem e o feed mostra "há 6 dias"
+  acima de "há 2 horas". `order by criada_em desc, id desc`, e o cursor usa o mesmo par.
 - [[Agregar antes de juntar em tabelas gigantes no Postgres]] — reduzir antes de
   juntar; o padrão que salvou consulta em tabela de 47M linhas.
 - [[Estoque e fluxo numa série a partir de datas de início e fim]] — de datas de

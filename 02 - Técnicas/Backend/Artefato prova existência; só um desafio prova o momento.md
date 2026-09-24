@@ -46,11 +46,10 @@ selo como prova de que está tudo bem é a leitura que ele não sustenta.
   que marca o vencido. Ver [[Rotação por período se apura na leitura, e dispensa agendador]].
 
 ## Conexões
-- Princípio: nenhum cobre ainda — folha isolada. **Candidato a princípio**:
-  "existência e momento são afirmações diferentes, e artefato só prova a
-  primeira" deve reaparecer fora de verificação de pessoa (confirmação de
-  domínio, prova de posse de chave, anti-replay). Na segunda aparição, promover
-  para [[Base]].
+- Princípio: [[Afirmação que chega de fora só vale com um código que a casa emitiu antes]]
+  — promovido na segunda aparição, o vínculo de grupo de um bot do Telegram. O
+  prazo é o que esta nota acrescenta: aqui se prova o momento, lá só a posse.
+- Irmã: [[Bot que qualquer um pode pôr num grupo se vincula a ele por código]]
 - Irmã: [[Código que a pessoa copia à mão não pode ter caractere ambíguo]]
 - Irmã: [[Registro com estado não se confere pela existência]]
 - Visto em: [[Privello]]

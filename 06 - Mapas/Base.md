@@ -80,6 +80,7 @@ UI que mostra dado que muda sem o usuário pedir.
 - [[Permissão se valida no servidor, não na interface]] — esconder botão não é segurança.
 - [[A assinatura autentica o dado, não quem o trouxe]] — confie na assinatura (HMAC), não no canal; vale pro webhook externo e pro cookie de sessão próprio.
 - [[Anonimato se perde na saída, não só na entrada]] — não guardar identidade é a metade fácil; agregado com recorte fino reconstrói a pessoa, então recorte abaixo de N não se mostra nem se exporta.
+- [[Afirmação que chega de fora só vale com um código que a casa emitiu antes]] — vídeo de verificação, grupo de um bot, domínio: o canal externo é aberto, e o primeiro sinal plausível vence se a casa não exigir de volta um código que só o dono viu.
 
 ## Ofício — como eu trabalho
 

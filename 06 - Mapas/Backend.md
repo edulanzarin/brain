@@ -168,6 +168,11 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   seu" não verifica nada: o arquivo pode ser de três anos atrás ou de outra
   pessoa. O que vira prova é a casa sortear algo antes, com prazo, e exigir que
   apareça dentro do artefato. Mesma forma do TXT de DNS.
+- [[Bot que qualquer um pode pôr num grupo se vincula a ele por código]] — o nome do bot
+  é público; "o grupo onde ele virou admin" é o grupo de quem chegou primeiro. Vínculo
+  por `startgroup=<código>` (canal: `/vincular <código>` publicado), e depois disso as
+  permissões se releem da fonte. Princípio:
+  [[Afirmação que chega de fora só vale com um código que a casa emitiu antes]].
 - [[Se quem decide o acesso é a pasta, aprovar é mover o arquivo]] — com a
   separação privado/público feita por pasta, gravar "aprovado" no banco não
   muda o acesso: a linha diz aprovado e o endereço devolve 404.
@@ -437,6 +442,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   do evento corta a reentrega literal, mas não dois eventos DIFERENTES sobre o mesmo
   pagamento; a segunda trava cerca o efeito (`unique` no acesso e no movimento de venda) e
   a transação lê o pedido com `for update`. Falha sem dar erro: credita duas vezes.
+- [[Fila no Postgres entra na transação do estado, e o NOTIFY só acorda no commit]] — o
+  efeito externo depois de mudar estado vira tarefa gravada junto, com reserva por
+  `skip locked`, retry por tipo de erro e releitura da fonte antes de agir. Mora em
+  [[Dados]]; aqui porque é o lado de integração que ela protege.
 - [[Dublê que não fecha o fluxo deixa o caminho sem ninguém passar]] — o simulado que
   responde "aguardando" para sempre parece conservador e deixa a metade seguinte do
   produto sem nunca ter rodado; a primeira execução dela acontece com dinheiro real em

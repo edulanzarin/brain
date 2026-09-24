@@ -262,6 +262,10 @@ decide se vale abrir. Vale no eixo horizontal também: na barra do celular, o qu
   container só, é o COMPRIMENTO DO TÍTULO que decide quantos selos sobem para a linha
   dele, e isso muda a cada registro. Quebra só dentro do grupo; e antes de mexer no
   visual, some as larguras e conte as fileiras — é aritmética, não gosto.
+- [[Truncar come o fim da linha, e o valor não pode morar no fim do título]] — "fulano
+  pagou R$ 29,90" vira "fulano pagou R$ 2…" no celular: o `truncate` corta pela
+  direita, e a direita era o número. Valor em coluna própria que não encolhe; a frase
+  inteira fica para a torrada.
 - [[Fato vai em selo, estado vivo vai no retrato]] — a pergunta que separa é "isso ainda
   vale amanhã?". Presença junto da identidade, não na lista de atributos; e o "não" é
   CINZA, porque vermelho já é perigo, em retrato quer dizer ocupada, e verde/vermelho é o
@@ -333,6 +337,9 @@ Princípios: [[Catálogo de componentes é contrato vivo, não documentação]] 
 - [[Zero num medidor é estado, não barra vazia]] — barra em 0 é igualzinha a "não
   carregou": número sempre visível, trilho de alerta, chip com a palavra e a ação
   que resolve no mesmo card.
+- [[Gráfico sem valor não tem escala, e o vazio tem desenho próprio]] — com tudo em zero
+  a grade repete "R$ 0,00" três vezes e afirma uma escala que não existe: o vazio é linha
+  de base e frase. Traz junto a margem do eixo medida pelo maior rótulo.
 - [[A régua de um medidor é percentil, não máximo]] — escalar pelo maior valor deixa
   99% das barras no primeiro terço; teto no p98 e marca em quem satura.
 - [[Zero na tela é afirmação, não valor de conforto]] — arredondar valor minúsculo

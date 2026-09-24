@@ -2,109 +2,124 @@
 tags: [tipo/projeto, projeto/telebot]
 criado: 2026-09-17
 status: ativo
-codigo_em: ~/Dev/telebot
+codigo_em: C:/Dev/telebot
 ---
 
 # telebot
 
-> Plataforma SaaS para vender acesso a grupo VIP no Telegram. O criador conecta um
+> Plataforma para vender acesso a grupo VIP no Telegram. O criador conecta um
 > bot, cadastra os planos, e o bot cobra no Pix, entrega um convite de uso único
-> quando o pagamento cai, avisa antes de vencer e remove quem não renovou.
+> quando o pagamento cai, avisa antes de vencer e remove quem não renovou. O
+> painel acompanha tudo ao vivo.
 
-Código em: `~/Dev/telebot`
+Código em: `C:/Dev/telebot` (sem remote git).
 
-Nome provisório — a decidir antes de qualquer registro de domínio ou marca.
+Nome provisório, a decidir antes de qualquer registro de domínio ou marca.
 
-Existe um `~/Dev/bitpay-bots` parado desde a formatação de set/2026 com a mesma
-ideia (Next + Prisma + Stripe, ~7 mil linhas). A decisão foi escrever do zero sem
-olhar aquele código: ele não segue as convenções atuais (porta 3000, containers
-sem slug, sem catálogo) e o mercado pedia Pix, não Stripe. Fica registrado aqui
-para os dois não parecerem duplicata daqui a alguns meses.
+## Histórico
+
+- **17/09/2026, v1**: primeira versão, ponta a ponta com provedor simulado.
+  Existe no histórico da `main` até o commit `8754c3f`.
+- **24/09/2026, reescrita do zero** a pedido do Eduardo ("mais bonito, dinâmico,
+  moderno, robusto"), sem reaproveitar o código da v1, só o domínio. Feita num
+  worktree na branch `feat/reescrita` e levada à `main` por fast-forward.
+
+Existe ainda um `C:/Dev/bitpay-bots` parado desde a formatação de set/2026 com
+a mesma ideia (Next + Prisma + Stripe). Não é base deste; fica registrado para os
+dois não parecerem duplicata.
 
 ## Estado atual
 
-Ponta a ponta com o provedor simulado, build de produção passando. Estão de pé:
-vitrine, criar conta e entrar, painel com checklist de ativação do bot, ofertas e
-planos, textos do bot editáveis, vendas, assinantes, carteira com saque, fila de
-saques do admin, catálogo em `/sistema`, webhook do Telegram, notificação de
-pagamento e a rodada de manutenção.
+Ponta a ponta com o provedor simulado, conferido em execução real, não só
+compilando:
 
-Conferido de verdade, não só compilando: três notificações do mesmo pagamento
-geram **um** crédito, e o cron marca o acesso vencido mesmo quando a remoção no
-Telegram falha, registrando a falha em vez de derrubar a rodada.
+- 48 testes de unidade (regras de taxa, acesso, aviso, chave Pix, textos,
+  formatação, cifra, fila, assinatura do Mercado Pago) e 8 de integração contra
+  Postgres real: cinco confirmações simultâneas creditam uma vez só, renovação
+  empilha o prazo, livro-caixa recusa edição, saque, rodada de manutenção,
+  conversa inteira do bot pelo dublê do Telegram e vínculo de grupo por código.
+- Build de produção, prints de todas as telas em 1440 e 390, login dirigido no
+  Edge headless, SSE recebendo o evento gravado no banco, webhook do Telegram
+  (segredo, reentrega) e o standalone montado numa pasta limpa, como o
+  Dockerfile monta, subindo só com variáveis de ambiente.
+- O compose em si não rodou nesta máquina nesta rodada (Docker Desktop estava
+  desligado); a conferência da imagem foi a do standalone.
 
-Sem remote git.
+Não está no ar: falta domínio com HTTPS e credencial do Mercado Pago.
 
 ## Infra
 
 Slug `telebot` · app `telebot-app` na `4081` · banco `telebot-db` na `5081`.
-Chassi e mapa de portas em [[Infra]].
+Compose com `telebot-db`, `telebot-migrate` e `telebot-app`, sem Caddy: no
+servidor da casa o domínio chega por Cloudflare Tunnel. O agendador separado da
+v1 saiu: o trabalhador (fila, manutenção, polling) roda no processo do app, pelo
+`instrumentation.ts`.
 
-Em desenvolvimento o banco é cluster portátil, escolhido quando a máquina parecia não
-virtualizar — [[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]].
-Era falso negativo ([[Com o hypervisor do Windows no ar, o WMI diz que a CPU não virtualiza]]),
-e desde 19/09/2026 o Docker roda nesta máquina.
-
-Produção: `docker-compose.yml` com `telebot-db`, `telebot-migrate`, `telebot-app` e
-`telebot-agenda` (a manutenção a cada 10 min), mais o override
-`docker-compose.prod.yml` com `telebot-caddy` emitindo o HTTPS — obrigatório, porque o
-Telegram só entrega webhook em endereço com certificado. O compose nunca rodou nesta
-máquina; o conteúdo da imagem foi conferido fora dela —
-[[Sem Docker na máquina, a imagem se confere montando o standalone numa pasta limpa]].
-Ainda não está no ar: falta servidor e domínio.
+A v1 usava Postgres portátil na 5081; a reescrita usa o container, pela
+convenção. O cluster portátil antigo (`%LOCALAPPDATA%\pgdata\telebot`) guarda o
+esquema da v1 e não serve para a nova: parado, fica como estava.
 
 ## Stack
 
-Next 16 (App Router, Server Actions), React 19, Tailwind v4, Postgres via `pg`.
-Sem ORM: migrations em SQL puro com runner próprio
-([[Runner de migration em SQL puro dispensa o CLI do ORM]]). Senha em scrypt do
-Node, sessão opaca em tabela. Sem dependência de SDK para Telegram nem para
-pagamento — as duas APIs são HTTP com JSON.
+Next 16.3 (App Router, Server Actions, instrumentation), React 19.3, Tailwind v4,
+Postgres via `pg` com SQL puro e runner próprio, zod, qrcode, lucide. Sem SDK de
+Telegram nem de pagamento: as duas APIs são HTTP com JSON. Vitest. Fontes
+Bricolage Grotesque (títulos) e Geist (corpo e números).
 
 ## Decisões importantes
 
-- **Tema único, escuro.** Manter dois custa validar contraste e revisar arte em
-  dobro, e o público olha isso de madrugada no celular. Segue
-  [[Estética é por projeto, princípio de design é que se reusa]].
-- **Token do BotFather cifrado no banco** (AES-256-GCM), com só os quatro últimos
-  caracteres na tela. Em claro, um dump entregaria os bots de todos os clientes
-  de uma vez.
-- **Preço, taxa e duração congelados no pedido.** Reajuste de hoje não reescreve
-  a comissão de uma venda de ontem — [[O acordo congela na linha, a política vale do próximo em diante]].
-- **Carteira é tabela que só cresce**; o saldo na conta é espelho escrito na mesma
-  transação do movimento. Erro vira movimento de ajuste, nunca edição do antigo.
-- **O grupo é detectado, não digitado**: a pessoa promove o bot a admin e o
-  `my_chat_member` entrega o `chat_id`. Pedir o número na mão seria pedir algo que
-  ninguém sabe onde achar.
-- **Convite com `member_limit: 1`.** Link comum vira print no grupo de pirataria e
-  o acesso pago passa a valer para a internet inteira.
-- **Remover é banir e desbanir em sequência.** O ban sozinho impede a pessoa de
-  voltar mesmo comprando de novo, o que transforma renovação em suporte.
-- **O painel abre com checklist do que falta para o bot vender.** Sem ele, um bot
-  mal configurado parece pronto, e quem descobre o problema é o comprador que não
-  entrou no grupo.
+- **Visual**: tema único escuro, na "tinta" azul-noite do Telegram noturno. Acento
+  azul-céu é interface; menta, âmbar e vermelho são dado. O momento memorável é a
+  conversa do bot se desenrolando na página inicial, e no painel a venda que
+  chega ao vivo (linha nova no feed com brilho, torrada, número do dia animando).
+- **Ao vivo por `pg_notify` + SSE**: cada atividade gravada dispara NOTIFY; uma
+  conexão LISTEN por processo serve todos os painéis. Segue
+  [[Estado vivo se empurra, não se pergunta]].
+- **Uma porta só para a venda** (`confirmarPagamento`), chamada por webhook, "Já
+  paguei", simulação e varredura; idempotente com pedido `FOR UPDATE` e índice
+  único de movimento de venda.
+- **Livro-caixa imutável por trigger** e saldo com `check (saldo >= 0)`: a
+  constraint é a trava final contra saque maior que o saldo.
+- **Efeito no Telegram vai pela fila** do próprio Postgres, gravada na transação
+  do estado. Ver [[Fila no Postgres entra na transação do estado, e o NOTIFY só acorda no commit]].
+- **Situação do assinante é derivada** (view `membro_v`), não coluna: uma regra
+  só para lead, ativo, vencido e removido.
+- **Grupo e dono vinculados por código**, nunca pelo primeiro grupo onde o bot
+  vira admin.
+- **Bot de demonstração** com cliente dublê do Telegram, carimbado na tela: a
+  conta demo mostra o produto inteiro sem bater na API.
+- **Página pública de planos** (`/v/<bot>`) e link por plano que abre o bot já
+  com o Pix pronto (`?start=p-<plano>`).
+- **Aviso de venda no Telegram do criador**, pelo próprio bot dele.
+- Mantidas da v1: token do BotFather cifrado (AES-256-GCM), preço e taxa
+  congelados no pedido, convite com `member_limit: 1`, remoção como ban seguido
+  de unban, checklist de ativação.
 
 ## Aprendizados (viraram notas)
 
-- [[Fornecedor externo entra pelo contrato do app, não o app pelo dele]] — o
-  princípio que faltava na Base; o adapter de pagamento foi o terceiro caso.
-- [[Webhook de dinheiro precisa de duas travas, a do evento e a do efeito]]
-- [[Dublê que não fecha o fluxo deixa o caminho sem ninguém passar]]
-- [[Rolagem horizontal que não se anuncia esconde a coluna que decide]]
-- [[Sem virtualização na BIOS não há Docker no Windows; o banco de dev vira Postgres portátil]] —
-  ganhou a parte do pacote que traz só o servidor e a do `pg_ctl` que prende o terminal.
-- [[Sem Docker na máquina, a imagem se confere montando o standalone numa pasta limpa]]
+- [[Afirmação que chega de fora só vale com um código que a casa emitiu antes]] —
+  princípio novo em Segurança, promovido na segunda aparição.
+- [[Bot que qualquer um pode pôr num grupo se vincula a ele por código]]
+- [[Fila no Postgres entra na transação do estado, e o NOTIFY só acorda no commit]] —
+  inclui a armadilha do teste disputando a fila com o app de pé.
+- [[Linha do tempo ordena pelo tempo do fato, não pelo id]]
+- [[Gráfico sem valor não tem escala, e o vazio tem desenho próprio]]
+- [[Truncar come o fim da linha, e o valor não pode morar no fim do título]]
+- Da v1: [[Fornecedor externo entra pelo contrato do app, não o app pelo dele]] ·
+  [[Webhook de dinheiro precisa de duas travas, a do evento e a do efeito]] ·
+  [[Dublê que não fecha o fluxo deixa o caminho sem ninguém passar]] ·
+  [[Rolagem horizontal que não se anuncia esconde a coluna que decide]] ·
+  [[Sem Docker na máquina, a imagem se confere montando o standalone numa pasta limpa]]
 
 ## Próximos passos
 
+- [ ] Eduardo olhar o visual novo e dizer o que muda.
 - [ ] Decidir o nome de verdade.
-- [ ] Credencial do Mercado Pago e domínio com HTTPS (sem isso o webhook do
-      Telegram não tem onde ser entregue).
-- [ ] Cobrar a mensalidade da plataforma: hoje o plano da conta é só um campo, e
-      ninguém cobra por ele. A taxa por venda já é descontada e congelada.
-- [ ] Servidor (VPS com Docker) e domínio apontado para ele; a receita está no README.
-- [ ] Renovação antes do vencimento, dentro do mesmo chat.
+- [ ] Domínio com HTTPS pelo túnel do `ts05` e credencial do Mercado Pago.
+- [ ] Rodar o compose inteiro uma vez (Docker Desktop ligado).
+- [ ] Saque automático por Pix de saída (hoje a administração paga à mão).
+- [ ] Remote git.
 
 ## Conexões
-- Usa: [[Design]] · [[Infra]] · [[Backend]]
+- Usa: [[Design]] · [[Infra]] · [[Backend]] · [[Dados]]
 - Mapa: [[Projetos]]

@@ -21,7 +21,7 @@ mora aqui: mora em [[Base]] (princípios) e em [[Design]], [[Frontend]], [[Backe
 - [[Idle Game]] — RPG idle de navegador com espécies emergentes (árvore evolutiva global).
 - [[Vespéria]] — idle de Pokémon em cidade caminhável; a rota é população viva e a captura tem piso garantido.
 - [[monofire]] — marketplace de cursos de jogos competitivos; criador publica, aluno compra e assiste.
-- [[telebot]] — SaaS de bot de vendas de grupo VIP no Telegram: cobra no Pix, entrega convite de uso único e remove quem não renovou. Nome provisório.
+- [[telebot]] — venda de acesso a grupo VIP no Telegram: cobra no Pix, entrega convite de uso único, avisa e remove quem não renovou, com painel ao vivo. Reescrito do zero em 24/09/2026. Nome provisório.
 - [[piwdex2]] — reescrita da dex do Poke Idle World como ferramenta de consulta (17 filtros, estado na URL).
 - [[navecrm]] — CRM de atendimento por WhatsApp para contabilidade, multi-inquilino com isolamento por RLS e conector Baileys com freio de envio. Escrito do zero em set/2026.
 - [[Privello]] — classificado de acompanhantes por cidade, com verificação de documento antes da publicação; planos para quem anuncia e passe VIP para quem procura.
