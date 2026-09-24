@@ -24,10 +24,29 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
 
 - Esqueleto, sistema de design, catálogo `/sistema` com prévia de tela, login,
   início e a moldura do módulo prontos.
-- **Contábil em construção**: as quinze seções do nexo2 sendo montadas sobre os
-  primitivos novos.
+- **Contábil completo (24/09/2026)**: as quinze seções do nexo2, 29 rotas,
+  conferidas contra o Questor real (empresa 1200, ago/2026): conferência com
+  1.918 notas, balancete fiscal, análise com o motor, pendências, auditoria,
+  funcionários e as sete abas da Produtividade no escritório inteiro (2,24 mi de
+  lançamentos). Tipos, lint, 126 testes e build limpos; nenhum erro de JavaScript
+  nas páginas.
+- Feito em paralelo por cinco agentes, um por grupo de seções, com um brief comum
+  (paridade de função com o nexo2, interface só com os primitivos, sem build nem
+  commit); a integração e as correções de primitivo ficaram numa passada só.
 - Fiscal, DP, RH, Obrigações, Societário, Configurações e a administração
   (usuários, cargos, grupos) seguem no Nexo.
+
+## Defeitos do nexo2 achados no porte (ainda abertos lá)
+
+- Replicar plano e apagar regra de extrato não conferem o escopo de empresa; o
+  aprendizado de CFOP e conta efetiva tem a corrida de apaga-e-insere.
+- O editor do plano de contabilização apaga a fórmula de valor (`regraValor`) ao
+  salvar um ajuste, e a divergência e o balancete fiscal dependem dela.
+- `nota-itens` liberado só para a seção Notas: quem tem Conferência ou Pendências
+  sem Notas recebe erro ao abrir os itens da nota.
+- Editar regra de extrato pela linha mandava o histórico vazio e o apagava.
+- A rota de lançamentos do balancete devolvia como total o tamanho da página
+  (500), então a tela nunca sabia que a lista vinha cortada.
 
 ## Infra
 
@@ -67,10 +86,12 @@ porque a máquina não aguenta Docker Desktop junto com o resto.
 
 - [[Escala própria do tema precisa ser ensinada ao tailwind-merge]]
 - [[Fundo no body cobre a camada de z-index negativo]]
+- [[Notação compacta do Intl muda com o ICU e quebra a hidratação]]
+- [[Em tabela de layout automático o truncate só corta em coluna que aceita encolher]]
 
 ## Próximos passos
 
-- [ ] Fechar as quinze seções do Contábil e validar contra o Questor na rede do escritório.
+- [ ] O Eduardo olhar o Contábil e dizer o que muda no visual.
 - [ ] Administração (usuários, cargos, setores, grupos) e perfil.
 - [ ] Fiscal, DP, RH, Obrigações, Societário e Configurações.
 - [ ] Remote no GitHub e deploy no servidor.

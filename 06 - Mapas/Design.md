@@ -78,6 +78,9 @@ Princípios: [[Token semântico em vez de valor literal]] ·
 - [[Escala própria do tema precisa ser ensinada ao tailwind-merge]] — sem isso o
   merge lê `text-leitura` como cor e descarta o tamanho ao lado de `text-tinta`; o
   número do indicador sai no corpo de 13px, sem erro nenhum.
+- [[Em tabela de layout automático o truncate só corta em coluna que aceita encolher]] —
+  a largura da coluna é preferência e o texto longo a alarga; encolher toda célula
+  redistribui mal. Texto em porcentagem trunca, pixel mantém, número nunca corta.
 - [[Fundo no body cobre a camada de z-index negativo]] — com fundo no `html` e no
   `body`, o body pinta depois das camadas negativas e apaga a textura fixa atrás
   de tudo. Fundo num lugar só, no `html`.

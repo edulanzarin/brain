@@ -17,6 +17,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Filtrar no cliente ou no servidor se decide pelo tamanho, não pelo gosto]] — duas listas do mesmo site pedem soluções opostas; o que decide é quanto dado atravessa o fio e como esse tanto CRESCE. Página que engorda porque o projeto deu certo é filtro do lado errado.
   bruto; markup de card comprime ~95%, e 1,14 MB viraram 68 KB. Escolher o número
   errado faz reescrever componente pra resolver problema que não existe.
+- [[Notação compacta do Intl muda com o ICU e quebra a hidratação]] — o Node escreve
+  "412,0 mil" e o navegador "412 mil": erro 418 só no build, sem apontar o nó. Forma
+  compacta montada à mão, e a receita de achar a divergência pelo innerText com e sem JS.
 - [[router.replace do Next falha no build de produção]] — funciona em `dev`, falha
   calado em `build`. Princípio: [[Verificar no build de produção, não só em dev]].
 - [[Arte servida sem hash de build precisa de versão na URL]] — arquivo em `public/` não

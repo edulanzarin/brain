@@ -7,7 +7,7 @@ codigo_em: ~/Dev/nexo
 
 # Navetech Hub
 
-> **Substituído pelo [[NaveX]]** (24/09/2026): o Nexo está sendo refeito do zero, com interface nova e a mesma camada de domínio. O nexo2 segue em produção até a troca; a reescrita em `~/Dev/nexo` descrita abaixo foi abandonada.
+> **Substituído pelo [[NaveX]]** (24/09/2026): o Nexo está sendo refeito do zero, com interface nova e a mesma camada de domínio. O nexo2 segue em produção até a troca. A reescrita em `~/Dev/nexo` descrita abaixo (que o Eduardo chama de nexo1) foi reprovada no visual e parou; dela o NaveX não herda tela, só as correções de domínio que ela achou no nexo2.
 
 > Plataforma web da Navecon sobre a base PostgreSQL do sistema contábil Questor (banco "Navecon" do escritório). Organizada **por módulos** (Fiscal, Contábil, e o que vier — Folha, Patrimônio): cada um com suas próprias telas e permissão. Nasceu como dashboard fiscal ("Questor BI"), virou "Questor Hub" quando "BI" ficou pequeno (é também ferramenta operacional, não só dashboard), em jul/2026 virou "Navetech Hub" e **ainda em jul/2026 virou "Nexo"** — nome/slug/banco/repositório renomeados (repo agora `git@github.com:edulanzarin/nexo.git`). Esta nota mantém o título "Navetech Hub" só pra não quebrar links; o produto é o **Nexo**.
 
