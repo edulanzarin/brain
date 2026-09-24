@@ -11,7 +11,8 @@ mora aqui: mora em [[Base]] (princípios) e em [[Design]], [[Frontend]], [[Backe
 
 ## Ativos
 
-- [[Navetech Hub]] — dashboard fiscal e contábil sobre o banco do ERP.
+- [[NaveX]] — a plataforma sobre o Questor refeita do zero, com cara nova; substitui o Navetech Hub (o Nexo) módulo a módulo, começando pelo Contábil.
+- [[Navetech Hub]] — dashboard fiscal e contábil sobre o banco do ERP (o Nexo, em produção até o NaveX assumir).
 - [[Navecon Controller]] — automações e integrações.
 - [[Navedesk]] — chamados internos.
 - [[Cofre Digital]] — certificados, acessos e alvarás da intranet.

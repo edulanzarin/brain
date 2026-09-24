@@ -75,6 +75,12 @@ Princípios: [[Token semântico em vez de valor literal]] ·
   componente vencer a utilitária sem `!important`.
 - [[A classe do chamador só vence a do primitivo com tailwind-merge]] — quando o
   default do primitivo é utilitário, concatenar não basta: precisa de merge.
+- [[Escala própria do tema precisa ser ensinada ao tailwind-merge]] — sem isso o
+  merge lê `text-leitura` como cor e descarta o tamanho ao lado de `text-tinta`; o
+  número do indicador sai no corpo de 13px, sem erro nenhum.
+- [[Fundo no body cobre a camada de z-index negativo]] — com fundo no `html` e no
+  `body`, o body pinta depois das camadas negativas e apaga a textura fixa atrás
+  de tudo. Fundo num lugar só, no `html`.
 - [[Trocar a fonte muda a largura, não só o desenho da letra]] — a família nova
   reescreve os slots fixos, a base em rem e os pesos disponíveis.
 - [[Margem negativa em item de flex centralizado vale metade]] — `align-items: center`

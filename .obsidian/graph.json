@@ -118,6 +118,13 @@
         "a": 1,
         "rgb": 12597663
       }
+    },
+    {
+      "query": "tag:#projeto/navex",
+      "color": {
+        "a": 1,
+        "rgb": 16638023
+      }
     }
   ],
   "collapse-display": true,
