@@ -86,6 +86,16 @@ Duas causas cobrem a maioria dos casos:
 `min-w-0` no item é a outra saída, e serve quando o conteúdo pode truncar
 (texto). Não serve quando o conteúdo é um controle que precisa da largura.
 
+Uma terceira causa, que se esconde atrás de um breakpoint: **a grade de duas colunas
+no desktop vira grade de UMA coluna no celular, e a coluna única é `auto`**. No
+[[telebot]] (set/2026), `grid gap-6 lg:grid-cols-2` sem classe de base: no celular a
+trilha cresceu até o min-content do link de venda mais comprido
+(`t.me/bot?start=p-<uuid>`), e os dois blocos da tela saíram da tela juntos, levando
+botões "Copiar" e um interruptor para fora do alcance. O `truncate` no link não
+ajudou, porque quem estava largo era a trilha. A saída é declarar a coluna única:
+`grid-cols-1`, que no Tailwind é `minmax(0, 1fr)`. Regra que evita o caso: grade
+responsiva nasce com `grid-cols-1` antes do `lg:grid-cols-*`.
+
 ## O que não resolve
 
 Nenhuma unidade de CSS devolve "janela menos a barra": `dvw` inclui a canaleta do
@@ -97,5 +107,5 @@ medida.
 ## Conexões
 - Princípio: [[Container tem largura máxima e respiro constante]]
 - Depende de: [[Sticky gruda no container que rola, não na janela]]
-- Visto em: [[piwdex2]]
+- Visto em: [[piwdex2]] · [[telebot]]
 - Mapa: [[Design]]

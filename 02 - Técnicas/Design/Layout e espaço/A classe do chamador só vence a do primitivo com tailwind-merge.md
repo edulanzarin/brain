@@ -43,8 +43,20 @@ Custa uma dependência (`tailwind-merge`) e um passe a mais por render — barat
 de override inline espalhado. É a mesma ideia de garantir o comportamento na
 estrutura, não na disciplina de quem usa.
 
+## O merge não atravessa variante
+
+Default **responsivo** no primitivo escapa do merge. No [[telebot]] (set/2026) a
+superfície passou de `p-5` para `p-4 sm:p-5`, e todo chamador que pedia `p-0` (lista
+encostada na borda) ficou com `p-0 sm:p-5`: o merge troca `p-4` por `p-0`, mas
+`sm:p-5` é outro grupo e fica. No celular, certo; no desktop, a lista ganhava 20px
+de recuo sem ninguém ter pedido.
+
+Default que muda por tamanho de tela vai para classe de componente
+(`@layer components`, com a media query dentro), e aí qualquer utilitária do
+chamador vence em todos os tamanhos, pela camada.
+
 ## Conexões
 - Princípio: [[Um invariante se garante na estrutura, não no processo]]
 - Irmãs: [[Primitiva de botão fecha o tamanho e abre só a variante]] · [[Classes de componente vão em @layer components no Tailwind]]
-- Visto em: [[Navetech Hub]]
+- Visto em: [[Navetech Hub]] · [[telebot]]
 - Mapa: [[Design]]

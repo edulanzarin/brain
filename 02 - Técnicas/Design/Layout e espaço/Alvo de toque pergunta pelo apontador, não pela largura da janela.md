@@ -32,7 +32,16 @@ degrau denso do desktop fica intacto e o risco de regressão é zero.
 ## Dois detalhes que só aparecem medindo
 
 **Campo de texto:** `font-size` abaixo de 16px faz o iOS dar zoom ao focar, e a página
-inteira sai do lugar sozinha. O piso de 16px no toque não é estética.
+inteira sai do lugar sozinha. O piso de 16px no toque não é estética. No Tailwind v4
+a regra (`@media (pointer: coarse) { input, textarea, select { font-size: 16px } }`)
+vai **fora de `@layer`**: dentro de `@layer base` ela perde para a utilitária de
+tamanho que o campo já carrega, e CSS sem camada vence qualquer camada.
+
+**Chip dentro de fileira que rola:** a área por pseudo-elemento
+([[Área de toque cresce por pseudo-elemento, não pela caixa]]) é cortada pelo
+`overflow-x: auto` da fileira, que também recorta o eixo vertical. Ali quem cresce é a
+própria altura, com `pointer-coarse:h-10`, porque a fileira não tem vizinho para
+empurrar.
 
 **Input dentro de casca:** `align-items: center` centraliza sem esticar, então um
 `<input>` dentro de um campo de 44px continua medindo 22. E tocar a folga da casca **não
@@ -54,5 +63,5 @@ Cuidado com dois falsos positivos: link de pular conteúdo (`sr-only`, 1x1 por d
 - Princípio: [[A variante de um controle muda a intenção, não o tamanho]]
 - Irmã: [[Área de toque cresce por pseudo-elemento, não pela caixa]] ·
   [[Fila de campos alinha por altura fixa de controle, não por items-end]]
-- Visto em: [[piwdex2]]
+- Visto em: [[piwdex2]] · [[telebot]]
 - Mapa: [[Design]]

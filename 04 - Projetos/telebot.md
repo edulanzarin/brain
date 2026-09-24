@@ -113,6 +113,7 @@ Bricolage Grotesque (títulos) e Geist (corpo e números).
 
 ## Próximos passos
 
+- [x] Passada de celular (24/09/2026): 390 e 360px sem estouro, folha de ações, saque antes do extrato, prévia de mensagem alternável.
 - [ ] Eduardo olhar o visual novo e dizer o que muda.
 - [ ] Decidir o nome de verdade.
 - [ ] Escolher onde publicar (VPS e domínio próprios, fora do ts05) e credencial do Mercado Pago.
