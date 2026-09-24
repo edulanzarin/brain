@@ -271,6 +271,9 @@ decide se vale abrir. Vale no eixo horizontal também: na barra do celular, o qu
   container só, é o COMPRIMENTO DO TÍTULO que decide quantos selos sobem para a linha
   dele, e isso muda a cada registro. Quebra só dentro do grupo; e antes de mexer no
   visual, some as larguras e conte as fileiras — é aritmética, não gosto.
+- [[Recorte por máscara corta a própria sombra; a sombra vai num drop-shadow do pai]] —
+  ingresso com furos de picote sai de uma `mask` de dois gradientes radiais, e a
+  máscara come o `box-shadow`; a sombra vai no filtro do pai e segue o recorte.
 - [[Truncar come o fim da linha, e o valor não pode morar no fim do título]] — "fulano
   pagou R$ 29,90" vira "fulano pagou R$ 2…" no celular: o `truncate` corta pela
   direita, e a direita era o número. Valor em coluna própria que não encolhe; a frase
@@ -327,6 +330,7 @@ decide se vale abrir. Vale no eixo horizontal também: na barra do celular, o qu
   outra coisa; o fixado sai da navegação e mora colado no cabeçalho.
 
 Princípios: [[Catálogo de componentes é contrato vivo, não documentação]] ·
+[[Sinal marca a exceção; o normal repetido em toda linha abafa o que importa]] ·
 [[O primitivo só padroniza o que passa por dentro dele]] ·
 [[A variante de um controle muda a intenção, não o tamanho]] ·
 [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] ·

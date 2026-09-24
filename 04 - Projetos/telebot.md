@@ -23,6 +23,11 @@ Nome provisório, a decidir antes de qualquer registro de domínio ou marca.
 - **24/09/2026, reescrita do zero** a pedido do Eduardo ("mais bonito, dinâmico,
   moderno, robusto"), sem reaproveitar o código da v1, só o domínio. Feita num
   worktree na branch `feat/reescrita` e levada à `main` por fast-forward.
+- **24/09/2026, identidade visual nova.** O Eduardo olhou a reescrita e disse
+  "ainda não curti muito, tem como fazer melhor". O diagnóstico: cara de template
+  (tudo o mesmo cartão azul-marinho, cor emprestada do próprio Telegram, selo "Pago"
+  em toda linha, nada se mexia quando a venda chegava). Refeito na branch
+  `feat/visual-ingresso` (commits `ebe98c1` a `d6365af`).
 
 Existe ainda um `C:/Dev/bitpay-bots` parado desde a formatação de set/2026 com
 a mesma ideia (Next + Prisma + Stripe). Não é base deste; fica registrado para os
@@ -68,10 +73,18 @@ Bricolage Grotesque (títulos) e Geist (corpo e números).
 
 ## Decisões importantes
 
-- **Visual**: tema único escuro, na "tinta" azul-noite do Telegram noturno. Acento
-  azul-céu é interface; menta, âmbar e vermelho são dado. O momento memorável é a
-  conversa do bot se desenrolando na página inicial, e no painel a venda que
-  chega ao vivo (linha nova no feed com brilho, torrada, número do dia animando).
+- **Visual (desde 24/09/2026, "ingresso")**: o produto vende entrada, então plano e
+  venda têm forma de ingresso, com canhoto picotado e o preço nele. Base grafite com
+  fio de violeta (fundo `#0b0a11`, palco `#111018`), acento violeta `#a192ff` para
+  interface, degradê violeta-rosa (`#ae97ff` → `#ea79cc`) SÓ no canhoto e no
+  símbolo; menta, âmbar e vermelho seguem sendo dado; o azul do Telegram ficou só na
+  prévia da conversa. A tela vive num "palco" de cantos redondos com luz violeta no
+  alto; no celular a barra de baixo flutua. O momento memorável: a venda que chega
+  ao vivo cai na pilha de ingressos do Início com um reflexo no canhoto, e a página
+  inicial mostra o mesmo momento quando o Pix cai na conversa de demonstração.
+  Número do dia em placar (Bricolage estreitada, R$ miúdo e centavos no alto).
+  Listas por dia, selo só na exceção. Versão anterior (azul-marinho do Telegram)
+  foi reprovada como genérica.
 - **Ao vivo por `pg_notify` + SSE**: cada atividade gravada dispara NOTIFY; uma
   conexão LISTEN por processo serve todos os painéis. Segue
   [[Estado vivo se empurra, não se pergunta]].
@@ -97,6 +110,13 @@ Bricolage Grotesque (títulos) e Geist (corpo e números).
 
 ## Aprendizados (viraram notas)
 
+- [[Sinal marca a exceção; o normal repetido em toda linha abafa o que importa]] —
+  princípio novo, com [[Grade de iguais esconde o único item que funciona]] como
+  segundo caso.
+- [[Recorte por máscara corta a própria sombra; a sombra vai num drop-shadow do pai]]
+- [[Degradê de SVG com id fixo some junto com a instância escondida que o define]]
+- [[Na lista que recebe item ao vivo, a chave nova faz a entrada e a transição move o resto]]
+
 - [[Afirmação que chega de fora só vale com um código que a casa emitiu antes]] —
   princípio novo em Segurança, promovido na segunda aparição.
 - [[Bot que qualquer um pode pôr num grupo se vincula a ele por código]]
@@ -114,7 +134,8 @@ Bricolage Grotesque (títulos) e Geist (corpo e números).
 ## Próximos passos
 
 - [x] Passada de celular (24/09/2026): 390 e 360px sem estouro, folha de ações, saque antes do extrato, prévia de mensagem alternável.
-- [ ] Eduardo olhar o visual novo e dizer o que muda.
+- [x] Identidade própria ("ingresso"), 24/09/2026.
+- [ ] Eduardo olhar a identidade nova e dizer o que muda.
 - [ ] Decidir o nome de verdade.
 - [ ] Escolher onde publicar (VPS e domínio próprios, fora do ts05) e credencial do Mercado Pago.
 - [x] Rodar o compose inteiro (24/09/2026, local).

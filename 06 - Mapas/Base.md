@@ -31,6 +31,7 @@ Independe de CSS, de Tailwind e de React. Técnicas concretas em [[Design]].
 - [[Tela que abre vazia tem que ensinar, tela que abre cheia não]] — catálogo se explica de olhar; ferramenta pede número que mora fora dela e precisa de manual.
 - [[O que responde pergunta rara não ocupa a rolagem de todo mundo]] — a altura da página é orçamento pago por toda visita; bloco que interessa a poucos vai pro modal, com o gatilho carregando o estado que decide se vale abrir.
 - [[Nota carrega só o que a pessoa não sabe]] — legenda diz de onde o número saiu e o que ele não conta; repetir o campo é ruído com cara de ajuda.
+- [[Sinal marca a exceção; o normal repetido em toda linha abafa o que importa]] — selo "Pago" em 20 de 27 linhas escondia o "Expirado"; o estado da maioria é o fundo e não se anuncia.
 - [[Texto de interface soa a IA pelo ritmo, não pelo assunto]] — travessão emendando, "não é X, é Y" e a explicação que ninguém pediu: quem lê não aponta o erro, só diz que parece gerado, e a desconfiança passa do texto pro número ao lado.
 - [[Custo de processo aleatório se orça pela cauda, não pela média]] — estimativa de quantas tentativas mostra melhor caso, típico e azarado; média sozinha é armadilha de orçamento.
 - [[Peça o que a fonte mostra, não o que você precisa]] — campo que a pessoa não tem de onde copiar está errado; peça as grandezas visíveis e derive, e leve a incerteza da derivação adiante.

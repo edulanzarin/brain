@@ -44,9 +44,14 @@ A tela não passa índice para ninguém: usar o painel já dá a cascata. E o at
 precisa zerar em `prefers-reduced-motion` — só encurtar a duração deixa o bloco
 invisível durante o atraso intacto.
 
+A mesma separação serve quando o `transform` já é da POSIÇÃO: numa pilha em que
+cada item fica em `translateY(i * 12px) scale(...)`, a entrada do item novo anima
+`translate`, `rotate` e `scale`, e as duas se somam em vez de uma apagar a outra
+([[Na lista que recebe item ao vivo, a chave nova faz a entrada e a transição move o resto]]).
+
 ## Conexões
 - Princípio: [[Todo estado da tela tem visual]]
 - Irmã: [[Animação de enfeite escolhe a propriedade pelo custo, não pelo efeito]] ·
   [[Reduzir movimento tem que zerar o atraso, não só a duração]]
-- Visto em: [[Navetech Hub]]
+- Visto em: [[Navetech Hub]] · [[telebot]]
 - Mapa: [[Design]]

@@ -26,6 +26,10 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
   é invalidado por republicar: quem já visitou serve a cópia velha, e o defeito só existe
   pra quem já visitou — no computador de quem publicou está tudo certo.
 - [[Componente de ícone não atravessa a fronteira server-client]]
+- [[Degradê de SVG com id fixo some junto com a instância escondida que o define]] —
+  duas cópias do símbolo, uma em `display: none`: o `url(#id)` resolve para a
+  primeira definição, a escondida, e o ícone visível some só naquela largura de tela.
+  Um id por instância com `useId`.
 - [[Componente de terceiro que usa Context não roda em Server Component]] — ícone/lib
   com `useContext` quebra no server; usar a entrada `/ssr` context-free.
 - [[Slot de anúncio no App Router precisa de casca estável e filho keyado]] — o nó do
@@ -101,6 +105,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
   no meio dele marca outra parte da árvore e rende o aviso de setState-in-render.
   A pergunta é de quem é a coisa que está sendo mexida.
 - [[Cache do React Query não é lugar de estado de interface]]
+- [[Na lista que recebe item ao vivo, a chave nova faz a entrada e a transição move o resto]] —
+  a pilha de vendas anima sem biblioteca: chave nova monta e roda a entrada, chave
+  conhecida só muda de estilo e a `transition` leva. Vale com `router.refresh()`.
 - [[Portal condicional dispensa o flag de montagem]]
 - [[Foto sem storage vira thumbnail data URL gerado no cliente]] — avatar/foto
   antes do storage: reduz no canvas, salva data URL, troca por upload depois.
