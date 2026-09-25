@@ -36,6 +36,13 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
 - Fiscal, DP, RH, Obrigações, Societário, Configurações e a administração
   (usuários, cargos, grupos) seguem no Nexo.
 
+## Marca (24/09/2026)
+
+- **Logo**: o monograma NX que o Eduardo desenhou, reconstruído em vetor a partir da geometria medida no PNG (retas a 45°, dois cantos arredondados no N, um no traço longo do X). O traçado automático saiu com ponta solta e haste quebrada; a geometria exata ficou fiel e limpa. Guia do navegador com o NX sobre quadrado branco; tom mais claro no tema noite.
+- **Ícones dos setores** desenhados no idioma do logo, registrados por nome (`setor-contabil`...): razonete, %, pessoa, coração, calendário com visto, quadro societário, ajustes. [[Ícone de identidade é desenhado para o sistema, não puxado da biblioteca]].
+- **Títulos** com maiúscula nas palavras principais; mensagem de estado e rótulo de indicador seguem como frase.
+- Roda no Docker desde a noite de 24/09 (`navex-app`, `navex-db`, `navex-migrate`); o banco portátil ficou desligado.
+
 ## Defeitos do nexo2 achados no porte (ainda abertos lá)
 
 - Replicar plano e apagar regra de extrato não conferem o escopo de empresa; o

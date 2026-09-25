@@ -11,6 +11,8 @@ verdade, é sobre o que eu escolho.
 
 ## Notas
 
+- [[Ícone de identidade é desenhado para o sistema, não puxado da biblioteca]] — ícone de ação vem da biblioteca; o de setor, módulo e produto é marca e tem que ser criado. E nome de seção leva maiúscula nas palavras principais.
+
 - [[Manter o tooling enxuto e o conhecimento no cérebro]] — ferramenta enxuta e
   conhecimento registrado, em vez de encher o setup de configuração.
 - [[Detalhe em modal, linha enxuta]] — lista densa para varrer, detalhe sob demanda.
