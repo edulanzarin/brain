@@ -61,6 +61,31 @@ Para o marcador, use o razão. O saldo mensal serve bem para a pergunta vizinha 
 "a empresa escriturou alguma coisa nesta competência?" —, aí descontando as
 contas que vieram de `implsaldoctb` no mesmo mês.
 
+**"Teve movimento" não prova que o mês começou.** Dois lançamentos entram no mês
+seguinte sem trabalho nenhum dele (medido nas AD3, set/2026):
+
+- **Estorno do saldo negativo no dia 1.** No fim do mês o banco negativo vai
+  para o passivo ("Saldo devedor", `2.1.01`); em 01 do mês seguinte o escritório
+  estorna: débito em `2.1.01`, crédito no banco `1.1.01`, origem `CB`. Em
+  setembro, 66 empresas tinham movimento, quase todas só por isso.
+- **Juros de empréstimo lançados adiante.** A mesma parcela já está lançada
+  até dezembro (débito em `5.7.11`), então a regra "qualquer conta de resultado"
+  também acende mês futuro.
+
+Critérios medidos no escritório inteiro (movimento sem implantação):
+
+| critério | jul/26 | ago/26 | set/26 |
+|---|---|---|---|
+| qualquer movimento (regra do NaveX hoje) | 529 | 386 | 66 |
+| banco `1.1.01` com débito **e** crédito | 454 | 326 | 11 |
+| alguma conta de resultado (4, 5 ou 6) | 502 | 345 | 24 |
+| receita (4, crédito) e despesa (5, débito) | 372 | 176 | 2 |
+| classe 6 com débito e crédito | 0 | 0 | 0 |
+
+A equipe do contábil pediu "débito e crédito dentro do grupo 6" para o
+amarelo; a classe 6 é Impostos sobre o Lucro e nunca tem os dois lados, então
+o que eles chamam de grupo 6 ainda está por confirmar.
+
 ## Custo da consulta
 
 Varrer `lctoctb` pelo par débito/crédito custa 58 s em doze meses (perto do
