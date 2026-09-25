@@ -31,6 +31,20 @@ sólidas, cortes a 45°, um canto arredondado), julgados no tamanho de uso antes
 entrar. É o irmão de [[Inspiração é na mecânica e no dado, não na interface do concorrente]]:
 o que é nosso tem que parecer nosso.
 
+## Revisão (25/09/2026): a identidade que o time já conhece vence o desenho novo
+
+> Eu também gostaria de continuar usando os ícones de módulos do nexo2. Esses
+> ícones genéricos aí estão ruins.
+
+Um dia depois, os sete ícones desenhados para o NaveX foram reprovados como
+genéricos, e voltaram os do nexo2: um cubo isométrico por módulo, com a sigla
+(CTB, FIS, DP, RH, SOC, ACE, CFG) e uma cor forte. O pensamento de fundo não
+mudou (identidade não sai da biblioteca), mas ganhou uma régua: **identidade
+que o time já reconhece de relance não se troca por um desenho novo só porque o
+sistema é novo.** O cubo é próprio da casa e se lê em 28 px pela sigla e pela
+cor; o ícone novo, por mais correto no idioma do logo, era mais um pictograma
+entre os da biblioteca.
+
 ## Conexões
 - Irmã: [[Inspiração é na mecânica e no dado, não na interface do concorrente]]
 - Visto em: [[NaveX]]

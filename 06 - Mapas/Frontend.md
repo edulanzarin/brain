@@ -25,6 +25,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Aviso de alteração não salva no App Router intercepta o clique]] — a navegação do
   App Router não descarrega a página, então o `beforeunload` nunca pergunta; os links
   internos se interceptam na captura da `window`, antes do `onClick` do `Link`.
+- [[Regex do matcher do Next em string precisa de barra dupla]] — `"\."` vira `.` e
+  `"\w"` vira `w`; o trecho que pula arquivo com extensão para de pular, e sem sessão
+  o ícone da aba e o `public/` redirecionam para o login. Conferir sem cookie.
 - [[Arte servida sem hash de build precisa de versão na URL]] — arquivo em `public/` não
   é invalidado por republicar: quem já visitou serve a cópia velha, e o defeito só existe
   pra quem já visitou — no computador de quem publicou está tudo certo.
@@ -176,6 +179,9 @@ Princípios: [[Estado compartilhável mora na URL]] ·
 
 ## Assets e geração
 
+- [[No sharp o resize roda antes do extend, na ordem que for chamado]] — a fila do sharp
+  tem ordem própria; completar o quadrado e reduzir pede duas instâncias, senão o
+  ícone sai retangular e o `<img>` quadrado o achata.
 - [[Personagem pixel direcional se desenha em código, não se gera por IA]] — 4
   direções + walk coerentes: desenhe em código (corpo por direção + pernas por
   fase), sem depender de API. Princípio: [[Coerência em geração vem de âncora, não de liberdade]].

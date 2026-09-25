@@ -66,7 +66,7 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
 ## Marca (24/09/2026)
 
 - **Logo**: o monograma NX que o Eduardo desenhou, reconstruído em vetor a partir da geometria medida no PNG (retas a 45°, dois cantos arredondados no N, um no traço longo do X). O traçado automático saiu com ponta solta e haste quebrada; a geometria exata ficou fiel e limpa. Guia do navegador com o NX sobre quadrado branco; tom mais claro no tema noite.
-- **Ícones dos setores** desenhados no idioma do logo, registrados por nome (`setor-contabil`...): razonete, %, pessoa, coração, calendário com visto, quadro societário, ajustes. [[Ícone de identidade é desenhado para o sistema, não puxado da biblioteca]].
+- **Ícones dos módulos**: os cubos do nexo2 (sigla e cor por módulo), recortados e reduzidos a 192 px em `public/modulos`. Os ícones desenhados no idioma do logo (24/09) foram reprovados como genéricos em 25/09 e saíram. [[Ícone de identidade é desenhado para o sistema, não puxado da biblioteca]].
 - **Títulos** com maiúscula nas palavras principais; mensagem de estado e rótulo de indicador seguem como frase.
 - Roda no Docker desde a noite de 24/09 (`navex-app`, `navex-db`, `navex-migrate`); o banco portátil ficou desligado.
 
@@ -239,6 +239,9 @@ só na descrição.
 - [[Postgres de container nasce em UTC, e a hora formatada sem fuso mente]]
 - [[Parâmetro posicional não se renumera quando a coluna sai]]
 - [[Aviso de alteração não salva no App Router intercepta o clique]]
+- [[Regex do matcher do Next em string precisa de barra dupla]] (o ícone da aba e as imagens
+  de `public/` redirecionavam para o login desde o primeiro dia)
+- [[No sharp o resize roda antes do extend, na ordem que for chamado]]
 
 ## Próximos passos
 
