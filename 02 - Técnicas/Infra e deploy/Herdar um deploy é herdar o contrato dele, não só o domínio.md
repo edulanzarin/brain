@@ -88,5 +88,5 @@ Confira antes de empurrar, porque a mão treme:
 - Princípio: [[Verificar no build de produção, não só em dev]] ·
   [[Migração de dados mantém o antigo como reserva até a virada]]
 - Irmã: [[Slot de anúncio no App Router precisa de casca estável e filho keyado]]
-- Visto em: [[piwdex2]] · [[piwdex]]
+- Visto em: [[piwdex2]] · [[piwdex]] · [[NaveX]] (assumiu o repositório do nexo em set/2026 pelo mesmo merge, com o nexo2 guardado em tag e ramo)
 - Mapa: [[Infra]]

@@ -11,7 +11,9 @@ codigo_em: C:/Dev/navex
 > com cara nova. Substitui o [[Navetech Hub]] (o Nexo): mesma função, mesma
 > camada de domínio, interface inteira nova.
 
-Código em: `C:/Dev/navex` (sem remote ainda).
+Código em: `C:/Dev/navex`. Remote `git@github.com:edulanzarin/nexo.git`: desde
+25/09/2026 o NaveX é o `main` do repositório do nexo, e o nexo2 ficou na tag
+`nexo2-final` e no ramo `nexo2`.
 
 ## Por que existe
 
@@ -99,6 +101,27 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
     empresa, grupo e escopo restrito; travas da administração; foto e perfil), uma
     consulta real ao Acessórias (NAVECON, 56 pendentes) e 20 telas no navegador,
     sem erro de JavaScript e com o banco local de volta ao retrato de antes.
+- **Preparado para a troca (25/09/2026)**. O NaveX assumiu o repositório do nexo
+  por um merge que liga as duas histórias e fica com a árvore do NaveX, então o
+  `git pull` do servidor avança sem reset
+  ([[Herdar um deploy é herdar o contrato dele, não só o domínio]]).
+  - O agendador entrou no compose (`navex-scheduler`), atrás do perfil
+    `agendador`, que só o `.env` do servidor liga. Na máquina de desenvolvimento
+    ele não sobe, e o escritório nunca tem dois.
+  - O roteiro da troca está no README. O schema é o mesmo, então a troca é dump do
+    banco do nexo2 e restore no `navex-db` vazio, antes da primeira subida. Foi
+    ensaiado contra um Postgres descartável: restore limpo, migrate sem nada a
+    aplicar, contagens iguais.
+  - No servidor o nexo2 roda com os nomes antigos (`questor-bi`, `questorbi`). Os
+    comandos leem usuário e banco das variáveis do container, sem depender do nome.
+- **Exportar em Excel e PDF (25/09/2026)**, pedido do time a partir do Diretório
+  do RH. O `MenuExportar`, que já estava em 41 telas, ganhou os dois formatos sem
+  que nenhuma tela mudasse, porque o tipo se reconhece nos valores
+  ([[Excel e PDF saem da mesma tabela, e o tipo se reconhece no exportador]]).
+  - Com vários recortes, o formato vira uma escolha no alto do menu, lembrada
+    entre as telas.
+  - A trilha registra o arquivo com a extensão.
+  - Conferido baixando os três formatos do Diretório no navegador sem janela.
 
 ## Marca (24/09/2026)
 
@@ -170,6 +193,11 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
 - **Todos os módulos**: o banco do app roda em UTC e a hora sai 3 horas adiantada
   onde a consulta formata com `to_char` (auditoria, RH, produtividade do app)
   ([[Postgres de container nasce em UTC, e a hora formatada sem fuso mente]]).
+- **Agendador**: o container roda em UTC, então, a menos que o `.env` do servidor
+  defina `TZ`, os e-mails das 8h saem às 5h e a varredura do Acessórias das 5h
+  sai às 2h ([[Agendador em container conta as horas em UTC]]). O padrão do
+  endereço (`http://app:3000`) também é o nome do serviço do nexo2. No NaveX o
+  compose fixa os dois.
 
 ## Infra
 
@@ -301,6 +329,9 @@ só na descrição.
   (sempre sobra um administrador)
 - [[Lista marcável grande age sobre o que o filtro acha, não sobre o que a tela desenhou]]
   (voltou na matriz de permissões do cargo)
+- [[Excel e PDF saem da mesma tabela, e o tipo se reconhece no exportador]]
+- [[Agendador em container conta as horas em UTC]] (herdado do nexo2)
+- [[No Git Bash, caminho Unix em argumento vira caminho do Windows]] (o ensaio da troca)
 
 ## Próximos passos
 
@@ -323,11 +354,15 @@ só na descrição.
 - [ ] O Eduardo olhar o Obrigações e a Administração.
 - [ ] Levar ao nexo2 a correção da fila do Obrigações (`respId` ausente virando 0):
   é uma linha, e hoje a fila de lá esconde as entregas com dono.
-- [ ] Ligar o agendador no NaveX (e desligar o do nexo2) no dia da troca, junto com
-  a varredura do Acessórias.
+- [ ] A troca no servidor (192.168.5.68): dump do nexo2 antes do `git pull`,
+  restore no `navex-db`, `COMPOSE_PROFILES=agendador` no `.env` (liga o agendador
+  do NaveX no mesmo gesto que desliga o do nexo2). Roteiro no README.
+- [ ] Domínio `navex.navecon.net.br` pelo túnel do ts05: pedir ao TI o CNAME
+  ([[O túnel publica alcançando o container pelo nome, sem abrir porta]]).
 - [ ] O Eduardo olhar Configurações.
 - [ ] O Eduardo olhar o Societário.
-- [ ] Remote no GitHub e deploy no servidor.
+- [ ] Atualizar o Next (16.2.10 tem alerta crítico de desvio do proxy; a correção
+  sai na 16.3.6, sem quebra de versão).
 
 ## Conexões
 - Substitui: [[Navetech Hub]]

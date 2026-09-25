@@ -139,6 +139,9 @@ precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três d�
 - [[No Windows o npm roda script pelo cmd.exe, e a porta padrão do script dev chega literal]] —
   `${PORT:-40xx}` chega cru no Next; `npm config set script-shell` apontando para o Bash
   do Git conserta na máquina, sem mexer na convenção dos repositórios.
+- [[No Git Bash, caminho Unix em argumento vira caminho do Windows]] — `docker exec … /tmp/x`
+  chega ao container como `C:/Users/…/Temp/x`; `MSYS_NO_PATHCONV=1` desliga. O erro com
+  um caminho que você não escreveu denuncia o shell.
 - [[Trocar a fonte do Windows é redirecionar a família Segoe; as de ícone ficam de fora]] —
   não há configuração de fonte de interface fora do registro: esvaziar os doze valores de
   texto da `Segoe UI` (sem apagar os `.ttf`) e mandar a família pra outra no
@@ -158,6 +161,9 @@ precise de porta (agendador, worker, fila) vai pra `6xxx` com os mesmos três d�
   quebra na primeira subida de um ambiente limpo, que é o que a produção faz.
 - [[Agenda recorrente é um serviço do compose, não um crontab do host]] — o
   agendador dos jobs sobe junto no deploy, não é config manual do servidor.
+- [[Agendador em container conta as horas em UTC]] — `getHours()` no container é
+  Greenwich, e o aviso das 8h sai às 5h sem erro no log. `TZ` no serviço resolve, e na
+  alpine o Node não precisa de `tzdata`.
 - [[Railway não roda compose, cada serviço vira uma peça da plataforma]] — o mapa
   compose → Railway: migration vira pre-deploy na própria imagem (que precisa
   carregar `db/`), worker vira loop no processo, banco vira plugin; 1 réplica

@@ -58,5 +58,7 @@ local do servidor). A opção vai só no pool do banco do app.
   (outro padrão do driver e do servidor que ninguém escolheu e todo mundo herda)
 - Irmã: [[Produtividade se mede pela hora do registro, não pela data do fato]]
   (a hora do registro só serve se estiver no fuso de quem trabalhou)
+- Irmã: [[Agendador em container conta as horas em UTC]]
+  (o processo Node ao lado nasce em UTC do mesmo jeito)
 - Visto em: [[NaveX]] · [[Navetech Hub]]
 - Mapa: [[Dados]]

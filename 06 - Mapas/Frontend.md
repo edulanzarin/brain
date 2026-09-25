@@ -204,6 +204,9 @@ Tailwind por outro CSS, é Design; se depende do React, é Frontend.
 - [[CSV que abre no Excel pt-BR usa ponto e vírgula, BOM e vírgula decimal]] — os três
   detalhes de locale; o pior é o decimal, que faz a coluna chegar como texto e não
   somar sem parecer defeito.
+- [[Excel e PDF saem da mesma tabela, e o tipo se reconhece no exportador]] — a tela
+  entrega cabeçalhos e linhas; o exportador reconhece valor e data pelos formatos que o
+  próprio sistema escreve, monta o .xlsx à mão (seis XML num zip) e pagina o PDF.
 - [[Traduza o vocabulário do sistema, não o nome próprio]] — em ferramenta PT sobre
   sistema EN, conceito traduz e nome próprio não; e a tradução mexe no índice de busca.
 

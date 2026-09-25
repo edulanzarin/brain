@@ -36,5 +36,6 @@ Escapar campo que contenha `"`, `;` ou quebra de linha entre aspas duplas (dobra
 
 ## Conexões
 - Princípio: (folha isolada — nenhum princípio da Base cobre; é compatibilidade de formato)
-- Visto em: [[Navetech Hub]]
+- Irmã: [[Excel e PDF saem da mesma tabela, e o tipo se reconhece no exportador]] (a planilha .xlsx a partir da mesma tabela)
+- Visto em: [[Navetech Hub]] · [[NaveX]]
 - Mapa: [[Frontend]]
