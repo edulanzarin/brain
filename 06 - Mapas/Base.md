@@ -122,6 +122,7 @@ UI que mostra dado que muda sem o usuário pedir.
 - [[Índice só é identidade enquanto a coleção não muda]] — posição só identifica enquanto o array é o mesmo; filtrou, compactou ou reordenou, o índice guardado aponta pra outra coisa e a leitura continua válida, então nada avisa.
 - [[Identificador que já circulou não é mais seu para mudar]] — endereço que nasce de campo editável publica um novo e mata o antigo a cada edição, e quem paga é quem tinha o link. Separe o que se lê do que se endereça; se a troca precisa existir, ela tem trava e redirecionamento.
 - [[Fator que domina o resultado não entra na conta por estimativa]] — termo desconhecido grande o bastante pra mandar sozinho no resultado fica FORA da conta e DENTRO da tela; chutado, o número deixa de falar do modelo e passa a falar do chute.
+- [[Código sem cadastro se prova pelo comportamento do dado, não pelo rótulo herdado]] — rótulo de código que o banco não nomeia é palpite; o que ele é sai do que as linhas com ele fazem (valor, espécie, chave, alíquota), e o rótulo que não passou por isso vira indicador inflado sem erro nenhum para achar.
 - [[Tirar o dado errado não põe a verdade no lugar]] — apagar um valor falso não deixa a tela em silêncio, deixa ela no caminho PADRÃO, e o padrão também afirma; metade das vezes ele afirma o oposto, que é igualmente mentira e agora sem nada errado no código pra procurar.
 ## Cérebro — como este vault funciona
 

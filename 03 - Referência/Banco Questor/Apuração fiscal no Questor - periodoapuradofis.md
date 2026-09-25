@@ -35,7 +35,7 @@ cadastro de nome. A tabela `imposto` existe e é de **outro domínio** — lá o
 código 77 é "Dívida Ativa Ajuizada parcelamento", e aqui o 77 sai junto do ICMS
 todo mês. O `memcalculo`, que poderia nomear, está vazio.
 
-Dois códigos foram **provados** por impressão digital em `lctofissaicfop` (mesma
+Dois códigos foram **provados** por impressão digital ([[Código sem cadastro se prova pelo comportamento do dado, não pelo rótulo herdado]]) em `lctofissaicfop` (mesma
 coluna, mesmo banco), sobre jul/2026:
 
 - **1 = ICMS** — alíquotas 12, 17, 7, 4, 18, 25 e 19,5% (interestadual 12/7/4,

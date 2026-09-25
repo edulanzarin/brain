@@ -10,7 +10,7 @@ criado: 2026-07-18
 ## Notas canceladas
 
 - Indicador confiável no cabeçalho: **`cancelada = '1'`**. Excluir dos totais/faturamento.
-- `cdsituacao` complementa: canceladas costumam ser `2`. Observado (jun/26, entradas): `0` normal (maioria), `2` cancelada, `8` outra situação (denegada/inutilizada?), `1`/`6` raros.
+- `cdsituacao` complementa: é o COD_SIT do SPED (`2` cancelada, `4` denegada, `5` inutilizada, `6` complementar, `8` regime especial). Tabela e prova em [[cdsituacao do Questor é o COD_SIT do SPED]].
 - **Nota cancelada tem `valorcontabil` ZERADO no cabeçalho.** Então análise de cancelamento é por **contagem/taxa** (canceladas ÷ total de notas), não por valor. Taxa típica < 0,5%.
 - Tabelas de **item** não têm `cancelada`; pra excluir canceladas de somas de item, juntar ao cabeçalho por `(codigoempresa, chavelctofis*)` e filtrar lá.
 
@@ -34,5 +34,5 @@ Vem com espaço/caixa variável — normalizar `upper(btrim(especienf))`. Princi
 ## Conexões
 - Visto em: [[Navetech Hub]]
 - Índice do banco: [[Banco Questor]]
-- Contexto: [[Modelo de dados fiscais do Questor]] · [[Receitas SQL do Questor]]
+- Contexto: [[Modelo de dados fiscais do Questor]] · [[Receitas SQL do Questor]] · [[cdsituacao do Questor é o COD_SIT do SPED]]
 - Mapa: [[Banco Questor]]

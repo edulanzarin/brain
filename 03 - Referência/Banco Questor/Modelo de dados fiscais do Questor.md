@@ -29,7 +29,7 @@ Uma linha por nota. Campos que mais importam:
 - `emitentenf` ('P' = a própria empresa emitiu; 'T' = terceiro).
 - `datahoralctofis` (timestamp) — o carimbo de **quando a linha foi gravada**. NÃO é `datalctofis` com hora.
 - Valores extras da nota: `vlrfrete`, `vlrseguro`, `vlrdesc` (desconto), `vlroutrdesp`, `vlrpedagio`, `modalidadefrete`, `indpagto`/`meiopagamento`, `finalidadeoperacao`.
-- `lctofissai` tem **66 colunas** no total; as acima são as úteis pra BI/listagem. `cdsituacao` observado: 0 normal, 2 cancelada, 8 outra (denegada/inutilizada?).
+- `lctofissai` tem **66 colunas** no total; as acima são as úteis pra BI/listagem. `cdsituacao` é o COD_SIT do SPED: ver [[cdsituacao do Questor é o COD_SIT do SPED]].
 - **Quem lançou**: `codigousuario` → tabela `usuario` (`nomeusuario`). `codigousuario = 0` = **ADMINISTRADOR** (conta do sistema; as importações automáticas caem nele). Demais códigos são pessoas.
 - **Origem do dado**: `origemdado` (smallint). Observado só `3` (domina — integração/e-Doc automático) e `2` (pouco — importado); `1` seria manual (não visto). Significado dos códigos não é documentado no banco — inferido.
 
