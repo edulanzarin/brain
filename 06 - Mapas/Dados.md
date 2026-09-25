@@ -88,6 +88,10 @@ de sistema externo é referência e tem mapa próprio.
 - [[Consumir recurso de uso único é UPDATE condicional, não checar antes]] —
   cupom/vaga/estoque de um: o `WHERE estado_livre` no UPDATE decide a corrida pelo
   `rowCount`, sem lock. Princípio: [[Um invariante se garante na estrutura, não no processo]].
+- [[Invariante sobre o conjunto se confere no estado final, dentro da transação]] —
+  "sempre sobra um administrador" não se vigia caminho a caminho: escreve, confere o
+  estado resultante na mesma transação, e desfaz se a regra caiu. Princípio:
+  [[Um invariante se garante na estrutura, não no processo]].
 - [[Regravar o conjunto de uma chave com delete e insert exige trava por chave]] —
   "apaga tudo da empresa e insere de novo" é atômico sozinho, não em paralelo: a segunda
   execução não vê o que a primeira inseriu e morre em `duplicate key`. `pg_advisory_xact_lock`

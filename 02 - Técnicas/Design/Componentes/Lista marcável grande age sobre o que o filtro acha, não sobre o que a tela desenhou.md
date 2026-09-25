@@ -23,5 +23,5 @@ O seletor de empresas do grupo de permissão do Nexo desenhava 300 linhas e marc
 ## Conexões
 - Princípio: folha isolada por ora; candidata a promover "a ação não herda o limite do desenho" se aparecer em outra lista paginada ou virtualizada
 - Irmã: [[Escolha única e múltipla não usam o mesmo controle]] · [[Grupo definido por exclusão guarda as de fora e se resolve na leitura]]
-- Visto em: [[Navetech Hub]] (grupos de empresa em Admin e Configurações)
+- Visto em: [[Navetech Hub]] (grupos de empresa em Admin e Configurações) · [[NaveX]] (a matriz de permissões do cargo: marcar o módulo com uma busca aberta vale só para as seções achadas, e é assim que se libera o Post Mortem de todos os módulos de uma vez)
 - Mapa: [[Design]]

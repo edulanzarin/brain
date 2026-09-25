@@ -75,9 +75,30 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
   do DP sem alcance nem pelo caminho do DP) e o envio feito pela tela com a nota
   clicada. A lista trazia um defeito de todos os setores, que a coluna a mais do
   Societário deixou visível: as colunas de texto não truncavam.
-- Obrigações e a administração (usuários, cargos, grupos de permissão,
-  auditoria) seguem no Nexo. Sem a administração, o NaveX só tem o
-  admin do setup; no dia da troca, os usuários vêm com o banco do app.
+- **Obrigações e Administração completos (25/09/2026)**: com eles o NaveX tem
+  tudo o que o nexo2 tinha, e a marca de módulo "pronto" e a faixa "Ainda no
+  Nexo" saíram. Base escrita à mão (seções, rotas, dados), telas em quatro
+  frentes paralelas, integração com print de cada tela nos dois temas.
+  - **Obrigações**: a empresa da fila passou a vir do contexto do topo (no nexo2
+    era um seletor da carteira do Acessórias dentro da tela), recortando por
+    `codigoempresa` pelo mesmo funil de escopo das outras telas; a consulta ao
+    vivo aceita qualquer CNPJ e preenche o da empresa do topo (a NAVECON tem três).
+    A varredura do Acessórias ainda é do agendador do nexo2 (5h): dois agendadores
+    dividiriam o limite da API. A competência vem em dia qualquer (há tarefa
+    semanal), então fica a data inteira.
+  - **Administração**: módulo `soAdmin` na mesma moldura dos outros (busca, troca
+    de módulo, menu), fora da matriz de permissões; uma `cargo_secao` forjada para
+    ele não abre nada. Cargo é página (a matriz passa de 49 seções), o resto é
+    janela sobre a lista. "Grupos de Empresa" da administração virou "Grupos de
+    Permissão", porque o nome batia com os grupos de negócio das Configurações.
+    Toda escrita vai para a trilha, e ninguém consegue deixar o NaveX sem
+    administrador ([[Invariante sobre o conjunto se confere no estado final, dentro da transação]]).
+  - **Meu Perfil** no menu da pessoa: foto, senha (derruba as outras sessões) e
+    sessões abertas. A foto nova aparece no menu na hora (a versão vai na URL).
+  - Conferido: 78 checagens de API com cinco usuários de teste (fila por seção,
+    empresa, grupo e escopo restrito; travas da administração; foto e perfil), uma
+    consulta real ao Acessórias (NAVECON, 56 pendentes) e 20 telas no navegador,
+    sem erro de JavaScript e com o banco local de volta ao retrato de antes.
 
 ## Marca (24/09/2026)
 
@@ -137,6 +158,15 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
   diferencia maiúscula, então "U FIT" e "U Fit" viram dois grupos no seletor; e o
   salvar faz um insert por empresa na transação (1.400 idas ao banco num grupo
   grande).
+- **Obrigações**: sem responsável escolhido, a fila filtrava `resp_id = 0` e
+  escondia as entregas com dono ([[Number de parâmetro ausente é 0, e 0 é um filtro válido]]);
+  a retomada da varredura olhava a última parcial das 24 h mesmo depois de uma
+  completa; e totais que falhavam voltavam zerados, com cara de fila em dia.
+- **Administração**: excluir quem tem relatório do Post Mortem ou rescisão
+  marcada dava erro de chave estrangeira; dava para ficar sem administrador
+  (só a autoexclusão era barrada); excluir usuário, cargo, setor e grupo não
+  pedia confirmação; a foto aceitava SVG, servido com o tipo que declarou; e
+  mudança de permissão não deixava rastro na trilha.
 - **Todos os módulos**: o banco do app roda em UTC e a hora sai 3 horas adiantada
   onde a consulta formata com `to_char` (auditoria, RH, produtividade do app)
   ([[Postgres de container nasce em UTC, e a hora formatada sem fuso mente]]).
@@ -266,11 +296,15 @@ só na descrição.
 - [[No sharp o resize roda antes do extend, na ordem que for chamado]]
 - [[Rascunho copia o dado do servidor uma vez, e a consulta por baixo não recarrega]]
   (a janela do grupo de empresa)
+- [[Number de parâmetro ausente é 0, e 0 é um filtro válido]] (a fila do Obrigações)
+- [[Invariante sobre o conjunto se confere no estado final, dentro da transação]]
+  (sempre sobra um administrador)
+- [[Lista marcável grande age sobre o que o filtro acha, não sobre o que a tela desenhou]]
+  (voltou na matriz de permissões do cargo)
 
 ## Próximos passos
 
 - [ ] O Eduardo olhar o Contábil e dizer o que muda no visual.
-- [ ] Administração (usuários, cargos, setores, grupos) e perfil.
 - [ ] O Eduardo olhar o Fiscal.
 - [ ] A moldura não tem modo celular: a barra lateral fica aberta e espreme a tela
   (vale para todos os módulos; os prints de celular só valem para janela e
@@ -286,7 +320,11 @@ só na descrição.
   (placeholders), decisão da experiência em branco, painel de experiência, fuso.
 - [ ] Os gestores ainda não se desativam (a API só apaga), e envio agendado não se
   cancela: nos dois o nexo2 também não tem a rota.
-- [ ] Obrigações.
+- [ ] O Eduardo olhar o Obrigações e a Administração.
+- [ ] Levar ao nexo2 a correção da fila do Obrigações (`respId` ausente virando 0):
+  é uma linha, e hoje a fila de lá esconde as entregas com dono.
+- [ ] Ligar o agendador no NaveX (e desligar o do nexo2) no dia da troca, junto com
+  a varredura do Acessórias.
 - [ ] O Eduardo olhar Configurações.
 - [ ] O Eduardo olhar o Societário.
 - [ ] Remote no GitHub e deploy no servidor.

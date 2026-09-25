@@ -192,6 +192,10 @@ o que é banco de dados tem mapa próprio em [[Dados]].
   o contrato com a fonte: campo raro que ninguém listou some sem log e o motor passa a
   mentir. Varra as chaves do conjunto todo a cada ingestão. Princípio:
   [[Auditar o registro, não só o agregado]].
+- [[Number de parâmetro ausente é 0, e 0 é um filtro válido]] — `Number(null)` é 0 e
+  passa no `isInteger`: o filtro opcional que ninguém escolheu vira `= 0` e a lista some
+  calada. Decida a ausência antes de converter. Princípio:
+  [[Ausência de leitura cai no valor que dispara a ação]].
 
 - [[Fluxo de fechamento é orquestração dos motores que já existem]] — a tela de
   "posso fechar?" reusa os motores validados e só decide a cor; não recalcula.
