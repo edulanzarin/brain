@@ -118,6 +118,14 @@ subir de novo com os dois arquivos para devolver a 5083.
   cartões e os dois resumos do Painel viraram uma faixa de indicadores, com o
   detalhe do movimento em modal.
 
+## Início (25/09/2026)
+
+O início deixou de listar as seções de cada módulo (o Eduardo: "aí não faz sentido
+entrar lá"). Virou uma porta por módulo pronto, com onde a pessoa parou ou onde o
+módulo abre, a busca Ctrl+K grande no alto e o Continuar ao lado. Os módulos que
+seguem no Nexo ficam numa faixa compacta. Ver
+[[A entrada leva ao módulo, não repete o que tem dentro dele]].
+
 ## Decisões do DP (25/09/2026)
 
 - **Três jeitos de ler o Questor no mesmo módulo**: os painéis carregam sozinhos;
