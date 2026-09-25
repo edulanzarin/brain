@@ -139,6 +139,19 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
 - **Data e hora iguais no servidor e no navegador (25/09/2026)**: toda tela com
   data e hora disparava erro de hidratação no container
   ([[Hora formatada no servidor sai no fuso do container e quebra a hidratação]]).
+- **Módulo TI (25/09/2026)**, pedido do Eduardo com o cubo `ti.png` que ele fez.
+  Primeira função: Equipamentos, em três abas (Inventário, Por Pessoa,
+  Movimentações), e o histórico de com quem cada um esteve.
+  - Com quem está é a última linha de `ti_movimentacao` (migration 040), nunca
+    coluna do cadastro ([[Quando o passado importa, o estado atual é a última linha do histórico]]).
+  - As especificações de cada tipo são dado em `ti-tipos`: tipo novo é uma
+    linha, sem migration.
+  - A pessoa vem do Diretório do RH por rota própria da TI, só nome, setor e
+    cargo ([[Quem escolhe de um cadastro lê, quem o administra escreve]]).
+  - Por Pessoa mostra quem está sem equipamento e quem saiu do Diretório com
+    algo em mãos.
+  - Conferido no container: 32 checagens de rota e tela, recusas incluídas, e o
+    banco local de volta a zero.
 
 ## Marca (24/09/2026)
 
@@ -352,6 +365,7 @@ só na descrição.
 - [[Especificidade se mede pelo que o campo distingue, não pelo tamanho do termo]]
   (as regras da Conciliação com o complemento)
 - [[Hora formatada no servidor sai no fuso do container e quebra a hidratação]]
+- [[Quando o passado importa, o estado atual é a última linha do histórico]] (TI)
 
 ## Próximos passos
 
@@ -388,6 +402,9 @@ só na descrição.
 - [ ] Fechamento: o amarelo acende com o estorno do saldo negativo de 01/09. A
   equipe pediu "débito e crédito no grupo 6"; o Eduardo vai confirmar o que é o
   grupo 6 (medidas em [[Fechamento mensal no Questor - a conta de Encerramento do Exercício]]).
+- [ ] TI: o Eduardo olhar os Equipamentos. Ideias que ficaram de fora da
+  primeira versão: importar a planilha de inventário que já existir e o termo
+  de responsabilidade para imprimir na entrega.
 
 ## Conexões
 - Substitui: [[Navetech Hub]]
