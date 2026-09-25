@@ -66,8 +66,17 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
   (nome repetido, grupo vazio, exceto resolvido, bloqueio pelo Post Mortem, 403
   para quem não tem a seção), Shift+clique e Enter exercidos pelo navegador, print
   nos dois temas e no celular, e o banco local vazio de novo no fim.
-- Obrigações, Societário e a administração (usuários, cargos, grupos de
-  permissão, auditoria) seguem no Nexo. Sem a administração, o NaveX só tem o
+- **Societário completo (25/09/2026)**: no nexo2 o módulo é só o Post Mortem do
+  setor (preencher e ler a equipe), e o domínio já tinha vindo com os outros
+  setores, inclusive a nota de gravidade e quem avisou. O porte foi ligar páginas,
+  rotas e seções. Conferido com três usuários de teste (analista e gestor do
+  Societário, gestor do DP): 21 checagens de API (setor gravado, envio com o que
+  falta, gravidade fora de 1 a 5, enviado que não se edita nem se apaga, o gestor
+  do DP sem alcance nem pelo caminho do DP) e o envio feito pela tela com a nota
+  clicada. A lista trazia um defeito de todos os setores, que a coluna a mais do
+  Societário deixou visível: as colunas de texto não truncavam.
+- Obrigações e a administração (usuários, cargos, grupos de permissão,
+  auditoria) seguem no Nexo. Sem a administração, o NaveX só tem o
   admin do setup; no dia da troca, os usuários vêm com o banco do app.
 
 ## Marca (24/09/2026)
@@ -241,7 +250,8 @@ só na descrição.
 - [[Notação compacta do Intl muda com o ICU e quebra a hidratação]]
 - [[Em tabela de layout automático o truncate só corta em coluna que aceita encolher]]
   (voltou no Fiscal: o ranking de pessoas e a carteira empurravam a última coluna
-  para fora da vista)
+  para fora da vista; e de novo no Societário, onde a coluna de gravidade a mais
+  empurrava o Atualizado da lista do post mortem)
 - [[Código sem cadastro se prova pelo comportamento do dado, não pelo rótulo herdado]]
 - [[Falta de registro só prova algo dentro da janela em que a fonte era alimentada]]
   (o DP: férias e ativo)
@@ -263,7 +273,8 @@ só na descrição.
 - [ ] Administração (usuários, cargos, setores, grupos) e perfil.
 - [ ] O Eduardo olhar o Fiscal.
 - [ ] A moldura não tem modo celular: a barra lateral fica aberta e espreme a tela
-  (vale para os dois módulos).
+  (vale para todos os módulos; os prints de celular só valem para janela e
+  página aberta).
 - [ ] Corrigir a Conformidade no nexo2 enquanto ele for o que está no ar.
 - [ ] O Eduardo olhar o DP.
 - [ ] Levar ao nexo2 as correções do DP (grupo, estabelecimento, férias, eSocial)
@@ -275,8 +286,9 @@ só na descrição.
   (placeholders), decisão da experiência em branco, painel de experiência, fuso.
 - [ ] Os gestores ainda não se desativam (a API só apaga), e envio agendado não se
   cancela: nos dois o nexo2 também não tem a rota.
-- [ ] Obrigações e Societário.
+- [ ] Obrigações.
 - [ ] O Eduardo olhar Configurações.
+- [ ] O Eduardo olhar o Societário.
 - [ ] Remote no GitHub e deploy no servidor.
 
 ## Conexões
