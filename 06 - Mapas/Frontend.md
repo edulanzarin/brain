@@ -100,6 +100,10 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Dois setters de URL no mesmo gesto, e o segundo desfaz o primeiro]] — um hook por
   parâmetro parece limpo até o gesto que mexe em dois: os dois leem a URL velha e o
   último vence. O sintoma é "o clique não funcionou", e a causa está no handler.
+- [[Filtro de tela não reusa o nome de parâmetro que o contexto já usa]] — o filtro da
+  tela mandava `estabs=<nome>` e o parser do contexto lê `estabs` como código de
+  filial: qualquer escolha dava 400. O contexto é dono dos nomes dele, e o nome diz o
+  tipo do valor.
 - [[Ajustar estado no render é legítimo, empurrar rota não é]] — o padrão oficial
   de se reajustar no render vale para o estado do próprio componente; `router.push`
   no meio dele marca outra parte da árvore e rende o aviso de setState-in-render.

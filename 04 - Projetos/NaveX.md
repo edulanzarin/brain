@@ -43,8 +43,15 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
   módulo, rotas) primeiro, depois três agentes em paralelo (visão e rotina,
   produtividade própria do Fiscal, produtividade espelhada do Contábil) e uma
   passada de integração com os prints.
-- DP, RH, Obrigações, Societário, Configurações e a administração (usuários,
-  cargos, grupos) seguem no Nexo.
+- **DP completo (25/09/2026)**: as dez seções do nexo2 (os dois painéis,
+  Rescisões a Pagar, Férias, eSocial, Rotatividade, Custo de Folha, Produtividade
+  com seis abas e os dois Post Mortem), 21 rotas. Conferido contra o Questor real
+  (empresa 1200 e escritório inteiro): todas as rotas em 200, de 0,1 s a 1,8 s,
+  print de todas as telas, nenhum erro de JavaScript. Tipos, lint, 127 testes e
+  build limpos. Mesmo método do Fiscal: base primeiro, três agentes em paralelo
+  (painéis e rotina, rotatividade e custo, produtividade) e a integração.
+- RH, Obrigações, Societário, Configurações e a administração (usuários, cargos,
+  grupos) seguem no Nexo.
 
 ## Marca (24/09/2026)
 
@@ -74,6 +81,20 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
   tem espécie. O NaveX diz na tela quando isso acontece e trava o filtro em
   Tributos.
 
+- **DP**: com um grupo de empresas no topo, a Produtividade e as Rescisões
+  mostravam o escritório inteiro. Cada uma tinha uma cópia antiga do funil de
+  escopo, sem grupo ([[Filtro transversal só é honesto se todo o funil o honra]]).
+- **DP**: o filtro de estabelecimento da Rotatividade dava 400 em qualquer
+  escolha, porque usava o mesmo nome de parâmetro da filial
+  ([[Filtro de tela não reusa o nome de parâmetro que o contexto já usa]]).
+- **DP**: férias vencidas contavam contrato sem folha havia meses e períodos
+  anteriores à história do contrato no Questor: 1.469 no painel, 126 de verdade
+  ([[Contrato sem demissão não prova funcionário ativo no Questor]]).
+- **DP**: o eSocial contava o envelope de lote e a EFD-Reinf como evento
+  pendente (39,6 mil no painel, 16 mil de verdade), a pendência obrigatória
+  chamava o rejeitado de pendente, e o painel e a tela contavam status nulo
+  diferente ([[esocialtransacao guarda lote e EFD-Reinf junto dos eventos do eSocial]]).
+
 ## Infra
 
 Slug `navex` · `navex-app` na **4083** · `navex-db` na **5083** · migrations no
@@ -96,6 +117,25 @@ subir de novo com os dois arquivos para devolver a 5083.
 - O donut de espécie virou barra de composição com a lista embaixo; os quatro
   cartões e os dois resumos do Painel viraram uma faixa de indicadores, com o
   detalhe do movimento em modal.
+
+## Decisões do DP (25/09/2026)
+
+- **Três jeitos de ler o Questor no mesmo módulo**: os painéis carregam sozinhos;
+  Rotatividade, Custo, Férias e eSocial são bancada de uma empresa; Rescisões e
+  Produtividade são o escritório, com empresa ou grupo como filtro. Nenhuma seção
+  oferece a filial do topo: a Rotatividade tem o estabelecimento no filtro dela.
+- **Produtividade com uma aba por família de trabalho** (Movimentação, Férias,
+  Folha, Cadastro, eSocial) e o trabalho escolhido dentro dela. As seis abas
+  dividem a mesma execução (`execucaoCompartilhada` na aba), porque leem o mesmo
+  resumo; a pessoa isolada vale nas seis.
+- Os registros de cada trabalho (`dp-lista`), que o nexo2 tinha sem tela, viraram
+  o detalhe em modal.
+- As peças de pessoal (filtros, movimentações, quebras de turnover, ficha, drill)
+  moram em `produto/pessoal` com `modulo: "folha" | "rh"`: o RH usa as mesmas.
+- **O cron dos avisos de rescisão existe, mas o compose não sobe o agendador**:
+  enquanto o nexo2 estiver no ar, é ele quem manda o e-mail; dois agendadores
+  mandariam em dobro. As marcações de "paga" do nexo2 moram no banco dele, então
+  a fila do NaveX mostra tudo como pendente até a troca de banco.
 
 ## Decisões importantes
 
@@ -132,6 +172,9 @@ subir de novo com os dois arquivos para devolver a 5083.
   (voltou no Fiscal: o ranking de pessoas e a carteira empurravam a última coluna
   para fora da vista)
 - [[Código sem cadastro se prova pelo comportamento do dado, não pelo rótulo herdado]]
+- [[Falta de registro só prova algo dentro da janela em que a fonte era alimentada]]
+  (o DP: férias e ativo)
+- [[Filtro de tela não reusa o nome de parâmetro que o contexto já usa]]
 
 ## Próximos passos
 
@@ -141,7 +184,12 @@ subir de novo com os dois arquivos para devolver a 5083.
 - [ ] A moldura não tem modo celular: a barra lateral fica aberta e espreme a tela
   (vale para os dois módulos).
 - [ ] Corrigir a Conformidade no nexo2 enquanto ele for o que está no ar.
-- [ ] DP, RH, Obrigações, Societário e Configurações.
+- [ ] O Eduardo olhar o DP.
+- [ ] Levar ao nexo2 as correções do DP (grupo, estabelecimento, férias, eSocial)
+  enquanto ele estiver no ar.
+- [ ] O eSocial ainda conta cada retransmissão: falta achar a chave de evento dos
+  periódicos (o `track` é da agenda, não do evento).
+- [ ] RH, Obrigações, Societário e Configurações.
 - [ ] Remote no GitHub e deploy no servidor.
 
 ## Conexões
