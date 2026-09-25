@@ -385,6 +385,9 @@ só na descrição.
   sai na 16.3.6, sem quebra de versão).
 - [ ] Leitor do extrato do Banco do Brasil em PDF, com o complemento: pedir um
   extrato de exemplo (e o OFX do mesmo mês, para conferir).
+- [ ] Fechamento: o amarelo acende com o estorno do saldo negativo de 01/09. A
+  equipe pediu "débito e crédito no grupo 6"; o Eduardo vai confirmar o que é o
+  grupo 6 (medidas em [[Fechamento mensal no Questor - a conta de Encerramento do Exercício]]).
 
 ## Conexões
 - Substitui: [[Navetech Hub]]
