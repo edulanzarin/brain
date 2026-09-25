@@ -25,6 +25,17 @@ A entrada tem três trabalhos, e nenhum é listar funções:
 O que ainda não existe ocupa pouco: módulo que não foi refeito virou uma faixa
 compacta, porque do tamanho de uma porta ele tomava mais tela que os prontos.
 
+## A busca só leva a lugar
+
+> Buscar empresa aqui não faz sentido, ele vai para qual tela? Aqui tem que ser
+> só buscar tela. No resto também: buscar empresa sem nada não faz sentido.
+
+A paleta buscava "tela ou empresa". Escolher uma empresa no início mandava para
+um módulo qualquer, e dentro do módulo trocava a empresa da tela atual, que é o
+que o seletor do topo já faz. Uma busca global responde "para onde vou", e
+empresa não é lugar: é o recorte de um lugar. A paleta passou a buscar só telas,
+e a aba com caminho próprio virou tela também ("Envios" abre a aba Envios).
+
 ## Por que importa
 
 Cada nível da navegação precisa responder uma pergunta que o outro não responde.

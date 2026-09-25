@@ -151,6 +151,11 @@ módulo abre, a busca Ctrl+K grande no alto e o Continuar ao lado. Os módulos q
 seguem no Nexo ficam numa faixa compacta. Ver
 [[A entrada leva ao módulo, não repete o que tem dentro dele]].
 
+Na mesma leva a paleta (Ctrl+K) deixou de buscar empresa: empresa sozinha não é
+destino, e trocar a da tela atual é do seletor do topo. Busca seções e, ao
+digitar, as abas com caminho próprio; o que casa no nome vem antes do que casa
+só na descrição.
+
 ## Decisões do DP (25/09/2026)
 
 - **Três jeitos de ler o Questor no mesmo módulo**: os painéis carregam sozinhos;
