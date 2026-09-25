@@ -45,6 +45,23 @@ A saída é um leitor de layout próprio que **ancora na linha de valor** (a que
 
 Regiões que não são movimento e enganam o leitor: o bloco "Saldos Invest Fácil" (saldo diário da aplicação, não caixa) e as linhas "Total"/cabeçalho que se repetem a cada folha. Recortar o corpo entre o primeiro "SALDO ANTERIOR" e essa seção resolve.
 
+## O complemento embaixo do histórico
+
+O extrato do internet banking do **Sicoob** tem a forma comum (uma linha por lançamento, data na frente, sufixo C/D), mas o histórico é abreviado e se repete: toda transferência a sócio é "DÉB.TRANSF.CONTAS DIF.TITULARIDADE". Quem recebeu vem **na linha de baixo**, mais recuada, sem data e sem valor: "FAV.: FULANO Distribuicao lucros", "REM.: EMPRESA LTDA", "Recebimento Pix EMPRESA 00.000.000 0001-00", "3068 - 645805874 FULANA". Um leitor que só olha a linha com data descarta exatamente o que decide a conta.
+
+Como ler sem pegar lixo:
+
+- **O complemento é o bloco colado embaixo do lançamento e mais recuado que ele.** Termina na primeira linha em branco (no `-layout` do poppler há uma depois de cada complemento), numa linha com valor ou numa encostada na margem. Rodapé com a URL, cabeçalho da página seguinte e o bloco "RESUMO" do fim ficam de fora por essas três travas, sem lista de palavras.
+- **Testar o complemento antes da data.** Complemento pode começar com algo que parece data ("dd/mm hh:mm"); o que o separa de um lançamento novo é o recuo maior e a falta de valor, então essa checagem vem primeiro.
+- **Campo próprio, não colado na descrição.** A tela mostra em segunda linha, como o banco imprime, e o casamento de regra sabe qual das duas casou (ver [[Especificidade se mede pelo que o campo distingue, não pelo tamanho do termo]]). O histórico do lançamento no Questor leva as duas.
+- **Ligado por banco**, na configuração do motor tabular, não para todos: em outro layout, a linha solta embaixo pode ser outra coisa.
+
+O `-layout` do **xpdf** (o do Git for Windows) embaralha esse PDF por completo, valor longe da descrição; o do **poppler** (o do container) sai limpo. Conferir leitor de PDF com o `pdftotext` de onde ele vai rodar.
+
+No OFX o equivalente é o par `NAME`/`MEMO`: pela especificação o NAME é o favorecido e o MEMO o detalhe, e um leitor que pega `MEMO ?? NAME` perde o NAME quando vêm os dois. O NAME que diz outra coisa vira complemento.
+
+Conferido no Sicoob de ago/2026: 22 lançamentos, 11 com complemento, saldo anterior + entradas − saídas fechando no saldo final impresso.
+
 ## Nunca reconheça o banco pelo nome do banco
 
 Armadilha custosa: **a marca aparece como contraparte nas transações**. Um extrato Sicredi cita "SIFRA" (pagamento feito à Sifra) e um extrato Belluno cita "SICREDI" — inclusive no cabeçalho. Casar por `/sicredi/i` mandou o extrato do Belluno para o leitor errado, que aplicou modo saldo num extrato sem saldo corrente e produziu valores absurdos.
@@ -76,6 +93,7 @@ Validação forte quando se tem os dois formatos do mesmo extrato: ler OFX e PDF
 - Depende de: [[Chamada externa tem timeout e erro tratado]]
 - Irmã: [[Relatório com registro em várias linhas se lê na ordem de desenho do PDF]]
 - Relacionado: [[Agregar antes de juntar em tabelas gigantes no Postgres]] (mesma ideia: deixar o dado se validar)
-- Visto em: [[Navetech Hub]] (seção Conciliação)
+- Visto em: [[Navetech Hub]] (seção Conciliação) · [[NaveX]] (complemento do Sicoob)
+- Casamento das regras: [[Especificidade se mede pelo que o campo distingue, não pelo tamanho do termo]]
 - Contas contábeis do banco: [[Contas bancárias e layout de contabilização no Questor]]
 - Mapa: [[Backend]]

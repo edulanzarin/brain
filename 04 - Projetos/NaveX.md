@@ -122,6 +122,23 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
     entre as telas.
   - A trilha registra o arquivo com a extensão.
   - Conferido baixando os três formatos do Diretório no navegador sem janela.
+- **Complemento do extrato (25/09/2026)**, pedido do time da Conciliação. O
+  Sicoob (e o Banco do Brasil, segundo eles) imprime o histórico abreviado numa
+  linha e quem recebeu na de baixo; o leitor descartava a de baixo, e toda
+  distribuição de lucro chegava igual. Agora é um campo próprio
+  ([[Ler extrato bancário em PDF]]).
+  - Aparece em segunda linha na tabela, no detalhe, na busca e na planilha, e vai
+    junto no histórico do CSV do Questor.
+  - A regra que só casa pelo complemento ganha da que casa pelo histórico
+    ([[Especificidade se mede pelo que o campo distingue, não pelo tamanho do termo]]).
+    A regra criada da linha nasce do favorecido.
+  - O selo da folha passou a ler o complemento, que é onde está o nome.
+  - Conferido com o PDF real da Tomaselli no container: 22 lançamentos, 11 com
+    complemento, saldos fechando.
+  - O Banco do Brasil ainda não tem leitor de PDF; falta um extrato de exemplo.
+- **Data e hora iguais no servidor e no navegador (25/09/2026)**: toda tela com
+  data e hora disparava erro de hidratação no container
+  ([[Hora formatada no servidor sai no fuso do container e quebra a hidratação]]).
 
 ## Marca (24/09/2026)
 
@@ -332,6 +349,9 @@ só na descrição.
 - [[Excel e PDF saem da mesma tabela, e o tipo se reconhece no exportador]]
 - [[Agendador em container conta as horas em UTC]] (herdado do nexo2)
 - [[No Git Bash, caminho Unix em argumento vira caminho do Windows]] (o ensaio da troca)
+- [[Especificidade se mede pelo que o campo distingue, não pelo tamanho do termo]]
+  (as regras da Conciliação com o complemento)
+- [[Hora formatada no servidor sai no fuso do container e quebra a hidratação]]
 
 ## Próximos passos
 
@@ -363,6 +383,8 @@ só na descrição.
 - [ ] O Eduardo olhar o Societário.
 - [ ] Atualizar o Next (16.2.10 tem alerta crítico de desvio do proxy; a correção
   sai na 16.3.6, sem quebra de versão).
+- [ ] Leitor do extrato do Banco do Brasil em PDF, com o complemento: pedir um
+  extrato de exemplo (e o OFX do mesmo mês, para conferir).
 
 ## Conexões
 - Substitui: [[Navetech Hub]]

@@ -60,5 +60,7 @@ local do servidor). A opção vai só no pool do banco do app.
   (a hora do registro só serve se estiver no fuso de quem trabalhou)
 - Irmã: [[Agendador em container conta as horas em UTC]]
   (o processo Node ao lado nasce em UTC do mesmo jeito)
+- Irmã: [[Hora formatada no servidor sai no fuso do container e quebra a hidratação]]
+  (o texto sem offset que este `to_char` devolve é hora de relógio, e o front não pode passá-lo pelo `Date`)
 - Visto em: [[NaveX]] · [[Navetech Hub]]
 - Mapa: [[Dados]]

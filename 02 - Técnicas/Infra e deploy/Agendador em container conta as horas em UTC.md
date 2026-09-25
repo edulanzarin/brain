@@ -40,6 +40,6 @@ docker run --rm -e TZ=America/Sao_Paulo --entrypoint node navex-app -e "console.
 
 ## Conexões
 - Princípio: [[Configuração vem do ambiente, não do código]]
-- Irmã: [[Postgres de container nasce em UTC, e a hora formatada sem fuso mente]] · [[Agenda recorrente é um serviço do compose, não um crontab do host]]
+- Irmã: [[Postgres de container nasce em UTC, e a hora formatada sem fuso mente]] · [[Agenda recorrente é um serviço do compose, não um crontab do host]] · [[Hora formatada no servidor sai no fuso do container e quebra a hidratação]]
 - Visto em: [[NaveX]] (herdado do agendador do nexo2)
 - Mapa: [[Infra]]

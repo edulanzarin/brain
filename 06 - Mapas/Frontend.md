@@ -20,6 +20,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
 - [[Notação compacta do Intl muda com o ICU e quebra a hidratação]] — o Node escreve
   "412,0 mil" e o navegador "412 mil": erro 418 só no build, sem apontar o nó. Forma
   compacta montada à mão, e a receita de achar a divergência pelo innerText com e sem JS.
+- [[Hora formatada no servidor sai no fuso do container e quebra a hidratação]] — o
+  container em UTC escreve outra hora que o navegador; instante com fuso se formata em
+  `timeZone` explícito, texto sem fuso já é a hora do relógio e não passa pelo `Date`.
 - [[router.replace do Next falha no build de produção]] — funciona em `dev`, falha
   calado em `build`. Princípio: [[Verificar no build de produção, não só em dev]].
 - [[Aviso de alteração não salva no App Router intercepta o clique]] — a navegação do

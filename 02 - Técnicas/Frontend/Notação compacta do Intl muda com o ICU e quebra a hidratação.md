@@ -14,7 +14,8 @@ criado: 2026-09-24
 
 O catálogo do NaveX disparava o erro 418 só no build de produção. Formatação de
 moeda, número inteiro, data e hora saía idêntica nos dois motores (conferido
-lado a lado); a compacta com `maximumFractionDigits: 1` não: o Node mantém o
+lado a lado, com os dois no mesmo fuso: no container, em UTC, a hora diverge,
+ver [[Hora formatada no servidor sai no fuso do container e quebra a hidratação]]); a compacta com `maximumFractionDigits: 1` não: o Node mantém o
 ",0" do número redondo, o Chromium corta. Com valor quebrado (84.210) as duas
 dão "84,2 mil", e é por isso que o teste óbvio passa.
 
