@@ -115,6 +115,10 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
   no meio dele marca outra parte da árvore e rende o aviso de setState-in-render.
   A pergunta é de quem é a coisa que está sendo mexida.
 - [[Cache do React Query não é lugar de estado de interface]]
+- [[Rascunho copia o dado do servidor uma vez, e a consulta por baixo não recarrega]] —
+  janela de edição sobre React Query: com cache ela copia a versão velha, e com
+  recópia a cada dado a volta à aba apaga a edição. Busca fresca por abertura, sem
+  recarga enquanto aberta, cópia uma vez.
 - [[Na lista que recebe item ao vivo, a chave nova faz a entrada e a transição move o resto]] —
   a pilha de vendas anima sem biblioteca: chave nova monta e roda a entrada, chave
   conhecida só muda de estilo e a `transition` leva. Vale com `router.refresh()`.

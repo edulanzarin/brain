@@ -60,8 +60,15 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
   tirou print de cada tela nos dois temas e no celular e esvaziou as tabelas no
   fim. Tipos, lint, 128 testes e build limpos. Mesmo método, com quatro agentes
   (pessoas, avaliações, formulários, canais).
-- Obrigações, Societário, Configurações e a administração (usuários, cargos,
-  grupos) seguem no Nexo.
+- **Configurações completo (25/09/2026)**: a única seção do nexo2, Grupos de
+  Empresa (lista, janela do grupo com o modo "todas, exceto", remoção), 3 rotas.
+  Conferido contra o Questor real (1.587 empresas em 0,6 s): 26 checagens de API
+  (nome repetido, grupo vazio, exceto resolvido, bloqueio pelo Post Mortem, 403
+  para quem não tem a seção), Shift+clique e Enter exercidos pelo navegador, print
+  nos dois temas e no celular, e o banco local vazio de novo no fim.
+- Obrigações, Societário e a administração (usuários, cargos, grupos de
+  permissão, auditoria) seguem no Nexo. Sem a administração, o NaveX só tem o
+  admin do setup; no dia da troca, os usuários vêm com o banco do app.
 
 ## Marca (24/09/2026)
 
@@ -116,6 +123,11 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
 - **RH**: quem tem só Desempenho, Formulários ou Avaliações recebe 403 nas listas
   de que escolhe, e as regras de envio automático não tinham seção dona
   ([[Quem escolhe de um cadastro lê, quem o administra escreve]]).
+- **Configurações**: remover grupo usado num relatório do Post Mortem cai na
+  página de erro (a chave estrangeira recusa e a action não trata); o nome único
+  diferencia maiúscula, então "U FIT" e "U Fit" viram dois grupos no seletor; e o
+  salvar faz um insert por empresa na transação (1.400 idas ao banco num grupo
+  grande).
 - **Todos os módulos**: o banco do app roda em UTC e a hora sai 3 horas adiantada
   onde a consulta formata com `to_char` (auditoria, RH, produtividade do app)
   ([[Postgres de container nasce em UTC, e a hora formatada sem fuso mente]]).
@@ -242,6 +254,8 @@ só na descrição.
 - [[Regex do matcher do Next em string precisa de barra dupla]] (o ícone da aba e as imagens
   de `public/` redirecionavam para o login desde o primeiro dia)
 - [[No sharp o resize roda antes do extend, na ordem que for chamado]]
+- [[Rascunho copia o dado do servidor uma vez, e a consulta por baixo não recarrega]]
+  (a janela do grupo de empresa)
 
 ## Próximos passos
 
@@ -261,7 +275,8 @@ só na descrição.
   (placeholders), decisão da experiência em branco, painel de experiência, fuso.
 - [ ] Os gestores ainda não se desativam (a API só apaga), e envio agendado não se
   cancela: nos dois o nexo2 também não tem a rota.
-- [ ] Obrigações, Societário e Configurações.
+- [ ] Obrigações e Societário.
+- [ ] O Eduardo olhar Configurações.
 - [ ] Remote no GitHub e deploy no servidor.
 
 ## Conexões
