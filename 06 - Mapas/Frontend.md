@@ -22,6 +22,9 @@ Stack atual: Next.js (App Router) · React · TypeScript · Tailwind.
   compacta montada à mão, e a receita de achar a divergência pelo innerText com e sem JS.
 - [[router.replace do Next falha no build de produção]] — funciona em `dev`, falha
   calado em `build`. Princípio: [[Verificar no build de produção, não só em dev]].
+- [[Aviso de alteração não salva no App Router intercepta o clique]] — a navegação do
+  App Router não descarrega a página, então o `beforeunload` nunca pergunta; os links
+  internos se interceptam na captura da `window`, antes do `onClick` do `Link`.
 - [[Arte servida sem hash de build precisa de versão na URL]] — arquivo em `public/` não
   é invalidado por republicar: quem já visitou serve a cópia velha, e o defeito só existe
   pra quem já visitou — no computador de quem publicou está tudo certo.

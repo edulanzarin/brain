@@ -79,6 +79,7 @@ UI que mostra dado que muda sem o usuário pedir.
 ## Segurança
 
 - [[Permissão se valida no servidor, não na interface]] — esconder botão não é segurança.
+- [[Quem escolhe de um cadastro lê, quem o administra escreve]] — a tela que só escolhe um gestor ou um formulário precisa ler a lista, não administrá-la; a leitura cruzada vale por método (GET), e endpoint sem dono declarado é de todo mundo.
 - [[A assinatura autentica o dado, não quem o trouxe]] — confie na assinatura (HMAC), não no canal; vale pro webhook externo e pro cookie de sessão próprio.
 - [[Anonimato se perde na saída, não só na entrada]] — não guardar identidade é a metade fácil; agregado com recorte fino reconstrói a pessoa, então recorte abaixo de N não se mostra nem se exporta.
 - [[Afirmação que chega de fora só vale com um código que a casa emitiu antes]] — vídeo de verificação, grupo de um bot, domínio: o canal externo é aberto, e o primeiro sinal plausível vence se a casa não exigir de volta um código que só o dono viu.
@@ -89,6 +90,7 @@ UI que mostra dado que muda sem o usuário pedir.
 - [[Semear teste cria linha nova, não muta linha real]] — e a limpeza vai no `finally`, senão o teste que quebra no meio deixa lixo que o próximo encontra e não entende.
 - [[A regra mora fora da porta que a chama]] — regra escrita dentro do formulário/rota só existe quando a porta existe, e só se confere atravessando a porta. Quando o teste morre em `cookies` ou `revalidatePath`, a resposta não é simular o framework: é tirar a regra de dentro dele.
 - [[Dado escrito por dois caminhos precisa de uma regra só, fora dos dois]] — o cadastro cria e a tela corrige; com a regra copiada nos dois, o lado escrito depois passa a aceitar o que o outro recusa, e nada dá erro. A duplicação nasce na hora da segunda tela.
+- [[O número do painel sai da mesma conta da tela que ele abre]] — o painel é atalho para a lista; contado por consulta própria, fica com a regra da primeira versão enquanto a tela aprende o que não entra, e quem clica acha outro número.
 - [[Recurso sem escrita parece pronto quando a semente preenche a leitura]] — a metade que mostra é a que se vê e a que a semente satisfaz sozinha; a conferência de que algo existe é apontar a função que cria a linha, nunca a tela que a lê.
 - [[Alternar é uma ação só, porque quem sabe o estado é o banco]] — guardar e tirar não são duas funções: quem escolhe o sentido é o que estava gravado, e a decisão sai de uma escrita atômica, não de um ler-e-depois-escrever.
 - [[Fornecedor externo entra pelo contrato do app, não o app pelo dele]] — adquirente, mensageria, armazenamento: quem define a forma da conversa é o app, e o fornecedor implementa. O ganho diário não é trocar de fornecedor, é rodar o sistema inteiro antes de o fornecedor existir. Vale só para recurso TROCÁVEL — abstrair banco ou framework "por via das dúvidas" é custo sem a troca que o pagaria.

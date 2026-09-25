@@ -74,6 +74,13 @@ de sistema externo é referência e tem mapa próprio.
   Princípio: [[A régua sai da distribuição, não dos extremos]].
 - [[Numeric e bigint do Postgres chegam como string no driver pg]] — o `node-pg`
   entrega `numeric`/`bigint` como string; castar pra `float8` pra receber number.
+- [[Postgres de container nasce em UTC, e a hora formatada sem fuso mente]] — `to_char`,
+  `extract(hour)` e o corte de mês por data usam o fuso da sessão; em UTC, tudo 3 h
+  adiantado e o que passa das 21h cai no dia seguinte. `-c timezone=` no pool conserta
+  todas as consultas de uma vez.
+- [[Parâmetro posicional não se renumera quando a coluna sai]] — colunas, `$n` e valores
+  são três listas que só batem por disciplina; tirar uma coluna quebra no banco, na
+  primeira escrita, semanas depois. Monte os marcadores das colunas.
 - [[O agrupamento útil sai do campo que o operador preenche]] — quando o schema tem o
   campo normalizado e o campo livre para a mesma dimensão, quem agrupa é o livre: é lá
   que quem opera escreve a taxonomia real. Reserva no `coalesce`, e cardinalidade que

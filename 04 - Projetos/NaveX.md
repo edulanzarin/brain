@@ -50,7 +50,17 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
   print de todas as telas, nenhum erro de JavaScript. Tipos, lint, 127 testes e
   build limpos. Mesmo método do Fiscal: base primeiro, três agentes em paralelo
   (painéis e rotina, rotatividade e custo, produtividade) e a integração.
-- RH, Obrigações, Societário, Configurações e a administração (usuários, cargos,
+- **RH completo (25/09/2026)**: as nove seções do nexo2 (Painel, Diretório,
+  Experiência, Desempenho, Rotatividade, Formulários com três abas, Denúncias,
+  Avaliações e Gestores), 24 rotas, e as quatro páginas abertas (formulário por
+  link, denúncia, acompanhamento, avaliação de clima). O banco do app do NaveX
+  não tinha nada do RH: a conferência semeou pelas próprias rotas (formulários,
+  gestores, rodada de clima respondida, denúncias, rodada de desempenho, envio,
+  regras automáticas), bateu nas rotas contra o Questor (todas em 200, até 0,2 s),
+  tirou print de cada tela nos dois temas e no celular e esvaziou as tabelas no
+  fim. Tipos, lint, 128 testes e build limpos. Mesmo método, com quatro agentes
+  (pessoas, avaliações, formulários, canais).
+- Obrigações, Societário, Configurações e a administração (usuários, cargos,
   grupos) seguem no Nexo.
 
 ## Marca (24/09/2026)
@@ -94,6 +104,21 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
   pendente (39,6 mil no painel, 16 mil de verdade), a pendência obrigatória
   chamava o rejeitado de pendente, e o painel e a tela contavam status nulo
   diferente ([[esocialtransacao guarda lote e EFD-Reinf junto dos eventos do eSocial]]).
+
+- **RH**: o painel contava experiência a decidir direto na tabela, então quem foi
+  desligado no meio da experiência ficava pendente para sempre, e o atraso era o
+  status gravado pelo job ([[O número do painel sai da mesma conta da tela que ele abre]]).
+- **RH**: a decisão da experiência (efetivar, prorrogar, desligar) nunca chega à
+  lista desde a migration 012: a resposta pelo formulário não grava a coluna
+  `recomendacao`. O NaveX tira a decisão da pergunta marcada como decisão.
+- **RH**: criar ou editar regra de envio automático falha no banco desde 28/08
+  ([[Parâmetro posicional não se renumera quando a coluna sai]]).
+- **RH**: quem tem só Desempenho, Formulários ou Avaliações recebe 403 nas listas
+  de que escolhe, e as regras de envio automático não tinham seção dona
+  ([[Quem escolhe de um cadastro lê, quem o administra escreve]]).
+- **Todos os módulos**: o banco do app roda em UTC e a hora sai 3 horas adiantada
+  onde a consulta formata com `to_char` (auditoria, RH, produtividade do app)
+  ([[Postgres de container nasce em UTC, e a hora formatada sem fuso mente]]).
 
 ## Infra
 
@@ -145,6 +170,27 @@ seguem no Nexo ficam numa faixa compacta. Ver
   mandariam em dobro. As marcações de "paga" do nexo2 moram no banco dele, então
   a fila do NaveX mostra tudo como pendente até a troca de banco.
 
+## Decisões do RH (25/09/2026)
+
+- **A empresa do RH se escolhe na tela.** O dado é fixo nas três empresas da
+  Navecon (NAVECON, FOUR, FINAVE), que o seletor do topo nem lista (ele mostra a
+  carteira da sessão). As abas do RH não leem empresa do contexto; Diretório,
+  Experiência e Rotatividade têm o seletor "Todas / NAVECON / FOUR / FINAVE"
+  dentro da tela. É a única exceção à regra do contexto no topo.
+- **Quase tudo carrega sozinho** (três empresas e um banco pequeno); só a
+  Rotatividade lê o período do topo e pede Executar. A barra do topo passou a
+  mostrar o período em aba que não lê empresa.
+- **A Rotatividade é uma tela só para DP e RH** (`produto/pessoal/tela-rotatividade`),
+  e o RH ganhou a faixa de filtros (setor, cargo, vínculo, horário), que não tinha.
+- **Uma peça só desenha pergunta de formulário**: a prévia do editor, a página
+  por link e a leitura de resposta usam a mesma, para a prévia não mentir.
+- **Formulários em três abas** (Formulários, Envios, Automático), com o editor
+  numa rota própria (`/rh/formularios/<id>`).
+- Os crons de lembrete de experiência e de envio agendado existem, mas o compose
+  não sobe o agendador enquanto o nexo2 estiver no ar.
+- Sem SMTP configurado, o NaveX só registra o e-mail no log: dá para exercitar
+  envio e lembrete sem ninguém receber nada.
+
 ## Decisões importantes
 
 - **Domínio portado, interface nova.** `src/lib` (o SQL do Questor e os motores),
@@ -183,6 +229,11 @@ seguem no Nexo ficam numa faixa compacta. Ver
 - [[Falta de registro só prova algo dentro da janela em que a fonte era alimentada]]
   (o DP: férias e ativo)
 - [[Filtro de tela não reusa o nome de parâmetro que o contexto já usa]]
+- [[O número do painel sai da mesma conta da tela que ele abre]] (o RH e o DP)
+- [[Quem escolhe de um cadastro lê, quem o administra escreve]]
+- [[Postgres de container nasce em UTC, e a hora formatada sem fuso mente]]
+- [[Parâmetro posicional não se renumera quando a coluna sai]]
+- [[Aviso de alteração não salva no App Router intercepta o clique]]
 
 ## Próximos passos
 
@@ -197,7 +248,12 @@ seguem no Nexo ficam numa faixa compacta. Ver
   enquanto ele estiver no ar.
 - [ ] O eSocial ainda conta cada retransmissão: falta achar a chave de evento dos
   periódicos (o `track` é da agenda, não do evento).
-- [ ] RH, Obrigações, Societário e Configurações.
+- [ ] O Eduardo olhar o RH.
+- [ ] Levar ao nexo2 as correções do RH que quebram hoje: regra automática
+  (placeholders), decisão da experiência em branco, painel de experiência, fuso.
+- [ ] Os gestores ainda não se desativam (a API só apaga), e envio agendado não se
+  cancela: nos dois o nexo2 também não tem a rota.
+- [ ] Obrigações, Societário e Configurações.
 - [ ] Remote no GitHub e deploy no servidor.
 
 ## Conexões
