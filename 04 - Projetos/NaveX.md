@@ -152,6 +152,13 @@ Nome novo: NaveX. Ordem: Contábil primeiro.
     algo em mãos.
   - Conferido no container: 32 checagens de rota e tela, recusas incluídas, e o
     banco local de volta a zero.
+  - **Quem não está no Diretório** (o terceirizado, o estagiário fora da folha),
+    pergunta do Eduardo no mesmo dia: cadastro próprio da TI (migration 041),
+    não texto livre nem PJ do RH. "Quem recebe" busca nos dois cadastros e
+    cadastra alguém de fora dentro da entrega
+    ([[Entidade auxiliar se cria no ponto de uso, não em tela própria]]).
+    Encerrar o cadastro é o fim do vínculo, e o que ficou com a pessoa sobe
+    como "A recolher", junto de quem saiu do Diretório.
 
 ## Marca (24/09/2026)
 

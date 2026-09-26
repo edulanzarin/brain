@@ -50,5 +50,5 @@ Ctrl+V no ponto do texto em vez de uma galeria à parte.
 ## Conexões
 - Irmã: [[Estado de tela pertence à seção, não à página]]
 - Técnica que aplica: [[Seletor cria e gerencia os próprios itens]]
-- Visto em: [[Cofre Digital]]
+- Visto em: [[Cofre Digital]] · [[NaveX]] (o terceirizado que não está no Diretório se cadastra dentro da entrega do equipamento, e já sai escolhido)
 - Mapa: [[Base]]
